@@ -1,7 +1,7 @@
 #include "../../../myIncludes/game.hpp"
 
-void	ftRunGameMode(Game *Game, Menu menu, Player player, EnvItems **envItems,
-			SquareProps **blocks, MultipleCam2D allCameras)
+void	ftRunGameMode(Game *Game, Menu menu, Player player, EnvItems envItems,
+			Props blocks, MultipleCam2D allCameras)
 {
 	Camera2D *tmpCam = &allCameras.camera00.camera;
 	allCameras.camera00.camera.target = player.ftReturnPlayerPosition();
