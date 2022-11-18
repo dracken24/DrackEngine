@@ -3,7 +3,7 @@
 #define ENVITEM_HPP
 
 #include "../../vendor/raylib/src/raylib.h"
-#include "../../../myIncludes/class2D/envitems.hpp"
+#include "../../myIncludes/class2D/envitems.hpp"
 #include <stdlib.h>
 #include <iostream>
 
@@ -59,6 +59,8 @@ namespace obj
 		void 		ftInitVarChar(void);
 		void 		ftDeleteVarChar(void);
 		void 		ftDestroyImgs(void);
+
+		// EnvItems	ftReturnEnvitems(void);
 
 	private:
 		EnvItem		_item;

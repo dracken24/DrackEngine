@@ -7,12 +7,12 @@ using namespace obj;
 // void	ftSideUpMenu2D(Game *game, Player *player, Menu *menu, MultipleCam2D *allCameras);
 // void	ftSideDownMenu2D(Game *game, Camera2D *camera);
 // void	ftUpMenu2D(Game *game, Camera2D *camera);
-void	ftSelectItemsTop(Game *game, Camera2D *camera);
+// void	ftSelectItemsTop(Game *game, Camera2D *camera);
 // void	ftDrawBoarders(Game *Game);
 // void	ftDrawBoarders(Game *Game);
 
-void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
-			SquareProps **blocks, MultipleCam2D allCameras)
+void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems *envItems,
+			SquareProps *blocks, MultipleCam2D allCameras)
 {
 	Camera2D *tmpCam = &allCameras.camera00.camera;
 	allCameras.camera00.camera.target = player.ftReturnPlayerPosition();

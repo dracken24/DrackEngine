@@ -1,0 +1,6 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/vendor/raylib",
+    "files.associations": {
+        "ostream": "cpp"
+    }
+}

@@ -21,17 +21,19 @@ EnvItems::~EnvItems(void)
 EnvItems	*EnvItems::ftInitOneEnvitem(Vector2 pos, Vector2 size, int blocking,
 				Color color, Texture texture, int nbr, std::string name)
 {
-	this->_item.rect.x = pos.x;
-	this->_item.rect.y = pos.y;
-	this->_item.rect.width = size.x;
-	this->_item.rect.height = size.y;
-	this->_item.color = color;
-	this->_item.texture = texture;
-	this->_item.blocking = blocking;
-	this->_item.nbr = nbr;
-	this->_item.name = name;
+	EnvItems *ret = new EnvItems;
 
-	return (this);
+	ret->_item.rect.x = pos.x;
+	ret->_item.rect.y = pos.y;
+	ret->_item.rect.width = size.x;
+	ret->_item.rect.height = size.y;
+	ret->_item.color = color;
+	ret->_item.texture = texture;
+	ret->_item.blocking = blocking;
+	ret->_item.nbr = nbr;
+	ret->_item.name = name;
+
+	return (ret);
 }
 
 void	EnvItems::ftInitVarChar(void)
@@ -107,4 +109,9 @@ Texture2D	EnvItems::ftReturnOneEnviTexture(void) const
 void		EnvItems::ftDestroyImgs(void)
 {
 	UnloadTexture(this->_item.texture);
+}
+
+VarCharEnvi *EnvItems::ftReturnVarsCharEnvi(void)
+{
+	return (&this->_varCharEnvi);
 }

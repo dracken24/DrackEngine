@@ -636,6 +636,11 @@ void    Player::ftMovePosition(float x, float y)
 	this->_varsSideDownPanel._playerBox.y += y;
 }
 
+VarChar		*Player::ftReturnVarChars(void)
+{
+	return (&this->_varsSideDownPanel.varChar);
+}
+
 Vector2 Player::ftReturnPlayerPosition(void)
 {
 	return(this->position);

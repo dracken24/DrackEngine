@@ -39,7 +39,7 @@ SquareProps *SquareProps::ftReturnCopySquareProp(void)
 SquareProps *SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size,
 				Color color, bool blocking, int nbr, std::string name)
 {
-	SquareProps *ret;
+	SquareProps *ret = new SquareProps;
 
 	ret->_varCharPr.rect.width = size.x;
 	ret->_varCharPr.rect.height = size.y;

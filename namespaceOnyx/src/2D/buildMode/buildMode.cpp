@@ -1,11 +1,12 @@
 #include "../../../myIncludes/game.hpp"
+#include "../../../myIncludes/link.h"
 
 using namespace obj;
 
 void ftDrawAll(Game *game, Player *player, EnvItems **envItems, SquareProps **blocks);
 
 //*** If not selected, select item on build mode ***//
-void	ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems **envItems, SquareProps **blocks)
+void	ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envItems, SquareProps *blocks)
 {
 	Vector2 mousePos = game->mouse.pos;
 	Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
@@ -19,7 +20,7 @@ void	ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems **envI
 		game->selected2D.lastNbr = game->selected2D.nbr;
 		for (int i = 1; i < game->nbrEnvItems; i++) // items
 		{ 
-			Rectangle item = envItems[i]->obj::EnvItems::ftReturnOneRectangle();
+			Rectangle item = envItems[i].obj::EnvItems::ftReturnOneRectangle();
 			if (CheckCollisionPointRec(rayPos, item))
 			{
 				game->selected2D.lastType = game->selected2D.type;
@@ -27,7 +28,7 @@ void	ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems **envI
 				game->selected2D.lastNbr = game->selected2D.nbr;
 				game->selected2D.type = 3;
 				game->selected2D.nbr = i;
-				game->selected2D.item = envItems[i]->obj::EnvItems::ftReturnOneEnvitems();
+				game->selected2D.item = envItems[i].obj::EnvItems::ftReturnOneEnvitems();
 				// std::cout << "Hit Envi: " << i << std::endl;
 				game->colorCt = false;
 				touch = 1;
@@ -35,7 +36,7 @@ void	ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems **envI
 		}
 		for (int i = 0; i < game->nbrSquareProps; i++) 		// props
 		{
-			Rectangle item = blocks[i]->obj::SquareProps::ftReturnRectangle();
+			Rectangle item = blocks[i].obj::SquareProps::ftReturnRectangle();
 			if (CheckCollisionPointRec(rayPos, item))
 			{
 				game->selected2D.lastType = game->selected2D.type;
@@ -43,7 +44,7 @@ void	ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems **envI
 				game->selected2D.lastNbr = game->selected2D.nbr;
 				game->selected2D.type = 2;
 				game->selected2D.nbr = i;
-				game->selected2D.prop = blocks[i]->obj::SquareProps::ftReturnCopySquareProp();
+				game->selected2D.prop = blocks[i].obj::SquareProps::ftReturnCopySquareProp();
 				// std::cout << "Hit Blocks: " << i << std::endl;
 				game->colorCt = false;
 				touch = 1;
@@ -95,7 +96,7 @@ void ftMoveScreen(Game *game, Camera2D *camera)
 }
 
 //*** Main fonction for build mode ***//
-void ftRunBuildMode(Game *game, Player *player, EnvItems **envItems, SquareProps **blocks, Camera2D *camera)
+void ftRunBuildMode(Game *game, Player *player, EnvItems *envItems, SquareProps *blocks, Camera2D *camera)
 {
 	ftMoveScreen(game, camera);
 
@@ -104,19 +105,19 @@ void ftRunBuildMode(Game *game, Player *player, EnvItems **envItems, SquareProps
 }
 
 //*** Draw all item on screen in buils mode, player included ***//
-void ftDrawAll(Game *game, Player *player, EnvItems **envItems, SquareProps **blocks)
+void ftDrawAll(Game *game, Player *player, EnvItems *envItems, SquareProps *blocks)
 {
 	for (int i = 0; i < game->nbrEnvItems; i++)
 	{
-		Rectangle item = envItems[i]->obj::EnvItems::ftReturnOneRectangle();
-		DrawRectanglePro(item, {0, 0}, 0, envItems[i]->obj::EnvItems::ftReturnOneEnviColor());
+		Rectangle item = envItems[i].obj::EnvItems::ftReturnOneRectangle();
+		DrawRectanglePro(item, {0, 0}, 0, envItems[i].obj::EnvItems::ftReturnOneEnviColor());
 	}
 
 	for (int i = 0; i < game->nbrSquareProps; i++)
 	{
-		Rectangle block = blocks[i]->obj::SquareProps::ftReturnRectangle();
+		Rectangle block = blocks[i].obj::SquareProps::ftReturnRectangle();
 		DrawRectanglePro(block, {0, 0},
-			0, blocks[i]->obj::SquareProps::ftReturnRecColor());
+			0, blocks[i].obj::SquareProps::ftReturnRecColor());
 	}
 
 	// Collision Box //

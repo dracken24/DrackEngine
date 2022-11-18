@@ -135,6 +135,8 @@ class Player
 		void		ftDestroyImgs2(void);
 		void		ftDestroyImgs3(void);
 
+		VarChar		*ftReturnVarChars(void);
+
 		// Player		ftReturnPlayerCpy(void);
 
 	/***************************** Weapon ****************************/

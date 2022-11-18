@@ -11,7 +11,7 @@ using namespace obj;
 // void 	ftUpdatePlayer(Game *game, Player *player, Menu *menu, EnvItems **envItems, int envItemsLength, float delta);
 
 void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
-	SquareProps **blocks, EnvItems **envItems)
+	SquareProps *blocks, EnvItems *envItems)
 {
 	static int lastAction;
 	static int cameraOption = 0;
@@ -39,7 +39,7 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 	ftGravityGestion(game, player, blocks);
 	for (int i = 0; i < game->nbrSquareProps; i++)
 	{
-		ftUseGravity(blocks[i]->obj::SquareProps::ftReturnCopySquareProp(), envItems,
+		ftUseGravity(blocks[i].obj::SquareProps::ftReturnCopySquareProp(), envItems,
 			game->delta, envItemsLength);
 	}
 
@@ -75,8 +75,8 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 		float dist = 0;
 		for (int i = 0; i < game->nbrSquareProps; i++)
 		{
-			blocks[i]->obj::SquareProps::ftInitPosition((Vector2){200, 200 - dist});
-			blocks[i]->obj::SquareProps::ftInitPosition((Vector2){200 - dist, 200});
+			blocks[i].obj::SquareProps::ftInitPosition((Vector2){200, 200 - dist});
+			blocks[i].obj::SquareProps::ftInitPosition((Vector2){200 - dist, 200});
 			dist += 50;
 		}
 	}
@@ -87,9 +87,9 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 		player->ftSetPosition((Vector2){500.0f, 300.0f});
 		for (int i = 0; i < game->nbrSquareProps; i++)
 		{
-			blocks[i]->obj::SquareProps::ftInitPosition((Vector2){200 - dist, 200});
-			blocks[i]->obj::SquareProps::ftSetSpeed(0);
-			blocks[i]->obj::SquareProps::ftSetSpeedModifier(0, 'X');
+			blocks[i].obj::SquareProps::ftInitPosition((Vector2){200 - dist, 200});
+			blocks[i].obj::SquareProps::ftSetSpeed(0);
+			blocks[i].obj::SquareProps::ftSetSpeedModifier(0, 'X');
 
 			dist += 50;
 		}
@@ -109,31 +109,31 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 /*******************************************************************************************
 	Gestion Des objets (Plateforms wlakable, objets du decor ...)
 *******************************************************************************************/
-void	ftGestionProps(Game *game, SquareProps **blocks, EnvItems **envItems,
+void	ftGestionProps(Game *game, SquareProps *blocks, EnvItems *envItems,
 			float deltaTime, int envItemsLength)
 {
 	static float k;
 	if (!k || k > 360)
 		k = 0;
 	for (int i = 0; i < envItemsLength; i++)
-		DrawRectangleRec(envItems[i]->ftReturnOneRectangle(), envItems[i]->ftReturnOneEnviColor());
+		DrawRectangleRec(envItems[i].ftReturnOneRectangle(), envItems[i].ftReturnOneEnviColor());
 	
 	for (int i = 0; i < game->nbrSquareProps; i++)
 	{
-		Rectangle	block = blocks[i]->ftReturnRectangle();
+		Rectangle	block = blocks[i].ftReturnRectangle();
 
-		blocks[i]->ftMovePosition(blocks[i]->ftReturnSpeedModifier('X') + block.width / 2,
-			blocks[i]->ftReturnSpeedModifier('Y') + block.height / 2);
-		block = blocks[i]->ftReturnRectangle();
-		DrawRectanglePro(block, (Vector2){block.width / 2, block.height / 2}, k, blocks[i]->ftReturnRecColor());
-		blocks[i]->ftMovePosition(-block.width / 2, -block.height / 2);
-		blocks[i]->ftSetSpeedModifier(blocks[i]->ftReturnSpeedModifier('X') / 1.01, 'X');
+		blocks[i].ftMovePosition(blocks[i].ftReturnSpeedModifier('X') + block.width / 2,
+			blocks[i].ftReturnSpeedModifier('Y') + block.height / 2);
+		block = blocks[i].ftReturnRectangle();
+		DrawRectanglePro(block, (Vector2){block.width / 2, block.height / 2}, k, blocks[i].ftReturnRecColor());
+		blocks[i].ftMovePosition(-block.width / 2, -block.height / 2);
+		blocks[i].ftSetSpeedModifier(blocks[i].ftReturnSpeedModifier('X') / 1.01, 'X');
 	}
 	k += atof(game->rotation);
 }
 /******************************************************************************************/
 
-void	ftUpdatePlayer(Game *game,Player *player, Menu *menu, EnvItems **envItems, int envItemsLength, float delta)
+void	ftUpdatePlayer(Game *game,Player *player, Menu *menu, EnvItems *envItems, int envItemsLength, float delta)
 {
 	player->ftChangeLastY(player->ftReturnPlayerPositionY());
 

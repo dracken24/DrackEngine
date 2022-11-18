@@ -3,6 +3,7 @@
 #include <string.h>
 
 using namespace obj;
+using namespace std;
 
 void	ftDrawSideDownButtons(Game *game);
 void	ftChangeSidedownPanel(Game *game, Camera2D *camera);
@@ -40,33 +41,38 @@ void	ftMode2D(Game *game, Menu *menu)
 	player->ftSetPosition((Vector2){500, 300});
 	player->ftInitVarChar();
 
-	SquareProps	**blocks;
-	EnvItems **envItems;
+	SquareProps *blocks = new SquareProps;
+	EnvItems *envItems = new EnvItems;
+
+	cout << "Debug: 0.00" << endl;
 
 	game->imgCercleChrom = LoadImage("./imgs/wheelcolor.png");
 	game->textCercleChrom = LoadTexture("./imgs/wheelcolor.png");
 	game->rectCercleChrom = {0, 0, 150, 150};
 
-	blocks[0]->obj::SquareProps::ftInitSquareprops((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks0");
-	blocks[1]->obj::SquareProps::ftInitSquareprops((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks1");
-	blocks[2]->obj::SquareProps::ftInitSquareprops((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks2");
-	blocks[3]->obj::SquareProps::ftInitSquareprops((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks3");
-	blocks[4]->obj::SquareProps::ftInitSquareprops((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks4");
+	// blocks[0] = new SquareProps;
+	blocks[0].obj::SquareProps::ftInitSquareprops((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks0");
+	blocks[1].obj::SquareProps::ftInitSquareprops((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks1");
+	blocks[2].obj::SquareProps::ftInitSquareprops((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks2");
+	blocks[3].obj::SquareProps::ftInitSquareprops((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks3");
+	blocks[4].obj::SquareProps::ftInitSquareprops((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks4");
 	game->nbrSquareProps = 5;
 
 	Texture2D	tmp;
-	envItems[0]->obj::EnvItems::ftInitOneEnvitem((Vector2){0, 0}, (Vector2){1000, 400}, 0, LIGHTGRAY, tmp, 0, "Platform0");
-	envItems[1]->obj::EnvItems::ftInitOneEnvitem((Vector2){0, 400}, (Vector2){1000, 200}, 1, GRAY, tmp, 1, "Platform1");
-	envItems[2]->obj::EnvItems::ftInitOneEnvitem((Vector2){300, 150}, (Vector2){400, 10}, 1, GRAY, tmp, 2, "Platform1");
-	envItems[3]->obj::EnvItems::ftInitOneEnvitem((Vector2){250, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 3, "Platform3");
-	envItems[4]->obj::EnvItems::ftInitOneEnvitem((Vector2){650, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 4, "Platform4");
-	envItems[5]->obj::EnvItems::ftInitOneEnvitem((Vector2){-850, 350}, (Vector2){700, 205}, 1, GRAY, tmp, 5, "Platform5");
-	envItems[6]->obj::EnvItems::ftInitOneEnvitem((Vector2){1100, 380}, (Vector2){400, 13}, 1, GRAY, tmp, 6, "Platform6");
-	envItems[7]->obj::EnvItems::ftInitOneEnvitem((Vector2){700, 100}, (Vector2){150, 10}, 1, GRAY, tmp, 7, "Platform7");
-	envItems[8]->obj::EnvItems::ftInitOneEnvitem((Vector2){450, 500}, (Vector2){180, 15}, 1, GRAY, tmp, 8, "Platform8");
+	envItems[0].obj::EnvItems::ftInitOneEnvitem((Vector2){0, 0}, (Vector2){1000, 400}, 0, LIGHTGRAY, tmp, 0, "Platform0");
+	envItems[1].obj::EnvItems::ftInitOneEnvitem((Vector2){0, 400}, (Vector2){1000, 200}, 1, GRAY, tmp, 1, "Platform1");
+	envItems[2].obj::EnvItems::ftInitOneEnvitem((Vector2){300, 150}, (Vector2){400, 10}, 1, GRAY, tmp, 2, "Platform1");
+	envItems[3].obj::EnvItems::ftInitOneEnvitem((Vector2){250, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 3, "Platform3");
+	envItems[4].obj::EnvItems::ftInitOneEnvitem((Vector2){650, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 4, "Platform4");
+	envItems[5].obj::EnvItems::ftInitOneEnvitem((Vector2){-850, 350}, (Vector2){700, 205}, 1, GRAY, tmp, 5, "Platform5");
+	envItems[6].obj::EnvItems::ftInitOneEnvitem((Vector2){1100, 380}, (Vector2){400, 13}, 1, GRAY, tmp, 6, "Platform6");
+	envItems[7].obj::EnvItems::ftInitOneEnvitem((Vector2){700, 100}, (Vector2){150, 10}, 1, GRAY, tmp, 7, "Platform7");
+	envItems[8].obj::EnvItems::ftInitOneEnvitem((Vector2){450, 500}, (Vector2){180, 15}, 1, GRAY, tmp, 8, "Platform8");
 	game->nbrEnvItems = 9;
 
+	cout << "Debug: 0.10" << endl;
 	ftInitTextBoxSideUp(game);
+	cout << "Debug: 0.11" << endl;
 
 	//--------------------------------------------------------------------------------------//
 	// Init Camera and windows
@@ -119,8 +125,10 @@ void	ftMode2D(Game *game, Menu *menu)
 	// buttons top
 	game->buttonsMenuUp.play->ftInitButton({(float)game->screenWidth - 300, 5}, {30, 30}, WHITE,
 		LoadTexture("./imgs/buttons/play_00.png"), 0, "Play");
+	cout << "Debug: 0.11" << endl;
 	game->buttonsMenuUp.stop->ftInitButton({(float)game->screenWidth - 260, 5}, {30, 30}, WHITE,
 		LoadTexture("./imgs/buttons/stop_00.png"), 1, "Stop");
+	cout << "Debug: 0.12" << endl;
 
 	game->buttonsMenuUp.buttonColorOpen->ftInitButton({(float)game->screenWidth - 106, 0}, {100, 40},
 		WHITE, LoadTexture("./imgs/buttons/colorSideUpSelected.png"), 0, "SelectColorSideUp");
@@ -145,6 +153,7 @@ void	ftMode2D(Game *game, Menu *menu)
 	game->buttonsMenuSideDown.buttonLeftClose->ftInitButton({-3, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/untitledSideUpUnSelected.png"), 2, "untitledSideUpUnSelected");
 
+
 	// game->buttonsMenuUp.stop.ftInitOneEnvitem();
 
 	// game->buttonsMenuUp.buttonColorOpen.ftInitOneEnvitem();
@@ -163,6 +172,7 @@ void	ftMode2D(Game *game, Menu *menu)
 	//--------------------------------------------------------------------------------------//
 	// int cameraUpdatersLength = sizeof(1) / sizeof(cameraUpdaters[0]);
 	game->posCam = player->ftReturnPlayerPosition();
+	cout << "Debug: 0.20" << endl;
 
 	// Main game loop
 	while (!WindowShouldClose())
@@ -176,15 +186,20 @@ void	ftMode2D(Game *game, Menu *menu)
 
 				if (menu->ftReturnStart() == 0) // Menu intro
 				{
+					cout << "Debug: 0.30" << endl;
 					ftChooseMenu(menu);
+					cout << "Debug: 0.31" << endl;
 					DrawTextEx(game->font1 ,"Untitled Adventure Game", {250, 100}, 40, 2, BLACK);
 					// DrawText("Untitled Adventure Game", 100, 100, 40, BLACK);
 					DrawText("Choose Your Character", 250, 200, 20, DARKGRAY);
 					DrawText("Start Game", 250, 250, 20, DARKGRAY);
+					cout << "Debug: 0.32" << endl;
 				}
 				else if (menu->ftReturnStart() == 1)// Menu choose character
 				{
+					cout << "Debug: 0.40" << endl;
 					ftMenuChooseCharacter(game, player, menu);
+					cout << "Debug: 0.50" << endl;
 				}
 				else // Main loop
 				{
@@ -199,16 +214,16 @@ void	ftMode2D(Game *game, Menu *menu)
 					{
 						Menu			tmpMenu;
 						Player			tmpPlayer;
-						EnvItems		**tmpEnvItems;
-						SquareProps		**tmpBlocks;
+						EnvItems		*tmpEnvItems = new EnvItems;
+						SquareProps		*tmpBlocks = new SquareProps;
 						MultipleCam2D	tmpAllCameras;
 
 						tmpMenu = *menu;
 						tmpPlayer = *player;
 						for (int i = 0; i< game->nbrEnvItems; i++)
-							tmpEnvItems[i] = envItems[i]->obj::EnvItems::ftReturnOneEnvitems();
+							tmpEnvItems[i] = envItems[i];
 						for (int i = 0; i < game->nbrSquareProps; i++)
-							tmpBlocks[i] = blocks[i]->obj::SquareProps::ftReturnCopySquareProp();
+							tmpBlocks[i] = blocks[i];
 						// tmpBlocks = blocks->ftReturnCopyProps();
 						tmpAllCameras = *allCameras;
 
@@ -234,6 +249,8 @@ void	ftMode2D(Game *game, Menu *menu)
 						allCameras->camera00.camera.target = player->ftReturnPlayerPosition();
 						ftRunGameMode(game, tmpMenu, tmpPlayer, tmpEnvItems,
 							tmpBlocks, tmpAllCameras);
+						delete tmpEnvItems;
+						delete tmpBlocks;
 					
 						game->ctMode = 1;
 					}
@@ -248,8 +265,11 @@ void	ftMode2D(Game *game, Menu *menu)
 		BeginTextureMode(allCameras->camera01.textForCam);
 			ClearBackground(DARKGRAY);
 			BeginMode2D(allCameras->camera01.camera);
-
+								
+				cout << "Debug: cam01 " << endl;
 				ftSideUpMenu2D(game, player, menu, allCameras);
+				cout << "Debug: cam01.1" << endl;
+
 
 			EndMode2D();
 		EndTextureMode();
@@ -261,17 +281,19 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(DARKGRAY2);
 			BeginMode2D(allCameras->camera02.camera);
 
+				cout << "Debug: cam02 " << endl;
 				ftSideDownMenu2D(game, &allCameras->camera02.camera);
+				cout << "Debug: cam02.2 " << endl;
 
-			EndMode2D();
-		EndTextureMode();
+				EndMode2D();
+				EndTextureMode();
 
-//--------------------------------------------------------------------------------------//
+				//--------------------------------------------------------------------------------------//
 
-		// Draw Control Panel Up
-		BeginTextureMode(allCameras->camera03.textForCam);
-			ClearBackground(DARKGRAY1);
-			BeginMode2D(allCameras->camera03.camera);
+				// Draw Control Panel Up
+				BeginTextureMode(allCameras->camera03.textForCam);
+				ClearBackground(DARKGRAY1);
+				BeginMode2D(allCameras->camera03.camera);
 
 				ftUpMenu2D(game, &allCameras->camera03.camera);
 
@@ -304,9 +326,9 @@ void	ftMode2D(Game *game, Menu *menu)
 
 	player->ftDeleteVarChar();
 	for (int i = 0; i < game->nbrSquareProps; i++)
-		blocks[i]->obj::SquareProps::ftDeleteVars();
+		blocks[i].obj::SquareProps::ftDeleteVars();
 	for (int i = 0; i < game->nbrEnvItems; i++)
-		envItems[i]->obj::EnvItems::ftDeleteVarChar();
+		envItems[i].obj::EnvItems::ftDeleteVarChar();
 
 	if (player->ftReturnNbr() == 1)
 		player->ftDestroyImgs1();
@@ -336,7 +358,7 @@ void	ftMode2D(Game *game, Menu *menu)
 }
 
 //*** Move items on Build Mode ***/
-void	ftControlItems(Game *game, Player *player, EnvItems **envItems, SquareProps **blocks)
+void	ftControlItems(Game *game, Player *player, EnvItems *envItems, SquareProps *blocks)
 {
 	Vector2 mousePos = GetMousePosition();
 	Vector2 lastPos = game->mouse.pos;
@@ -419,25 +441,25 @@ void	ftDrawBoarders(Game *Game)
 		{(float)Game->screenWidth, (float)Game->screenHeight - 2}, 5, DARKGRAY1);
 }
 
-// void	ftSelectItemsTop(Game *game, Camera2D *camera)
-// {
-// 	Vector2 mousePos = game->mouse.pos;
-// 	Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
+void	ftSelectItemsTop(Game *game, Camera2D *camera)
+{
+	Vector2 mousePos = game->mouse.pos;
+	Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
 
-// 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-// 	{
-// 		Rectangle item = game->buttonsMenuUp.play->ftReturnRectangle();
-// 		if (CheckCollisionPointRec(rayPos, item) && game->ctMode != -1)
-// 		{
-// 			game->ctMode = -1;
-// 		}
-// 		item = game->buttonsMenuUp.stop->ftReturnRectangle();
-// 		if (CheckCollisionPointRec(rayPos, item) && game->ctMode != 1)
-// 		{
-// 			game->ctMode = 1;
-// 		}
-// 	}
-// }
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+	{
+		Rectangle item = game->buttonsMenuUp.play->ftReturnRectangle();
+		if (CheckCollisionPointRec(rayPos, item) && game->ctMode != -1)
+		{
+			game->ctMode = -1;
+		}
+		item = game->buttonsMenuUp.stop->ftReturnRectangle();
+		if (CheckCollisionPointRec(rayPos, item) && game->ctMode != 1)
+		{
+			game->ctMode = 1;
+		}
+	}
+}
 
 //*** Control buttons side up panel ***//
 void	ftUpMenu2D(Game *game, Camera2D *camera)
@@ -511,10 +533,15 @@ void	ftSideDownMenu2D(Game *game, Camera2D *camera)
 //*** Put Button control panel for menu side down ***//
 void	ftDrawSideDownButtons(Game *game)
 {
+	cout << game->ctMenuSideDownButtons << endl;
 	if (game->ctMenuSideDownButtons == 0) // Right button side down
 	{
+		// Vector2 test = {0, 0};
+		// Texture2D text = LoadTexture("./imgs/buttons/play_00.png");
+		cout << "Debug: 3.010 " << endl;
 		DrawTextureEx(game->buttonsMenuSideDown.buttonRightOpen->ftReturnTexture(),
 			game->buttonsMenuSideDown.buttonRightOpen->ftReturnPosition(), 0, 1, WHITE);
+		cout << "Debug: 3.011 " << endl;
 		DrawTextureEx(game->buttonsMenuSideDown.buttonMiddleClose->ftReturnTexture(),
 			game->buttonsMenuSideDown.buttonMiddleClose->ftReturnPosition(), 0, 1, WHITE);
 		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftClose->ftReturnTexture(),
@@ -522,22 +549,27 @@ void	ftDrawSideDownButtons(Game *game)
 	}
 	else if (game->ctMenuSideDownButtons == 1) // Middle button side down
 	{
+		cout << "Debug: 3.020 " << endl;
 		DrawTextureEx(game->buttonsMenuSideDown.buttonRightClose->ftReturnTexture(),
 			game->buttonsMenuSideDown.buttonRightClose->ftReturnPosition(), 0, 1, WHITE);
 		DrawTextureEx(game->buttonsMenuSideDown.buttonMiddleOpen->ftReturnTexture(),
 			game->buttonsMenuSideDown.buttonMiddleOpen->ftReturnPosition(), 0, 1, WHITE);
 		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftClose->ftReturnTexture(),
 			game->buttonsMenuSideDown.buttonLeftClose->ftReturnPosition(), 0, 1, WHITE);
+		cout << "Debug: 3.021 " << endl;
 	}
 	else if (game->ctMenuSideDownButtons == 2) // Left button side down
 	{
+		cout << "Debug: 3.030 " << endl;
 		DrawTextureEx(game->buttonsMenuSideDown.buttonRightClose->ftReturnTexture(),
 			game->buttonsMenuSideDown.buttonRightClose->ftReturnPosition(), 0, 1, WHITE);
 		DrawTextureEx(game->buttonsMenuSideDown.buttonMiddleClose->ftReturnTexture(),
 			game->buttonsMenuSideDown.buttonMiddleClose->ftReturnPosition(), 0, 1, WHITE);
 		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftOpen->ftReturnTexture(),
 			game->buttonsMenuSideDown.buttonLeftOpen->ftReturnPosition(), 0, 1, WHITE);
+		cout << "Debug: 3.031 " << endl;
 	}
+	cout << "Debug: 3.10 " << endl;
 }
 
 //*** Change counter for change button side down panel ***//
