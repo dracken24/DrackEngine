@@ -1,7 +1,7 @@
 #include "../../../myIncludes/game.hpp"
 
 //*** If not selected, select item on build mode ***//
-void ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envItems, Props *blocks)
+void ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envItems, SquareProps *blocks)
 {
 	Vector2 mousePos = game->mouse.pos;
 	Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
@@ -13,7 +13,7 @@ void ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envIt
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && game->mouse.pos.x < game->screenWidth - 300 && game->mouse.pos.y > 40)
 	{
 		game->selected2D.lastNbr = game->selected2D.nbr;
-		for (int i = 1; i < envItems->ftReturnEnviAllNbr(); i++) // items
+		for (int i = 1; i < game->nbrEnvItems; i++) // items
 		{ 
 			Rectangle item = envItems->ftReturnRectangle(i);
 			if (CheckCollisionPointRec(rayPos, item))
@@ -29,9 +29,9 @@ void ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envIt
 				touch = 1;
 			}
 		}
-		for (int i = 0; i < blocks->ftReturnNbr(); i++) 		// props
+		for (int i = 0; i < game->nbrSquareProps; i++) // props
 		{
-			Rectangle item = blocks->ftReturnRectangleSqPr(i);
+			Rectangle item = blocks[i].ftReturnRectangle();
 			if (CheckCollisionPointRec(rayPos, item))
 			{
 				game->selected2D.lastType = game->selected2D.type;
@@ -39,7 +39,7 @@ void ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envIt
 				game->selected2D.lastNbr = game->selected2D.nbr;
 				game->selected2D.type = 2;
 				game->selected2D.nbr = i;
-				game->selected2D.prop = blocks->ftReturnSquareProp(i);
+				game->selected2D.prop = blocks[i].ftReturnCopySquareProp();
 				// std::cout << "Hit Blocks: " << i << std::endl;
 				game->colorCt = false;
 				touch = 1;
@@ -91,7 +91,7 @@ void ftMoveScreen(Game *game, Camera2D *camera)
 }
 
 //*** Main fonction for build mode ***//
-void ftRunBuildMode(Game *game, Player *player, EnvItems *envItems, Props *blocks, Camera2D *camera)
+void	ftRunBuildMode(Game *game, Player *player, EnvItems *envItems, SquareProps *blocks, Camera2D *camera)
 {
 	ftMoveScreen(game, camera);
 
@@ -100,34 +100,33 @@ void ftRunBuildMode(Game *game, Player *player, EnvItems *envItems, Props *block
 }
 
 //*** Draw all item on screen in buils mode, player included ***//
-void ftDrawAll(Game * oldGame, Player * _player, EnvItems * _envItems, Props * _blocks)
+void	ftDrawAll(Game *game, Player *player, EnvItems *envItems, SquareProps *blocks)
 {
-	for (int i = 0; i < _envItems->ftReturnEnviAllNbr(); i++)
+	for (int i = 0; i < envItems->ftReturnEnviAllNbr(); i++)
 	{
-		Rectangle item = _envItems->ftReturnRectangle(i);
-		DrawRectanglePro(item, {0, 0}, 0, _envItems->ftReturnEnviColor(i));
+		Rectangle item = envItems->ftReturnRectangle(i);
+		DrawRectanglePro(item, {0, 0}, 0, envItems->ftReturnEnviColor(i));
 	}
 
-	for (int i = 0; i < _blocks->ftReturnNbr(); i++)
+	for (int i = 0; i < game->nbrSquareProps; i++)
 	{
-		Rectangle block = _blocks->ftReturnRectangleSqPr(i);
-		DrawRectanglePro(block, {0, 0},
-			0, _blocks->ftReturnRecColorSqPr(i));
+		Rectangle block = blocks[i].ftReturnRectangle();
+		DrawRectanglePro(block, {0, 0}, 0, blocks[i].ftReturnRecColor());
 	}
 
 	// Collision Box //
-	Rectangle plyCollBox = _player->ftReturnCollisionBox();
-	Vector2 AdjCollBox = _player->ftReturnAjustCollisionBox();
-	Vector2 plyPos = _player->ftReturnPlayerPosition();
+	Rectangle plyCollBox = player->ftReturnCollisionBox();
+	Vector2 AdjCollBox = player->ftReturnAjustCollisionBox();
+	Vector2 plyPos = player->ftReturnPlayerPosition();
 	DrawRectangleRec(plyCollBox, BLACK); 	// Player collision box
 
-	_player->ftSetCollosionBox((Vector2){plyPos.x + AdjCollBox.x, plyPos.y - AdjCollBox.y},
+	player->ftSetCollosionBox((Vector2){plyPos.x + AdjCollBox.x, plyPos.y - AdjCollBox.y},
 		(Vector2){plyCollBox.width, plyCollBox.height}, (Vector2){AdjCollBox.x, AdjCollBox.y});
 	
 	// Player //
-	_player->ftMovePosition(-_player->ftReturnCtMoveX(), -120);
-	DrawTextureEx(_player->ftReturnGoodImage("Idle Ri", 0),
-	_player->ftReturnPlayerPosition(), 0.0f, 2, WHITE);
-	_player->ftMovePosition(_player->ftReturnCtMoveX(), 120);
+	player->ftMovePosition(-player->ftReturnCtMoveX(), -120);
+	DrawTextureEx(player->ftReturnGoodImage("Idle Ri", 0),
+	player->ftReturnPlayerPosition(), 0.0f, 2, WHITE);
+	player->ftMovePosition(player->ftReturnCtMoveX(), 120);
 }
 

@@ -1,7 +1,15 @@
 #include "../../../myIncludes/class2D/squareProps.hpp"
+#include <iostream>
 
 SquareProps::SquareProps(void)
 {
+	return ;
+}
+
+SquareProps::SquareProps(SquareProps const &src)
+{
+	*this = src;
+
 	return ;
 }
 
@@ -33,22 +41,39 @@ SquareProps	*SquareProps::ftReturnCopySquareProp(void)
 	ret = this;
 	return (ret);
 }
-
-void	SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size, Color color, bool blocking, int nbr)
+SquareProps SquareProps::ftReturnSquareProp(void)
 {
-	this->_varCharPr.rect.width = size.x;
-	this->_varCharPr.rect.height = size.y;
-	this->_varCharPr.rect.x = pos.x;
-	this->_varCharPr.rect.y = pos.y;
-	this->pos.x = pos.x;
-	this->pos.y = pos.y;
-	this->color = color;
-	this->speed = 0;
-	this->_nbr = nbr;
-	this->blocking = blocking;
+
 }
 
-void		SquareProps::ftChangeWorH(float size, char c)
+SquareProps *SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size, Color color, bool blocking, int nbr, std::string name)
+{
+	SquareProps *ret = new SquareProps;
+
+	ret->_varCharPr.rect.width = size.x;
+	ret->_varCharPr.rect.height = size.y;
+	ret->_varCharPr.rect.x = pos.x;
+	ret->_varCharPr.rect.y = pos.y;
+	ret->pos.x = pos.x;
+	ret->pos.y = pos.y;
+	ret->color = color;
+	ret->speed = 0;
+	ret->_nbr = nbr;
+	ret->blocking = blocking;
+	ret->_name = name;
+
+	return (ret);
+}
+
+void	SquareProps::ftMovePositionVec(Vector2 pos)
+{
+	this->pos.x = pos.x;
+	this->pos.y = pos.y;
+	this->_varCharPr.rect.x = pos.x;
+	this->_varCharPr.rect.y = pos.y;
+}
+
+void	SquareProps::ftChangeWorH(float size, char c)
 {
 	if (c == 'W')
 		this->_varCharPr.rect.width = size;
@@ -149,10 +174,10 @@ void	SquareProps::ftChangeSpeedX(float speed, char c)
 		this->speedX += speed;
 }
 
-int		SquareProps::ftReturnNbr(void) const
-{
-	return (this->_nbr);
-}
+// int		SquareProps::ftReturnNbr(void) const
+// {
+// 	return (this->_nbr);
+// }
 
 float	SquareProps::ftReturnSqurtPos(char c) const
 {

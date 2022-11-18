@@ -4,16 +4,22 @@
 void	ftDrawSideDownButtons(Game *game);
 void	ftChangeSidedownPanel(Game *game, Camera2D *camera);
 
-void	ftInitBlocks(Props *blocks, EnvItems *envItems)
+void	ftInitBlocks(SquareProps *blocks, EnvItems *envItems)
 {
 	Texture tmp;
 
-	blocks->ftInitSquareProps(5, "blocks");
-	blocks->ftAddProps((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks");
-	blocks->ftAddProps((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks");
-	blocks->ftAddProps((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks");
-	blocks->ftAddProps((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks");
-	blocks->ftAddProps((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks");
+	// blocks->ftInitSquareProps(5, "blocks");
+	blocks[0].ftInitSquareprops((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks00");
+	blocks[1].ftInitSquareprops((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks01");
+	blocks[2].ftInitSquareprops((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks02");
+	blocks[3].ftInitSquareprops((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks03");
+	blocks[4].ftInitSquareprops((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks04");
+
+	// blocks->ftAddProps((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks");
+	// blocks->ftAddProps((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks");
+	// blocks->ftAddProps((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks");
+	// blocks->ftAddProps((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks");
+	// blocks->ftAddProps((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks");
 
 	envItems->ftNewEnvItem(9);
 	envItems->ftInitEnvitem((Vector2){0, 0}, (Vector2){1000, 400}, 0, LIGHTGRAY, tmp, 0);
@@ -34,17 +40,16 @@ void	ftMode2D(Game *game, Menu *menu)
 	player->ftSetPosition((Vector2){500, 300});
 	player->ftInitVarChar();
 
-	Props	*blocks;
-	blocks = new Props;
-	// obj::
-	EnvItems *envItems;
-	envItems = new EnvItems;
+	SquareProps	*blocks = new SquareProps;
+	EnvItems *envItems = new EnvItems;
 
 	game->imgCercleChrom = LoadImage("./imgs/wheelcolor.png");
 	game->textCercleChrom = LoadTexture("./imgs/wheelcolor.png");
-	game->rectCercleChrom = {0, 0, 150, 150};
+	game->rectCercleChrom = (Rectangle){0, 0, 150, 150};
 
 	ftInitBlocks(blocks, envItems);
+	game->nbrSquareProps = 5;
+	game->nbrEnvItems = 9;
 	ftInitTextBoxSideUp(game);
 
 	//--------------------------------------------------------------------------------------//
@@ -162,18 +167,6 @@ void	ftMode2D(Game *game, Menu *menu)
 					}
 					else if (game->ctMode == -1)
 					{
-						Menu			tmpMenu;
-						Player			tmpPlayer;
-						EnvItems		tmpEnvItems(*envItems);
-						Props			tmpBlocks;
-						MultipleCam2D	tmpAllCameras;
-
-						tmpMenu = *menu;
-						tmpPlayer = *player;
-						// tmpEnvItems = *envItems;
-						tmpBlocks = blocks->ftReturnCopyProps();
-						tmpAllCameras = *allCameras;
-
 						// pid_t pid;
 						// pid = fork();
 						// if (pid == -1)
@@ -194,8 +187,7 @@ void	ftMode2D(Game *game, Menu *menu)
 						// }
 						
 						allCameras->camera00.camera.target = player->ftReturnPlayerPosition();
-						ftRunGameMode(game, tmpMenu, tmpPlayer, tmpEnvItems,
-							tmpBlocks, tmpAllCameras);
+						ftRunGameMode(game, menu, player, envItems, blocks, allCameras);
 					
 						game->ctMode = 1;
 					}
@@ -265,9 +257,9 @@ void	ftMode2D(Game *game, Menu *menu)
 	UnloadRenderTexture(allCameras->camera00.textForCam);
 
 	player->ftDeleteVarChar();
-	for (int i = 0; i < blocks->ftReturnNbr(); i++)
-		blocks->ftDeleteVarsChar(i);
-	for (int i = 0; i < envItems->ftReturnEnviAllNbr(); i++)
+	for (int i = 0; i < game->nbrSquareProps; i++)
+		blocks[i].ftDeleteVars();
+	for (int i = 0; i < game->nbrEnvItems; i++)
 		envItems->ftDeleteVarChar(i);
 
 	if (player->ftReturnNbr() == 1)
@@ -298,7 +290,7 @@ void	ftMode2D(Game *game, Menu *menu)
 }
 
 //*** Move items on Build Mode ***/
-void	ftControlItems(Game *game, Player *player, EnvItems *envItems, Props *blocks)
+void	ftControlItems(Game *game, Player *player, EnvItems *envItems, SquareProps *blocks)
 {
 	Vector2 mousePos = GetMousePosition();
 	Vector2 lastPos = game->mouse.pos;
