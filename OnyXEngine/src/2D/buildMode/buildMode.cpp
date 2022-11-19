@@ -77,17 +77,21 @@ void ftMoveScreen(Game *game, Camera2D *camera)
 	Vector2 lastPos = game->mouse.pos;
 	Vector2 forMove = {lastPos.x - mousePos.x, lastPos.y - mousePos.y};
 
-	if (IsMouseButtonDown(MOUSE_BUTTON_MIDDLE))
+	if (game->mouse.pos.x > 0 && game->mouse.pos.x < game->screenWidth - 300
+			&& game->mouse.pos.y > 40 && game->mouse.pos.y < game->screenHeight)
 	{
-		game->posCam.x += forMove.x / camera->zoom;
-		game->posCam.y += forMove.y / camera->zoom;
+		if (IsMouseButtonDown(MOUSE_BUTTON_MIDDLE))
+		{
+			game->posCam.x += forMove.x / camera->zoom;
+			game->posCam.y += forMove.y / camera->zoom;
+		}
+		camera->zoom += ((float)GetMouseWheelMove() * 0.05f);
+		if (camera->zoom > 3.0f)
+			camera->zoom = 3.0f;
+		else if (camera->zoom < 0.25f)
+			camera->zoom = 0.25f;
+		game->mouse.camZoom = camera->zoom;
 	}
-	camera->zoom += ((float)GetMouseWheelMove() * 0.05f);
-	if (camera->zoom > 3.0f)
-		camera->zoom = 3.0f;
-	else if (camera->zoom < 0.25f)
-		camera->zoom = 0.25f;
-	game->mouse.camZoom = camera->zoom;
 }
 
 //*** Main fonction for build mode ***//

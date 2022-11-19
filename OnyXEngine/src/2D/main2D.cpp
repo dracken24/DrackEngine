@@ -9,11 +9,11 @@ void	ftInitBlocks(Props *blocks, EnvItems *envItems)
 	Texture tmp;
 
 	blocks->ftInitSquareProps(5, "blocks");
-	blocks->ftAddProps((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks", "blocks0");
-	blocks->ftAddProps((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks", "blocks1");
-	blocks->ftAddProps((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks", "blocks2");
-	blocks->ftAddProps((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks", "blocks3");
-	blocks->ftAddProps((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks", "blocks4");
+	blocks->ftAddProps((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks", "block0");
+	blocks->ftAddProps((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks", "block1");
+	blocks->ftAddProps((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks", "block2");
+	blocks->ftAddProps((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks", "block3");
+	blocks->ftAddProps((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks", "block4");
 
 	envItems->ftNewEnvItem(9);
 	envItems->ftInitEnvitem((Vector2){0, 0}, (Vector2){1000, 400}, 0, LIGHTGRAY, tmp, 0, "Platform0");
@@ -248,7 +248,7 @@ void	ftMode2D(Game *game, Menu *menu)
 
 				if (menu->ftReturnStart() == 2)
 				{
-					ftSideUpMenu2D(game, player, menu, allCameras);
+					ftSideUpMenu2D(game, player, blocks, envItems, menu, allCameras);
 				}
 
 			EndMode2D();
@@ -276,7 +276,7 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(DARKGRAY1);
 			BeginMode2D(allCameras->camera03.camera);
 
-				ftUpMenu2D(game, &allCameras->camera03.camera);
+				ftUpMenu2D(game, player, blocks, envItems, &allCameras->camera03.camera);
 
 			EndMode2D();
 		EndTextureMode();

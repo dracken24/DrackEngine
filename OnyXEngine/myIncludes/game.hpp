@@ -22,7 +22,7 @@
 # define PLAYER_HOR_SPD 200.0f
 # define MAX_INPUT_CHARS 8
 
-# define CENTER_SCREEN {(float)game->screenWidth / 2 - 150, (float)game->screenHeight / 2 - 20}
+# define CENTER_SCREEN {game->screenWidth / 2 - 150, game->screenHeight / 2 - 20}
 
 # define DARKGRAY1   CLITERAL(Color){ 60, 60, 60, 255 }
 # define DARKGRAY2   CLITERAL(Color){ 140, 140, 140, 255 }
@@ -143,7 +143,7 @@ class Game {
 	bool		ctCollision = false;
 	int         characterSelection = 0;
 	int			ctMenuSideDownButtons = 0;
-	int			ctMenuUpButtons = 0;
+	int			ctMenuUpButtons = 2;
 	int			ctImgBuildGame = 1;
 	int			ctStopAttack = 1;
 	int			ctPlayStop = 1;
@@ -186,11 +186,11 @@ void	ftInitTextBoxSideUp(Game *game);
 /**----------------------->> Control Panel <<-----------------------**/
 
 void	ftControlItems(Game *game, Player *player, EnvItems *envItems, Props *blocks);
-void	ftSideUpMenu2D(Game *game, Player *player, Menu *menu, MultipleCam2D *allCameras);
-void	ftSideUpControlMenu2D(Game *game, Player *player, Menu *mmakeenu);
+void	ftSideUpMenu2D(Game *game, Player *player, Props *blocks, EnvItems *envItems, Menu *menu, MultipleCam2D *allCameras);
+void	ftSideUpControlMenu2D(Game *game, Player *player, Menu *menu);
 void	ftSideDownMenu2D(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras);
 void	ftSelectItemsTop(Game *game, Camera2D *camera);
-void	ftUpMenu2D(Game *game, Camera2D *camera);
+void	ftUpMenu2D(Game *game, Player *player, Props *blocks, EnvItems *envItems, Camera2D *camera);
 void	ftDrawVarsRiDownPanel(Game *game);
 void	ftDrawBoarders(Game *Game);
 
@@ -208,7 +208,7 @@ void 	ftUpdateCameraCenter(Game *Game, Camera2D *camera, Player *player,
 			int envItemsLength, float delta, int width, int height);
 void	ftImgsGestion(Game *Game, Player *player);
 
-void	ftRoutine(Game *Game, Player *player, Menu *menu, Camera2D *camera, Props *blocks, EnvItems *envItems);
+void	ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera, Props *blocks, EnvItems *envItems);
 void	ftGestionProps(Game *Game, Props *blocks, EnvItems *envItems, float deltaTime, int envItemsLength);
 void	ftKeyGestion(Game *Game, Player *player, Menu *menu, float delta);
 

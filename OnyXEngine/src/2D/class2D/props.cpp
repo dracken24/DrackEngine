@@ -52,7 +52,7 @@ void	Props::ftAddProps(Vector2 pos, Vector2 size, Color color, bool blocking,
 	{
 		this->_squareProps[nbr].ftInitSquareprops(pos, size, color, blocking, nbr, name);
 		this->_squareProps[nbr].ftInitVars();
-		this->_nbrSquare = nbr + 1;
+		this->_nbrSquare = this->_nbrSquare + 1;
 	}
 	else if (type == "plateforms")
 	{

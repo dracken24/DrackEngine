@@ -1,4 +1,5 @@
 #include "../../../../myIncludes/game.hpp"
+#include <iostream>
 
 char	*ft_ftoa(float f, int *status)
 {
@@ -24,6 +25,8 @@ void	ftMousePos(Game *Game)
 	static Vector2 lastPos;
 	Game->mouse.pos = GetMousePosition();
 
+	DrawRectangle(0, 0, 300, 30, DARKGRAY);
+
 	if (Game->mouse.pos.x >= 0 && Game->mouse.pos.x <= Game->screenWidth
 		&& Game->mouse.pos.y >= 0 && Game->mouse.pos.y <= Game->screenHeight)
 	{
@@ -35,7 +38,7 @@ void	ftMousePos(Game *Game)
 		DrawText("Y:", 190, 10, 14, LIGHTGRAY);
 		DrawText(ret, 210, 10, 12, LIGHTGRAY);
 
-		lastPos = Game->mouse.pos;
+		// lastPos = Game->mouse.pos;
 	}
 	else
 	{
@@ -47,6 +50,7 @@ void	ftMousePos(Game *Game)
 		DrawText("Y:", 190, 10, 14, LIGHTGRAY);
 		DrawText(ret, 210, 10, 12, LIGHTGRAY);
 	}
+	lastPos = Game->mouse.pos;
 }
 
 
@@ -120,7 +124,7 @@ void	ftMouseControl(Game *Game)
 	// }
 }
 
-void	ftSideUpMenu2D(Game *game, Player *player, Menu *menu, MultipleCam2D *allCameras)
+void	ftWitchPanelIsSelected(Game *game, Player *player, Menu *menu)
 {
 	Vector2 mousePos = GetMousePosition();
 
@@ -169,6 +173,52 @@ void	ftSideUpMenu2D(Game *game, Player *player, Menu *menu, MultipleCam2D *allCa
 	{
 		ftSideUpControlMenu2D(game, player, menu);
 	}
+}
+
+void	ftDrawListPanel(Game *game, Player *player, Props *blocks, EnvItems *envItems, Camera2D *camera)
+{
+	if (game->ctMenuUpButtons == 2)
+	{
+		std::string 	name = player->ftReturnPlayerName();
+		int 			nbr = 0;
+		static float	mouseWheel = 0; //	Slide panel Up/Down
+
+		if (game->mouse.pos.x >= game->screenWidth - 300 && game->mouse.pos.x <= game->screenWidth
+			&& game->mouse.pos.y >= 40 && game->mouse.pos.y <= game->screenHeight / 3 + 40)
+		{
+			mouseWheel += ((float)GetMouseWheelMove() * 4);
+		}
+
+		DrawText("--Players--", 10, 30 + mouseWheel, 16, PURPLE);
+
+		const char	*tmp = name.c_str();
+		DrawText(tmp, 10, 55 + mouseWheel, 12, LIGHTGRAY);
+
+		DrawText("--Blocks--", 10, 75 + mouseWheel, 16, PURPLE);
+		for (int i = 0; i < blocks->ftReturnNbr(); i ++)
+		{
+			name = blocks->ftReturnSquareName(i);
+			tmp = name.c_str();
+			DrawText(tmp, 10, 100 + nbr + mouseWheel, 12, LIGHTGRAY);
+			nbr += 15;
+		}
+
+		DrawText("--Platforms--", 10, 105 + nbr + mouseWheel, 16, PURPLE);
+		nbr += 25;
+		for (int i = 0; i < envItems->ftReturnEnviAllNbr(); i++)
+		{
+			name = envItems->ftReturnName(i);
+			tmp = name.c_str();
+			DrawText(tmp, 10, 105 + nbr + mouseWheel, 12, LIGHTGRAY);
+			nbr += 15;
+		}
+	}
+}
+
+void	ftSideUpMenu2D(Game *game, Player *player, Props *blocks, EnvItems *envItems, Menu *menu, MultipleCam2D *allCameras)
+{
+	ftWitchPanelIsSelected(game, player, menu);
+	ftDrawListPanel(game, player, blocks, envItems, &allCameras->camera01.camera);
 	ftMouseControl(game);
 }
 

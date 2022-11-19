@@ -16,11 +16,15 @@ void ftRoutine(Game *Game, Player *player, Menu *menu, Camera2D *camera, Props *
 	if (lastAction != player->ftReturnCt())
 		Game->ct_action = 0;
 
-	camera->zoom += ((float)GetMouseWheelMove() * 0.05f);
-	if (camera->zoom > 3.0f)
-		camera->zoom = 3.0f;
-	else if (camera->zoom < 0.25f)
-		camera->zoom = 0.25f;
+	if (Game->mouse.pos.x > 0 && Game->mouse.pos.x < Game->screenWidth - 300
+		&& Game->mouse.pos.y > 40 && Game->mouse.pos.y < Game->screenHeight)
+	{
+		camera->zoom += ((float)GetMouseWheelMove() * 0.05f);
+		if (camera->zoom > 3.0f)
+			camera->zoom = 3.0f;
+		else if (camera->zoom < 0.25f)
+			camera->zoom = 0.25f;
+	}
 
 	// ftKeyGestion(Game, player, menu, Game->delta);
 
