@@ -1,43 +1,39 @@
 #include "../../../myIncludes/game.hpp"
 
-void	ftGravityX(Game *Game, Player *player, SquareProps *blocks)
+void	ftGravityX(Game *Game, Player *player, Props *blocks)
 {
 	Rectangle	plyCollBox = player->ftReturnCollisionBox();
 	float		speed = PLAYER_HOR_SPD * Game->delta;
 
-	for (int j = 0; j < Game->nbrSquareProps; j++)
+	for (int j = 0; j < blocks->ftReturnNbr(); j++)
 	{
-		Rectangle propRect1 = blocks[j].ftReturnRectangle();
-		for (int k = 0; k < Game->nbrSquareProps; k++)
+		Rectangle propRect1 = blocks->ftReturnRectangleSqPr(j);
+		for (int k = 0; k < blocks->ftReturnNbr(); k++)
 		{
 			if (j == k)
 				k++;
 
-			Rectangle propRect2 = blocks[k].ftReturnRectangle();
+			Rectangle propRect2 = blocks->ftReturnRectangleSqPr(k);
 			if (CheckCollisionRecs(propRect1, plyCollBox)) // Collision player
 			{
 				if (propRect1.x - propRect1.width / 2 > plyCollBox.x + 0./(2)) // Right
 				{
-					blocks[j].ftChangeSpeedModifier(speed / 4.0f, 'X');
-					// blocks->ftChangeSpeedModifier(speed / 4.0f, 'X', j);
+					blocks->ftChangeSpeedModifier(speed / 4.0f, 'X', j);
 				}
 				else // Left
 				{
-					blocks[j].ftChangeSpeedModifier(-speed / 4.0f, 'X');
-					// blocks->ftChangeSpeedModifier(-speed / 4.0f, 'X', j);
+					blocks->ftChangeSpeedModifier(-speed / 4.0f, 'X', j);
 				}
 			}
 			if (CheckCollisionRecs(propRect1, player->ftReturnWeaponCollRect()) && player->ftReturnDoAttack() == true) // Collision weapon
 			{
 				if (player->ftReturnFace() == 0) // Right
 				{
-					blocks[j].ftChangeSpeedModifier(speed * 2.0f, 'X');
-					// blocks->ftChangeSpeedModifier(speed * 2.0f, 'X', j);
+					blocks->ftChangeSpeedModifier(speed * 2.0f, 'X', j);
 				}
 				else // Left
 				{
-					blocks[j].ftChangeSpeedModifier(-speed * 2.0f, 'X');
-					// blocks->ftChangeSpeedModifier(-speed * 2.0f, 'X', j);
+					blocks->ftChangeSpeedModifier(-speed * 2.0f, 'X', j);
 				}
 			}
 
@@ -45,43 +41,33 @@ void	ftGravityX(Game *Game, Player *player, SquareProps *blocks)
 			{
 				if (propRect1.y <= propRect2.y + propRect2.height || propRect2.y <= propRect1.y + propRect1.height)
 				{
-					blocks[k].ftMovePositionVec((Vector2){1, 0.0f});
-					// blocks->ftMoveSquareProp((Vector2){1, 0.0f}, k);
-					blocks[j].ftMovePositionVec((Vector2){-1, 0.0f});
-					// blocks->ftMoveSquareProp((Vector2){-1, 0.0f}, j);
+					blocks->ftMoveSquareProp((Vector2){1, 0.0f}, k);
+					blocks->ftMoveSquareProp((Vector2){-1, 0.0f}, j);
 				}
 
 				if (propRect1.x > propRect2.x)
 				{
-					blocks[k].ftMovePositionVec((Vector2){-speed / 2, 0.0f});
-					// blocks->ftMoveSquareProp((Vector2){-speed / 2, 0.0f}, k);
-					blocks[j].ftChangeSpeedModifier(-speed * 0.5f, 'X');
-					// blocks->ftChangeSpeedModifier(speed * 0.5, 'X', j);
+					blocks->ftMoveSquareProp((Vector2){-speed / 2, 0.0f}, k);
+					blocks->ftChangeSpeedModifier(speed * 0.5, 'X', j);
 				}
 				else
 				{
-					blocks[k].ftMovePositionVec((Vector2){speed / 2, 0.0f});
-					// blocks->ftMoveSquareProp((Vector2){speed / 2, 0.0f}, k);
-					blocks[j].ftChangeSpeedModifier(-speed * 0.5f, 'X');
-					// blocks->ftChangeSpeedModifier(-speed * 0.5, 'X', j);
+					blocks->ftMoveSquareProp((Vector2){speed / 2, 0.0f}, k);
+					blocks->ftChangeSpeedModifier(-speed * 0.5, 'X', j);
 				}
 			}
 			if (CheckCollisionRecs(propRect2, propRect1)) // Collision block to block ajust
 			{
 				if (propRect1.x > propRect2.x)
 				{
-					blocks[j].ftMovePositionVec((Vector2){speed / 2, 0.0f});
-					// blocks->ftMoveSquareProp((Vector2){speed / 2, 0.0f}, j);
-					blocks[k].ftChangeSpeedModifier(-speed * 0.5f, 'X');
-					// blocks->ftChangeSpeedModifier(-speed * 0.5, 'X', k);
+					blocks->ftMoveSquareProp((Vector2){speed / 2, 0.0f}, j);
+					blocks->ftChangeSpeedModifier(-speed * 0.5, 'X', k);
 
 				}
 				else
 				{
-					blocks[j].ftMovePositionVec((Vector2){-speed / 2, 0.0f});
-					// blocks->ftMoveSquareProp((Vector2){-speed / 2, 0.0f}, j);
-					blocks[k].ftChangeSpeedModifier(speed * 0.5f, 'X');
-					// blocks->ftChangeSpeedModifier(speed * 0.5, 'X', k);
+					blocks->ftMoveSquareProp((Vector2){-speed / 2, 0.0f}, j);
+					blocks->ftChangeSpeedModifier(speed * 0.5, 'X', k);
 				}
 			}
 			
@@ -90,7 +76,7 @@ void	ftGravityX(Game *Game, Player *player, SquareProps *blocks)
 	player->ftChangeDoAttack(false);
 }
 
-void	ftGravityGestion(Game *Game, Player *player, SquareProps *blocks)
+void	ftGravityGestion(Game *Game, Player *player, Props *blocks)
 {
 	ftGravityX(Game, player, blocks);
 }

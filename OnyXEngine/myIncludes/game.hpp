@@ -4,10 +4,9 @@
 # include "../vendor/raylib/src/raylib.h"
 # include "../vendor/raylib/src/raymath.h"
 # include "./class2D/player.hpp"
-// # include "./class2D/props.hpp"
+# include "./class2D/props.hpp"
 # include "./class2D/menu.hpp"
 # include "./class2D/envitems.hpp"
-# include "./class2D/squareProps.hpp"
 # include "../vendor/raylib/src/rlgl.h"
 
 # include <string>
@@ -59,11 +58,11 @@ typedef struct MultipleCam2D{
 typedef struct Select
 {
 	Player		*lastPlayer;	// 1
-	Player		*player;		// 1
+	Player		*player;	// 1
 	SquareProps	*lastProp;		// 2
-	SquareProps	*prop;			// 2
+	SquareProps	*prop;		// 2
 	EnvItem		*lastItem;		// 3
-	EnvItem		*item;			// 3
+	EnvItem		*item;		// 3
 	int			lastSelected = 0;
 	int			selected = 0;
 	int			lastType = 0;
@@ -114,6 +113,18 @@ typedef struct TextBoxSideUp
 
 }	TextBoxSideUp;
 
+typedef struct Drag
+{
+	EnvItems	square;
+	EnvItems	squareSelect;
+	EnvItems	triangle;
+	EnvItems	triangleSelect;
+	EnvItems	circle;
+	EnvItems	circleSelect;
+	EnvItems	other;
+	EnvItems	otherSelect;
+}	Drag;
+
 class Game {
 	public:
 	
@@ -142,11 +153,8 @@ class Game {
 	MenuUp			buttonsMenuUp;
 	TextBoxSideUp	textBoxSideUp;
 	MenuSideDown	buttonsMenuSideDown;
+	Drag			dragDrop;
 	bool			colorCt = false;
-
-	int				nbrEnvItems = 0;
-	int				nbrSquareProps = 0;
-	int				nbrbuttons = 0;
 
 	char rotation[MAX_INPUT_CHARS + 1] = "\0";
 
@@ -155,7 +163,7 @@ class Game {
 
 
 /**----------------------------> Menu <-----------------------------**/
-void	ftMenuChooseCharacter(Game *game, Player * player, Menu *menu);
+void	ftMenuChooseCharacter(Game *Game, Player * player, Menu *menu);
 void	ftChooseCharacter(Menu *menu);
 void	ftChooseMenu(Menu *menu);
 
@@ -169,42 +177,42 @@ void	ftInitTextBoxSideUp(Game *game);
 
 /**----------------------->> Control Panel <<-----------------------**/
 
-void	ftControlItems(Game *game, Player *player, EnvItems *envItems, SquareProps *blocks);
+void	ftControlItems(Game *game, Player *player, EnvItems *envItems, Props *blocks);
 void	ftSideUpMenu2D(Game *game, Player *player, Menu *menu, MultipleCam2D *allCameras);
 void	ftSideUpControlMenu2D(Game *game, Player *player, Menu *mmakeenu);
 void	ftSideDownMenu2D(Game *game, Camera2D *camera);
 void	ftSelectItemsTop(Game *game, Camera2D *camera);
 void	ftUpMenu2D(Game *game, Camera2D *camera);
 void	ftDrawVarsRiDownPanel(Game *game);
-void	ftDrawBoarders(Game *game);
+void	ftDrawBoarders(Game *Game);
 
 /**-------------------------> Build Game <--------------------------**/
 
 // void	ftRunBuildMode(Game *Game,Stop *buildGame);
 void	ftRunBuildMode(Game *game, Player *player, EnvItems *envItems,
-			SquareProps *blocks, Camera2D *camera);
+			Props *blocks, Camera2D *camera);
 void	ftMoveScreen(Game *game, Camera2D *camera);
 
 /**----------------------------> Game <-----------------------------**/
 
-void 	ftUpdatePlayer(Game *game, Player *player, Menu *menu, EnvItems *envItems, int envItemsLength, float delta);
+void 	ftUpdatePlayer(Game *Game, Player *player, Menu *menu, EnvItems *envItems, int envItemsLength, float delta);
 void 	ftUpdateCameraCenter(Game *Game, Camera2D *camera, Player *player,
 			int envItemsLength, float delta, int width, int height);
-void	ftImgsGestion(Game *game, Player *player);
+void	ftImgsGestion(Game *Game, Player *player);
 
-void	ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera, SquareProps *blocks, EnvItems *envItems);
-void	ftGestionProps(Game *game, SquareProps *blocks, EnvItems *envItems, float deltaTime, int envItemsLength);
-void	ftKeyGestion(Game *game, Player *player, Menu *menu, float delta);
+void	ftRoutine(Game *Game, Player *player, Menu *menu, Camera2D *camera, Props *blocks, EnvItems *envItems);
+void	ftGestionProps(Game *Game, Props *blocks, EnvItems *envItems, float deltaTime, int envItemsLength);
+void	ftKeyGestion(Game *Game, Player *player, Menu *menu, float delta);
 
-void	ftRunGameMode(Game *game, Menu *menu, Player *player, EnvItems *envItems,
-			SquareProps *blocks, MultipleCam2D *allCameras);
-void	ftDrawAll(Game *game, Player *player, EnvItems *envItems, SquareProps *blocks);;
+void	ftRunGameMode(Game *Game, Menu menu, Player player, EnvItems envItems,
+			Props blocks, MultipleCam2D allCameras);
+void	ftDrawAll(Game *oldGame, Player *_player, EnvItems *_envItems, Props *_blocks);;
 
 /**---------------------------> Utility <----------------------------**/
 
 void	ftUsePlayerGravity(Player *player, EnvItems *envItems, float delta, int envItemsLength);
 void	ftUseGravity(SquareProps *prop, EnvItems *envItems, float delta, int envItemsLength);
-void	ftGravityGestion(Game *game, Player *player, SquareProps *blocks);
+void	ftGravityGestion(Game *Game, Player *player, Props *blocks);
 char	*ft_ftoa(float f, int *status);
 // void	ftKeyGestionBuildMode(Game *Game);
 
@@ -214,7 +222,7 @@ char	*ft_ftoa(float f, int *status);
 
 /**------------------------->> Fonctions <<-------------------------**/
 
-void	ftMode2D(Game *game, Menu *menu);
-void 	ftMode3D(Game *game);
+void	ftMode2D(Game *Game, Menu *menu);
+void 	ftMode3D(Game *Game);
 
 #endif
