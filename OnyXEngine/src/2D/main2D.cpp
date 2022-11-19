@@ -77,6 +77,11 @@ void	ftInitButtons(Game *game)
 		LoadTexture("./imgs/shapes/other00.png"), 1);
 	game->dragDrop.otherSelect.ftInitOneEnvitem({20, 180}, {54, 54}, 0, WHITE,	// Others
 		LoadTexture("./imgs/shapes/otherSelected00.png"), 1);
+
+	game->dragDrop.platform.ftInitOneEnvitem({120, 180}, {154, 54}, 0, WHITE, 	// Platform
+		LoadTexture("./imgs/shapes/platform00.png"), 1);
+	game->dragDrop.platformSelect.ftInitOneEnvitem({120, 180}, {154, 54}, 0, WHITE,	// Platform
+		LoadTexture("./imgs/shapes/platformSelected00.png"), 1);
 }
 
 void	ftMode2D(Game *game, Menu *menu)
@@ -177,7 +182,7 @@ void	ftMode2D(Game *game, Menu *menu)
 				{
 					ftMenuChooseCharacter(game, player, menu);
 				}
-				else // Main loop
+				else if (menu->ftReturnStart() == 2) // Main loop
 				{
 					// std::cout << "Help 00" << std::endl;
 					if (game->ctMode == 1)
@@ -237,7 +242,10 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(DARKGRAY);
 			BeginMode2D(allCameras->camera01.camera);
 
-				ftSideUpMenu2D(game, player, menu, allCameras);
+				if (menu->ftReturnStart() == 2)
+				{
+					ftSideUpMenu2D(game, player, menu, allCameras);
+				}
 
 			EndMode2D();
 		EndTextureMode();
@@ -249,7 +257,10 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(DARKGRAY2);
 			BeginMode2D(allCameras->camera02.camera);
 
-				ftSideDownMenu2D(game, &allCameras->camera02.camera);
+				if (menu->ftReturnStart() == 2)
+				{
+					ftSideDownMenu2D(game, blocks, envItems, allCameras);
+				}
 
 			EndMode2D();
 		EndTextureMode();
@@ -330,6 +341,8 @@ void	ftDeleteAndFree(Game *game, Player *player, Props *blocks,
 	game->dragDrop.circleSelect.ftDestroyImgsPlayStop();
 	game->dragDrop.other.ftDestroyImgsPlayStop();
 	game->dragDrop.otherSelect.ftDestroyImgsPlayStop();
+	game->dragDrop.platform.ftDestroyImgsPlayStop();
+	game->dragDrop.platformSelect.ftDestroyImgsPlayStop();
 
 	delete player;
 	delete blocks;
@@ -359,6 +372,7 @@ void	ftControlItems(Game *game, Player *player, EnvItems *envItems, Props *block
 		DrawLineEx({posPly.x, posPly.y - 1}, {posPly.x, posPly.y + posPly.height + 7}, 2, RED); // Left
 		posPly.x += posPly.width + 6;
 		DrawLineEx({posPly.x, posPly.y - 1}, {posPly.x, posPly.y + posPly.height + 7}, 2, RED); // Right
+		
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && game->mouse.pos.x < game->screenWidth - 300 && game->mouse.pos.y > 40)
 		{
 			player->ftMovePosition(-forMove.x / game->mouse.camZoom, -forMove.y / game->mouse.camZoom);
@@ -416,66 +430,7 @@ void	ftDrawBoarders(Game *Game)
 	DrawLineEx({0, 40}, {(float)Game->screenWidth - 206, 40}, 5, DARKGRAY1);
 	DrawLineEx({(float)Game->screenWidth - 300, (float)Game->screenHeight - 2}, {(float)Game->screenWidth, (float)Game->screenHeight - 2}, 5, DARKGRAY1);
 }
-
-void	ftSelectItemsTop(Game *game, Camera2D *camera)
-{
-	Vector2 mousePos = game->mouse.pos;
-	Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
-
-	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-	{
-		Rectangle item = game->buttonsMenuUp.play.ftReturnOneRectangle();
-		if (CheckCollisionPointRec(rayPos, item) && game->ctMode != -1)
-		{
-			game->ctMode = -1;
-		}
-		item = game->buttonsMenuUp.stop.ftReturnOneRectangle();
-		if (CheckCollisionPointRec(rayPos, item) && game->ctMode != 1)
-		{
-			game->ctMode = 1;
-		}
-	}
-}
-
-//*** Control buttons side up panel ***//
-void	ftUpMenu2D(Game *game, Camera2D *camera)
-{
-	ftSelectItemsTop(game, camera);
-	DrawTextureEx(game->buttonsMenuUp.play.ftReturnOneEnviTexture(),{(float)game->screenWidth - 300, 5}, 0, 1, WHITE);
-	DrawTextureEx(game->buttonsMenuUp.stop.ftReturnOneEnviTexture(),{(float)game->screenWidth - 260, 5}, 0, 1, WHITE);
-	if (game->ctMenuUpButtons == 1) // Button Top Right
-	{
-		DrawTextureEx(game->buttonsMenuUp.buttonColorOpen.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonColorOpen.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuUp.buttonControlClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonControlClose.ftReturnOneEnviPos(), 0, 1, WHITE);
-	}
-	else if (game->ctMenuUpButtons == 0) // Second Button Top Right
-	{
-		DrawTextureEx(game->buttonsMenuUp.buttonControlOpen.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonControlOpen.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuUp.buttonColorClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonColorClose.ftReturnOneEnviPos(), 0, 1, WHITE);
-	}
-	DrawText("Panel Up", 10, 10, 20, WHITE);
-
-	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-	{
-		Vector2 mousePos = game->mouse.pos;
-		Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
-
-		Rectangle item = game->buttonsMenuUp.buttonColorOpen.ftReturnOneRectangle();
-		if (CheckCollisionPointRec(rayPos, item))
-		{
-			game->ctMenuUpButtons = 1;
-		}
-		item = game->buttonsMenuUp.buttonControlOpen.ftReturnOneRectangle();
-		if (CheckCollisionPointRec(rayPos, item))
-		{
-			game->ctMenuUpButtons = 0;
-		}
-	}
-}
+ 
 
 //*** Main fonction for control menu side down ***//
 void	ftSideUpControlMenu2D(Game *game, Player *player, Menu *menu)

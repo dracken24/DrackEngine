@@ -26,13 +26,13 @@ void	Props::ftInitSquareProps(int nbr, std::string type)
 {
 	if (type == "blocks")
 	{
-		this->_squareProps = new SquareProps[nbr];
+		this->_squareProps = new SquareProps[256];
+		this->_nbrSquare = 0;
 	}
 	else if (type == "plateforms")
 	{
-		this->_platforms = new SquareProps[nbr];
+		this->_platforms = new SquareProps[256];
 	}
-	this->_nbr = nbr;
 }
 
 void	Props::ftKillSquareProps(void)
@@ -51,6 +51,7 @@ void	Props::ftAddProps(Vector2 pos, Vector2 size, Color color, bool blocking, in
 	{
 		this->_squareProps[nbr].ftInitSquareprops(pos, size, color, blocking, nbr);
 		this->_squareProps[nbr].ftInitVars();
+		this->_nbrSquare = nbr + 1;
 	}
 	else if (type == "plateforms")
 	{
@@ -61,7 +62,7 @@ void	Props::ftAddProps(Vector2 pos, Vector2 size, Color color, bool blocking, in
 
 void	Props::ftChangeNbr(int nbr)
 {
-	this->_nbr = nbr;
+	this->_nbrSquare = nbr;
 }
 
 void	Props::ftSetPosSquareProp(Vector2 pos, int nbr)
@@ -103,7 +104,7 @@ Props		Props::ftReturnCopyProps(void)
 	Props  ret;
 	ret._squareProps = this->_squareProps;
 	ret._platforms = this->_platforms;
-	ret._nbr = this->_nbr;
+	ret._nbrSquare = this->_nbrSquare;
 
 	return (ret);
 }
@@ -130,7 +131,7 @@ SquareProps	*Props::ftReturnSquareProp(int nbr) const
 
 int		Props::ftReturnNbr(void) const
 {
-	return (this->_nbr);
+	return (this->_nbrSquare);
 }
 
 int	Props::ftReturnOneNbr(int	nbr) const

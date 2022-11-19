@@ -1,18 +1,18 @@
-#include "../../myIncludes/game.hpp"
+#include "../../../../myIncludes/game.hpp"
 
 void	ftChangeSidedownPanel(Game *game, Camera2D *camera);
 void	ftDrawSideDownButtons(Game *game);
-void	ftDragAndDrop(Game *game, Camera2D *camera);
+void	ftDragAndDrop(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras);
 
 //*** All functions for side down panel ***//
-void	ftSideDownMenu2D(Game *game, Camera2D *camera)
+void	ftSideDownMenu2D(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras)
 {
 	ftDrawSideDownButtons(game);
-	ftChangeSidedownPanel(game, camera);
+	ftChangeSidedownPanel(game, &allCameras->camera02.camera);
 
 	if (game->ctMenuSideDownButtons == 0)
 	{
-		ftDragAndDrop(game, camera);
+		ftDragAndDrop(game, blocks, envItems, allCameras);
 	}
 	else if (game->ctMenuSideDownButtons == 1)
 	{
@@ -25,10 +25,10 @@ void	ftSideDownMenu2D(Game *game, Camera2D *camera)
 }
 
 //*** Draw shapes for drag and drop ***//
-void	ftDragAndDrop(Game *game, Camera2D *camera)
+void	ftDragAndDrop(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras)
 {
 	Vector2 mousePos = game->mouse.pos;
-	Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
+	Vector2 rayPos = GetScreenToWorld2D(mousePos, allCameras->camera02.camera);
 
 
 	DrawText("Square", 12, 55, 20, DARKGRAY);
@@ -37,6 +37,13 @@ void	ftDragAndDrop(Game *game, Camera2D *camera)
 	{
 		DrawTextureEx(game->dragDrop.squareSelect.ftReturnOneEnviTexture(),
 			game->dragDrop.squareSelect.ftReturnOneEnviPos(), 0, 1, WHITE); // Square
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		{
+			Vector2 pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
+			int nbr = blocks->ftReturnNbr();
+
+			blocks->ftAddProps(pos, {24, 24}, DARKGRAY, true, nbr, "blocks");
+		}
 	}
 	else
 	{
@@ -82,12 +89,33 @@ void	ftDragAndDrop(Game *game, Camera2D *camera)
 		DrawTextureEx(game->dragDrop.other.ftReturnOneEnviTexture(),
 			game->dragDrop.other.ftReturnOneEnviPos(), 0, 1, WHITE);	// Others
 	}
+
+	DrawText("Platform", 150, 155, 20, DARKGRAY);
+	rec = {1321, 487, 154, 54};
+	if (CheckCollisionPointRec(rayPos, rec))
+	{
+		DrawTextureEx(game->dragDrop.platformSelect.ftReturnOneEnviTexture(),
+			game->dragDrop.platformSelect.ftReturnOneEnviPos(), 0, 1, WHITE); // Others
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		{
+			Texture2D	tex;
+			Vector2 pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
+			int nbr = blocks->ftReturnNbr();
+
+			envItems->ftInitEnvitem(pos, {244, 56}, 1, DARKGRAY, tex, envItems->ftReturnEnviAllNbr());
+		}
+	}
+	else
+	{
+		DrawTextureEx(game->dragDrop.platform.ftReturnOneEnviTexture(),
+			game->dragDrop.platform.ftReturnOneEnviPos(), 0, 1, WHITE);	// Others
+	}
 }
 
 //*** Put Button control panel for menu side down ***//
 void	ftDrawSideDownButtons(Game *game)
 {
-	if (game->ctMenuSideDownButtons == 0) // Right button side down
+	if (game->ctMenuSideDownButtons == 0) // Right panel side down
 	{
 		DrawTextureEx(game->buttonsMenuSideDown.buttonRightOpen.ftReturnOneEnviTexture(),
 			game->buttonsMenuSideDown.buttonRightOpen.ftReturnOneEnviPos(), 0, 1, WHITE);
@@ -96,7 +124,7 @@ void	ftDrawSideDownButtons(Game *game)
 		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftClose.ftReturnOneEnviTexture(),
 			game->buttonsMenuSideDown.buttonLeftClose.ftReturnOneEnviPos(), 0, 1, WHITE);
 	}
-	else if (game->ctMenuSideDownButtons == 1) // Middle button side down
+	else if (game->ctMenuSideDownButtons == 1) // Middle panel side down
 	{
 		DrawTextureEx(game->buttonsMenuSideDown.buttonRightClose.ftReturnOneEnviTexture(),
 			game->buttonsMenuSideDown.buttonRightClose.ftReturnOneEnviPos(), 0, 1, WHITE);
@@ -105,7 +133,7 @@ void	ftDrawSideDownButtons(Game *game)
 		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftClose.ftReturnOneEnviTexture(),
 			game->buttonsMenuSideDown.buttonLeftClose.ftReturnOneEnviPos(), 0, 1, WHITE);
 	}
-	else if (game->ctMenuSideDownButtons == 2) // Left button side down
+	else if (game->ctMenuSideDownButtons == 2) // Left panel side down
 	{
 		DrawTextureEx(game->buttonsMenuSideDown.buttonRightClose.ftReturnOneEnviTexture(),
 			game->buttonsMenuSideDown.buttonRightClose.ftReturnOneEnviPos(), 0, 1, WHITE);

@@ -49,12 +49,12 @@ void	ftBigMenuControl(Menu *menu)
 
 int main(void)
 {
-	Game	Game;
+	Game	game;
 	Menu	menu;
 
-	Game.font1 = LoadFontEx("../fonts/Greenscr.ttf", 32, 0, 250);
+	game.font1 = LoadFontEx("../fonts/Greenscr.ttf", 32, 0, 250);
 
-	InitWindow(Game.screenWidth, Game.screenHeight, "OnyX Engine");
+	InitWindow(game.screenWidth, game.screenHeight, "OnyX Engine");
 	SetTargetFPS(60);
 	while (!WindowShouldClose())
 	{
@@ -68,13 +68,13 @@ int main(void)
 		{
 			EndDrawing();
 			menu.ftChangeStart(0);
-			ftMode2D(&Game, &menu);
+			ftMode2D(&game, &menu);
 			menu.ftChangeStart(10);
 		}
 		if (menu.ftReturnStart() == 8) // 3D Mode
 		{
 			EndDrawing();
-			ftMode3D(&Game);
+			ftMode3D(&game);
 			menu.ftChangeStart(10);
 		}
 		EndDrawing();

@@ -19,8 +19,8 @@ EnvItems::~EnvItems(void)
 void	EnvItems::ftNewEnvItem(int nbr)
 {
 
-	this->_envItems = new EnvItem[nbr];
-	this->_allNbr = nbr;
+	this->_envItems = new EnvItem[256];
+	// this->_allNbr = nbr;
 }
 
 EnvItems	*EnvItems::ftReturnCopyEnvItems(void)
@@ -47,6 +47,7 @@ void 	EnvItems::ftInitEnvitem(Vector2 pos, Vector2 size,
 	this->_envItems[nbr]._varCharEnvi.enviPosY = (char *)calloc(sizeof(char), 9);
 	this->_envItems[nbr]._varCharEnvi.enviWidth = (char *)calloc(sizeof(char), 9);
 	this->_envItems[nbr]._varCharEnvi.enviHeight = (char *)calloc(sizeof(char), 9);
+	this->_allNbr = nbr + 1;
 }
 void 	EnvItems::ftInitOneEnvitem(Vector2 pos, Vector2 size,
 			int blocking, Color color, Texture texture, int nbr)

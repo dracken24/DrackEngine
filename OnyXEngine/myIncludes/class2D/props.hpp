@@ -38,7 +38,7 @@
 		private:
 			SquareProps *_squareProps;
 			SquareProps *_platforms;
-			int         _nbr;
+			int         _nbrSquare;
 	};
 // };
 

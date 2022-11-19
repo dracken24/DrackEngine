@@ -22,6 +22,8 @@
 # define PLAYER_HOR_SPD 200.0f
 # define MAX_INPUT_CHARS 8
 
+# define CENTER_SCREEN {(float)game->screenWidth / 2 - 150, (float)game->screenHeight / 2 - 20}
+
 # define DARKGRAY1   CLITERAL(Color){ 60, 60, 60, 255 }
 # define DARKGRAY2   CLITERAL(Color){ 140, 140, 140, 255 }
 # define DARKPURPLE2 CLITERAL(Color){ 46, 23, 126, 255 } 
@@ -123,6 +125,9 @@ typedef struct Drag
 	EnvItems	circleSelect;
 	EnvItems	other;
 	EnvItems	otherSelect;
+
+	EnvItems	platform;
+	EnvItems	platformSelect;
 }	Drag;
 
 class Game {
@@ -180,7 +185,7 @@ void	ftInitTextBoxSideUp(Game *game);
 void	ftControlItems(Game *game, Player *player, EnvItems *envItems, Props *blocks);
 void	ftSideUpMenu2D(Game *game, Player *player, Menu *menu, MultipleCam2D *allCameras);
 void	ftSideUpControlMenu2D(Game *game, Player *player, Menu *mmakeenu);
-void	ftSideDownMenu2D(Game *game, Camera2D *camera);
+void	ftSideDownMenu2D(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras);
 void	ftSelectItemsTop(Game *game, Camera2D *camera);
 void	ftUpMenu2D(Game *game, Camera2D *camera);
 void	ftDrawVarsRiDownPanel(Game *game);

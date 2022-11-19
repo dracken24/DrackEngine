@@ -34,8 +34,10 @@ SquareProps	*SquareProps::ftReturnCopySquareProp(void)
 	return (ret);
 }
 
-void	SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size, Color color, bool blocking, int nbr)
+SquareProps	*SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size, Color color, bool blocking, int nbr)
 {
+	SquareProps	*ret = new SquareProps;
+
 	this->_varCharPr.rect.width = size.x;
 	this->_varCharPr.rect.height = size.y;
 	this->_varCharPr.rect.x = pos.x;
@@ -46,6 +48,9 @@ void	SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size, Color color, bool
 	this->speed = 0;
 	this->_nbr = nbr;
 	this->blocking = blocking;
+	ret = this;
+
+	return (ret);
 }
 
 void		SquareProps::ftChangeWorH(float size, char c)

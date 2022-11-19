@@ -1,4 +1,4 @@
-#include "../../myIncludes/game.hpp"
+#include "../../../../myIncludes/game.hpp"
 
 void	ftResetPlayerStrPanSideDown(Game *game);
 void	ftResetItemsStrPanSideDown(Game *game);
