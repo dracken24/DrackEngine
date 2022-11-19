@@ -179,29 +179,87 @@ void	ftDrawListPanel(Game *game, Player *player, Props *blocks, EnvItems *envIte
 {
 	if (game->ctMenuUpButtons == 2)
 	{
+		Vector2 mousePos = game->mouse.pos;
+		Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
+
 		std::string 	name = player->ftReturnPlayerName();
 		int 			nbr = 0;
 		static float	mouseWheel = 0; //	Slide panel Up/Down
+		static float	lastMouseWheel;
+		Rectangle		box;
 
+		lastMouseWheel = mouseWheel;
 		if (game->mouse.pos.x >= game->screenWidth - 300 && game->mouse.pos.x <= game->screenWidth
 			&& game->mouse.pos.y >= 40 && game->mouse.pos.y <= game->screenHeight / 3 + 40)
 		{
-			mouseWheel += ((float)GetMouseWheelMove() * 4);
+			mouseWheel += ((float)GetMouseWheelMove() * 8);
 		}
+
+		if (mouseWheel > 0)
+		{
+			mouseWheel = 0;
+		}
+
+//------------------------------------------------------------------------------//
+// Draw text for player in side up panel //
 
 		DrawText("--Players--", 10, 30 + mouseWheel, 16, PURPLE);
 
 		const char	*tmp = name.c_str();
-		DrawText(tmp, 10, 55 + mouseWheel, 12, LIGHTGRAY);
+		box = {(float)game->screenWidth - 300, 55 + mouseWheel + 40, 290, 12};
+
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		{
+			if (CheckCollisionPointRec(rayPos, box))
+			{
+				game->selected2D.lastType = game->selected2D.type;
+				game->selected2D.lastPlayer = game->selected2D.player;
+				game->selected2D.lastNbr = game->selected2D.nbr;
+				game->selected2D.type = 1;
+				game->selected2D.nbr = 0;
+				game->selected2D.player = player->ftReturnPlayer();
+				game->mouse.clickName = 1;
+				game->colorCt = false;
+			}
+		}
+		else if (game->mouse.clickName != 1)
+			DrawText(tmp, 10, 55 + mouseWheel, 12, LIGHTGRAY);
+		else
+			DrawText(tmp, 10, 55 + mouseWheel, 12, GREEN);
+
+//------------------------------------------------------------------------------//
+// Draw text for blocks in side up panel //
 
 		DrawText("--Blocks--", 10, 75 + mouseWheel, 16, PURPLE);
 		for (int i = 0; i < blocks->ftReturnNbr(); i ++)
 		{
 			name = blocks->ftReturnSquareName(i);
 			tmp = name.c_str();
-			DrawText(tmp, 10, 100 + nbr + mouseWheel, 12, LIGHTGRAY);
+			box = {(float)game->screenWidth - 300, 100 + nbr + mouseWheel + 40, 290, 12};
+
+			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+			{
+				if (CheckCollisionPointRec(rayPos, box))
+				{
+					game->selected2D.lastType = game->selected2D.type;
+					game->selected2D.lastProp = game->selected2D.prop;
+					game->selected2D.lastNbr = game->selected2D.nbr;
+					game->selected2D.type = 2;
+					game->selected2D.nbr = i;
+					game->selected2D.prop = blocks->ftReturnSquareProp(i);
+					game->mouse.clickName = 600 + i;
+					game->colorCt = false;
+				}
+			}
+			else if (game->mouse.clickName != 600 + i)
+				DrawText(tmp, 10, 100 + nbr + mouseWheel, 12, LIGHTGRAY);
+			else
+				DrawText(tmp, 10, 100 + nbr + mouseWheel, 12, GREEN);
 			nbr += 15;
 		}
+
+//------------------------------------------------------------------------------//
+// Draw text for platforms in side up panel //
 
 		DrawText("--Platforms--", 10, 105 + nbr + mouseWheel, 16, PURPLE);
 		nbr += 25;
@@ -209,8 +267,31 @@ void	ftDrawListPanel(Game *game, Player *player, Props *blocks, EnvItems *envIte
 		{
 			name = envItems->ftReturnName(i);
 			tmp = name.c_str();
-			DrawText(tmp, 10, 105 + nbr + mouseWheel, 12, LIGHTGRAY);
+			box = {(float)game->screenWidth - 300, 147 + nbr + mouseWheel, 290, 12};
+
+			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+			{
+				if (CheckCollisionPointRec(mousePos, box))
+				{
+					game->selected2D.lastType = game->selected2D.type;
+					game->selected2D.lastItem = game->selected2D.item;
+					game->selected2D.lastNbr = game->selected2D.nbr;
+					game->selected2D.type = 3;
+					game->selected2D.nbr = i;
+					game->selected2D.item = envItems->ftReturnEnvitemPtr(i);
+					game->colorCt = false;
+					game->mouse.clickName = 300 + i;
+				}
+			}
+			else if (game->mouse.clickName != 300 + i)
+				DrawText(tmp, 10, 105 + nbr + mouseWheel, 12, LIGHTGRAY);
+			else
+				DrawText(tmp, 10, 105 + nbr + mouseWheel, 12, GREEN);
 			nbr += 15;
+		}
+		if (105 + nbr + mouseWheel < 250)
+		{
+			mouseWheel = lastMouseWheel;
 		}
 	}
 }

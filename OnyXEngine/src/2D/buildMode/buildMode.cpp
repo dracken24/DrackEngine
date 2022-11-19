@@ -25,6 +25,7 @@ void ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envIt
 				game->selected2D.nbr = i;
 				game->selected2D.item = envItems->ftReturnEnvitemPtr(i);
 				// std::cout << "Hit Envi: " << i << std::endl;
+				game->mouse.clickName = 300 + i;
 				game->colorCt = false;
 				touch = 1;
 			}
@@ -40,6 +41,7 @@ void ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envIt
 				game->selected2D.type = 2;
 				game->selected2D.nbr = i;
 				game->selected2D.prop = blocks->ftReturnSquareProp(i);
+				game->mouse.clickName = 600 + i;
 				// std::cout << "Hit Blocks: " << i << std::endl;
 				game->colorCt = false;
 				touch = 1;
@@ -55,6 +57,7 @@ void ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envIt
 			game->selected2D.nbr = 0;
 			game->selected2D.player = player->ftReturnPlayer();
 			// std::cout << "Hit Player: " << std::endl;
+			game->mouse.clickName = 1;
 			game->colorCt = false;
 			touch = 1;
 		}
@@ -65,6 +68,7 @@ void ftSelectItems(Game *game, Player *player, Camera2D *camera, EnvItems *envIt
 			game->selected2D.type = -1;
 			game->selected2D.nbr = -1;
 			game->colorCt = false;
+			game->mouse.clickName = 0;
 		}
 		// std::cout << "Mouse" << std::endl;
 	}

@@ -34,6 +34,7 @@ struct MultipleCam2D;
 typedef struct Mouse{
 	Vector2	pos;
 	float	camZoom;
+	int		clickName = 0;
 }	Mouse;
 
 typedef struct NeedBy2DCam{
