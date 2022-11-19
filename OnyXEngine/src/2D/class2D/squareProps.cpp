@@ -1,4 +1,5 @@
 #include "../../../myIncludes/class2D/squareProps.hpp"
+#include <iostream>
 
 SquareProps::SquareProps(void)
 {
@@ -34,7 +35,8 @@ SquareProps	*SquareProps::ftReturnCopySquareProp(void)
 	return (ret);
 }
 
-SquareProps	*SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size, Color color, bool blocking, int nbr)
+SquareProps	*SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size,
+				Color color, bool blocking, int nbr, std::string name)
 {
 	SquareProps	*ret = new SquareProps;
 
@@ -48,6 +50,7 @@ SquareProps	*SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size, Color col
 	this->speed = 0;
 	this->_nbr = nbr;
 	this->blocking = blocking;
+	this->_varCharPr.name = name;
 	ret = this;
 
 	return (ret);
@@ -191,6 +194,15 @@ void	SquareProps::ftChangeSpeedModifier(float speed, char c)
 		this->speedModifier.x += speed;
 	if (c == 'Y')
 		this->speedModifier.y += speed;
+}
+
+void		SquareProps::ftChangeName(std::string name)
+{
+	this->_varCharPr.name = name;
+}
+std::string	SquareProps::ftReturnName(void) const
+{
+	return (this->_varCharPr.name);
 }
 
 //*** Add squareprops by drag and drop ***//

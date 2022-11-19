@@ -43,7 +43,7 @@ class Player
 		Player(void);
 		~Player(void);
 	
-		void		ftInitPlayerImgs(int nbr);
+		void		ftInitPlayerImgs(int nbr, std::string name);
 		void		ftInitImgsEd(void);
 		void		ftInitImgsIchigo(void);
 		void		ftInitImgsMeliodas(void);
@@ -76,6 +76,9 @@ class Player
 		Rectangle	FtReturnRectanglePlayer(void) const;
 		Rectangle	ftReturnRectangleCollBox(void) const;
 		void		ftInitRectanglePlayer(Vector2 pos, Vector2 size);
+
+		std::string	ftReturnPlayerName(void) const;
+		void		ftChangePlayerName(std::string name);
 
 		Vector2		ftReturnAjustCollisionBox(void) const;
 		Vector2		ftReturnCollisionBoxPos(void) const;
@@ -167,6 +170,8 @@ class Player
 		Texture2D	p1_fallr[2];
 		Texture2D	p1_attack00ri[7];
 		Texture2D	p1_attack00lft[7];
+
+		std::string	_name;
 		int			ct = 0;
 		int			ctA = 0;
 		int			face = 0;

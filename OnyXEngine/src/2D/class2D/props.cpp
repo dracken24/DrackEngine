@@ -45,17 +45,18 @@ void	Props::ftDeleteVarsChar(int nbr)
 	this->_squareProps[nbr].ftDeleteVars();
 }
 
-void	Props::ftAddProps(Vector2 pos, Vector2 size, Color color, bool blocking, int nbr, std::string type)
+void	Props::ftAddProps(Vector2 pos, Vector2 size, Color color, bool blocking,
+			int nbr, std::string type, std::string name)
 {
 	if (type == "blocks")
 	{
-		this->_squareProps[nbr].ftInitSquareprops(pos, size, color, blocking, nbr);
+		this->_squareProps[nbr].ftInitSquareprops(pos, size, color, blocking, nbr, name);
 		this->_squareProps[nbr].ftInitVars();
 		this->_nbrSquare = nbr + 1;
 	}
 	else if (type == "plateforms")
 	{
-		this->_platforms[nbr].ftInitSquareprops(pos, size, color, blocking, nbr);
+		this->_platforms[nbr].ftInitSquareprops(pos, size, color, blocking, nbr, name);
 		this->_squareProps[nbr].ftInitVars();
 	}
 }
@@ -164,6 +165,15 @@ float	Props::ftReturnSpeedModifier(char c, int nbr) const
 	else if (c == 'Y')
 		return (this->_squareProps[nbr].ftReturnSpeedModifier('Y'));
 	return (0);
+}
+
+void		Props::ftChangeSquareName(int nbr, std::string name)
+{
+	this->_squareProps[nbr].ftChangeName(name);
+}
+std::string	Props::ftReturnSquareName(int nbr) const
+{
+	return (this->_squareProps[nbr].ftReturnName());
 }
 
 /***************************************** --------- ********************************************/

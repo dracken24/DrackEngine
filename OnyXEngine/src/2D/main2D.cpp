@@ -9,29 +9,29 @@ void	ftInitBlocks(Props *blocks, EnvItems *envItems)
 	Texture tmp;
 
 	blocks->ftInitSquareProps(5, "blocks");
-	blocks->ftAddProps((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks");
-	blocks->ftAddProps((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks");
-	blocks->ftAddProps((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks");
-	blocks->ftAddProps((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks");
-	blocks->ftAddProps((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks");
+	blocks->ftAddProps((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks", "blocks0");
+	blocks->ftAddProps((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks", "blocks1");
+	blocks->ftAddProps((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks", "blocks2");
+	blocks->ftAddProps((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks", "blocks3");
+	blocks->ftAddProps((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks", "blocks4");
 
 	envItems->ftNewEnvItem(9);
-	envItems->ftInitEnvitem((Vector2){0, 0}, (Vector2){1000, 400}, 0, LIGHTGRAY, tmp, 0);
-	envItems->ftInitEnvitem((Vector2){0, 400}, (Vector2){1000, 200}, 1, GRAY, tmp, 1);
-	envItems->ftInitEnvitem((Vector2){300, 150}, (Vector2){400, 10}, 1, GRAY, tmp, 2);
-	envItems->ftInitEnvitem((Vector2){250, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 3);
-	envItems->ftInitEnvitem((Vector2){650, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 4);
-	envItems->ftInitEnvitem((Vector2){-850, 350}, (Vector2){700, 205}, 1, GRAY, tmp, 5);
-	envItems->ftInitEnvitem((Vector2){1100, 380}, (Vector2){400, 13}, 1, GRAY, tmp, 6);
-	envItems->ftInitEnvitem((Vector2){700, 100}, (Vector2){150, 10}, 1, GRAY, tmp, 7);
-	envItems->ftInitEnvitem((Vector2){450, 500}, (Vector2){180, 15}, 1, GRAY, tmp, 8);
+	envItems->ftInitEnvitem((Vector2){0, 0}, (Vector2){1000, 400}, 0, LIGHTGRAY, tmp, 0, "Platform0");
+	envItems->ftInitEnvitem((Vector2){0, 400}, (Vector2){1000, 200}, 1, GRAY, tmp, 1, "Platform1");
+	envItems->ftInitEnvitem((Vector2){300, 150}, (Vector2){400, 10}, 1, GRAY, tmp, 2, "Platform2");
+	envItems->ftInitEnvitem((Vector2){250, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 3, "Platform3");
+	envItems->ftInitEnvitem((Vector2){650, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 4, "Platform4");
+	envItems->ftInitEnvitem((Vector2){-850, 350}, (Vector2){700, 205}, 1, GRAY, tmp, 5, "Platform5");
+	envItems->ftInitEnvitem((Vector2){1100, 380}, (Vector2){400, 13}, 1, GRAY, tmp, 6, "Platform6");
+	envItems->ftInitEnvitem((Vector2){700, 100}, (Vector2){150, 10}, 1, GRAY, tmp, 7, "Platform7");
+	envItems->ftInitEnvitem((Vector2){450, 500}, (Vector2){180, 15}, 1, GRAY, tmp, 8, "Platform8");
 }
 
 void	ftInitButtons(Game *game)
 {
-	game->buttonsMenuUp.play.ftInitOneEnvitem({(float)game->screenWidth - 300, 5}, {30, 30}, 0, WHITE,
+	game->buttonsMenuUp.play.ftInitOneEnvitem({(float)game->screenWidth - 385, 5}, {30, 30}, 0, WHITE,
 		LoadTexture("./imgs/buttons/play_00.png"), 0);
-	game->buttonsMenuUp.stop.ftInitOneEnvitem({(float)game->screenWidth - 260, 5}, {30, 30}, 0, WHITE,
+	game->buttonsMenuUp.stop.ftInitOneEnvitem({(float)game->screenWidth - 345, 5}, {30, 30}, 0, WHITE,
 		LoadTexture("./imgs/buttons/stop_00.png"), 1);
 
 	game->buttonsMenuUp.buttonColorOpen.ftInitOneEnvitem({(float)game->screenWidth - 106, 0}, {100, 40}, 0, WHITE,
@@ -42,6 +42,10 @@ void	ftInitButtons(Game *game)
 		LoadTexture("./imgs/buttons/controlSideUpUnSelected.png"), 0);
 	game->buttonsMenuUp.buttonControlOpen.ftInitOneEnvitem({(float)game->screenWidth - 206, 0}, {100, 40}, 0, WHITE,
 		LoadTexture("./imgs/buttons/controlSideUpSelected.png"), 1);
+	game->buttonsMenuUp.buttonListClose.ftInitOneEnvitem({(float)game->screenWidth - 305, 0}, {100, 40}, 0, WHITE,
+		LoadTexture("./imgs/buttons/listSideUpUnSelected.png"), 0);
+	game->buttonsMenuUp.buttonListOpen.ftInitOneEnvitem({(float)game->screenWidth - 305, 0}, {100, 40}, 0, WHITE,
+		LoadTexture("./imgs/buttons/listSideUpSelected.png"), 1);
 
 	game->buttonsMenuSideDown.buttonRightOpen.ftInitOneEnvitem({197, 0}, {100, 40}, 0, WHITE,
 		LoadTexture("./imgs/buttons/shapesSideUpSelected.png"), 0);
@@ -327,6 +331,8 @@ void	ftDeleteAndFree(Game *game, Player *player, Props *blocks,
 	game->buttonsMenuUp.buttonColorClose.ftDestroyImgsPlayStop();
 	game->buttonsMenuUp.buttonControlOpen.ftDestroyImgsPlayStop();
 	game->buttonsMenuUp.buttonControlClose.ftDestroyImgsPlayStop();
+	game->buttonsMenuUp.buttonListOpen.ftDestroyImgsPlayStop();
+	game->buttonsMenuUp.buttonListClose.ftDestroyImgsPlayStop();
 	game->buttonsMenuSideDown.buttonRightOpen.ftDestroyImgsPlayStop();
 	game->buttonsMenuSideDown.buttonMiddleOpen.ftDestroyImgsPlayStop();
 	game->buttonsMenuSideDown.buttonLeftOpen.ftDestroyImgsPlayStop();
@@ -427,7 +433,7 @@ void	ftDrawBoarders(Game *Game)
 	DrawLineEx({(float)Game->screenWidth - 302, 40}, {(float)Game->screenWidth - 302, (float)Game->screenHeight}, 5, DARKGRAY1);
 	DrawLineEx({(float)Game->screenWidth - 2, 0}, {(float)Game->screenWidth - 2, (float)Game->screenHeight}, 5, DARKGRAY1);
 	DrawLineEx({(float)Game->screenWidth - 300, (float)Game->screenHeight / 3 + 40}, {(float)Game->screenWidth, (float)Game->screenHeight / 3 + 40}, 5, DARKGRAY1);
-	DrawLineEx({0, 40}, {(float)Game->screenWidth - 206, 40}, 5, DARKGRAY1);
+	DrawLineEx({0, 40}, {(float)Game->screenWidth - 305, 40}, 5, DARKGRAY1);
 	DrawLineEx({(float)Game->screenWidth - 300, (float)Game->screenHeight - 2}, {(float)Game->screenWidth, (float)Game->screenHeight - 2}, 5, DARKGRAY1);
 }
  

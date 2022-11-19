@@ -1,8 +1,9 @@
 #ifndef SQUAREPROPS_HPP
 # define SQUAREPROPS_HPP
 
-#include "../../vendor/raylib/src/raylib.h"
-#include <stdlib.h>
+# include "../../vendor/raylib/src/raylib.h"
+# include <stdlib.h>
+# include <iostream>
 
 	typedef struct VarCharPr
 	{
@@ -18,6 +19,7 @@
 		Rectangle   		rect;
 		VarCharPr		varCharPr;
 		Color			pixColor;
+		std::string		name;
 	}	VarsSideDownPanelPr;
 
 	class SquareProps
@@ -26,7 +28,8 @@
 			SquareProps(void);
 			~SquareProps(void);
 
-			SquareProps	*ftInitSquareprops(Vector2 pos, Vector2 size, Color color, bool blocking, int nbr);
+			SquareProps	*ftInitSquareprops(Vector2 pos, Vector2 size, Color color,
+							bool blocking, int nbr, std::string name);
 			void		ftInitPosition(Vector2 pos);
 			Rectangle	ftReturnRectangle(void) const;
 			Color		ftReturnRecColor(void) const;
@@ -60,6 +63,9 @@
 			Color	 	ftReturnColorPix(void);
 			void	 	ftInitColorPix(Color color);
 			void	 	ftInitColor(Color color);
+
+			void		ftChangeName(std::string name);
+			std::string	ftReturnName(void) const;
 
 			//-- Add by drag and drop --//
 

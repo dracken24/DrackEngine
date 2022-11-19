@@ -84,6 +84,9 @@ typedef struct MenuUp
 	EnvItems	buttonControlOpen;
 	EnvItems	buttonColorClose;
 	EnvItems	buttonColorOpen;
+	EnvItems	buttonListClose;
+	EnvItems	buttonListOpen;
+
 	EnvItems	play;
 	EnvItems	stop;
 }	MenuUp;

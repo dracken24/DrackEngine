@@ -24,7 +24,8 @@ void	ftMousePos(Game *Game)
 	static Vector2 lastPos;
 	Game->mouse.pos = GetMousePosition();
 
-	if (Game->mouse.pos.x >= 0 && Game->mouse.pos.x <= Game->screenWidth && Game->mouse.pos.y >= 0 && Game->mouse.pos.y <= Game->screenHeight)
+	if (Game->mouse.pos.x >= 0 && Game->mouse.pos.x <= Game->screenWidth
+		&& Game->mouse.pos.y >= 0 && Game->mouse.pos.y <= Game->screenHeight)
 	{
 		ret = ft_ftoa(Game->mouse.pos.x, 0);
 		DrawText("Mouse pos X:", 10, 10, 14, LIGHTGRAY);

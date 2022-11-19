@@ -16,7 +16,9 @@
 			// Square props //
 			void		ftInitSquareProps(int nbr, std::string type);
 			void		ftKillSquareProps(void);
-			void        ftAddProps(Vector2 pos, Vector2 size, Color color, bool blocking, int nbr, std::string type);
+			void        ftAddProps(Vector2 pos, Vector2 size, Color color, bool blocking,
+							int nbr, std::string type, std::string name);
+
 			Props		ftReturnCopyProps(void);
 			Rectangle   ftReturnRectangleSqPr(int nbr);
 			Color       ftReturnRecColorSqPr(int nbr);
@@ -34,6 +36,9 @@
 			void		ftChangeSpeedModifier(float speed, char c, int nbr);
 			void		ftDeleteVarsChar(int nbr);
 			void		ftChangeNbr(int nbr);
+
+			void		ftChangeSquareName(int nbr, std::string name);
+			std::string	ftReturnSquareName(int nbr) const;
 
 		private:
 			SquareProps *_squareProps;

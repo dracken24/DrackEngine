@@ -1,4 +1,5 @@
 #include "../../../myIncludes/class2D/envitems.hpp"
+# include <iostream>
 
 EnvItems::EnvItems(void)
 {
@@ -32,8 +33,8 @@ EnvItems	*EnvItems::ftReturnCopyEnvItems(void)
 	return (ret);
 }
 
-void 	EnvItems::ftInitEnvitem(Vector2 pos, Vector2 size,
-			int blocking, Color color, Texture texture, int nbr)
+void 	EnvItems::ftInitEnvitem(Vector2 pos, Vector2 size, int blocking,
+			Color color, Texture texture, int nbr, std::string name)
 {
 	this->_envItems[nbr].rect.x = pos.x;
 	this->_envItems[nbr].rect.y = pos.y;
@@ -47,6 +48,7 @@ void 	EnvItems::ftInitEnvitem(Vector2 pos, Vector2 size,
 	this->_envItems[nbr]._varCharEnvi.enviPosY = (char *)calloc(sizeof(char), 9);
 	this->_envItems[nbr]._varCharEnvi.enviWidth = (char *)calloc(sizeof(char), 9);
 	this->_envItems[nbr]._varCharEnvi.enviHeight = (char *)calloc(sizeof(char), 9);
+	this->_envItems[nbr].name = name;
 	this->_allNbr = nbr + 1;
 }
 void 	EnvItems::ftInitOneEnvitem(Vector2 pos, Vector2 size,
@@ -153,4 +155,13 @@ Texture2D	EnvItems::ftReturnOneEnviTexture(void) const
 void EnvItems::ftDestroyImgsPlayStop(void)
 {
 	UnloadTexture(this->_item.texture);
+}
+
+void		EnvItems::ftChangeName(int nbr, std::string name)
+{
+	this->_envItems[nbr].name = name;
+}
+std::string	EnvItems::ftReturnName(int nbr) const
+{
+	return (this->_envItems[nbr].name);
 }

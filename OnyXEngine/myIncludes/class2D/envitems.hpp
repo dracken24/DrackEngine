@@ -1,8 +1,9 @@
 #ifndef ENVITEM_HPP
 # define ENVITEM_HPP
 
-#include "../../vendor/raylib/src/raylib.h"
-#include <stdlib.h>
+# include "../../vendor/raylib/src/raylib.h"
+# include <stdlib.h>
+# include <iostream>
 
 	typedef struct VarCharEnvi
 	{
@@ -14,11 +15,13 @@
 	}	VarCharEnvi;
 
 	typedef struct EnvItem {
-		Texture2D     texture;
+		Texture2D   texture;
 		Color 		color;
 		Rectangle 	rect;
 		VarCharEnvi _varCharEnvi;
 		Color		pixColor;
+
+		std::string name;
 
 		int 		blocking;
 		int			nbr;
@@ -31,8 +34,8 @@
 			EnvItems(EnvItems const &src);
 			~EnvItems(void);
 
-			void        ftInitEnvitem(Vector2 pos, Vector2 size,
-							int blocking, Color color, Texture2D texture, int nbr);
+			void        ftInitEnvitem(Vector2 pos, Vector2 size, int blocking,
+							Color color, Texture2D texture, int nbr, std::string name);
 			VarCharEnvi	*ftReturnVarsCharEnvi(void);
 			void		ftNewEnvItem(int nbr);
 			Rectangle	ftReturnRectangle(int nbr) const;
@@ -57,6 +60,9 @@
 			void		ftInitVarChar(int nbr);
 			void		ftDeleteVarChar(int nbr);
 			void		ftDestroyImgsPlayStop(void);
+
+			void		ftChangeName(int nbr, std::string name);
+			std::string	ftReturnName(int nbr) const;
 
 		private:
 			EnvItem		*_envItems;

@@ -97,7 +97,7 @@ void	ftMenuChooseCharacter(Game *Game, Player * player, Menu * menu)
 
 	if (menu->ftReturnPlayer() == 1) // Edward
 	{
-		player->ftInitPlayerImgs(1);
+		player->ftInitPlayerImgs(1, "Edward");
 		player->ftSetCollosionBox({player->ftReturnPlayerPositionX(), player->ftReturnPlayerPositionY()}, {50, 100}, {-25, 100});
 		player->ftInitWeapon("Automail", player->ftReturnPlayerPosition(), {60, (float)player->ftReturnCollBoxSize('H')});
 		player->ftChangeCtIdle(15);
@@ -118,7 +118,7 @@ void	ftMenuChooseCharacter(Game *Game, Player * player, Menu * menu)
 	}
 	else if (menu->ftReturnPlayer() == 2) // Ichigo
 	{
-		player->ftInitPlayerImgs(2);
+		player->ftInitPlayerImgs(2, "Ichigo");
 		player->ftSetCollosionBox({player->ftReturnPlayerPositionX(), player->ftReturnPlayerPositionY()}, {50, 110}, {-20, 108});
 		player->ftInitWeapon("Automail", player->ftReturnPlayerPosition(), {60, (float)player->ftReturnCollBoxSize('H')});
 		player->ftChangeCtIdle(15);
@@ -139,7 +139,7 @@ void	ftMenuChooseCharacter(Game *Game, Player * player, Menu * menu)
 	}
 	else if (menu->ftReturnPlayer() == 3) // Meliodas
 	{
-		player->ftInitPlayerImgs(3);
+		player->ftInitPlayerImgs(3, "Meliodas");
 		player->ftSetCollosionBox({player->ftReturnPlayerPositionX(), player->ftReturnPlayerPositionY()}, {45, 95}, {-72, 115});
 		player->ftInitWeapon("Brocken Sword", {(float)player->ftReturnCollBoxPos('X'), (float)player->ftReturnCollBoxPos('Y')}, {50, (float)player->ftReturnCollBoxSize('H')});
 		player->ftChangeCtIdle(30);

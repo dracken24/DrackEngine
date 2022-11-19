@@ -385,22 +385,25 @@ Texture2D	Player::ftReturnGoodImage(std::string string, int ct)
 	return (this->p1_idle_ri[0]);
 }
 
-void	Player::ftInitPlayerImgs(int nbr)
+void	Player::ftInitPlayerImgs(int nbr, std::string name)
 {
 	if (nbr == 1) // Edward
 	{
 		this->ftInitImgsEd();
 		this->nbr = nbr;
+		this->_name = name;
 	}
 	else if (nbr == 2) // Ichigo
 	{
 		this->ftInitImgsIchigo();
 		this->nbr = nbr;
+		this->_name = name;
 	}
 	else if (nbr == 3) // Meliodas
 	{
 		this->ftInitImgsMeliodas();
 		this->nbr = nbr;
+		this->_name = name;
 	}
 }
 
@@ -558,6 +561,15 @@ void	Player::ftAddWeaponDamage(float damage)
 }
 
 /***************************************** Player Stats ********************************************/
+
+std::string Player::ftReturnPlayerName(void) const
+{
+	return (this->_name);
+}
+void		Player::ftChangePlayerName(std::string name)
+{
+	this->_name = name;
+}
 
 Vector2		Player::ftReturnCollisionBoxPos(void) const
 {

@@ -42,7 +42,11 @@ void	ftDragAndDrop(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D 
 			Vector2 pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
 			int nbr = blocks->ftReturnNbr();
 
-			blocks->ftAddProps(pos, {24, 24}, DARKGRAY, true, nbr, "blocks");
+			std::string	name;
+			name = "Block";
+			name.append(ft_ftoa(blocks->ftReturnNbr(), 0));
+			name.erase(name.length() - 7);
+			blocks->ftAddProps(pos, {24, 24}, DARKGRAY, true, nbr, "blocks", name);
 		}
 	}
 	else
@@ -102,7 +106,11 @@ void	ftDragAndDrop(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D 
 			Vector2 pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
 			int nbr = blocks->ftReturnNbr();
 
-			envItems->ftInitEnvitem(pos, {244, 56}, 1, DARKGRAY, tex, envItems->ftReturnEnviAllNbr());
+			std::string	name;
+			name = "Platform";
+			name.append(ft_ftoa(envItems->ftReturnEnviAllNbr(), 0));
+			name.erase(name.length() - 7);
+			envItems->ftInitEnvitem(pos, {244, 56}, 1, DARKGRAY, tex, envItems->ftReturnEnviAllNbr(), name);
 		}
 	}
 	else
