@@ -1,4 +1,5 @@
 #include "../../myIncludes/game.hpp"
+#include "../../myIncludes/class/buttons.hpp"
 #include <string.h>
 
 void	ftDeleteAndFree(Game *game, Player *player, Props *blocks,
@@ -29,36 +30,36 @@ void	ftInitBlocks(Props *blocks, EnvItems *envItems)
 
 void	ftInitButtons(Game *game)
 {
-	game->buttonsMenuUp.play.ftInitOneEnvitem({(float)game->screenWidth - 385, 5}, {30, 30}, 0, WHITE,
+	game->buttonsMenuUp.play.ftInitButton({(float)game->screenWidth - 385, 5}, {30, 30}, WHITE,
 		LoadTexture("./imgs/buttons/play_00.png"), 0);
-	game->buttonsMenuUp.stop.ftInitOneEnvitem({(float)game->screenWidth - 345, 5}, {30, 30}, 0, WHITE,
+	game->buttonsMenuUp.stop.ftInitButton({(float)game->screenWidth - 345, 5}, {30, 30}, WHITE,
 		LoadTexture("./imgs/buttons/stop_00.png"), 1);
 
-	game->buttonsMenuUp.buttonColorOpen.ftInitOneEnvitem({(float)game->screenWidth - 106, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuUp.buttonColorOpen.ftInitButton({(float)game->screenWidth - 106, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/colorSideUpSelected.png"), 0);
-	game->buttonsMenuUp.buttonColorClose.ftInitOneEnvitem({(float)game->screenWidth - 106, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuUp.buttonColorClose.ftInitButton({(float)game->screenWidth - 106, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/colorSideUpUnSelected.png"), 1);
-	game->buttonsMenuUp.buttonControlClose.ftInitOneEnvitem({(float)game->screenWidth - 206, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuUp.buttonControlClose.ftInitButton({(float)game->screenWidth - 206, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/controlSideUpUnSelected.png"), 0);
-	game->buttonsMenuUp.buttonControlOpen.ftInitOneEnvitem({(float)game->screenWidth - 206, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuUp.buttonControlOpen.ftInitButton({(float)game->screenWidth - 206, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/controlSideUpSelected.png"), 1);
-	game->buttonsMenuUp.buttonListClose.ftInitOneEnvitem({(float)game->screenWidth - 305, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuUp.buttonListClose.ftInitButton({(float)game->screenWidth - 305, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/listSideUpUnSelected.png"), 0);
-	game->buttonsMenuUp.buttonListOpen.ftInitOneEnvitem({(float)game->screenWidth - 305, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuUp.buttonListOpen.ftInitButton({(float)game->screenWidth - 305, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/listSideUpSelected.png"), 1);
 
-	game->buttonsMenuSideDown.buttonRightOpen.ftInitOneEnvitem({197, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuSideDown.buttonRightOpen.ftInitButton({197, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/shapesSideUpSelected.png"), 0);
-	game->buttonsMenuSideDown.buttonMiddleOpen.ftInitOneEnvitem({97, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuSideDown.buttonMiddleOpen.ftInitButton({97, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/untitledSideUpSelected.png"), 0);
-	game->buttonsMenuSideDown.buttonLeftOpen.ftInitOneEnvitem({-3, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuSideDown.buttonLeftOpen.ftInitButton({-3, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/propertySideUpSelected.png"), 0);
 
-	game->buttonsMenuSideDown.buttonRightClose.ftInitOneEnvitem({197, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuSideDown.buttonRightClose.ftInitButton({197, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/shapesSideUpUnSelected.png"), 1);
-	game->buttonsMenuSideDown.buttonMiddleClose.ftInitOneEnvitem({97, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuSideDown.buttonMiddleClose.ftInitButton({97, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/untitledSideUpUnSelected.png"), 1);
-	game->buttonsMenuSideDown.buttonLeftClose.ftInitOneEnvitem({-3, 0}, {100, 40}, 0, WHITE,
+	game->buttonsMenuSideDown.buttonLeftClose.ftInitButton({-3, 0}, {100, 40}, WHITE,
 		LoadTexture("./imgs/buttons/propertySideUpUnSelected.png"), 1);
 
 	// Drag and Drop //
@@ -325,20 +326,20 @@ void	ftDeleteAndFree(Game *game, Player *player, Props *blocks,
 		player->ftDestroyImgs3();
 	UnloadImage(game->imgCercleChrom);
 	UnloadTexture(game->textCercleChrom);
-	game->buttonsMenuUp.play.ftDestroyImgsPlayStop();
-	game->buttonsMenuUp.stop.ftDestroyImgsPlayStop();
-	game->buttonsMenuUp.buttonColorOpen.ftDestroyImgsPlayStop();
-	game->buttonsMenuUp.buttonColorClose.ftDestroyImgsPlayStop();
-	game->buttonsMenuUp.buttonControlOpen.ftDestroyImgsPlayStop();
-	game->buttonsMenuUp.buttonControlClose.ftDestroyImgsPlayStop();
-	game->buttonsMenuUp.buttonListOpen.ftDestroyImgsPlayStop();
-	game->buttonsMenuUp.buttonListClose.ftDestroyImgsPlayStop();
-	game->buttonsMenuSideDown.buttonRightOpen.ftDestroyImgsPlayStop();
-	game->buttonsMenuSideDown.buttonMiddleOpen.ftDestroyImgsPlayStop();
-	game->buttonsMenuSideDown.buttonLeftOpen.ftDestroyImgsPlayStop();
-	game->buttonsMenuSideDown.buttonRightClose.ftDestroyImgsPlayStop();
-	game->buttonsMenuSideDown.buttonMiddleClose.ftDestroyImgsPlayStop();
-	game->buttonsMenuSideDown.buttonLeftClose.ftDestroyImgsPlayStop();
+	game->buttonsMenuUp.play.ftUnloadTexture();
+	game->buttonsMenuUp.stop.ftUnloadTexture();
+	game->buttonsMenuUp.buttonColorOpen.ftUnloadTexture();
+	game->buttonsMenuUp.buttonColorClose.ftUnloadTexture();
+	game->buttonsMenuUp.buttonControlOpen.ftUnloadTexture();
+	game->buttonsMenuUp.buttonControlClose.ftUnloadTexture();
+	game->buttonsMenuUp.buttonListOpen.ftUnloadTexture();
+	game->buttonsMenuUp.buttonListClose.ftUnloadTexture();
+	game->buttonsMenuSideDown.buttonRightOpen.ftUnloadTexture();
+	game->buttonsMenuSideDown.buttonMiddleOpen.ftUnloadTexture();
+	game->buttonsMenuSideDown.buttonLeftOpen.ftUnloadTexture();
+	game->buttonsMenuSideDown.buttonRightClose.ftUnloadTexture();
+	game->buttonsMenuSideDown.buttonMiddleClose.ftUnloadTexture();
+	game->buttonsMenuSideDown.buttonLeftClose.ftUnloadTexture();
 	game->dragDrop.square.ftDestroyImgsPlayStop();
 	game->dragDrop.squareSelect.ftDestroyImgsPlayStop();
 	game->dragDrop.triangle.ftDestroyImgsPlayStop();

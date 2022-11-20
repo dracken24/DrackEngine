@@ -1,8 +1,6 @@
 #include "../../../myIncludes/class2D/envitems.hpp"
 # include <iostream>
 
-using namespace obj;
-
 EnvItems::EnvItems(void)
 {
 	return ;

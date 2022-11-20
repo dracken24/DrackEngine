@@ -7,6 +7,7 @@
 # include "./class2D/props.hpp"
 # include "./class2D/menu.hpp"
 # include "./class2D/envitems.hpp"
+# include "./class/buttons.hpp"
 # include "../vendor/raylib/src/rlgl.h"
 
 # include <string>
@@ -29,9 +30,8 @@
 # define DARKPURPLE2 CLITERAL(Color){ 46, 23, 126, 255 } 
 # define MYDARKGREEN  CLITERAL(Color){ 0, 148, 54, 255 }
 
-using namespace obj;
-
 struct MultipleCam2D;
+class BUTTONS;
 
 typedef struct Mouse{
 	Vector2	pos;
@@ -83,25 +83,25 @@ typedef struct Select
 
 typedef struct MenuUp
 {
-	EnvItems	buttonControlClose;
-	EnvItems	buttonControlOpen;
-	EnvItems	buttonColorClose;
-	EnvItems	buttonColorOpen;
-	EnvItems	buttonListClose;
-	EnvItems	buttonListOpen;
+	BUTTONS		buttonControlClose;
+	BUTTONS		buttonControlOpen;
+	BUTTONS		buttonColorClose;
+	BUTTONS		buttonColorOpen;
+	BUTTONS		buttonListClose;
+	BUTTONS		buttonListOpen;
 
-	EnvItems	play;
-	EnvItems	stop;
+	BUTTONS		play;
+	BUTTONS		stop;
 }	MenuUp;
 
 typedef struct MenuSideDown
 {
-	EnvItems	buttonMiddleClose;
-	EnvItems	buttonMiddleOpen;
-	EnvItems	buttonRightClose;
-	EnvItems	buttonRightOpen;
-	EnvItems	buttonLeftClose;
-	EnvItems	buttonLeftOpen;
+	BUTTONS		buttonMiddleClose;
+	BUTTONS		buttonMiddleOpen;
+	BUTTONS		buttonRightClose;
+	BUTTONS		buttonRightOpen;
+	BUTTONS		buttonLeftClose;
+	BUTTONS		buttonLeftOpen;
 }	MenuSideDown;
 
 typedef struct TrioBox

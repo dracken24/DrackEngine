@@ -125,30 +125,30 @@ void	ftDrawSideDownButtons(Game *game)
 {
 	if (game->ctMenuSideDownButtons == 0) // Right panel side down
 	{
-		DrawTextureEx(game->buttonsMenuSideDown.buttonRightOpen.ftReturnOneEnviTexture(),
-			game->buttonsMenuSideDown.buttonRightOpen.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuSideDown.buttonMiddleClose.ftReturnOneEnviTexture(),
-			 game->buttonsMenuSideDown.buttonMiddleClose.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuSideDown.buttonLeftClose.ftReturnOneEnviPos(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuSideDown.buttonRightOpen.ftReturnTexture(),
+			game->buttonsMenuSideDown.buttonRightOpen.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuSideDown.buttonMiddleClose.ftReturnTexture(),
+			 game->buttonsMenuSideDown.buttonMiddleClose.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftClose.ftReturnTexture(),
+			game->buttonsMenuSideDown.buttonLeftClose.ftReturnPosition(), 0, 1, WHITE);
 	}
 	else if (game->ctMenuSideDownButtons == 1) // Middle panel side down
 	{
-		DrawTextureEx(game->buttonsMenuSideDown.buttonRightClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuSideDown.buttonRightClose.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuSideDown.buttonMiddleOpen.ftReturnOneEnviTexture(),
-			game->buttonsMenuSideDown.buttonMiddleOpen.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuSideDown.buttonLeftClose.ftReturnOneEnviPos(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuSideDown.buttonRightClose.ftReturnTexture(),
+			game->buttonsMenuSideDown.buttonRightClose.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuSideDown.buttonMiddleOpen.ftReturnTexture(),
+			game->buttonsMenuSideDown.buttonMiddleOpen.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftClose.ftReturnTexture(),
+			game->buttonsMenuSideDown.buttonLeftClose.ftReturnPosition(), 0, 1, WHITE);
 	}
 	else if (game->ctMenuSideDownButtons == 2) // Left panel side down
 	{
-		DrawTextureEx(game->buttonsMenuSideDown.buttonRightClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuSideDown.buttonRightClose.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuSideDown.buttonMiddleClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuSideDown.buttonMiddleClose.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftOpen.ftReturnOneEnviTexture(),
-			game->buttonsMenuSideDown.buttonLeftOpen.ftReturnOneEnviPos(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuSideDown.buttonRightClose.ftReturnTexture(),
+			game->buttonsMenuSideDown.buttonRightClose.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuSideDown.buttonMiddleClose.ftReturnTexture(),
+			game->buttonsMenuSideDown.buttonMiddleClose.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuSideDown.buttonLeftOpen.ftReturnTexture(),
+			game->buttonsMenuSideDown.buttonLeftOpen.ftReturnPosition(), 0, 1, WHITE);
 	}
 }
 
@@ -164,21 +164,21 @@ void	ftChangeSidedownPanel(Game *game, Camera2D *camera)
 		Vector2 mousePos = game->mouse.pos;
 		Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
 
-		Rectangle item = game->buttonsMenuSideDown.buttonRightOpen.ftReturnOneRectangle(); // Right button
+		Rectangle item = game->buttonsMenuSideDown.buttonRightOpen.ftReturnRectangle(); // Right button
 		item.x = pos1.x;
 		item.y = pos1.y;
 		if (CheckCollisionPointRec(rayPos, item))
 		{
 			game->ctMenuSideDownButtons = 0;
 		}
-		item = game->buttonsMenuSideDown.buttonMiddleOpen.ftReturnOneRectangle(); // Middle button
+		item = game->buttonsMenuSideDown.buttonMiddleOpen.ftReturnRectangle(); // Middle button
 		item.x = pos2.x;
 		item.y = pos2.y;
 		if (CheckCollisionPointRec(rayPos, item))
 		{
 			game->ctMenuSideDownButtons = 1;
 		}
-		item = game->buttonsMenuSideDown.buttonLeftOpen.ftReturnOneRectangle(); // Left button
+		item = game->buttonsMenuSideDown.buttonLeftOpen.ftReturnRectangle(); // Left button
 		item.x = pos3.x;
 		item.y = pos3.y;
 		if (CheckCollisionPointRec(rayPos, item))

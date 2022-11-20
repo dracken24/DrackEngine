@@ -32,11 +32,11 @@ static void ftDrawGrid(int slices, float spacing)
 	rlEnd();
 }
 
-void	ftSideMenu3D(Game *Game)
-{
-	// ftMouseControl(Game);
-	DrawText("Side menu 3D", 10, 10, 14, LIGHTGRAY);
-}
+// void	ftSideMenu3D(Game *Game)
+// {
+// 	// ftMouseControl(Game);
+// 	DrawText("Side menu 3D", 10, 10, 14, LIGHTGRAY);
+// }
 
 void	ftSideUpMenu3D(Game *game)
 {

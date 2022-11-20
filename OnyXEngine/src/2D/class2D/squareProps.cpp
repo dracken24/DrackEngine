@@ -1,8 +1,6 @@
 #include "../../../myIncludes/class2D/squareProps.hpp"
 #include <iostream>
 
-using namespace obj;
-
 SquareProps::SquareProps(void)
 {
 	return ;

@@ -7,12 +7,12 @@ void	ftSelectItemsTop(Game *game, Camera2D *camera)
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 	{
-		Rectangle item = game->buttonsMenuUp.play.ftReturnOneRectangle();
+		Rectangle item = game->buttonsMenuUp.play.ftReturnRectangle();
 		if (CheckCollisionPointRec(rayPos, item) && game->ctMode != -1)
 		{
 			game->ctMode = -1;
 		}
-		item = game->buttonsMenuUp.stop.ftReturnOneRectangle();
+		item = game->buttonsMenuUp.stop.ftReturnRectangle();
 		if (CheckCollisionPointRec(rayPos, item) && game->ctMode != 1)
 		{
 			game->ctMode = 1;
@@ -22,34 +22,36 @@ void	ftSelectItemsTop(Game *game, Camera2D *camera)
 
 void	ftDrawMenuUp(Game *game)
 {
-	DrawTextureEx(game->buttonsMenuUp.play.ftReturnOneEnviTexture(), game->buttonsMenuUp.play.ftReturnOneEnviPos(), 0, 1, WHITE);
-	DrawTextureEx(game->buttonsMenuUp.stop.ftReturnOneEnviTexture(), game->buttonsMenuUp.stop.ftReturnOneEnviPos(), 0, 1, WHITE);
+	DrawTextureEx(game->buttonsMenuUp.play.ftReturnTexture(),
+		game->buttonsMenuUp.play.ftReturnPosition(), 0, 1, WHITE);
+	DrawTextureEx(game->buttonsMenuUp.stop.ftReturnTexture(),
+		game->buttonsMenuUp.stop.ftReturnPosition(), 0, 1, WHITE);
 	if (game->ctMenuUpButtons == 1) // Button Top Right
 	{
-		DrawTextureEx(game->buttonsMenuUp.buttonColorOpen.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonColorOpen.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuUp.buttonControlClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonControlClose.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuUp.buttonListClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonListClose.ftReturnOneEnviPos(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuUp.buttonColorOpen.ftReturnTexture(),
+			game->buttonsMenuUp.buttonColorOpen.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuUp.buttonControlClose.ftReturnTexture(),
+			game->buttonsMenuUp.buttonControlClose.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuUp.buttonListClose.ftReturnTexture(),
+			game->buttonsMenuUp.buttonListClose.ftReturnPosition(), 0, 1, WHITE);
 	}
 	else if (game->ctMenuUpButtons == 2) // Left Button Top Right
 	{
-		DrawTextureEx(game->buttonsMenuUp.buttonListOpen.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonListOpen.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuUp.buttonControlClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonControlClose.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuUp.buttonColorClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonColorClose.ftReturnOneEnviPos(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuUp.buttonListOpen.ftReturnTexture(),
+			game->buttonsMenuUp.buttonListOpen.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuUp.buttonControlClose.ftReturnTexture(),
+			game->buttonsMenuUp.buttonControlClose.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuUp.buttonColorClose.ftReturnTexture(),
+			game->buttonsMenuUp.buttonColorClose.ftReturnPosition(), 0, 1, WHITE);
 	}
 	else if (game->ctMenuUpButtons == 0) // Middle Button Top Right
 	{
-		DrawTextureEx(game->buttonsMenuUp.buttonControlOpen.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonControlOpen.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuUp.buttonColorClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonColorClose.ftReturnOneEnviPos(), 0, 1, WHITE);
-		DrawTextureEx(game->buttonsMenuUp.buttonListClose.ftReturnOneEnviTexture(),
-			game->buttonsMenuUp.buttonListClose.ftReturnOneEnviPos(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuUp.buttonControlOpen.ftReturnTexture(),
+			game->buttonsMenuUp.buttonControlOpen.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuUp.buttonColorClose.ftReturnTexture(),
+			game->buttonsMenuUp.buttonColorClose.ftReturnPosition(), 0, 1, WHITE);
+		DrawTextureEx(game->buttonsMenuUp.buttonListClose.ftReturnTexture(),
+			game->buttonsMenuUp.buttonListClose.ftReturnPosition(), 0, 1, WHITE);
 	}
 }
 
@@ -66,17 +68,17 @@ void	ftUpMenu2D(Game *game, Player *player, Props *blocks, EnvItems *envItems, C
 		Vector2 mousePos = game->mouse.pos;
 		Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
 
-		Rectangle item = game->buttonsMenuUp.buttonColorOpen.ftReturnOneRectangle();
+		Rectangle item = game->buttonsMenuUp.buttonColorOpen.ftReturnRectangle();
 		if (CheckCollisionPointRec(rayPos, item))	// Color panel
 		{
 			game->ctMenuUpButtons = 1;
 		}
-		item = game->buttonsMenuUp.buttonControlOpen.ftReturnOneRectangle();
+		item = game->buttonsMenuUp.buttonControlOpen.ftReturnRectangle();
 		if (CheckCollisionPointRec(rayPos, item)) // Control panel
 		{
 			game->ctMenuUpButtons = 0;
 		}
-		item = game->buttonsMenuUp.buttonListOpen.ftReturnOneRectangle();
+		item = game->buttonsMenuUp.buttonListOpen.ftReturnRectangle();
 		if (CheckCollisionPointRec(rayPos, item)) // List panel
 		{
 			game->ctMenuUpButtons = 2;

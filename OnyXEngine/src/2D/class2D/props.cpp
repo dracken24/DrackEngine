@@ -1,8 +1,6 @@
 #include "../../../myIncludes/class2D/props.hpp"
 #include "../../../myIncludes/class2D/envitems.hpp"
 
-using namespace obj;
-
 Props::Props(void)
 {
 	return ;
