@@ -8,6 +8,8 @@
 # include "./class2D/menu.hpp"
 # include "./class2D/envitems.hpp"
 # include "./class/buttons.hpp"
+
+# include "./class3D/cube3D.hpp"
 # include "../vendor/raylib/src/rlgl.h"
 
 # include <string>
@@ -29,6 +31,8 @@
 # define DARKGRAY2   CLITERAL(Color){ 140, 140, 140, 255 }
 # define DARKPURPLE2 CLITERAL(Color){ 46, 23, 126, 255 } 
 # define MYDARKGREEN  CLITERAL(Color){ 0, 148, 54, 255 }
+
+using std::string;
 
 struct MultipleCam2D;
 class BUTTONS;
@@ -59,6 +63,28 @@ typedef struct MultipleCam2D{
 	NeedBy2DCam camera08;
 	NeedBy2DCam camera09;
 }	MultipleCam2D;
+
+typedef struct NeedBy3DCam{
+	RenderTexture 	textForCam2;
+	RenderTexture 	textForCam;
+	Rectangle		rectForCam;
+	Camera2D 		camera2D;
+	Camera 			camera3D;
+	Image			image;
+}	NeedBy3DCam;
+
+typedef struct MultipleCam3D{
+	NeedBy3DCam	camera00;
+	NeedBy3DCam camera01;
+	NeedBy3DCam camera02;
+	NeedBy3DCam camera03;
+	NeedBy3DCam camera04;
+	NeedBy3DCam camera05;
+	NeedBy3DCam camera06;
+	NeedBy3DCam camera07;
+	NeedBy3DCam camera08;
+	NeedBy3DCam camera09;
+}	MultipleCam3D;
 
 typedef struct Select
 {
@@ -136,6 +162,19 @@ typedef struct Drag
 	EnvItems	platformSelect;
 }	Drag;
 
+typedef struct Ray3D
+{
+	Ray 			ray = {0}; // Picking line ray
+	RayCollision	collision = {0};
+}	Ray3D;
+
+typedef struct RayForMove
+{
+	Ray 			ray = {0}; // Picking line ray
+	Ray				lastRay;
+	RayCollision	collision = {0};
+}	RayForMove;
+
 class Game {
 	public:
 	
@@ -168,15 +207,22 @@ class Game {
 	bool			colorCt = false;
 
 	char rotation[MAX_INPUT_CHARS + 1] = "\0";
+	
+
+	//*********************************** 3D ***********************************//
+	Ray3D			ray;
+	RayForMove		rayForMove;
 
 	void (*cameraUpdaters[])(Game *, Camera2D *, Player *, int, float, int, int);
 };
 
-
 /**----------------------------> Menu <-----------------------------**/
-void	ftMenuChooseCharacter(Game *Game, Player * player, Menu *menu);
-void	ftChooseCharacter(Menu *menu);
-void	ftChooseMenu(Menu *menu);
+void			ftMenuChooseCharacter(Game *Game, Player * player, Menu *menu);
+void			ftChooseCharacter(Menu *menu);
+void			ftChooseMenu(Menu *menu);
+
+MultipleCam2D	*ftInitCameras(Game *game, MultipleCam2D *allCameras);
+void			ftInitButtons(Game *game);
 
 //**********************************************************************************//
 //										2D											//
@@ -233,7 +279,10 @@ char	*ft_ftoa(float f, int *status);
 
 /**------------------------->> Fonctions <<-------------------------**/
 
-void	ftMode2D(Game *Game, Menu *menu);
+void	ftMode2D(Game *game, Menu *menu);
 void 	ftMode3D(Game *Game);
+
+MultipleCam3D   *ftInitCameras3D(Game *game, MultipleCam3D *allCameras);
+void    		ftControlMainPanel(Game *game, CUBE3D *cubes, MultipleCam3D *allCameras);
 
 #endif

@@ -56,6 +56,7 @@ int main(void)
 
 	InitWindow(game.screenWidth, game.screenHeight, "OnyX Engine");
 	SetTargetFPS(60);
+
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
