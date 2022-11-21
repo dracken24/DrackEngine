@@ -26,8 +26,6 @@ void ftRoutine(Game *Game, Player *player, Menu *menu, Camera2D *camera, Props *
 			camera->zoom = 0.25f;
 	}
 
-	// ftKeyGestion(Game, player, menu, Game->delta);
-
 	/*********************************************** Gravity ***************************************************/
 	ftGravityGestion(Game, player, blocks);
 	for (int i = 0; i < blocks->ftReturnNbr(); i++)

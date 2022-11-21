@@ -104,6 +104,8 @@ void	ftDragAndDrop(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D 
 		{
 			Texture2D	tex;
 			Vector2 pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
+			pos.x = (int)pos.x;
+			pos.y = (int)pos.y;
 			int nbr = blocks->ftReturnNbr();
 
 			std::string	name;
