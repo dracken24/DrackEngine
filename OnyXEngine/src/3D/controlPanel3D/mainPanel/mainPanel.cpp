@@ -33,7 +33,11 @@ static void ftDrawGrid(int slices, float spacing)
 
 void	ftKeyEvents(Game *game, CUBE3D *cubes, MultipleCam3D *allCameras)
 {
-	// static Ray ray;
+	static Ray ray;
+	Vector2 pos = GetMousePosition();
+	pos.x += 150;
+	pos.y -= 23;
+	game->ray.ray = GetMouseRay(pos, allCameras->camera00.camera3D);
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 	{
@@ -52,16 +56,18 @@ void	ftKeyEvents(Game *game, CUBE3D *cubes, MultipleCam3D *allCameras)
 		else
 			game->ray.collision.hit = false;
 	}
-	if (game->ray.collision.hit == true)
+	else if (game->ray.collision.hit == true)
 	{
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 		{
-
+			cubes->ftChangePosition({ray.position.x - game->ray.ray.position.x,
+				ray.position.y - game->ray.ray.position.y, ray.position.z - game->ray.ray.position.z});
 		}
 	}
 
 	if (IsKeyDown('Z'))
 		allCameras->camera00.camera3D.target = (Vector3){0.0f, 0.0f, 0.0f};
+	ray = game->ray.ray;
 	// mousePos = game->mouse.pos;
 }
 
