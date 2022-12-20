@@ -1,9 +1,1 @@
-var classraylib_1_1_vr_stereo_config =
-[
-    [ "VrStereoConfig", "classraylib_1_1_vr_stereo_config.html#a630225c95d54e50482f6455e13d4fc3b", null ],
-    [ "~VrStereoConfig", "classraylib_1_1_vr_stereo_config.html#affd207a5267f0ea9c48d92dcfd72edea", null ],
-    [ "BeginMode", "classraylib_1_1_vr_stereo_config.html#a57c7c3064803f61af4a7da1e0ae10167", null ],
-    [ "EndDrawing", "classraylib_1_1_vr_stereo_config.html#a8804e60e9db545d7701f44093b02e14f", null ],
-    [ "Init", "classraylib_1_1_vr_stereo_config.html#ad233e6c0eabaed80f4e372ce4629f9f0", null ],
-    [ "Unload", "classraylib_1_1_vr_stereo_config.html#af2f638f95b4efda7c90a5a623b374678", null ]
-];
+]­¹]­¹]­¹]¬¹]¬¹]¬¸]¬¸]¬¸\¬·]«·\«·\«·\ª¶\ª¶\ª¶\ª¶\©µ\©µ\©µ\©µ\©µ\¨´\¨´[¨´[¨´[¨´[¨´[¨³[§³[§³[§³[§²[¦²[¦²[¥±[¥±[¥°Z¤°Z¤°Z£¯Z£®Z¢®Z¡­Z¡¬Y «Y «YŸªYªY©X¨Xœ§X›§X›¦Wš¦Wš¥Wš¥W™¥W™¤W™¤W™¤W™¤W™¤W™¤W™¤W™¤W™¥W™¥Wš¥Wš¥Wš¥W›¦W›¦W›¦Xœ§Xœ§Xœ§X¨X¨X©X©X©X©YªY©X©YªYªY©Y©Y©Y©Y©Y©X©X¨X¨Xœ§Xœ§X›§X›¦X›¦Wš¥Wš¥W™¤W™¤W˜£W˜£W˜£W˜£W—¢W—¢W—¢V—¢V—¢V–¡V–¡V– V– V– V– V– V– V–¡V–¡V–¡V–¡V–¡V–¡V–¡V–¡V–¡V–¡V–¡V– V• V• V• V•ŸV”ŸV”ŸV”ŸV“U“U’U’U‘œU‘œU‘›U›TšTšT™T˜T˜T—SŒ—SŒ–S‹–S‹•SŠ•SŠ”S‰”R‰“R‰“Rˆ“Rˆ’Rˆ’R‡‘R‡‘R‡‘R‡‘R†‘Q†Q†Q†Q†Q…Q…Q…Q…Q…Q…Q…Q…Q…Q…Q…Q…Q†Q†Q†Q†‘R†‘R‡‘R‡‘R‡‘R‡‘R‡‘R‡‘R‡’R‡’R‡’Rˆ’Rˆ’Rˆ’Rˆ’Rˆ’Rˆ’Rˆ’Rˆ“Rˆ’Rˆ“Rˆ“Rˆ“Rˆ“R‰“R‰“R‰“R‰“R

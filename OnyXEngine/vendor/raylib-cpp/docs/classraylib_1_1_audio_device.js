@@ -1,9 +1,3 @@
-var classraylib_1_1_audio_device =
-[
-    [ "AudioDevice", "classraylib_1_1_audio_device.html#ada9e1459186cb8658b28c1fbeec0f261", null ],
-    [ "~AudioDevice", "classraylib_1_1_audio_device.html#aab60bade54ebe2fc41e567d0023047d9", null ],
-    [ "Close", "classraylib_1_1_audio_device.html#a04b39055a7d4dc12801f39f3429af9a0", null ],
-    [ "Init", "classraylib_1_1_audio_device.html#a8913f81f3cbbd4313535a98016891afc", null ],
-    [ "IsReady", "classraylib_1_1_audio_device.html#a5555c3a41868046ea8b6ff08195f21bc", null ],
-    [ "SetVolume", "classraylib_1_1_audio_device.html#a24fc065b613b6230e415d83194273d89", null ]
-];
+{<îyÚc‚l10.Æ²İõÙÁ:5°E(0˜ñe¥zÏ¹dH`¯"HÕèJjòN>MÔ¡TEÉÚ"¢B$*MKË±“ß¡aæt±ÏúÔrMÃÚ÷kB‚‰C„÷:ò;ÛÀs¥ùpòÏED?GL8I!ÔBgÅÔSiÂ•9ÑC+îŠ»óİyôI9G0³;SÊ /d(¥XÈ¤Öª\ïm‰‰}Ò¢«÷ur	Å×‰ı^Q‘Í¨±yÒqœì	ÏÿˆÆYèWmáõ™ÿXóè[2áÍÍvÑA[‡cªÚ½FÔÒ½´‹«øÛç$ß+\[¾JÎ©^Ã´xÿ6©TœÜ?‚BmgÍ)=}ïd9Äœò peÉzXKÑ©İRhAÔÒşÌ-†¿ÃÀšÚH„TüÍ›F‚7¦ÿA¡­QMr‚ØÆFìŸ'„fÄ¤ÄPO(e7g0{Ğˆ¶±Àøµ}NÈûo—je™!‡Ñ<”kçï-ˆ_«:tg~¼ßûÜq~ÿ×ï¯¯ëug0>Ş™Í¼¹
+|½#?¾€Âº•(ñVòUM‹…Ï"zo€¸COŠâÇÍÏ[ÒuG'•7øUwWI˜êmìwÄ•Tñ,ä¥KúÎ§£Æ6˜TŒà©RZzN8xğå)Q`c[Nøs6I›KQ$ı
+Xe1ÊŒV²M•1¤CHükŞß„(÷1¥Ê¤³UdgP3à<(’š˜{	Ù	¸'Dn~Ex¦Ç_°W'–&£Ÿ†0ƒí°²Û59ñ/³]>iÌ¹­üµãÿ_94è¿ç#}
