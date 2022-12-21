@@ -114,8 +114,8 @@ void	ftGestionProps(Game *Game, Props *blocks, EnvItems *envItems, float deltaTi
 		blocks->ftMoveSquareProp((Vector2){blocks->ftReturnSpeedModifier('X', i) + block.width / 2, blocks->ftReturnSpeedModifier('Y', i) + block.height / 2}, i);
 		block = blocks->ftReturnRectangleSqPr(i);
 		DrawRectanglePro(block, (Vector2){block.width / 2, block.height / 2}, k, blocks->ftReturnRecColorSqPr(i));
-		blocks->ftMoveSquareProp((Vector2){-block.width / 2, -block.height / 2}, i);
-		blocks->ftSetSpeedModifier(blocks->ftReturnSpeedModifier('X', i) / 1.01, 'X', i);
+		blocks->ftMoveSquareProp((Vector2){-block.width / 2, -block.height / 2}, i');
+		blocks->ftSetSpeedModifier(blocks->ftReturnSpeedModifier('X', i) / 1.01, 'X, i);
 	}
 	k += atof(Game->rotation);
 }
