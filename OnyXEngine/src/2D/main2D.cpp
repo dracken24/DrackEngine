@@ -171,25 +171,6 @@ void	ftMode2D(Game *game, Menu *menu)
 						tmpBlocks = blocks->ftReturnCopyProps();
 						tmpAllCameras = *allCameras;
 
-						// pid_t pid;
-						// pid = fork();
-						// if (pid == -1)
-						// {
-						// 	std::cout << "error" << std::endl;
-						// 	exit(-1);
-						// }
-						// if (pid == 0)
-						// {
-						// 	allCameras->camera00.camera.target = player->ftReturnPlayerPosition();
-						// 	ftRunGameMode(game, tmpMenu, tmpPlayer, tmpEnvItems, tmpBlocks, tmpAllCameras);
-						// }
-						// else
-						// {
-						// 	close(fd[1]);
-						// 	dup2(fd[0], STDIN_FILENO);
-						// 	waitpid(pid, NULL, 0);
-						// }
-						
 						allCameras->camera00.camera.target = player->ftReturnPlayerPosition();
 						ftRunGameMode(game, tmpMenu, tmpPlayer, tmpEnvItems,
 							tmpBlocks, tmpAllCameras);
