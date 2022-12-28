@@ -1,0 +1,133 @@
+t (tmpvar_18, lightDir_2));
+  vec3 viewDir_20;
+  viewDir_20 = -(normalize((tmpvar_5 - _WorldSpaceCameraPos)));
+  float tmpvar_21;
+  tmpvar_21 = (1.0 - tmpvar_16.w);
+  vec3 tmpvar_22;
+  tmpvar_22 = normalize((lightDir_2 + viewDir_20));
+  float tmpvar_23;
+  tmpvar_23 = max (0.0, dot (tmpvar_18, viewDir_20));
+  float tmpvar_24;
+  tmpvar_24 = max (0.0, dot (lightDir_2, tmpvar_22));
+  float tmpvar_25;
+  tmpvar_25 = ((tmpvar_21 * tmpvar_21) * unity_LightGammaCorrectionConsts.w);
+  float tmpvar_26;
+  float tmpvar_27;
+  tmpvar_27 = (10.0 / log2((
+    ((1.0 - tmpvar_21) * 0.968)
+   + 0.03)));
+  tmpvar_26 = (tmpvar_27 * tmpvar_27);
+  float x_28;
+  x_28 = (1.0 - tmpvar_19);
+  float x_29;
+  x_29 = (1.0 - tmpvar_23);
+  float tmpvar_30;
+  tmpvar_30 = (0.5 + ((
+    (2.0 * tmpvar_24)
+   * tmpvar_24) * tmpvar_21));
+  float x_31;
+  x_31 = (1.0 - tmpvar_24);
+  vec4 tmpvar_32;
+  tmpvar_32.w = 1.0;
+  tmpvar_32.xyz = ((texture2D (_CameraGBufferTexture0, tmpvar_3).xyz * (tmpvar_17 * 
+    (((1.0 + (
+      (tmpvar_30 - 1.0)
+     * 
+      ((((x_28 * x_28) * x_28) * x_28) * x_28)
+    )) * (1.0 + (
+      (tmpvar_30 - 1.0)
+     * 
+      ((((x_29 * x_29) * x_29) * x_29) * x_29)
+    ))) * tmpvar_19)
+  )) + ((
+    max (0.0, (((
+      (1.0/((((
+        (tmpvar_19 * (1.0 - tmpvar_25))
+       + tmpvar_25) * (
+        (tmpvar_23 * (1.0 - tmpvar_25))
+       + tmpvar_25)) + 0.0001)))
+     * 
+      (pow (max (0.0, dot (tmpvar_18, tmpvar_22)), tmpvar_26) * ((tmpvar_26 + 1.0) * unity_LightGammaCorrectionConsts.y))
+    ) * tmpvar_19) * unity_LightGammaCorrectionConsts.x))
+   * tmpvar_17) * (tmpvar_16.xyz + 
+    ((1.0 - tmpvar_16.xyz) * (((
+      (x_31 * x_31)
+     * x_31) * x_31) * x_31))
+  )));
+  gl_FragData[0] = exp2(-(tmpvar_32));
+}
+
+
+#endif
+"
+}
+SubProgram "opengl " {
+Keywords { "POINT_COOKIE" "SHADOWS_CUBE" "SHADOWS_SOFT" }
+"!!GLSL
+#ifdef VERTEX
+uniform vec4 _ProjectionParams;
+
+
+uniform float _LightAsQuad;
+varying vec4 xlv_TEXCOORD0;
+varying vec3 xlv_TEXCOORD1;
+void main ()
+{
+  vec4 tmpvar_1;
+  tmpvar_1 = (gl_ModelViewProjectionMatrix * gl_Vertex);
+  vec4 o_2;
+  vec4 tmpvar_3;
+  tmpvar_3 = (tmpvar_1 * 0.5);
+  vec2 tmpvar_4;
+  tmpvar_4.x = tmpvar_3.x;
+  tmpvar_4.y = (tmpvar_3.y * _ProjectionParams.x);
+  o_2.xy = (tmpvar_4 + tmpvar_3.w);
+  o_2.zw = tmpvar_1.zw;
+  gl_Position = tmpvar_1;
+  xlv_TEXCOORD0 = o_2;
+  xlv_TEXCOORD1 = mix (((gl_ModelViewMatrix * gl_Vertex).xyz * vec3(-1.0, -1.0, 1.0)), gl_Normal, vec3(_LightAsQuad));
+}
+
+
+#endif
+#ifdef FRAGMENT
+uniform vec3 _WorldSpaceCameraPos;
+uniform vec4 _ProjectionParams;
+uniform vec4 _ZBufferParams;
+uniform vec4 _LightPositionRange;
+uniform vec4 _LightShadowData;
+uniform sampler2D _CameraDepthTexture;
+uniform vec4 _LightPos;
+uniform vec4 _LightColor;
+uniform mat4 _CameraToWorld;
+uniform mat4 _LightMatrix0;
+uniform sampler2D _LightTextureB0;
+uniform samplerCube _LightTexture0;
+uniform samplerCube _ShadowMapTexture;
+uniform vec4 unity_LightGammaCorrectionConsts;
+uniform sampler2D _CameraGBufferTexture0;
+uniform sampler2D _CameraGBufferTexture1;
+uniform sampler2D _CameraGBufferTexture2;
+varying vec4 xlv_TEXCOORD0;
+varying vec3 xlv_TEXCOORD1;
+void main ()
+{
+  float atten_1;
+  vec3 lightDir_2;
+  vec2 tmpvar_3;
+  tmpvar_3 = (xlv_TEXCOORD0.xy / xlv_TEXCOORD0.w);
+  vec4 tmpvar_4;
+  tmpvar_4.w = 1.0;
+  tmpvar_4.xyz = ((xlv_TEXCOORD1 * (_ProjectionParams.z / xlv_TEXCOORD1.z)) * (1.0/((
+    (_ZBufferParams.x * texture2D (_CameraDepthTexture, tmpvar_3).x)
+   + _ZBufferParams.y))));
+  vec3 tmpvar_5;
+  tmpvar_5 = (_CameraToWorld * tmpvar_4).xyz;
+  vec3 tmpvar_6;
+  tmpvar_6 = (tmpvar_5 - _LightPos.xyz);
+  lightDir_2 = -(normalize(tmpvar_6));
+  atten_1 = texture2D (_LightTextureB0, vec2((dot (tmpvar_6, tmpvar_6) * _LightPos.w))).w;
+  vec4 shadowVals_7;
+  shadowVals_7.x = textureCube (_ShadowMapTexture, (tmpvar_6 + vec3(0.0078125, 0.0078125, 0.0078125))).x;
+  shadowVals_7.y = textureCube (_ShadowMapTexture, (tmpvar_6 + vec3(-0.0078125, -0.0078125, 0.0078125))).x;
+  shadowVals_7.z = textureCube (_ShadowMapTexture, (tmpvar_6 + vec3(-0.00
