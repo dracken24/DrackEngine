@@ -1,24 +1,23 @@
 #include "../../../myIncludes/game.hpp"
 
-void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
-	SquareProps **blocks, EnvItems **envItems)
+void ftRoutine(Game *Game, Player *player, Menu *menu, Camera2D *camera, Props *blocks, EnvItems *envItems)
 {
 	static int lastAction;
 	static int cameraOption = 0;
 
-	int envItemsLength = game->nbrEnvi;
+	int envItemsLength = envItems->ftReturnEnviAllNbr();
 	lastAction = player->ftReturnCt();
-	if (game->ct_action >= 60 || lastAction != player->ftReturnCt())
-		game->ct_action = 0;
-	game->delta = GetFrameTime();
+	if (Game->ct_action >= 60 || lastAction != player->ftReturnCt())
+		Game->ct_action = 0;
+	Game->delta = GetFrameTime();
 
-	game->cameraUpdaters[cameraOption](game, camera, player, envItemsLength, game->delta, game->screenWidth, game->screenHeight);
-	ftUpdatePlayer(game, player, menu, envItems, envItemsLength, game->delta);
+	Game->cameraUpdaters[cameraOption](Game, camera, player, envItemsLength, Game->delta, Game->screenWidth, Game->screenHeight);
+	ftUpdatePlayer(Game, player, menu, envItems, envItemsLength, Game->delta);
 	if (lastAction != player->ftReturnCt())
-		game->ct_action = 0;
+		Game->ct_action = 0;
 
-	if (game->mouse.pos.x > 0 && game->mouse.pos.x < game->screenWidth - 300
-		&& game->mouse.pos.y > 40 && game->mouse.pos.y < game->screenHeight)
+	if (Game->mouse.pos.x > 0 && Game->mouse.pos.x < Game->screenWidth - 300
+		&& Game->mouse.pos.y > 40 && Game->mouse.pos.y < Game->screenHeight)
 	{
 		camera->zoom += ((float)GetMouseWheelMove() * 0.05f);
 		if (camera->zoom > 3.0f)
@@ -28,11 +27,10 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 	}
 
 	/*********************************************** Gravity ***************************************************/
-	ftGravityGestion(game, player, blocks);
-
-	for (int i = 0; i < game->nbrSquare; i++)
+	ftGravityGestion(Game, player, blocks);
+	for (int i = 0; i < blocks->ftReturnNbr(); i++)
 	{
-		ftUseGravity(blocks[i], envItems, game->delta, envItemsLength);
+		ftUseGravity(blocks->ftReturnSquareProp(i), envItems, Game->delta, envItemsLength);
 	}
 
 	/********************************************** Collision **************************************************/
@@ -41,7 +39,7 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 	Vector2		AdjCollBox = player->ftReturnAjustCollisionBox();
 	Vector2		plyPos = player->ftReturnPlayerPosition();
 
-	ftGestionProps(game, blocks, envItems, game->delta, envItemsLength);
+	ftGestionProps(Game, blocks, envItems, Game->delta, envItemsLength);
 	player->ftSetCollosionBox((Vector2){plyPos.x + AdjCollBox.x, plyPos.y - AdjCollBox.y},
 							  (Vector2){plyCollBox.width, plyCollBox.height}, (Vector2){AdjCollBox.x, AdjCollBox.y});
 
@@ -58,17 +56,17 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 	}
 	// DrawRectangleRec(player->ftReturnWeaponCollRect(), PURPLE); // Weapon collision box
 
-	ftImgsGestion(game, player);
+	ftImgsGestion(Game, player);
 
 	/***********************************************************************************************************/
 
 	if (IsKeyPressed(KEY_R))
 	{
 		float dist = 0;
-		for (int i = 0; i < game->nbrSquare; i++)
+		for (int i = 0; i < blocks->ftReturnNbr(); i++)
 		{
-			blocks[i]->ftSetPos((Vector2){200, 200 - dist});
-			blocks[i]->ftSetPos((Vector2){200 - dist , 200});
+			blocks->ftSetPosSquareProp((Vector2){200, 200 - dist}, i);
+			blocks->ftSetPosSquareProp((Vector2){200 - dist , 200}, i);
 			dist += 50;
 		}
 	}
@@ -77,11 +75,11 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 		float dist = 0;
 		camera->zoom = 1.0f;
 		player->ftSetPosition((Vector2){500.0f, 300.0f});
-		for (int i = 0; i < game->nbrSquare; i++)
+		for (int i = 0; i < blocks->ftReturnNbr(); i++)
 		{
-			blocks[i]->ftSetPos((Vector2){200 - dist, 200});
-			blocks[i]->ftSetSpeed(0);
-			blocks[i]->ftSetSpeedModifier(0, 'X');
+			blocks->ftSetPosSquareProp((Vector2){200 - dist, 200}, i);
+			blocks->ftSetSpeed(0, i);
+			blocks->ftSetSpeedModifier(0, 'X', i);
 
 			dist += 50;
 		}
@@ -95,37 +93,35 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 		DrawText("- Mouse Button Left to Attack", 40, 100, 10, DARKGRAY);
 	}
 	// ftSideMenu(Game, player);
-	ftKeyGestion(game, player, menu, game->delta);
+	ftKeyGestion(Game, player, menu, Game->delta);
 }
 
 /*******************************************************************************************
 	Gestion Des objets (Plateforms wlakable, objets du decor ...)
 *******************************************************************************************/
-void	ftGestionProps(Game *game, SquareProps **blocks, EnvItems **envItems, float deltaTime, int envItemsLength)
+void	ftGestionProps(Game *Game, Props *blocks, EnvItems *envItems, float deltaTime, int envItemsLength)
 {
 	static float k;
 	if (!k || k > 360)
 		k = 0;
 	for (int i = 0; i < envItemsLength; i++)
-		DrawRectangleRec(envItems[i]->ftReturnRectangle(), envItems[i]->ftReturnColor());
+		DrawRectangleRec(envItems->ftReturnRectangle(i), envItems->ftReturnEnviColor(i));
 	
-	for (int i = 0; i < game->nbrSquare; i++)
+	for (int i = 0; i < blocks->ftReturnNbr(); i++)
 	{
-		Rectangle	blockRec = blocks[i]->ftReturnRectangle();
+		Rectangle	block = blocks->ftReturnRectangleSqPr(i);
 
-		blocks[i]->ftMovePos((Vector2){blocks[i]->ftReturnSpeedModifier('X')
-			+ blockRec.width / 2, blocks[i]->ftReturnSpeedModifier('Y') + blockRec.height / 2});
-		blockRec = blocks[i]->ftReturnRectangle();
-		DrawRectanglePro(blockRec, (Vector2){blockRec.width / 2, blockRec.height / 2}, k, blocks[i]->ftReturnColor());
-		blocks[i]->ftMovePos((Vector2){-blockRec.width / 2, -blockRec.height / 2});
-		blocks[i]->ftSetSpeedModifier(blocks[i]->ftReturnSpeedModifier('X') / 1.01, 'X');
+		blocks->ftMoveSquareProp((Vector2){blocks->ftReturnSpeedModifier('X', i) + block.width / 2, blocks->ftReturnSpeedModifier('Y', i) + block.height / 2}, i);
+		block = blocks->ftReturnRectangleSqPr(i);
+		DrawRectanglePro(block, (Vector2){block.width / 2, block.height / 2}, k, blocks->ftReturnRecColorSqPr(i));
+		blocks->ftMoveSquareProp((Vector2){-block.width / 2, -block.height / 2}, i);
+		blocks->ftSetSpeedModifier(blocks->ftReturnSpeedModifier('X', i) / 1.01, 'X', i);
 	}
-	k += atof(game->rotation);
+	k += atof(Game->rotation);
 }
 /******************************************************************************************/
 
-void	ftUpdatePlayer(Game *game, Player *player, Menu *menu,
-			EnvItems **envItems, int envItemsLength, float delta)
+void	ftUpdatePlayer(Game *Game,Player *player, Menu *menu, EnvItems *envItems, int envItemsLength, float delta)
 {
 	player->ftChangeLastY(player->ftReturnPlayerPositionY());
 

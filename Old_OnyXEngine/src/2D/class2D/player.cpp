@@ -585,7 +585,7 @@ Player	*Player::ftReturnPlayer(void)
 	return (ret);
 }
 
-VarCharP		*Player::ftReturnVarsChar(void)
+VarChar		*Player::ftReturnVarsChar(void)
 {
 	return (&this->_varsSideDownPanel.varChar);
 }

@@ -1,21 +1,22 @@
 #include "../../../myIncludes/game.hpp"
 
-void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
-			SquareProps **blocks, MultipleCam2D allCameras)
+void	ftRunGameMode(Game *Game, Menu menu, Player player, EnvItems envItems,
+			Props blocks, MultipleCam2D allCameras)
 {
 	Camera2D *tmpCam = &allCameras.camera00.camera;
 	allCameras.camera00.camera.target = player.ftReturnPlayerPosition();
 
 	// InitWindow(Game->screenWidth, Game->screenHeight, "Play");
 	// SetTargetFPS(60);
-	while (!WindowShouldClose() && game->ctMode == -1)
+	while (!WindowShouldClose() && Game->ctMode == -1)
 	{
 		//** Drawning **//
 		// Draw Play screen
 		BeginTextureMode(allCameras.camera00.textForCam);
 			ClearBackground(LIGHTGRAY);
 			BeginMode2D(allCameras.camera00.camera);
-				ftRoutine(game, &player, &menu, tmpCam, blocks, envItems);
+				
+				ftRoutine(Game, &player, &menu, tmpCam, &blocks, &envItems);
 				// ftKeyGestionBuildMode(Game);
 
 			EndMode2D();
@@ -27,7 +28,7 @@ void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
 			ClearBackground(DARKGRAY);
 			BeginMode2D(allCameras.camera01.camera);
 
-				ftSideUpMenu2D(game, &player, blocks, envItems, &menu, &allCameras);
+				ftSideUpMenu2D(Game, &player, &blocks, &envItems, &menu, &allCameras);
 
 			EndMode2D();
 		EndTextureMode();
@@ -38,7 +39,7 @@ void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
 			ClearBackground(DARKGRAY2);
 			BeginMode2D(allCameras.camera02.camera);
 
-				ftSideDownMenu2D(game, blocks, envItems, &allCameras);
+				ftSideDownMenu2D(Game, &blocks, &envItems, &allCameras);
 
 			EndMode2D();
 		EndTextureMode();
@@ -49,7 +50,7 @@ void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
 			ClearBackground(DARKGRAY1);
 			BeginMode2D(allCameras.camera03.camera);
 
-			ftUpMenu2D(game, &player, blocks, envItems, &allCameras.camera03.camera);
+			ftUpMenu2D(Game, &player, &blocks, &envItems, &allCameras.camera03.camera);
 
 			EndMode2D();
 		EndTextureMode();
@@ -59,15 +60,15 @@ void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
 		BeginDrawing();
 		ClearBackground(BLACK);
 		DrawTextureRec(allCameras.camera00.textForCam.texture, allCameras.camera00.rectForCam, (Vector2){0, 40}, WHITE);
-		DrawTextureRec(allCameras.camera01.textForCam.texture, allCameras.camera01.rectForCam, (Vector2){(float)game->screenWidth - 300.0f, 40}, WHITE);
-		DrawTextureRec(allCameras.camera02.textForCam.texture, allCameras.camera02.rectForCam, (Vector2){(float)game->screenWidth - 300.0f, (float)game->screenHeight / 3 + 40}, WHITE);
+		DrawTextureRec(allCameras.camera01.textForCam.texture, allCameras.camera01.rectForCam, (Vector2){(float)Game->screenWidth - 300.0f, 40}, WHITE);
+		DrawTextureRec(allCameras.camera02.textForCam.texture, allCameras.camera02.rectForCam, (Vector2){(float)Game->screenWidth - 300.0f, (float)Game->screenHeight / 3 + 40}, WHITE);
 		DrawTextureRec(allCameras.camera03.textForCam.texture, allCameras.camera03.rectForCam, (Vector2){0, 0}, WHITE);
-		ftDrawBoarders(game);
+		ftDrawBoarders(Game);
 		EndDrawing();
-		ftSelectItemsTop(game, &allCameras.camera03.camera);
-		game->ctStopAttack = 0;
+		ftSelectItemsTop(Game, &allCameras.camera03.camera);
+		Game->ctStopAttack = 0;
 	}
 	//--------------------------------------------------------------------------------------//
 	// CloseWindow();
-	game->ctStopAttack = 1;
+	Game->ctStopAttack = 1;
 }

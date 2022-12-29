@@ -2,10 +2,10 @@
 
 void	ftChangeSidedownPanel(Game *game, Camera2D *camera);
 void	ftDrawSideDownButtons(Game *game);
-void	ftDragAndDrop(Game *game, SquareProps **blocks, EnvItems **envItems, MultipleCam2D *allCameras);
+void	ftDragAndDrop(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras);
 
 //*** All functions for side down panel ***//
-void	ftSideDownMenu2D(Game *game, SquareProps **blocks, EnvItems **envItems, MultipleCam2D *allCameras)
+void	ftSideDownMenu2D(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras)
 {
 	ftDrawSideDownButtons(game);
 	ftChangeSidedownPanel(game, &allCameras->camera02.camera);
@@ -25,7 +25,7 @@ void	ftSideDownMenu2D(Game *game, SquareProps **blocks, EnvItems **envItems, Mul
 }
 
 //*** Draw shapes for drag and drop ***//
-void	ftDragAndDrop(Game *game, SquareProps **blocks, EnvItems **envItems, MultipleCam2D *allCameras)
+void	ftDragAndDrop(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras)
 {
 	Vector2 mousePos = game->mouse.pos;
 	Vector2 rayPos = GetScreenToWorld2D(mousePos, allCameras->camera02.camera);
@@ -35,92 +35,90 @@ void	ftDragAndDrop(Game *game, SquareProps **blocks, EnvItems **envItems, Multip
 	Rectangle rec = {1221, 387, 54, 54};
 	if (CheckCollisionPointRec(rayPos, rec))
 	{
-		DrawTextureEx(game->dragDrop.squareSelect->ftReturnTexture(),
-			game->dragDrop.squareSelect->ftReturnPos(), 0, 1, WHITE); // Square
+		DrawTextureEx(game->dragDrop.squareSelect.ftReturnOneEnviTexture(),
+			game->dragDrop.squareSelect.ftReturnOneEnviPos(), 0, 1, WHITE); // Square
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
 			Vector2 pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
-			Texture2D text;
-			std::string	name;
+			int nbr = blocks->ftReturnNbr();
 
+			std::string	name;
 			name = "Block";
-			name.append(ft_ftoa(game->nbrSquare, 0));
+			name.append(ft_ftoa(blocks->ftReturnNbr(), 0));
 			name.erase(name.length() - 7);
-			blocks[game->nbrSquare] = new SquareProps(pos, {24, 24}, 1, DARKGRAY, text, game->nbrSquare + 1, name);
-			game->nbrSquare++;
+			blocks->ftAddProps(pos, {24, 24}, DARKGRAY, true, nbr, "blocks", name);
 		}
 	}
 	else
 	{
-		DrawTextureEx(game->dragDrop.square->ftReturnTexture(),
-			game->dragDrop.square->ftReturnPos(), 0, 1, WHITE);	// Square
+		DrawTextureEx(game->dragDrop.square.ftReturnOneEnviTexture(),
+			game->dragDrop.square.ftReturnOneEnviPos(), 0, 1, WHITE);	// Square
 	}
 
 	DrawText("Triangle", 102, 55, 20, DARKGRAY);
 	rec = {1321, 387, 54, 54};
 	if (CheckCollisionPointRec(rayPos, rec))
 	{
-		DrawTextureEx(game->dragDrop.triangleSelect->ftReturnTexture(),
-			game->dragDrop.triangleSelect->ftReturnPos(), 0, 1, WHITE); // Triangle
+		DrawTextureEx(game->dragDrop.triangleSelect.ftReturnOneEnviTexture(),
+			game->dragDrop.triangleSelect.ftReturnOneEnviPos(), 0, 1, WHITE); // Triangle
 	}
 	else
 	{
-		DrawTextureEx(game->dragDrop.triangle->ftReturnTexture(),
-			game->dragDrop.triangle->ftReturnPos(), 0, 1, WHITE);	// Triangle
+		DrawTextureEx(game->dragDrop.triangle.ftReturnOneEnviTexture(),
+			game->dragDrop.triangle.ftReturnOneEnviPos(), 0, 1, WHITE);	// Triangle
 	}
 
 	DrawText("Circle", 218, 55, 20, DARKGRAY);
 	rec = {1421, 387, 54, 54};
 	if (CheckCollisionPointRec(rayPos, rec))
 	{
-		DrawTextureEx(game->dragDrop.circleSelect->ftReturnTexture(),
-			game->dragDrop.circleSelect->ftReturnPos(), 0, 1, WHITE); // Circle
+		DrawTextureEx(game->dragDrop.circleSelect.ftReturnOneEnviTexture(),
+			game->dragDrop.circleSelect.ftReturnOneEnviPos(), 0, 1, WHITE); // Circle
 	}
 	else
 	{
-		DrawTextureEx(game->dragDrop.circle->ftReturnTexture(),
-			game->dragDrop.circle->ftReturnPos(), 0, 1, WHITE);	// Circle
+		DrawTextureEx(game->dragDrop.circle.ftReturnOneEnviTexture(),
+			game->dragDrop.circle.ftReturnOneEnviPos(), 0, 1, WHITE);	// Circle
 	}
 
 	DrawText("Others", 12, 155, 20, DARKGRAY);
 	rec = {1221, 487, 54, 54};
 	if (CheckCollisionPointRec(rayPos, rec))
 	{
-		DrawTextureEx(game->dragDrop.otherSelect->ftReturnTexture(),
-			game->dragDrop.otherSelect->ftReturnPos(), 0, 1, WHITE); // Others
+		DrawTextureEx(game->dragDrop.otherSelect.ftReturnOneEnviTexture(),
+			game->dragDrop.otherSelect.ftReturnOneEnviPos(), 0, 1, WHITE); // Others
 	}
 	else
 	{
-		DrawTextureEx(game->dragDrop.other->ftReturnTexture(),
-			game->dragDrop.other->ftReturnPos(), 0, 1, WHITE);	// Others
+		DrawTextureEx(game->dragDrop.other.ftReturnOneEnviTexture(),
+			game->dragDrop.other.ftReturnOneEnviPos(), 0, 1, WHITE);	// Others
 	}
 
 	DrawText("Platform", 150, 155, 20, DARKGRAY);
 	rec = {1321, 487, 154, 54};
 	if (CheckCollisionPointRec(rayPos, rec))
 	{
-		DrawTextureEx(game->dragDrop.platformSelect->ftReturnTexture(),
-			game->dragDrop.platformSelect->ftReturnPos(), 0, 1, WHITE); // Others
+		DrawTextureEx(game->dragDrop.platformSelect.ftReturnOneEnviTexture(),
+			game->dragDrop.platformSelect.ftReturnOneEnviPos(), 0, 1, WHITE); // Others
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
 			Texture2D	tex;
 			Vector2 pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
 			pos.x = (int)pos.x;
 			pos.y = (int)pos.y;
-			int nbr = game->nbrEnvi;
+			int nbr = blocks->ftReturnNbr();
 
 			std::string	name;
 			name = "Platform";
-			name.append(ft_ftoa(nbr, 0));
+			name.append(ft_ftoa(envItems->ftReturnEnviAllNbr(), 0));
 			name.erase(name.length() - 7);
-			envItems[nbr] = new EnvItems(pos, {244, 56}, 1, DARKGRAY, tex, nbr + 1, name);
-			game->nbrEnvi++;
+			envItems->ftInitEnvitem(pos, {244, 56}, 1, DARKGRAY, tex, envItems->ftReturnEnviAllNbr(), name);
 		}
 	}
 	else
 	{
-		DrawTextureEx(game->dragDrop.platform->ftReturnTexture(),
-			game->dragDrop.platform->ftReturnPos(), 0, 1, WHITE);	// Others
+		DrawTextureEx(game->dragDrop.platform.ftReturnOneEnviTexture(),
+			game->dragDrop.platform.ftReturnOneEnviPos(), 0, 1, WHITE);	// Others
 	}
 }
 

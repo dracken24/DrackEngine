@@ -1,7 +1,18 @@
 #include "../../../myIncludes/class2D/props.hpp"
-#include "../../../myIncludes/class2D/envitems.hpp"
 
 Props::Props(void)
+{
+	return ;
+}
+
+Props::Props(Vector2 pos, Vector2 size, int blocking, Color color,
+				Texture2D texture, int nbr, std::string name) :
+_rectangle({pos.x, pos.y, size.x, size.y}),
+_color(color),
+_texture(texture),
+_blocking(blocking),
+_name(name),
+_nbr(nbr)
 {
 	return ;
 }
@@ -17,162 +28,114 @@ Props::~Props(void)
 	return ;
 }
 
-/************************************** Gestion square props *****************************************/
-
-// Modify //
-
-void	Props::ftInitSquareProps(int nbr, std::string type)
+Props	&Props::operator=(Props const &rhs)
 {
-	if (type == "blocks")
+	if (this != &rhs)
 	{
-		this->_squareProps = new SquareProps[256];
-		this->_nbrSquare = 0;
+		this->_rectangle.x = rhs._rectangle.x;
+		this->_rectangle.y = rhs._rectangle.y;
+		this->_rectangle.width = rhs._rectangle.width;
+		this->_rectangle.height = rhs._rectangle.height;
+		this->_color = rhs._color;
+		this->_texture = rhs._texture;
+		this->_blocking = rhs._blocking;
+		this->_name = rhs._name;
+		this->_nbr = rhs._nbr;
+		this->_varChar = rhs._varChar;
 	}
-	else if (type == "plateforms")
-	{
-		this->_platforms = new SquareProps[256];
-	}
+	return (*this);
 }
 
-void	Props::ftKillSquareProps(void)
+/*******************************************************************************/
+
+// Modification //
+void	Props::ftSetPos(Vector2 pos)
 {
-	delete this->_squareProps;
+	this->_rectangle.x = pos.x;
+	this->_rectangle.y = pos.y;
 }
 
-void	Props::ftDeleteVarsChar(int nbr)
+void	Props::ftSetSize(Vector2 size)
 {
-	this->_squareProps[nbr].ftDeleteVars();
+	this->_rectangle.width = size.x;
+	this->_rectangle.height = size.y;
 }
 
-void	Props::ftAddProps(Vector2 pos, Vector2 size, Color color, bool blocking,
-			int nbr, std::string type, std::string name)
+void	Props::ftMovePos(Vector2 pos)
 {
-	if (type == "blocks")
-	{
-		this->_squareProps[nbr].ftInitSquareprops(pos, size, color, blocking, nbr, name);
-		this->_squareProps[nbr].ftInitVars();
-		this->_nbrSquare = this->_nbrSquare + 1;
-	}
-	else if (type == "plateforms")
-	{
-		this->_platforms[nbr].ftInitSquareprops(pos, size, color, blocking, nbr, name);
-		this->_squareProps[nbr].ftInitVars();
-	}
+	this->_rectangle.x += pos.x;
+	this->_rectangle.y += pos.y;
 }
 
-void	Props::ftChangeNbr(int nbr)
+void	Props::ftChangeName(std::string name)
 {
-	this->_nbrSquare = nbr;
+	this->_name = name;
 }
 
-void	Props::ftSetPosSquareProp(Vector2 pos, int nbr)
+void	Props::ftDeleteVarsChar(void)
 {
-	this->_squareProps[nbr].ftInitPosition(pos);
+	free(this->_varChar.propPosX);
+	free(this->_varChar.propPosY);
+	free(this->_varChar.propWidth);
+	free(this->_varChar.propHeight);
 }
 
-void	Props::ftSetSpeed(float speed, int nbr)
+void	Props::ftChangeColor(Color color)
 {
-	this->_squareProps[nbr].ftSetSpeed(speed);
+	this->_color = color;
 }
 
-void	Props::ftMoveSquareProp(Vector2 pos, int nbr)
-{
-	this->_squareProps[nbr].ftMovePosition(pos.x, pos.y);
-}
-
-void	Props::ftSetSpeedModifier(float speed, char c, int nbr)
-{
-	
-	if (c == 'X')
-		this->_squareProps[nbr].ftSetSpeedModifier(speed, c);
-	else if (c == 'Y')
-		this->_squareProps[nbr].ftSetSpeedModifier(speed, c);
-}
-
-void	Props::ftChangeSpeedModifier(float speed, char c, int nbr)
-{
-	if (c == 'X')
-		this->_squareProps[nbr].ftChangeSpeedModifier(speed, c);
-	else if (c == 'Y')
-		this->_squareProps[nbr].ftChangeSpeedModifier(speed, c);
-}
+/*************************************************************************************/
 
 // Return //
-
-Props		Props::ftReturnCopyProps(void)
+std::string	Props::ftReturnName(void) const
 {
-	Props  ret;
-	ret._squareProps = this->_squareProps;
-	ret._platforms = this->_platforms;
-	ret._nbrSquare = this->_nbrSquare;
-
-	return (ret);
+	return (this->_name);
 }
 
-Rectangle	Props::ftReturnRectangleSqPr(int nbr)
+Vector2		Props::ftReturnSize(void) const
 {
-	return (this->_squareProps[nbr].ftReturnRectangle());
+	return (Vector2{this->_rectangle.width, this->_rectangle.height});
 }
 
-Color	Props::ftReturnRecColorSqPr(int nbr)
+Vector2		Props::ftReturnPos(void) const
 {
-	return (this->_squareProps[nbr].ftReturnRecColor());
+	return (Vector2{this->_rectangle.x, this->_rectangle.y});
 }
 
-float	Props::ftReturnSpeed(int nbr) const
+Rectangle	Props::ftReturnRectangle(void) const
 {
-	return (this->_squareProps[nbr].ftReturnSpeed());
+	return (this->_rectangle);
 }
 
-SquareProps	*Props::ftReturnSquareProp(int nbr) const
+Texture2D	Props::ftReturnTexture(void) const
 {
-	return (&this->_squareProps[nbr]);
+	return (this->_texture);
 }
 
-int		Props::ftReturnNbr(void) const
+Color		Props::ftReturnColor(void) const
 {
-	return (this->_nbrSquare);
+	return (this->_color);
 }
 
-int	Props::ftReturnOneNbr(int	nbr) const
+int			Props::ftReturnBlocking(void) const
 {
-	return (this->_squareProps[nbr].ftReturnNbr());
+	return (this->_blocking);
 }
 
-float	Props::ftReturnSqurtPos(char c, int nbr) const
+int			Props::ftReturnNbr(void) const
 {
-	if (c == 'X')
-		return (this->_squareProps[nbr].ftReturnSqurtPos('X'));
-	else if (c == 'Y')
-		return (this->_squareProps[nbr].ftReturnSqurtPos('Y'));
-	return (0);
+	return (this->_nbr);
 }
 
-float	Props::ftReturnSqurtWorH(char c, int nbr) const
+VarChar		*Props::ftReturnVarChar(void)
 {
-	if (c == 'W')
-		return (this->_squareProps[nbr].ftReturnWideorHigh('W'));
-	else if (c == 'H')
-		return (this->_squareProps[nbr].ftReturnWideorHigh('H'));
-	return (0);
+	return (&this->_varChar);
 }
 
-float	Props::ftReturnSpeedModifier(char c, int nbr) const
-{
-	if (c == 'X')
-		return (this->_squareProps[nbr].ftReturnSpeedModifier('X'));
-	else if (c == 'Y')
-		return (this->_squareProps[nbr].ftReturnSpeedModifier('Y'));
-	return (0);
-}
+//***********************************************************************************//
 
-void		Props::ftChangeSquareName(int nbr, std::string name)
+void        Props::ftUnloadTexture(void)
 {
-	this->_squareProps[nbr].ftChangeName(name);
+    UnloadTexture(this->_texture);
 }
-std::string	Props::ftReturnSquareName(int nbr) const
-{
-	return (this->_squareProps[nbr].ftReturnName());
-}
-
-/***************************************** --------- ********************************************/

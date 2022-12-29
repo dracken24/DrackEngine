@@ -144,11 +144,11 @@ void	ftWitchPanelIsSelected(Game *game, Player *player, Menu *menu)
 					Color *colors = LoadImageColors(game->imgCercleChrom);
 					int index = ((mousePos.y - 140) * game->imgCercleChrom.height) + mousePos.x - 1330;
 					Color pixel = colors[index];
-					game->selected2D.prop->ftChangeColor(pixel);
+					game->selected2D.prop->ftInitColor(pixel);
 				}
 			}
 			DrawRectangle(38, 143, 68, 68, BLACK);
-			DrawRectangle(40, 145, 64, 64, game->selected2D.prop->ftReturnColor());
+			DrawRectangle(40, 145, 64, 64, game->selected2D.prop->ftReturnRecColor());
 		}
 		else if (game->selected2D.type == 3) // item
 		{
@@ -163,11 +163,11 @@ void	ftWitchPanelIsSelected(Game *game, Player *player, Menu *menu)
 					Color *colors = LoadImageColors(game->imgCercleChrom);
 					int index = ((mousePos.y - 140) * game->imgCercleChrom.height) + mousePos.x - 1330;
 					Color pixel = colors[index];
-					game->selected2D.item->ftChangeColor(pixel);
+					game->selected2D.item->color = pixel;
 				}
 			}
 			DrawRectangle(38, 143, 68, 68, BLACK);
-			DrawRectangle(40, 145, 64, 64, game->selected2D.item->ftReturnColor());
+			DrawRectangle(40, 145, 64, 64, game->selected2D.item->color);
 		}
 	}
 	else if (game->ctMenuUpButtons == 0)
@@ -177,8 +177,7 @@ void	ftWitchPanelIsSelected(Game *game, Player *player, Menu *menu)
 }
 
 //*** Draw a list of items in side up panel in list panel ***//
-void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
-			EnvItems **envItems, Camera2D *camera)
+void	ftDrawListPanel(Game *game, Player *player, Props *blocks, EnvItems *envItems, Camera2D *camera)
 {
 	if (game->ctMenuUpButtons == 2)
 	{
@@ -234,9 +233,9 @@ void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
 // Draw text for blocks in side up panel //
 
 		DrawText("--Blocks--", 10, 75 + mouseWheel, 16, PURPLE);
-		for (int i = 0; i < game->nbrSquare; i ++)
+		for (int i = 0; i < blocks->ftReturnNbr(); i ++)
 		{
-			name = blocks[i]->ftReturnName();
+			name = blocks->ftReturnSquareName(i);
 			tmp = name.c_str();
 			box = {(float)game->screenWidth - 300, 100 + nbr + mouseWheel + 40, 290, 12};
 
@@ -249,7 +248,7 @@ void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
 					game->selected2D.lastNbr = game->selected2D.nbr;
 					game->selected2D.type = 2;
 					game->selected2D.nbr = i;
-					game->selected2D.prop = blocks[i];
+					game->selected2D.prop = blocks->ftReturnSquareProp(i);
 					game->mouse.clickName = 600 + i;
 					game->colorCt = false;
 				}
@@ -266,9 +265,9 @@ void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
 
 		DrawText("--Platforms--", 10, 105 + nbr + mouseWheel, 16, PURPLE);
 		nbr += 25;
-		for (int i = 0; i < game->nbrEnvi; i++)
+		for (int i = 0; i < envItems->ftReturnEnviAllNbr(); i++)
 		{
-			name = envItems[i]->ftReturnName();
+			name = envItems->ftReturnName(i);
 			tmp = name.c_str();
 			box = {(float)game->screenWidth - 300, 147 + nbr + mouseWheel, 290, 12};
 
@@ -281,7 +280,7 @@ void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
 					game->selected2D.lastNbr = game->selected2D.nbr;
 					game->selected2D.type = 3;
 					game->selected2D.nbr = i;
-					game->selected2D.item = envItems[i];
+					game->selected2D.item = envItems->ftReturnEnvitemPtr(i);
 					game->colorCt = false;
 					game->mouse.clickName = 300 + i;
 				}
@@ -299,8 +298,7 @@ void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
 	}
 }
 
-void	ftSideUpMenu2D(Game *game, Player *player, SquareProps **blocks,
-			EnvItems **envItems, Menu *menu, MultipleCam2D *allCameras)
+void	ftSideUpMenu2D(Game *game, Player *player, Props *blocks, EnvItems *envItems, Menu *menu, MultipleCam2D *allCameras)
 {
 	ftWitchPanelIsSelected(game, player, menu);
 	ftDrawListPanel(game, player, blocks, envItems, &allCameras->camera01.camera);

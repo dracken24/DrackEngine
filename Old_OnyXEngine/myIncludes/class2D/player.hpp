@@ -11,7 +11,7 @@
 
 # define MAX_INPUT_CHARS 8
 
-typedef struct VarCharP
+typedef struct VarChar
 {
 	char *plyPosX;
 	char *plyPosY;
@@ -22,7 +22,7 @@ typedef struct VarCharP
 	char *collBoxWidth;
 	char *collBoxHeight;
 	int	nbr = 8;
-}	VarCharP;
+}	VarChar;
 
 typedef struct SelectionBoxPly
 {
@@ -33,7 +33,7 @@ typedef struct VarsSideDownPanel
 {
 	Rectangle	_playerBox;
 	Rectangle	collisionBox;
-	VarCharP		varChar;
+	VarChar		varChar;
 	Color		pixColor;
 }	VarsSideDownPanel;
 
@@ -54,7 +54,7 @@ class Player
 		SelectionBoxPly		*ftSelectionBoxPly(void);
 
 		Player		*ftReturnPlayer(void);
-		VarCharP	*ftReturnVarsChar(void);
+		VarChar		*ftReturnVarsChar(void);
 
 		Vector2		ftReturnPlayerPosition(void);
 		Vector2		*ftReturnPlayerPositionPtr(void);
