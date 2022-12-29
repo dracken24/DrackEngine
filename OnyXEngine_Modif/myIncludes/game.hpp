@@ -255,13 +255,13 @@ void	ftMoveScreen(Game *game, Camera2D *camera);
 
 /**----------------------------> Game <-----------------------------**/
 
-void 	ftUpdatePlayer(Game *game, Player *player, Menu *menu, EnvItems *SquarePropsenvItems, int envItemsLength, float delta);
+void 	ftUpdatePlayer(Game *game, Player *player, Menu *menu, EnvItems **envItems, int envItemsLength, float delta);
 void 	ftUpdateCameraCenter(Game *Game, Camera2D *camera, Player *player,
 			int envItemsLength, float delta, int width, int height);
 void	ftImgsGestion(Game *game, Player *player);
 
 void	ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera, SquareProps **SquarePropsblocks, EnvItems **SquarePropsenvItems);
-void	ftGestionProps(Game *game, SquareProps *SquarePropsblocks, EnvItems *SquarePropsenvItems, float deltaTime, int envItemsLength);
+void	ftGestionProps(Game *game, SquareProps **blocks, EnvItems **envItems, float deltaTime, int envItemsLength);
 void	ftKeyGestion(Game *game, Player *player, Menu *menu, float delta);
 
 void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,

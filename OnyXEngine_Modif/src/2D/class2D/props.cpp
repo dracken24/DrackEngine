@@ -67,7 +67,7 @@ void	Props::ftMovePos(Vector2 pos)
 	this->_rectangle.y += pos.y;
 }
 
-void	Props::ftChangeSquareName(std::string name)
+void	Props::ftChangeName(std::string name)
 {
 	this->_name = name;
 }
@@ -80,10 +80,15 @@ void	Props::ftDeleteVarsChar(void)
 	free(this->_varChar.propHeight);
 }
 
+void	Props::ftChangeColor(Color color)
+{
+	this->_color = color;
+}
+
 /*************************************************************************************/
 
 // Return //
-std::string	Props::ftReturnSquareName(void) const
+std::string	Props::ftReturnName(void) const
 {
 	return (this->_name);
 }
@@ -123,9 +128,9 @@ int			Props::ftReturnNbr(void) const
 	return (this->_nbr);
 }
 
-VarChar		Props::ftReturnVarChar(void)
+VarChar		*Props::ftReturnVarChar(void)
 {
-	return (this->_varChar);
+	return (&this->_varChar);
 }
 
 //***********************************************************************************//

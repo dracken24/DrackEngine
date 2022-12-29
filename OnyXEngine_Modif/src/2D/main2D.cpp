@@ -3,6 +3,7 @@
 #include "../../myIncludes/game.hpp"
 #include "../../myIncludes/class/buttons.hpp"
 #include <string.h>
+#include <stdlib.h>
 
 void	ftDeleteAndFree(Game *game, Player *player, SquareProps **blocks,
 			EnvItems **envItems, MultipleCam2D *allCameras);
@@ -10,10 +11,13 @@ void	ftDeleteAndFree(Game *game, Player *player, SquareProps **blocks,
 void	ftInitBlocks(Game *game, SquareProps **blocks, EnvItems **envItems)
 {
 	Texture tmp;
+	std::string name;
 
 	for (int i = 0; i < 5; i++)
 	{
-		blocks[i] = new SquareProps((Vector2){200 + (i * 50), 200}, (Vector2){24, 24}, 0, BLUE, tmp, i, "Block" + i);
+		name = "Block";
+		name.insert(name.length(), std::to_string(i));
+		blocks[i] = new SquareProps((Vector2){(float)(200 + (i * 50)), 200}, (Vector2){24, 24}, 0, BLUE, tmp, i, name);
 	}
 	game->nbrSquare = 5;
 
@@ -93,9 +97,9 @@ void	ftMode2D(Game *game, Menu *menu)
 	player->ftSetPosition((Vector2){500, 300});
 	player->ftInitVarChar();
 
-	SquareProps	**blocks;
+	SquareProps	*blocks[256];
 
-	EnvItems **envItems;
+	EnvItems *envItems[256];
 
 	game->imgCercleChrom = LoadImage("./imgs/wheelcolor.png");
 	game->textCercleChrom = LoadTexture("./imgs/wheelcolor.png");

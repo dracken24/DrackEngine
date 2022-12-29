@@ -31,23 +31,24 @@ class Props
 		void        ftSetPos(Vector2 pos);
 		void		ftSetSize(Vector2 size);
 		void        ftMovePos(Vector2 pos);
-		void		ftChangeSquareName(std::string name);
+		void		ftChangeName(std::string name);
 		void		ftDeleteVarsChar(void);
+		void		ftChangeColor(Color color);
 
 //************************************************************************//
 	// Return //
-		std::string	ftReturnSquareName(void) const;
+		std::string	ftReturnName(void) const;
 		Vector2		ftReturnSize(void) const;
 		Vector2		ftReturnPos(void) const;
 		Rectangle   ftReturnRectangle(void) const;
 		Texture2D   ftReturnTexture(void) const;
 		Color       ftReturnColor(void) const;
-		VarChar		ftReturnVarChar(void);
+		VarChar		*ftReturnVarChar(void);
 
 		int			ftReturnBlocking(void) const;
 		int         ftReturnNbr(void) const;
 
-		void        Props::ftUnloadTexture(void);
+		void        ftUnloadTexture(void);
 
 	protected:
 		string		_name;

@@ -139,22 +139,22 @@ void	ftUseGravity(SquareProps *prop, EnvItems **envItems, float delta, int envIt
 {
 	int 		hitObstacle = 0;
 	Rectangle	tmpProp = prop->ftReturnRectangle();
-	Vector2 *p	= &prop->ftReturnPos();
+	Vector2 p	= prop->ftReturnPos();
 
 	for (int i = 0; i < envItemsLength; i++)
 	{
 		EnvItems *ei(envItems[i]);
 		Rectangle rect = ei->ftReturnRectangle();
 		if (ei->ftReturnBlocking() &&
-			rect.x - tmpProp.width <= p->x &&
-			rect.x + rect.width >= p->x &&
-			rect.y - tmpProp.height >= p->y &&
-			rect.y - tmpProp.height<= p->y + prop->ftReturnSpeed() * delta)
+			rect.x - tmpProp.width <= p.x &&
+			rect.x + rect.width >= p.x &&
+			rect.y - tmpProp.height >= p.y &&
+			rect.y - tmpProp.height<= p.y + prop->ftReturnSpeed() * delta)
 		{
 			hitObstacle = 1;
 			prop->ftSetSpeed(prop->ftReturnSpeed() * -1 / 2); // Rebound on ground
-			p->y = rect.y;
-			prop->ftSetPos((Vector2){tmpProp.x, p->y - tmpProp.height});
+			p.y = rect.y;
+			prop->ftSetPos((Vector2){tmpProp.x, p.y - tmpProp.height});
 			prop->ftSetSpeedModifier(prop->ftReturnSpeedModifier('X') / 1.25, 'X'); // Friction in x on ground
 		}
 		else if (CheckCollisionRecs(rect, tmpProp) && ei->ftReturnBlocking())

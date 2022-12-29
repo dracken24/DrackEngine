@@ -2,10 +2,10 @@
 
 void	ftChangeSidedownPanel(Game *game, Camera2D *camera);
 void	ftDrawSideDownButtons(Game *game);
-void	ftDragAndDrop(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras);
+void	ftDragAndDrop(Game *game, SquareProps **blocks, EnvItems **envItems, MultipleCam2D *allCameras);
 
 //*** All functions for side down panel ***//
-void	ftSideDownMenu2D(Game *game, Props *blocks, EnvItems *envItems, MultipleCam2D *allCameras)
+void	ftSideDownMenu2D(Game *game, SquareProps **blocks, EnvItems **envItems, MultipleCam2D *allCameras)
 {
 	ftDrawSideDownButtons(game);
 	ftChangeSidedownPanel(game, &allCameras->camera02.camera);

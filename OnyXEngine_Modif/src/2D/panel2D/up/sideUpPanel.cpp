@@ -56,7 +56,7 @@ void	ftDrawMenuUp(Game *game)
 }
 
 //*** Control buttons side up panel ***//
-void	ftUpMenu2D(Game *game, Player *player, Props *blocks, EnvItems *envItems, Camera2D *camera)
+void	ftUpMenu2D(Game *game, Player *player, SquareProps **blocks, EnvItems **envItems, Camera2D *camera)
 {
 	ftSelectItemsTop(game, camera);
 	ftDrawMenuUp(game);
