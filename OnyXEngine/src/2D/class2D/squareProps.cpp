@@ -10,10 +10,10 @@ SquareProps::SquareProps(Vector2 pos, Vector2 size, int blocking, Color color,
 	_blocking = blocking;
 	_name = name;
 	_varChar.nbr = 4;
-	_varChar.propPosX = (char *)malloc(sizeof(char) * 10);
-	_varChar.propPosY = (char *)malloc(sizeof(char) * 10);
-	_varChar.propWidth = (char *)malloc(sizeof(char) * 10);
-	_varChar.propHeight = (char *)malloc(sizeof(char) * 10);
+	_varChar.propPosX = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosY = (char *)malloc(sizeof(char) * 9);
+	_varChar.propWidth = (char *)malloc(sizeof(char) * 9);
+	_varChar.propHeight = (char *)malloc(sizeof(char) * 9);
 	_varChar.propPosX[0] = '\0';
 	_varChar.propPosY[0] = '\0';
 	_varChar.propWidth[0] = '\0';

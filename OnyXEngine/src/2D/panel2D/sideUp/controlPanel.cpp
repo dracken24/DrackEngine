@@ -103,25 +103,6 @@ void	ftMouseControl(Game *Game)
 		SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 	if (mouseOnText)
 		framesCounter++;
-
-	// Draw on screen
-	// textBox1 = {125, 36, 100, 20};
-	// DrawText("Blocks Rotation:", 10, 40, 14, LIGHTGRAY);
-	// DrawRectangleRec(textBox1, LIGHTGRAY);
-	// if (mouseOnText)
-	// 	DrawRectangleLines((int)textBox1.x, (int)textBox1.y, (int)textBox1.width, (int)textBox1.height, RED);
-	// else
-	// 	DrawRectangleLines((int)textBox1.x, (int)textBox1.y, (int)textBox1.width, (int)textBox1.height, LIGHTGRAY);
-	// DrawText(Game->rotation, (int)textBox1.x + 5 , (int)textBox1.y + 4, 14, MAROON);
-	// if (mouseOnText)
-	// {
-	// 	if (letterCount < MAX_INPUT_CHARS)
-	// 	{
-	// 		// Draw blinking underscore char
-	// 		if (((framesCounter / 20) % 2) == 0)
-	// 			DrawText("_", (int)textBox1.x + MeasureText(Game->rotation, 14), (int)textBox1.y + 12, 14, MAROON);
-	// 	}
-	// }
 }
 
 //*** For change item color in side up panel ***//
