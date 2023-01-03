@@ -6,7 +6,7 @@ Props::Props(void)
 }
 
 Props::Props(Vector2 pos, Vector2 size, int blocking, Color color,
-				Texture2D texture, int nbr, std::string name) :
+				Texture2D texture, int nbr, string name) :
 _rectangle({pos.x, pos.y, size.x, size.y}),
 _color(color),
 _texture(texture),
@@ -67,7 +67,7 @@ void	Props::ftMovePos(Vector2 pos)
 	this->_rectangle.y += pos.y;
 }
 
-void	Props::ftChangeName(std::string name)
+void	Props::ftChangeName(string name)
 {
 	this->_name = name;
 }
