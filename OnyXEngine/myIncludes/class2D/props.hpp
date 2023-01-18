@@ -20,24 +20,24 @@ class Props
 	public:
 		Props(void);
 		Props(Vector2 pos, Vector2 size, int blocking, Color color,
-				Texture2D texture, int nbr, string name);
+				Texture2D texture, int nbr, std::string name);
 		Props(Props const &src);
 		~Props(void);
 
 		Props		&operator=(Props const &rhs);
 
 //************************************************************************//
-	// Modification //
+	// Setters //
 		void        ftSetPos(Vector2 pos);
 		void		ftSetSize(Vector2 size);
 		void        ftMovePos(Vector2 pos);
-		void		ftChangeName(string name);
+		void		ftChangeName(std::string name);
 		void		ftDeleteVarsChar(void);
 		void		ftChangeColor(Color color);
 
 //************************************************************************//
-	// Return //
-		string		ftReturnName(void) const;
+	// Getters //
+		std::string	ftReturnName(void) const;
 		Vector2		ftReturnSize(void) const;
 		Vector2		ftReturnPos(void) const;
 		Rectangle   ftReturnRectangle(void) const;

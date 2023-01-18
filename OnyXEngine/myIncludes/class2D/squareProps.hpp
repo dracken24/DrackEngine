@@ -14,7 +14,7 @@ class SquareProps : public Props
 
 		SquareProps	&operator=(SquareProps const &rhs);
 //**************************************************************//
-	// Modification //
+	// Setters //
 		void		ftSetSpeedModifier(float speed, char c);
 		void		ftSetSpeedX(float speed);
 		void		ftSetSpeed(float speed);
@@ -24,13 +24,13 @@ class SquareProps : public Props
 		void		ftChangeSpeed(float speed);
 
 //**************************************************************//
-	// Return //
+	// Getters //
 		float		ftReturnSpeedModifier(char c) const;
 		float		ftReturnSpeedX(char c) const;
 		float		ftReturnSpeed(void) const;
 
 
-	protected:
+	private:
 		Vector2				_speedModifier;
 		float				_speed;
 		float				_speedX;
