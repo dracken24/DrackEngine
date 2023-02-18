@@ -1,19 +1,18 @@
 #include "../../../myIncludes/game.hpp"
 
 void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
-	std::vector<SquareProps> *blocks, EnvItems **envItems)
+	std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems)
 {
 	static int lastAction;
 	static int cameraOption = 0;
 
-	int envItemsLength = game->nbrEnvi;
 	lastAction = player->ftReturnCt();
 	if (game->ct_action >= 60 || lastAction != player->ftReturnCt())
 		game->ct_action = 0;
 	game->delta = GetFrameTime();
 
-	game->cameraUpdaters[cameraOption](game, camera, player, envItemsLength, game->delta, game->screenWidth, game->screenHeight);
-	ftUpdatePlayer(game, player, menu, envItems, envItemsLength, game->delta);
+	game->cameraUpdaters[cameraOption](game, camera, player, envItems->size(), game->delta, game->screenWidth, game->screenHeight);
+	ftUpdatePlayer(game, player, menu, envItems, envItems->size(), game->delta);
 	if (lastAction != player->ftReturnCt())
 		game->ct_action = 0;
 
@@ -32,7 +31,7 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 
 	for (int i = 0; i < blocks->size(); i++)
 	{
-		ftUseGravity(&blocks->at(i), envItems, game->delta, envItemsLength);
+		ftUseGravity(&blocks->at(i), envItems, game->delta, envItems->size());
 	}
 
 	/********************************************** Collision **************************************************/
@@ -41,7 +40,7 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 	Vector2		AdjCollBox = player->ftReturnAjustCollisionBox();
 	Vector2		plyPos = player->ftReturnPlayerPosition();
 
-	ftGestionProps(game, blocks, envItems, game->delta, envItemsLength);
+	ftGestionProps(game, blocks, envItems, game->delta, envItems->size());
 	player->ftSetCollosionBox((Vector2){plyPos.x + AdjCollBox.x, plyPos.y - AdjCollBox.y},
 							  (Vector2){plyCollBox.width, plyCollBox.height}, (Vector2){AdjCollBox.x, AdjCollBox.y});
 
@@ -99,13 +98,13 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 /*******************************************************************************************
 	Gestion Des objets (Plateforms wlakable, objets du decor ...)
 *******************************************************************************************/
-void	ftGestionProps(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, float deltaTime, int envItemsLength)
+void	ftGestionProps(Game *game, std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems, float deltaTime, int envItemsLength)
 {
 	static float k;
 	if (!k || k > 360)
 		k = 0;
 	for (int i = 0; i < envItemsLength; i++)
-		DrawRectangleRec(envItems[i]->ftReturnRectangle(), envItems[i]->ftReturnColor());
+		DrawRectangleRec(envItems->at(i).ftReturnRectangle(), envItems->at(i).ftReturnColor());
 	
 	for (int i = 0; i < blocks->size(); i++)
 	{
@@ -120,7 +119,7 @@ void	ftGestionProps(Game *game, std::vector<SquareProps> *blocks, EnvItems **env
 /******************************************************************************************/
 
 void	ftUpdatePlayer(Game *game, Player *player, Menu *menu,
-			EnvItems **envItems, int envItemsLength, float delta)
+			std::vector<EnvItems> *envItems, int envItemsLength, float delta)
 {
 	player->ftChangeLastY(player->ftReturnPlayerPositionY());
 	ftUsePlayerGravity(player, envItems, delta, envItemsLength);

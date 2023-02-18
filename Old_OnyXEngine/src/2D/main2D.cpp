@@ -6,9 +6,9 @@
 #include <stdlib.h>
 
 void	ftDeleteAndFree(Game *game, Player *player, std::vector<SquareProps> *blocks,
-			EnvItems **envItems, MultipleCam2D *allCameras);
+			std::vector<EnvItems> *envItems, MultipleCam2D *allCameras);
 
-void	ftInitBlocks(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems)
+void	ftInitBlocks(Game *game, std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems)
 {
 	Texture tmp;
 	std::string name;
@@ -20,11 +20,10 @@ void	ftInitBlocks(Game *game, std::vector<SquareProps> *blocks, EnvItems **envIt
 		blocks->push_back(SquareProps((Vector2){(float)(200 + (i * 50)), 200}, (Vector2){24, 24}, 0, BLUE, tmp, i, name));
 	}
 
-	envItems[0] = new EnvItems((Vector2){0, 400}, (Vector2){1000, 200}, 1, GRAY, tmp, 1, "Platform0");
-	envItems[1] = new EnvItems((Vector2){300, 150}, (Vector2){400, 10}, 1, GRAY, tmp, 2, "Platform1");
-	envItems[2] = new EnvItems((Vector2){250, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 3, "Platform2");
-	envItems[3] = new EnvItems((Vector2){650, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 4, "Platform3");
-	game->nbrEnvi = 4;
+	envItems->push_back(EnvItems((Vector2){0, 400}, (Vector2){1000, 200}, 1, GRAY, tmp, 0, "Platform0"));
+	envItems->push_back(EnvItems((Vector2){300, 150}, (Vector2){400, 10}, 1, GRAY, tmp, 1, "Platform1"));
+	envItems->push_back(EnvItems((Vector2){250, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 2, "Platform2"));
+	envItems->push_back(EnvItems((Vector2){650, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 3, "Platform3"));
 }
 
 void	ftInitButtons(Game *game)
@@ -96,13 +95,13 @@ void	ftMode2D(Game *game, Menu *menu)
 	player->ftInitVarChar();
 
 	std::vector<SquareProps> blocks;
-	EnvItems *envItems[256];
+	std::vector<EnvItems> envItems;
 
 	game->imgCercleChrom = LoadImage("./imgs/wheelcolor.png");
 	game->textCercleChrom = LoadTexture("./imgs/wheelcolor.png");
 	game->rectCercleChrom = {0, 0, 150, 150};
 
-	ftInitBlocks(game, &blocks, envItems);
+	ftInitBlocks(game, &blocks, &envItems);
 	ftInitTextBoxSideUp(game);
 
 //--------------------------------------------------------------------------------------//
@@ -122,6 +121,7 @@ void	ftMode2D(Game *game, Menu *menu)
 	int cameraUpdatersLength = sizeof(1) / sizeof(game->cameraUpdaters[0]);
 	game->posCam = player->ftReturnPlayerPosition();
 
+	// std::cout << T_RED << "Size: " << envItems.size() << T_RESET << std::endl;
 	// Main game loop
 	while (!WindowShouldClose())
 	{
@@ -148,37 +148,28 @@ void	ftMode2D(Game *game, Menu *menu)
 						{
 							case 1:
 								allCameras->camera00.camera.target = game->posCam;
-								ftRunBuildMode(game, player, envItems, &blocks, &allCameras->camera00.camera);
-								ftControlItems(game, player, envItems, &blocks);
+								ftRunBuildMode(game, player, &envItems, &blocks, &allCameras->camera00.camera);
+								ftControlItems(game, player, &envItems, &blocks);
 								break;
 							case -1:
-								int tmpEnvi = game->nbrEnvi;
-
 								Menu			tmpMenu;
 								Player			tmpPlayer;
-								EnvItems		*tmpEnvItems[256];
 								MultipleCam2D	tmpAllCameras;
 
 								tmpMenu = *menu;
 								tmpPlayer = *player;
-								for (int i = 0; i < game->nbrEnvi; i++)
-								{
-									tmpEnvItems[i] = envItems[i];
-								}
 
 								tmpAllCameras = *allCameras;
 								allCameras->camera00.camera.target = player->ftReturnPlayerPosition();
 
-								ftRunGameMode(game, tmpMenu, tmpPlayer, tmpEnvItems,
+								ftRunGameMode(game, tmpMenu, tmpPlayer, envItems,
 									blocks, tmpAllCameras);
 									
-								game->nbrEnvi = tmpEnvi;
 								game->ctMode = 1;
 								break;
 						}
 					break;
 				}
-
 			EndMode2D();
 		EndTextureMode();
 
@@ -191,7 +182,7 @@ void	ftMode2D(Game *game, Menu *menu)
 
 				if (menu->ftReturnStart() == 2)
 				{
-					ftSideUpMenu2D(game, player, &blocks, envItems, menu, allCameras);
+					ftSideUpMenu2D(game, player, &blocks, &envItems, menu, allCameras);
 				}
 
 			EndMode2D();
@@ -206,7 +197,7 @@ void	ftMode2D(Game *game, Menu *menu)
 
 				if (menu->ftReturnStart() == 2)
 				{
-					ftSideDownMenu2D(game, &blocks, envItems, allCameras);
+					ftSideDownMenu2D(game, &blocks, &envItems, allCameras);
 				}
 
 			EndMode2D();
@@ -219,7 +210,7 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(DARKGRAY1);
 			BeginMode2D(allCameras->camera03.camera);
 
-				ftUpMenu2D(game, player, &blocks, envItems, &allCameras->camera03.camera);
+				ftUpMenu2D(game, player, &blocks, &envItems, &allCameras->camera03.camera);
 
 			EndMode2D();
 		EndTextureMode();
@@ -243,11 +234,11 @@ void	ftMode2D(Game *game, Menu *menu)
 //--------------------------------------------------------------------------------------//
 	// CloseWindow();
 
-	ftDeleteAndFree(game, player, &blocks, envItems, allCameras);
+	ftDeleteAndFree(game, player, &blocks, &envItems, allCameras);
 }
 
 void	ftDeleteAndFree(Game *game, Player *player, std::vector<SquareProps> *blocks,
-			EnvItems **envItems, MultipleCam2D *allCameras)
+			std::vector<EnvItems> *envItems, MultipleCam2D *allCameras)
 {
 	UnloadRenderTexture(allCameras->camera00.textForCam);
 	UnloadRenderTexture(allCameras->camera00.textForCam);
@@ -256,24 +247,19 @@ void	ftDeleteAndFree(Game *game, Player *player, std::vector<SquareProps> *block
 
 	player->ftDeleteVarChar();
 	blocks->clear();
+	envItems->clear();
 
-	for (int i = 0; i < game->nbrEnvi; i++)
+	switch (player->ftReturnNbr())
 	{
-		envItems[i]->ftDeleteVarsChar();
-		delete envItems[i];
-	}
-
-	if (player->ftReturnNbr() == 1)
-	{
-		player->ftDestroyImgs1();
-	}
-	if (player->ftReturnNbr() == 2)
-	{
-		player->ftDestroyImgs2();
-	}
-	if (player->ftReturnNbr() == 3)
-	{
-		player->ftDestroyImgs3();
+		case 1:
+			player->ftDestroyImgs1();
+			break;
+		case 2:
+			player->ftDestroyImgs2();
+			break;
+		case 3:
+			player->ftDestroyImgs3();
+			break;
 	}
 
 	UnloadImage(game->imgCercleChrom);
@@ -329,7 +315,7 @@ void	ftDeleteAndFree(Game *game, Player *player, std::vector<SquareProps> *block
 }
 
 //*** Move items on Build Mode ***/
-void	ftControlItems(Game *game, Player *player, EnvItems **envItems, std::vector<SquareProps> *blocks)
+void	ftControlItems(Game *game, Player *player, std::vector<EnvItems> *envItems, std::vector<SquareProps> *blocks)
 {
 	Vector2 mousePos = GetMousePosition();
 	Vector2 lastPos = game->mouse.pos;

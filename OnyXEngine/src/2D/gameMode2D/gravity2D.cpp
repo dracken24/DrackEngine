@@ -81,14 +81,14 @@ void	ftGravityGestion(Game *Game, Player *player, std::vector<SquareProps> *bloc
 	ftGravityX(Game, player, blocks);
 }
 
-void	ftUsePlayerGravity(Player *player, EnvItems **envItems, float delta, int envItemsLength)
+void	ftUsePlayerGravity(Player *player, std::vector<EnvItems> *envItems, float delta, int envItemsLength)
 {
 	int			hitObstacle = 0;
 	Rectangle	tmpCollBox = player->ftReturnCollisionBox();
 
 	for (int i = 0; i < envItemsLength; i++)
 	{
-		EnvItems	*ei(envItems[i]);
+		EnvItems	*ei(&envItems->at(i));
 		Rectangle	rect = ei->ftReturnRectangle();
 		Vector2		*p = player->ftReturnPlayerPositionPtr();
 
@@ -135,7 +135,7 @@ void	ftUsePlayerGravity(Player *player, EnvItems **envItems, float delta, int en
 	}
 }
 
-void	ftUseGravity(SquareProps *prop, EnvItems **envItems, float delta, int envItemsLength)
+void	ftUseGravity(SquareProps *prop, std::vector<EnvItems> *envItems, float delta, int envItemsLength)
 {
 	int 		hitObstacle = 0;
 	Rectangle	tmpProp = prop->ftReturnRectangle();
@@ -143,7 +143,7 @@ void	ftUseGravity(SquareProps *prop, EnvItems **envItems, float delta, int envIt
 
 	for (int i = 0; i < envItemsLength; i++)
 	{
-		EnvItems *ei(envItems[i]);
+		EnvItems *ei(&envItems->at(i));
 		Rectangle rect = ei->ftReturnRectangle();
 		if (ei->ftReturnBlocking() &&
 			rect.x - tmpProp.width <= p.x &&

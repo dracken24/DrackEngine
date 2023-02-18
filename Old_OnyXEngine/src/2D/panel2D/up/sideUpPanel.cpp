@@ -57,7 +57,7 @@ void	ftDrawMenuUp(Game *game)
 
 //*** Control buttons side up panel ***//
 void	ftUpMenu2D(Game *game, Player *player, std::vector<SquareProps> *blocks,
-	EnvItems **envItems, Camera2D *camera)
+	std::vector<EnvItems> *envItems, Camera2D *camera)
 {
 	ftSelectItemsTop(game, camera);
 	ftDrawMenuUp(game);

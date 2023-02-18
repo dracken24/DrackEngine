@@ -159,7 +159,7 @@ void	ftWitchPanelIsSelected(Game *game, Player *player, Menu *menu)
 
 //*** Draw a list of items in side up panel in list panel ***//
 void	ftDrawListPanel(Game *game, Player *player, std::vector<SquareProps> *blocks,
-			EnvItems **envItems, Camera2D *camera)
+			std::vector<EnvItems> *envItems, Camera2D *camera)
 {
 	if (game->ctMenuUpButtons == 2)
 	{
@@ -247,9 +247,9 @@ void	ftDrawListPanel(Game *game, Player *player, std::vector<SquareProps> *block
 
 		DrawText("--Platforms--", 10, 105 + nbr + mouseWheel, 16, PURPLE);
 		nbr += 25;
-		for (int i = 0; i < game->nbrEnvi; i++)
+		for (int i = 0; i < envItems->size(); i++)
 		{
-			name = envItems[i]->ftReturnName();
+			name = envItems->at(i).ftReturnName();
 			tmp = name.c_str();
 			box = {(float)game->screenWidth - 300, 147 + nbr + mouseWheel, 290, 12};
 
@@ -262,7 +262,7 @@ void	ftDrawListPanel(Game *game, Player *player, std::vector<SquareProps> *block
 					game->selected2D.lastNbr = game->selected2D.nbr;
 					game->selected2D.type = 3;
 					game->selected2D.nbr = i;
-					game->selected2D.item = envItems[i];
+					game->selected2D.item = &envItems->at(i);
 					game->colorCt = false;
 					game->mouse.clickName = 300 + i;
 				}
@@ -281,7 +281,7 @@ void	ftDrawListPanel(Game *game, Player *player, std::vector<SquareProps> *block
 }
 
 void	ftSideUpMenu2D(Game *game, Player *player, std::vector<SquareProps> *blocks,
-			EnvItems **envItems, Menu *menu, MultipleCam2D *allCameras)
+			std::vector<EnvItems> *envItems, Menu *menu, MultipleCam2D *allCameras)
 {
 	ftWitchPanelIsSelected(game, player, menu);
 	ftDrawListPanel(game, player, blocks, envItems, &allCameras->camera01.camera);

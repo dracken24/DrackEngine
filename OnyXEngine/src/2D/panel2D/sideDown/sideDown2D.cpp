@@ -2,10 +2,10 @@
 
 void	ftChangeSidedownPanel(Game *game, Camera2D *camera);
 void	ftDrawSideDownButtons(Game *game);
-void	ftDragAndDrop(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, MultipleCam2D *allCameras);
+void	ftDragAndDrop(Game *game, std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems, MultipleCam2D *allCameras);
 
 //*** All functions for side down panel ***//
-void	ftSideDownMenu2D(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, MultipleCam2D *allCameras)
+void	ftSideDownMenu2D(Game *game, std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems, MultipleCam2D *allCameras)
 {
 	ftDrawSideDownButtons(game);
 	ftChangeSidedownPanel(game, &allCameras->camera02.camera);
@@ -25,7 +25,7 @@ void	ftSideDownMenu2D(Game *game, std::vector<SquareProps> *blocks, EnvItems **e
 }
 
 //*** Draw shapes for drag and drop ***//
-void	ftDragAndDrop(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, MultipleCam2D *allCameras)
+void	ftDragAndDrop(Game *game, std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems, MultipleCam2D *allCameras)
 {
 	Vector2 mousePos = game->mouse.pos;
 	Vector2 rayPos = GetScreenToWorld2D(mousePos, allCameras->camera02.camera);
@@ -99,27 +99,23 @@ void	ftDragAndDrop(Game *game, std::vector<SquareProps> *blocks, EnvItems **envI
 	if (CheckCollisionPointRec(rayPos, rec))
 	{
 		DrawTextureEx(game->dragDrop.platformSelect->ftReturnTexture(),
-			game->dragDrop.platformSelect->ftReturnPos(), 0, 1, WHITE); // Others
+			game->dragDrop.platformSelect->ftReturnPos(), 0, 1, WHITE); // Platforms
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
 			Texture2D	tex;
 			Vector2 pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
-			pos.x = (int)pos.x;
-			pos.y = (int)pos.y;
-			int nbr = game->nbrEnvi;
 
 			std::string	name;
 			name = "Platform";
-			name.append(ft_ftoa(nbr, 0));
-			name.erase(name.length() - 7);
-			envItems[nbr] = new EnvItems(pos, {244, 56}, 1, DARKGRAY, tex, nbr + 1, name);
-			game->nbrEnvi++;
+
+			name.insert(name.length(), std::to_string(envItems->size()));
+			envItems->push_back(EnvItems(pos, {244, 56}, 1, DARKGRAY, tex, envItems->size() + 1, name));
 		}
 	}
 	else
 	{
 		DrawTextureEx(game->dragDrop.platform->ftReturnTexture(),
-			game->dragDrop.platform->ftReturnPos(), 0, 1, WHITE);	// Others
+			game->dragDrop.platform->ftReturnPos(), 0, 1, WHITE);	// Platforms
 	}
 }
 

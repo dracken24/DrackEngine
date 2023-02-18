@@ -2,7 +2,7 @@
 
 //*** If not selected, select item on build mode ***//
 void	ftSelectItems(Game *game, Player *player, Camera2D *camera,
-			EnvItems **envItems, std::vector<SquareProps> *blocks)
+			std::vector<EnvItems> *envItems, std::vector<SquareProps> *blocks)
 {
 	Vector2 mousePos = game->mouse.pos;
 	Vector2 rayPos = GetScreenToWorld2D(mousePos, *camera);
@@ -14,9 +14,9 @@ void	ftSelectItems(Game *game, Player *player, Camera2D *camera,
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && game->mouse.pos.x < game->screenWidth - 300 && game->mouse.pos.y > 40)
 	{
 		game->selected2D.lastNbr = game->selected2D.nbr;
-		for (int i = 0; i < game->nbrEnvi; i++) // items
+		for (int i = 0; i < envItems->size(); i++) // items
 		{ 
-			Rectangle item = envItems[i]->ftReturnRectangle();
+			Rectangle item = envItems->at(i).ftReturnRectangle();
 			if (CheckCollisionPointRec(rayPos, item))
 			{
 				game->selected2D.lastType = game->selected2D.type;
@@ -24,7 +24,7 @@ void	ftSelectItems(Game *game, Player *player, Camera2D *camera,
 				game->selected2D.lastNbr = game->selected2D.nbr;
 				game->selected2D.type = 3;
 				game->selected2D.nbr = i;
-				game->selected2D.item = envItems[i];
+				game->selected2D.item = &envItems->at(i);
 
 				game->mouse.clickName = 300 + i;
 				game->colorCt = false;
@@ -99,7 +99,7 @@ void ftMoveScreen(Game *game, Camera2D *camera)
 }
 
 //*** Main fonction for build mode ***//
-void ftRunBuildMode(Game *game, Player *player, EnvItems **envItems, std::vector<SquareProps> *blocks, Camera2D *camera)
+void ftRunBuildMode(Game *game, Player *player, std::vector<EnvItems> *envItems, std::vector<SquareProps> *blocks, Camera2D *camera)
 {
 	ftMoveScreen(game, camera);
 
@@ -108,11 +108,11 @@ void ftRunBuildMode(Game *game, Player *player, EnvItems **envItems, std::vector
 }
 
 //*** Draw all item on screen in buils mode, player included ***//
-void ftDrawAll(Game *game, Player *player, EnvItems **envItems, std::vector<SquareProps> *blocks)
+void ftDrawAll(Game *game, Player *player, std::vector<EnvItems> *envItems, std::vector<SquareProps> *blocks)
 {
-	for (int i = 0; i < game->nbrEnvi; i++)
+	for (int i = 0; i < envItems->size(); i++)
 	{
-		DrawRectanglePro(envItems[i]->ftReturnRectangle(), {0, 0}, 0, envItems[i]->ftReturnColor());
+		DrawRectanglePro(envItems->at(i).ftReturnRectangle(), {0, 0}, 0, envItems->at(i).ftReturnColor());
 	}
 
 	for (int i = 0; i < blocks->size(); i++)

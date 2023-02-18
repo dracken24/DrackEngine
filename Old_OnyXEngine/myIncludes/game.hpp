@@ -205,7 +205,7 @@ class Game
 		int         ct_action = 0;
 		int			ctMode = 1;
 		// int			nbrSquare = 0;
-		int			nbrEnvi = 0;
+		// int			nbrEnvi = 0;
 
 		Mouse			mouse;
 		Font			font1;
@@ -249,42 +249,41 @@ void	ftInitTextBoxSideUp(Game *game);
 
 /**----------------------->> Control Panel <<-----------------------**/
 
-void	ftControlItems(Game *game, Player *player, EnvItems **envItems, std::vector<SquareProps> *blocks);
-void	ftSideUpMenu2D(Game *game, Player *player, std::vector<SquareProps> *blocks, EnvItems **envItems, Menu *menu, MultipleCam2D *allCameras);
+void	ftControlItems(Game *game, Player *player, std::vector<EnvItems> *envItems, std::vector<SquareProps> *blocks);
+void	ftSideUpMenu2D(Game *game, Player *player, std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems, Menu *menu, MultipleCam2D *allCameras);
 void	ftSideUpControlMenu2D(Game *game, Player *player, Menu *menu);
-void	ftSideDownMenu2D(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, MultipleCam2D *allCameras);
+void	ftSideDownMenu2D(Game *game, std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems, MultipleCam2D *allCameras);
 void	ftSelectItemsTop(Game *game, Camera2D *camera);
-void	ftUpMenu2D(Game *game, Player *player, std::vector<SquareProps> *blocks, EnvItems **envItems, Camera2D *camera);
+void	ftUpMenu2D(Game *game, Player *player, std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems, Camera2D *camera);
 void	ftDrawVarsRiDownPanel(Game *game);
 void	ftDrawBoarders(Game *game);
 
 /**-------------------------> Build Game <--------------------------**/
 
-// void	ftRunBuildMode(Game *Game,Stop *buildGame);
-void	ftRunBuildMode(Game *game, Player *player, EnvItems **envItems,
+void	ftRunBuildMode(Game *game, Player *player, std::vector<EnvItems> *envItems,
 			std::vector<SquareProps> *blocks, Camera2D *camera);
 void	ftMoveScreen(Game *game, Camera2D *camera);
 
 /**----------------------------> Game <-----------------------------**/
 
-void 	ftUpdatePlayer(Game *game, Player *player, Menu *menu, EnvItems **envItems, int envItemsLength, float delta);
+void 	ftUpdatePlayer(Game *game, Player *player, Menu *menu, std::vector<EnvItems> *envItems, int envItemsLength, float delta);
 void 	ftUpdateCameraCenter(Game *Game, Camera2D *camera, Player *player,
 			int envItemsLength, float delta, int width, int height);
 void	ftImgsGestion(Game *game, Player *player);
 
 void	ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
-			std::vector<SquareProps> *blocks, EnvItems **envItems);
-void	ftGestionProps(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, float deltaTime, int envItemsLength);
+			std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems);
+void	ftGestionProps(Game *game, std::vector<SquareProps> *blocks, std::vector<EnvItems> *envItems, float deltaTime, int envItemsLength);
 void	ftKeyGestion(Game *game, Player *player, Menu *menu, float delta);
 
-void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
+void	ftRunGameMode(Game *game, Menu menu, Player player, std::vector<EnvItems> envItems,
 			std::vector<SquareProps> blocks, MultipleCam2D allCameras);
-void	ftDrawAll(Game *game, Player *player, EnvItems **envItems, std::vector<SquareProps> *blocks);;
+void	ftDrawAll(Game *game, Player *player, std::vector<EnvItems> *envItems, std::vector<SquareProps> *blocks);;
 
 /**---------------------------> Utility <----------------------------**/
 
-void	ftUsePlayerGravity(Player *player, EnvItems **SquarePropsenvItems, float delta, int envItemsLength);
-void	ftUseGravity(SquareProps *prop, EnvItems **envItems, float delta, int envItemsLength);
+void	ftUsePlayerGravity(Player *player, std::vector<EnvItems> *envItems, float delta, int envItemsLength);
+void	ftUseGravity(SquareProps *prop, std::vector<EnvItems> *envItems, float delta, int envItemsLength);
 void	ftGravityGestion(Game *Game, Player *player, std::vector<SquareProps> *blocks);
 char	*ft_ftoa(float f, int *status);
 // void	ftKeyGestionBuildMode(Game *Game);

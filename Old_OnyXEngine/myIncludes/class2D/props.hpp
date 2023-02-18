@@ -24,8 +24,6 @@ class Props
 		Props(Props const &src);
 		~Props(void);
 
-		Props		&operator=(Props const &rhs);
-
 //************************************************************************//
 	// Setters //
 		void        ftSetPos(Vector2 pos);

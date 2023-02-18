@@ -2,6 +2,22 @@
 
 Props::Props(void)
 {
+	_rectangle = {0, 0, 0, 0};
+	_color = DARKGRAY;
+	_texture = {0};
+	_blocking = 0;
+	_name = "default";
+	_nbr = 0;
+	_varChar.nbr = 4;
+	_varChar.propPosX = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosY = (char *)malloc(sizeof(char) * 9);
+	_varChar.propWidth = (char *)malloc(sizeof(char) * 9);
+	_varChar.propHeight = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosX[0] = '\0';
+	_varChar.propPosY[0] = '\0';
+	_varChar.propWidth[0] = '\0';
+	_varChar.propHeight[0] = '\0';
+
 	return ;
 }
 
@@ -14,6 +30,15 @@ _blocking(blocking),
 _name(name),
 _nbr(nbr)
 {
+	_varChar.propPosX = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosY = (char *)malloc(sizeof(char) * 9);
+	_varChar.propWidth = (char *)malloc(sizeof(char) * 9);
+	_varChar.propHeight = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosX[0] = '\0';
+	_varChar.propPosY[0] = '\0';
+	_varChar.propWidth[0] = '\0';
+	_varChar.propHeight[0] = '\0';
+
 	return ;
 }
 
@@ -26,28 +51,6 @@ Props::Props(Props const &src)
 Props::~Props(void)
 {
 	return ;
-}
-
-Props	&Props::operator=(Props const &rhs)
-{
-	if (this != &rhs)
-	{
-		this->_rectangle.x = rhs._rectangle.x;
-		this->_rectangle.y = rhs._rectangle.y;
-		this->_rectangle.width = rhs._rectangle.width;
-		this->_rectangle.height = rhs._rectangle.height;
-		this->_color = rhs._color;
-		this->_texture = rhs._texture;
-		this->_blocking = rhs._blocking;
-		this->_name = rhs._name;
-		this->_nbr = rhs._nbr;
-		this->_varChar.nbr = rhs._varChar.nbr;
-		this->_varChar.propPosX = rhs._varChar.propPosX;
-		this->_varChar.propPosY = rhs._varChar.propPosY;
-		this->_varChar.propWidth = rhs._varChar.propWidth;
-		this->_varChar.propHeight = rhs._varChar.propHeight;
-	}
-	return (*this);
 }
 
 /*******************************************************************************/

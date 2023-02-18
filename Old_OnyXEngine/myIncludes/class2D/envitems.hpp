@@ -6,6 +6,7 @@
 class EnvItems : public Props
 {
 	public:
+		EnvItems();
 		EnvItems(Vector2 pos, Vector2 size, int blocking, Color color,
 				Texture2D texture, int nbr, std::string name);
 		EnvItems(EnvItems const &src);
