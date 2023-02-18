@@ -1,8 +1,48 @@
 #include "../../../myIncludes/class2D/squareProps.hpp"
 #include <iostream>
 
-SquareProps::SquareProps(void)
+SquareProps::SquareProps(void) : Props()
 {
+	_rectangle = {0, 0, 0, 0};
+	_color = WHITE;
+	_texture = {0};
+	_blocking = 0;
+	_name = "default";
+	_varChar.nbr = 4;
+	_varChar.propPosX = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosY = (char *)malloc(sizeof(char) * 9);
+	_varChar.propWidth = (char *)malloc(sizeof(char) * 9);
+	_varChar.propHeight = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosX[0] = '\0';
+	_varChar.propPosY[0] = '\0';
+	_varChar.propWidth[0] = '\0';
+	_varChar.propHeight[0] = '\0';
+	return ;
+}
+
+SquareProps::SquareProps(Vector2 pos, Vector2 size, int blocking, Color color,
+				Texture2D texture, int nbr, std::string name) : Props()
+{
+	_rectangle = {pos.x, pos.y, size.x, size.y};
+	_color = color;
+	_texture = texture;
+	_blocking = blocking;
+	_name = name;
+	_varChar.nbr = 4;
+	_varChar.propPosX = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosY = (char *)malloc(sizeof(char) * 9);
+	_varChar.propWidth = (char *)malloc(sizeof(char) * 9);
+	_varChar.propHeight = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosX[0] = '\0';
+	_varChar.propPosY[0] = '\0';
+	_varChar.propWidth[0] = '\0';
+	_varChar.propHeight[0] = '\0';
+	return ;
+}
+
+SquareProps::SquareProps(SquareProps const &src) : Props(src)
+{
+	*this = src;
 	return ;
 }
 
@@ -11,213 +51,73 @@ SquareProps::~SquareProps(void)
 	return ;
 }
 
-void		SquareProps::ftInitVars(void)
+SquareProps	&SquareProps::operator=(SquareProps const &rhs)
 {
-	this->_varCharPr.varCharPr.propPosX = (char *)calloc(sizeof(char), 9);
-	this->_varCharPr.varCharPr.propPosY = (char *)calloc(sizeof(char), 9);
-	this->_varCharPr.varCharPr.propWidth = (char *)calloc(sizeof(char), 9);
-	this->_varCharPr.varCharPr.propHeight = (char *)calloc(sizeof(char), 9);
+	if (this != &rhs)
+	{
+		this->_speedModifier.x = rhs._speedModifier.x;
+		this->_speedModifier.y = rhs._speedModifier.y;
+		this->_speed = rhs._speed;
+		this->_speedX = rhs._speedX;
+	}
+	return (*this);
 }
 
-void SquareProps::ftDeleteVars(void)
+//**************************************************************//
+// Modification //
+void		SquareProps::ftSetSpeedModifier(float speed, char c)
 {
-	free(this->_varCharPr.varCharPr.propPosX);
-	free(this->_varCharPr.varCharPr.propPosY);
-	free(this->_varCharPr.varCharPr.propWidth);
-	free(this->_varCharPr.varCharPr.propHeight);
+	if (c == 'X')
+		this->_speedModifier.x = speed;
+	else if (c == 'Y')
+		this->_speedModifier.y = speed;
 }
 
-SquareProps	*SquareProps::ftReturnCopySquareProp(void)
+void		SquareProps::ftSetSpeedX(float speed)
 {
-	SquareProps *ret = new SquareProps;
-
-	ret = this;
-	return (ret);
+	this->_speedX = speed;
 }
 
-SquareProps	*SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size,
-				Color color, bool blocking, int nbr, std::string name)
+void		SquareProps::ftSetSpeed(float speed)
 {
-	SquareProps	*ret = new SquareProps;
-
-	this->_varCharPr.rect.width = size.x;
-	this->_varCharPr.rect.height = size.y;
-	this->_varCharPr.rect.x = pos.x;
-	this->_varCharPr.rect.y = pos.y;
-	this->pos.x = pos.x;
-	this->pos.y = pos.y;
-	this->color = color;
-	this->speed = 0;
-	this->_nbr = nbr;
-	this->blocking = blocking;
-	this->_varCharPr.name = name;
-	ret = this;
-
-	return (ret);
+	this->_speed = speed;
 }
 
-void		SquareProps::ftChangeWorH(float size, char c)
+void		SquareProps::ftChangeSpeedModifier(float speed, char c)
 {
-	if (c == 'W')
-		this->_varCharPr.rect.width = size;
-	if (c == 'H')
-		this->_varCharPr.rect.height = size;
+	if (c == 'X')
+		this->_speedModifier.x += speed;
+	else if (c == 'Y')
+		this->_speedModifier.y += speed;
 }
 
-VarCharPr	*SquareProps::ftReturnVarsProp(void)
+void		SquareProps::ftChangeSpeedX(float speed)
 {
-	return (&this->_varCharPr.varCharPr);
+	this->_speedX += speed;
 }
 
-Rectangle	SquareProps::ftReturnRectangle(void) const
+void		SquareProps::ftChangeSpeed(float speed)
 {
-	return (this->_varCharPr.rect);
+	this->_speed += speed;
 }
 
-Color	SquareProps::ftReturnColorPix(void)
+//**************************************************************//
+// Return //
+float		SquareProps::ftReturnSpeedModifier(char c) const
 {
-	return (this->_varCharPr.pixColor);
-}
-
-void	SquareProps::ftInitColorPix(Color color)
-{
-	this->_varCharPr.pixColor = color;
-}
-
-void	SquareProps::ftInitColor(Color color)
-{
-	this->color = color;
-}
-
-Color SquareProps::ftReturnRecColor(void) const
-{
-	return (this->color);
-}
-
-Vector2	*SquareProps::ftReturnPositionPtr(void)
-{
-	return (&this->pos);
-}
-
-float	SquareProps::ftReturnSpeed(void) const
-{
-	return (this->speed);
-}
-
-void	SquareProps::ftSetSpeed(float speed)
-{
-	this->speed = speed;
-}
-
-void	SquareProps::ftChangeSpeed(float speed)
-{
-	this->speed += speed;
-}
-
-void	SquareProps::ftMovePosition(float x, float y)
-{
-	this->pos.x += x;
-	this->_varCharPr.rect.x += x;
-	this->pos.y += y;
-	this->_varCharPr.rect.y += y;
-}
-
-void	SquareProps::ftInitPosition(Vector2 pos)
-{
-	this->pos.x = pos.x;
-	this->_varCharPr.rect.x = pos.x;
-	this->pos.y = pos.y;
-	this->_varCharPr.rect.y = pos.y;
-}
-float	SquareProps::ftReturnWideorHigh(char c) const
-{
-	if (c == 'W') // Width
-		return (this->_varCharPr.rect.width);
-	if (c == 'H') // Hight
-		return (this->_varCharPr.rect.height);
+	if (c == 'X')
+		return (this->_speedModifier.x);
+	else if (c == 'Y')
+		return (this->_speedModifier.y);
 	return (0);
 }
 
-float	SquareProps::ftReturnSpeedX(char c) const
+float		SquareProps::ftReturnSpeedX(char c) const
 {
-	if (c == 'X')
-		return (this->speedX);
-	return (0);
+	return (this->_speedX);
 }
 
-void	SquareProps::ftSetSpeedX(float speed, char c)
+float		SquareProps::ftReturnSpeed(void) const
 {
-	if (c == 'X')
-		this->speedX = speed;
+	return (this->_speed);
 }
-
-void	SquareProps::ftChangeSpeedX(float speed, char c)
-{
-	if (c == 'X')
-		this->speedX += speed;
-}
-
-int		SquareProps::ftReturnNbr(void) const
-{
-	return (this->_nbr);
-}
-
-float	SquareProps::ftReturnSqurtPos(char c) const
-{
-	if (c == 'X')
-		return (this->pos.x);
-	if (c == 'Y')
-		return (this->pos.y);
-	return (0);
-}
-
-float	SquareProps::ftReturnSpeedModifier(char c) const
-{
-	if (c == 'X')
-		return (this->speedModifier.x);
-	if (c == 'Y')
-		return (this->speedModifier.y);
-	return (0);
-}
-
-void	SquareProps::ftSetSpeedModifier(float speed, char c)
-{
-	if (c == 'X')
-		this->speedModifier.x = speed;
-	if (c == 'Y')
-		this->speedModifier.y = speed;
-}
-
-void	SquareProps::ftChangeSpeedModifier(float speed, char c)
-{
-	if (c == 'X')
-		this->speedModifier.x += speed;
-	if (c == 'Y')
-		this->speedModifier.y += speed;
-}
-
-void		SquareProps::ftChangeName(std::string name)
-{
-	this->_varCharPr.name = name;
-}
-
-std::string	SquareProps::ftReturnName(void) const
-{
-	return (this->_varCharPr.name);
-}
-
-//*** Add squareprops by drag and drop ***//
-
-// void	SquareProps::ftInitSquareprops(Vector2 pos, Vector2 size, Color color, bool blocking, int nbr)
-// {
-// 	this->_varCharPr.rect.width = size.x;
-// 	this->_varCharPr.rect.height = size.y;
-// 	this->_varCharPr.rect.x = pos.x;
-// 	this->_varCharPr.rect.y = pos.y;
-// 	this->pos.x = pos.x;
-// 	this->pos.y = pos.y;
-// 	this->color = color;
-// 	this->speed = 0;
-// 	this->_nbr = nbr;
-// 	this->blocking = blocking;
-// }

@@ -1,31 +1,30 @@
+#include "../../myIncludes/class2D/squareProps.hpp"
+#include "../../myIncludes/class2D/envitems.hpp"
 #include "../../myIncludes/game.hpp"
 #include "../../myIncludes/class/buttons.hpp"
 #include <string.h>
+#include <stdlib.h>
 
-void	ftDeleteAndFree(Game *game, Player *player, Props *blocks,
-			EnvItems *envItems, MultipleCam2D *allCameras);
+void	ftDeleteAndFree(Game *game, Player *player, std::vector<SquareProps> *blocks,
+			EnvItems **envItems, MultipleCam2D *allCameras);
 
-void	ftInitBlocks(Props *blocks, EnvItems *envItems)
+void	ftInitBlocks(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems)
 {
 	Texture tmp;
+	std::string name;
 
-	blocks->ftInitSquareProps(5, "blocks");
-	blocks->ftAddProps((Vector2){200, 200}, (Vector2){24, 24}, BLUE, true, 0, "blocks", "block0");
-	blocks->ftAddProps((Vector2){160, 200}, (Vector2){24, 24}, RED, true, 1, "blocks", "block1");
-	blocks->ftAddProps((Vector2){120, 200}, (Vector2){24, 24}, YELLOW, true, 2, "blocks", "block2");
-	blocks->ftAddProps((Vector2){240, 200}, (Vector2){24, 24}, PINK, true, 3, "blocks", "block3");
-	blocks->ftAddProps((Vector2){80, 200}, (Vector2){24, 24}, PURPLE, true, 4, "blocks", "block4");
+	for (int i = 0; i < 5; i++)
+	{
+		name = "Block";
+		name.insert(name.length(), std::to_string(i));
+		blocks->push_back(SquareProps((Vector2){(float)(200 + (i * 50)), 200}, (Vector2){24, 24}, 0, BLUE, tmp, i, name));
+	}
 
-	envItems->ftNewEnvItem(9);
-	envItems->ftInitEnvitem((Vector2){0, 0}, (Vector2){1000, 400}, 0, LIGHTGRAY, tmp, 0, "Platform0");
-	envItems->ftInitEnvitem((Vector2){0, 400}, (Vector2){1000, 200}, 1, GRAY, tmp, 1, "Platform1");
-	envItems->ftInitEnvitem((Vector2){300, 150}, (Vector2){400, 10}, 1, GRAY, tmp, 2, "Platform2");
-	envItems->ftInitEnvitem((Vector2){250, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 3, "Platform3");
-	envItems->ftInitEnvitem((Vector2){650, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 4, "Platform4");
-	envItems->ftInitEnvitem((Vector2){-850, 350}, (Vector2){700, 205}, 1, GRAY, tmp, 5, "Platform5");
-	envItems->ftInitEnvitem((Vector2){1100, 380}, (Vector2){400, 13}, 1, GRAY, tmp, 6, "Platform6");
-	envItems->ftInitEnvitem((Vector2){700, 100}, (Vector2){150, 10}, 1, GRAY, tmp, 7, "Platform7");
-	envItems->ftInitEnvitem((Vector2){450, 500}, (Vector2){180, 15}, 1, GRAY, tmp, 8, "Platform8");
+	envItems[0] = new EnvItems((Vector2){0, 400}, (Vector2){1000, 200}, 1, GRAY, tmp, 1, "Platform0");
+	envItems[1] = new EnvItems((Vector2){300, 150}, (Vector2){400, 10}, 1, GRAY, tmp, 2, "Platform1");
+	envItems[2] = new EnvItems((Vector2){250, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 3, "Platform2");
+	envItems[3] = new EnvItems((Vector2){650, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 4, "Platform3");
+	game->nbrEnvi = 4;
 }
 
 void	ftInitButtons(Game *game)
@@ -63,50 +62,47 @@ void	ftInitButtons(Game *game)
 		LoadTexture("./imgs/buttons/propertySideUpUnSelected.png"), 1);
 
 	// Drag and Drop //
-	game->dragDrop.square.ftInitOneEnvitem({20, 80}, {54, 54}, 0, WHITE,		// Square
-		LoadTexture("./imgs/shapes/square00.png"), 1);
-	game->dragDrop.squareSelect.ftInitOneEnvitem({20, 80}, {54, 54}, 0, WHITE,	// Square
-		LoadTexture("./imgs/shapes/squareSelected00.png"), 1);
+	game->dragDrop.square = new EnvItems((Vector2){20, 80}, (Vector2){54, 54}, 0, WHITE,		// Square
+		LoadTexture("./imgs/shapes/square00.png"), 1, "Square0");
 
-	game->dragDrop.triangle.ftInitOneEnvitem({120, 80}, {54, 54}, 0, WHITE, 		// Triangle
-		LoadTexture("./imgs/shapes/triangle00.png"), 1);
-	game->dragDrop.triangleSelect.ftInitOneEnvitem({120, 80}, {54, 54}, 0, WHITE,	// Triangle
-		LoadTexture("./imgs/shapes/triangleSelected00.png"), 1);
+	game->dragDrop.squareSelect = new EnvItems((Vector2){20, 80}, (Vector2){54, 54}, 0, WHITE,	// Square
+		LoadTexture("./imgs/shapes/squareSelected00.png"), 1, "Square1");
 
-	game->dragDrop.circle.ftInitOneEnvitem({220, 80}, {54, 54}, 0, WHITE, 	// Circle
-		LoadTexture("./imgs/shapes/circle00.png"), 1);
-	game->dragDrop.circleSelect.ftInitOneEnvitem({220, 80}, {54, 54}, 0, WHITE,	// Circle
-		LoadTexture("./imgs/shapes/circleSelected00.png"), 1);
+	game->dragDrop.triangle = new EnvItems((Vector2){120, 80}, (Vector2){54, 54}, 0, WHITE, 		// Triangle
+		LoadTexture("./imgs/shapes/triangle00.png"), 1, "Triangle0");
+	game->dragDrop.triangleSelect = new EnvItems((Vector2){120, 80}, (Vector2){54, 54}, 0, WHITE,	// Triangle
+		LoadTexture("./imgs/shapes/triangleSelected00.png"), 1, "Triangle1");
 
-	game->dragDrop.other.ftInitOneEnvitem({20, 180}, {54, 54}, 0, WHITE, 	// Others
-		LoadTexture("./imgs/shapes/other00.png"), 1);
-	game->dragDrop.otherSelect.ftInitOneEnvitem({20, 180}, {54, 54}, 0, WHITE,	// Others
-		LoadTexture("./imgs/shapes/otherSelected00.png"), 1);
+	game->dragDrop.circle = new EnvItems((Vector2){220, 80}, (Vector2){54, 54}, 0, WHITE, 	// Circle
+		LoadTexture("./imgs/shapes/circle00.png"), 1, "Circle0");
+	game->dragDrop.circleSelect = new EnvItems((Vector2){220, 80}, (Vector2){54, 54}, 0, WHITE,	// Circle
+		LoadTexture("./imgs/shapes/circleSelected00.png"), 1, "Circle1");
 
-	game->dragDrop.platform.ftInitOneEnvitem({120, 180}, {154, 54}, 0, WHITE, 	// Platform
-		LoadTexture("./imgs/shapes/platform00.png"), 1);
-	game->dragDrop.platformSelect.ftInitOneEnvitem({120, 180}, {154, 54}, 0, WHITE,	// Platform
-		LoadTexture("./imgs/shapes/platformSelected00.png"), 1);
+	game->dragDrop.other = new EnvItems((Vector2){20, 180}, (Vector2){54, 54}, 0, WHITE, 	// Others
+		LoadTexture("./imgs/shapes/other00.png"), 1, "Other0");
+	game->dragDrop.otherSelect = new EnvItems((Vector2){20, 180}, (Vector2){54, 54}, 0, WHITE,	// Others
+		LoadTexture("./imgs/shapes/otherSelected00.png"), 1, "Other1");
+
+	game->dragDrop.platform = new EnvItems((Vector2){120, 180},(Vector2) {154, 54}, 0, WHITE, 	// Platform
+		LoadTexture("./imgs/shapes/platform00.png"), 1, "Platform0");
+	game->dragDrop.platformSelect = new EnvItems((Vector2){120, 180},(Vector2) {154, 54}, 0, WHITE,	// Platform
+		LoadTexture("./imgs/shapes/platformSelected00.png"), 1, "Platform1");
 }
 
 void	ftMode2D(Game *game, Menu *menu)
 {
-	Player	*player;
-	player = new Player;
+	Player	*player = new Player;
 	player->ftSetPosition((Vector2){500, 300});
 	player->ftInitVarChar();
 
-	Props	*blocks;
-	blocks = new Props;
-
-	EnvItems *envItems;
-	envItems = new EnvItems;
+	std::vector<SquareProps> blocks;
+	EnvItems *envItems[256];
 
 	game->imgCercleChrom = LoadImage("./imgs/wheelcolor.png");
 	game->textCercleChrom = LoadTexture("./imgs/wheelcolor.png");
 	game->rectCercleChrom = {0, 0, 150, 150};
 
-	ftInitBlocks(blocks, envItems);
+	ftInitBlocks(game, &blocks, envItems);
 	ftInitTextBoxSideUp(game);
 
 //--------------------------------------------------------------------------------------//
@@ -136,49 +132,53 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(LIGHTGRAY);
 			BeginMode2D(allCameras->camera00.camera);
 
-				if (menu->ftReturnStart() == 0) // Menu intro
+				switch (menu->ftReturnStart())
 				{
-					ftChooseMenu(menu);
-					DrawTextEx(game->font1 ,"Untitled Adventure Game", {250, 100}, 40, 2, BLACK);
-					// DrawText("Untitled Adventure Game", 100, 100, 40, BLACK);
-					DrawText("Choose Your Character", 250, 200, 20, DARKGRAY);
-					DrawText("Start Game", 250, 250, 20, DARKGRAY);
-				}
-				else if (menu->ftReturnStart() == 1)// Menu choose character
-				{
-					ftMenuChooseCharacter(game, player, menu);
-				}
-				else if (menu->ftReturnStart() == 2) // Main loop
-				{
-					// std::cout << "Help 00" << std::endl;
-					if (game->ctMode == 1)
-					{
-						allCameras->camera00.camera.target = game->posCam;
-						ftRunBuildMode(game, player, envItems, blocks, &allCameras->camera00.camera);
-						ftControlItems(game, player, envItems, blocks);
-					}
-					else if (game->ctMode == -1)
-					{
-						Menu			tmpMenu;
-						Player			tmpPlayer;
-						EnvItems		tmpEnvItems(*envItems);
-						Props			tmpBlocks;
-						MultipleCam2D	tmpAllCameras;
+					case 0:
+						ftChooseMenu(menu);
+						DrawTextEx(game->font1 ,"Untitled Adventure Game", {250, 100}, 40, 2, BLACK);
+						DrawText("Choose Your Character", 250, 200, 20, DARKGRAY);
+						DrawText("Start Game", 250, 250, 20, DARKGRAY);
+						break;
+					case 1:
+						ftMenuChooseCharacter(game, player, menu);
+						break;
+					case 2:
+						switch (game->ctMode)
+						{
+							case 1:
+								allCameras->camera00.camera.target = game->posCam;
+								ftRunBuildMode(game, player, envItems, &blocks, &allCameras->camera00.camera);
+								ftControlItems(game, player, envItems, &blocks);
+								break;
+							case -1:
+								int tmpEnvi = game->nbrEnvi;
 
-						tmpMenu = *menu;
-						tmpPlayer = *player;
-						// tmpEnvItems = *envItems;
-						tmpBlocks = blocks->ftReturnCopyProps();
-						tmpAllCameras = *allCameras;
+								Menu			tmpMenu;
+								Player			tmpPlayer;
+								EnvItems		*tmpEnvItems[256];
+								MultipleCam2D	tmpAllCameras;
 
-						allCameras->camera00.camera.target = player->ftReturnPlayerPosition();
-						ftRunGameMode(game, tmpMenu, tmpPlayer, tmpEnvItems,
-							tmpBlocks, tmpAllCameras);
-					
-						game->ctMode = 1;
-					}
-					// ftKeyGestionBuildMode(game);
+								tmpMenu = *menu;
+								tmpPlayer = *player;
+								for (int i = 0; i < game->nbrEnvi; i++)
+								{
+									tmpEnvItems[i] = envItems[i];
+								}
+
+								tmpAllCameras = *allCameras;
+								allCameras->camera00.camera.target = player->ftReturnPlayerPosition();
+
+								ftRunGameMode(game, tmpMenu, tmpPlayer, tmpEnvItems,
+									blocks, tmpAllCameras);
+									
+								game->nbrEnvi = tmpEnvi;
+								game->ctMode = 1;
+								break;
+						}
+					break;
 				}
+
 			EndMode2D();
 		EndTextureMode();
 
@@ -191,7 +191,7 @@ void	ftMode2D(Game *game, Menu *menu)
 
 				if (menu->ftReturnStart() == 2)
 				{
-					ftSideUpMenu2D(game, player, blocks, envItems, menu, allCameras);
+					ftSideUpMenu2D(game, player, &blocks, envItems, menu, allCameras);
 				}
 
 			EndMode2D();
@@ -206,7 +206,7 @@ void	ftMode2D(Game *game, Menu *menu)
 
 				if (menu->ftReturnStart() == 2)
 				{
-					ftSideDownMenu2D(game, blocks, envItems, allCameras);
+					ftSideDownMenu2D(game, &blocks, envItems, allCameras);
 				}
 
 			EndMode2D();
@@ -219,7 +219,7 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(DARKGRAY1);
 			BeginMode2D(allCameras->camera03.camera);
 
-				ftUpMenu2D(game, player, blocks, envItems, &allCameras->camera03.camera);
+				ftUpMenu2D(game, player, &blocks, envItems, &allCameras->camera03.camera);
 
 			EndMode2D();
 		EndTextureMode();
@@ -243,11 +243,11 @@ void	ftMode2D(Game *game, Menu *menu)
 //--------------------------------------------------------------------------------------//
 	// CloseWindow();
 
-	ftDeleteAndFree(game, player, blocks, envItems, allCameras);
+	ftDeleteAndFree(game, player, &blocks, envItems, allCameras);
 }
 
-void	ftDeleteAndFree(Game *game, Player *player, Props *blocks,
-			EnvItems *envItems, MultipleCam2D *allCameras)
+void	ftDeleteAndFree(Game *game, Player *player, std::vector<SquareProps> *blocks,
+			EnvItems **envItems, MultipleCam2D *allCameras)
 {
 	UnloadRenderTexture(allCameras->camera00.textForCam);
 	UnloadRenderTexture(allCameras->camera00.textForCam);
@@ -255,17 +255,27 @@ void	ftDeleteAndFree(Game *game, Player *player, Props *blocks,
 	UnloadRenderTexture(allCameras->camera00.textForCam);
 
 	player->ftDeleteVarChar();
-	for (int i = 0; i < blocks->ftReturnNbr(); i++)
-		blocks->ftDeleteVarsChar(i);
-	for (int i = 0; i < envItems->ftReturnEnviAllNbr(); i++)
-		envItems->ftDeleteVarChar(i);
+	blocks->clear();
+
+	for (int i = 0; i < game->nbrEnvi; i++)
+	{
+		envItems[i]->ftDeleteVarsChar();
+		delete envItems[i];
+	}
 
 	if (player->ftReturnNbr() == 1)
+	{
 		player->ftDestroyImgs1();
+	}
 	if (player->ftReturnNbr() == 2)
+	{
 		player->ftDestroyImgs2();
+	}
 	if (player->ftReturnNbr() == 3)
+	{
 		player->ftDestroyImgs3();
+	}
+
 	UnloadImage(game->imgCercleChrom);
 	UnloadTexture(game->textCercleChrom);
 	game->buttonsMenuUp.play.ftUnloadTexture();
@@ -282,25 +292,44 @@ void	ftDeleteAndFree(Game *game, Player *player, Props *blocks,
 	game->buttonsMenuSideDown.buttonRightClose.ftUnloadTexture();
 	game->buttonsMenuSideDown.buttonMiddleClose.ftUnloadTexture();
 	game->buttonsMenuSideDown.buttonLeftClose.ftUnloadTexture();
-	game->dragDrop.square.ftDestroyImgsPlayStop();
-	game->dragDrop.squareSelect.ftDestroyImgsPlayStop();
-	game->dragDrop.triangle.ftDestroyImgsPlayStop();
-	game->dragDrop.triangleSelect.ftDestroyImgsPlayStop();
-	game->dragDrop.circle.ftDestroyImgsPlayStop();
-	game->dragDrop.circleSelect.ftDestroyImgsPlayStop();
-	game->dragDrop.other.ftDestroyImgsPlayStop();
-	game->dragDrop.otherSelect.ftDestroyImgsPlayStop();
-	game->dragDrop.platform.ftDestroyImgsPlayStop();
-	game->dragDrop.platformSelect.ftDestroyImgsPlayStop();
+	
+	game->dragDrop.square->ftDeleteVarsChar();
+	game->dragDrop.square->ftUnloadTexture();
+	delete game->dragDrop.square;
+	game->dragDrop.squareSelect->ftDeleteVarsChar();
+	game->dragDrop.squareSelect->ftUnloadTexture();
+	delete game->dragDrop.squareSelect;
+	game->dragDrop.triangle->ftDeleteVarsChar();
+	game->dragDrop.triangle->ftUnloadTexture();
+	delete game->dragDrop.triangle;
+	game->dragDrop.triangleSelect->ftDeleteVarsChar();
+	game->dragDrop.triangleSelect->ftUnloadTexture();
+	delete game->dragDrop.triangleSelect;
+	game->dragDrop.circle->ftDeleteVarsChar();
+	game->dragDrop.circle->ftUnloadTexture();
+	delete game->dragDrop.circle;
+	game->dragDrop.circleSelect->ftDeleteVarsChar();
+	game->dragDrop.circleSelect->ftUnloadTexture();
+	delete game->dragDrop.circleSelect;
+	game->dragDrop.other->ftDeleteVarsChar();
+	game->dragDrop.other->ftUnloadTexture();
+	delete game->dragDrop.other;
+	game->dragDrop.otherSelect->ftDeleteVarsChar();
+	game->dragDrop.otherSelect->ftUnloadTexture();
+	delete game->dragDrop.otherSelect;
+	game->dragDrop.platform->ftDeleteVarsChar();
+	game->dragDrop.platform->ftUnloadTexture();
+	delete game->dragDrop.platform;
+	game->dragDrop.platformSelect->ftDeleteVarsChar();
+	game->dragDrop.platformSelect->ftUnloadTexture();
+	delete game->dragDrop.platformSelect;
 
 	delete player;
-	delete blocks;
-	delete envItems;
 	delete allCameras;
 }
 
 //*** Move items on Build Mode ***/
-void	ftControlItems(Game *game, Player *player, EnvItems *envItems, Props *blocks)
+void	ftControlItems(Game *game, Player *player, EnvItems **envItems, std::vector<SquareProps> *blocks)
 {
 	Vector2 mousePos = GetMousePosition();
 	Vector2 lastPos = game->mouse.pos;
@@ -344,19 +373,19 @@ void	ftControlItems(Game *game, Player *player, EnvItems *envItems, Props *block
 		DrawLineEx({posBlock.x, posBlock.y - 1}, {posBlock.x, posBlock.y + posBlock.height + 7}, 2, RED); // Right
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && game->mouse.pos.x < game->screenWidth - 300 && game->mouse.pos.y > 40)
 		{
-			game->selected2D.prop->ftMovePosition(-forMove.x / game->mouse.camZoom, -forMove.y / game->mouse.camZoom);
+			game->selected2D.prop->ftMovePos({-forMove.x / game->mouse.camZoom, -forMove.y / game->mouse.camZoom});
 		}
 	}
 	else if (game->selected2D.type == 3) // Platforms
 	{
-		Rectangle	posWalkable = game->selected2D.item->rect;
+		Rectangle	posWalkable = game->selected2D.item->ftReturnRectangle();
 
 		posWalkable.x -= 4;
 		posWalkable.y -= 3;
 		DrawLineEx({posWalkable.x, posWalkable.y}, {posWalkable.x + posWalkable.width + 7, posWalkable.y}, 2, RED); // Up
 		posWalkable.y += posWalkable.height + 6;
 		DrawLineEx({posWalkable.x, posWalkable.y}, {posWalkable.x + posWalkable.width + 7, posWalkable.y}, 2, RED); // down
-		posWalkable = game->selected2D.item->rect;
+		posWalkable = game->selected2D.item->ftReturnRectangle();
 		posWalkable.x -= 3;
 		posWalkable.y -= 3;
 		DrawLineEx({posWalkable.x, posWalkable.y - 1}, {posWalkable.x, posWalkable.y + posWalkable.height + 7}, 2, RED); // Left
@@ -364,8 +393,10 @@ void	ftControlItems(Game *game, Player *player, EnvItems *envItems, Props *block
 		DrawLineEx({posWalkable.x, posWalkable.y - 1}, {posWalkable.x, posWalkable.y + posWalkable.height + 7}, 2, RED); // Right
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && game->mouse.pos.x < game->screenWidth - 300 && game->mouse.pos.y > 40)
 		{
-			game->selected2D.item->rect.x += (-(int)(forMove.x / game->mouse.camZoom));
-			game->selected2D.item->rect.y += (-(int)(forMove.y / game->mouse.camZoom));
+			Vector2 pos;
+			pos.x = (int)(forMove.x / game->mouse.camZoom);
+			pos.y = (int)(forMove.y / game->mouse.camZoom);
+			game->selected2D.item->ftMovePos({-pos.x, -pos.y});
 		}
 	}
 }

@@ -1,39 +1,39 @@
 #include "../../../myIncludes/game.hpp"
 
-void	ftGravityX(Game *Game, Player *player, Props *blocks)
+void	ftGravityX(Game *game, Player *player, std::vector<SquareProps> *blocks)
 {
 	Rectangle	plyCollBox = player->ftReturnCollisionBox();
-	float		speed = PLAYER_HOR_SPD * Game->delta;
+	float		speed = PLAYER_HOR_SPD * game->delta;
 
-	for (int j = 0; j < blocks->ftReturnNbr(); j++)
+	for (int j = 0; j < blocks->size(); j++)
 	{
-		Rectangle propRect1 = blocks->ftReturnRectangleSqPr(j);
-		for (int k = 0; k < blocks->ftReturnNbr(); k++)
+		Rectangle propRect1 = blocks->at(j).ftReturnRectangle();
+		for (int k = 0; k < blocks->size() - 1; k++)
 		{
 			if (j == k)
 				k++;
 
-			Rectangle propRect2 = blocks->ftReturnRectangleSqPr(k);
+			Rectangle propRect2 = blocks->at(k).ftReturnRectangle();
 			if (CheckCollisionRecs(propRect1, plyCollBox)) // Collision player
 			{
 				if (propRect1.x - propRect1.width / 2 > plyCollBox.x + 0./(2)) // Right
 				{
-					blocks->ftChangeSpeedModifier(speed / 4.0f, 'X', j);
+					blocks->at(j).ftChangeSpeedModifier(speed / 4.0f, 'X');
 				}
 				else // Left
 				{
-					blocks->ftChangeSpeedModifier(-speed / 4.0f, 'X', j);
+					blocks->at(j).ftChangeSpeedModifier(-speed / 4.0f, 'X');
 				}
 			}
 			if (CheckCollisionRecs(propRect1, player->ftReturnWeaponCollRect()) && player->ftReturnDoAttack() == true) // Collision weapon
 			{
 				if (player->ftReturnFace() == 0) // Right
 				{
-					blocks->ftChangeSpeedModifier(speed * 2.0f, 'X', j);
+					blocks->at(j).ftChangeSpeedModifier(speed * 2.0f, 'X');
 				}
 				else // Left
 				{
-					blocks->ftChangeSpeedModifier(-speed * 2.0f, 'X', j);
+					blocks->at(j).ftChangeSpeedModifier(-speed * 2.0f, 'X');
 				}
 			}
 
@@ -41,33 +41,33 @@ void	ftGravityX(Game *Game, Player *player, Props *blocks)
 			{
 				if (propRect1.y <= propRect2.y + propRect2.height || propRect2.y <= propRect1.y + propRect1.height)
 				{
-					blocks->ftMoveSquareProp((Vector2){1, 0.0f}, k);
-					blocks->ftMoveSquareProp((Vector2){-1, 0.0f}, j);
+					blocks->at(k).ftMovePos((Vector2){1, 0.0f});
+					blocks->at(j).ftMovePos((Vector2){-1, 0.0f});
 				}
 
 				if (propRect1.x > propRect2.x)
 				{
-					blocks->ftMoveSquareProp((Vector2){-speed / 2, 0.0f}, k);
-					blocks->ftChangeSpeedModifier(speed * 0.5, 'X', j);
+					blocks->at(k).ftMovePos((Vector2){-speed / 2, 0.0f});
+					blocks->at(j).ftChangeSpeedModifier(speed * 0.5, 'X');
 				}
 				else
 				{
-					blocks->ftMoveSquareProp((Vector2){speed / 2, 0.0f}, k);
-					blocks->ftChangeSpeedModifier(-speed * 0.5, 'X', j);
+					blocks->at(k).ftMovePos((Vector2){speed / 2, 0.0f});
+					blocks->at(j).ftChangeSpeedModifier(-speed * 0.5, 'X');
 				}
 			}
 			if (CheckCollisionRecs(propRect2, propRect1)) // Collision block to block ajust
 			{
 				if (propRect1.x > propRect2.x)
 				{
-					blocks->ftMoveSquareProp((Vector2){speed / 2, 0.0f}, j);
-					blocks->ftChangeSpeedModifier(-speed * 0.5, 'X', k);
+					blocks->at(j).ftMovePos((Vector2){speed / 2, 0.0f});
+					blocks->at(k).ftChangeSpeedModifier(-speed * 0.5, 'X');
 
 				}
 				else
 				{
-					blocks->ftMoveSquareProp((Vector2){-speed / 2, 0.0f}, j);
-					blocks->ftChangeSpeedModifier(speed * 0.5, 'X', k);
+					blocks->at(j).ftMovePos((Vector2){-speed / 2, 0.0f});
+					blocks->at(k).ftChangeSpeedModifier(speed * 0.5, 'X');
 				}
 			}
 			
@@ -76,40 +76,41 @@ void	ftGravityX(Game *Game, Player *player, Props *blocks)
 	player->ftChangeDoAttack(false);
 }
 
-void	ftGravityGestion(Game *Game, Player *player, Props *blocks)
+void	ftGravityGestion(Game *Game, Player *player, std::vector<SquareProps> *blocks)
 {
 	ftGravityX(Game, player, blocks);
 }
 
-void	ftUsePlayerGravity(Player *player, EnvItems *envItems, float delta, int envItemsLength)
+void	ftUsePlayerGravity(Player *player, EnvItems **envItems, float delta, int envItemsLength)
 {
 	int			hitObstacle = 0;
 	Rectangle	tmpCollBox = player->ftReturnCollisionBox();
 
 	for (int i = 0; i < envItemsLength; i++)
 	{
-		EnvItem *ei = envItems->ftReturnEnvitemPtr(i);
-		Vector2 *p = player->ftReturnPlayerPositionPtr();
+		EnvItems	*ei(envItems[i]);
+		Rectangle	rect = ei->ftReturnRectangle();
+		Vector2		*p = player->ftReturnPlayerPositionPtr();
 
-		if (ei->blocking &&             							// Stop Player falling
-			ei->rect.x <= tmpCollBox.x + tmpCollBox.width &&
-			ei->rect.x + ei->rect.width >= tmpCollBox.x &&
-			ei->rect.y >= p->y &&
-			ei->rect.y <= p->y + player->ftReturnSpeed() * delta)
+		if (ei->ftReturnBlocking() &&             							// Stop Player falling
+			rect.x <= tmpCollBox.x + tmpCollBox.width &&
+			rect.x + rect.width >= tmpCollBox.x &&
+			rect.y >= p->y &&
+			rect.y <= p->y + player->ftReturnSpeed() * delta)
 		{
 			hitObstacle = 1;
 			player->ftSetSpeed(0);
-			p->y = ei->rect.y;
+			p->y = rect.y;
 		}
-		else if (ei->blocking &&         							// Hit plafond
-				 ei->rect.x <= p->x &&
-				 ei->rect.x + ei->rect.width >= tmpCollBox.x + tmpCollBox.width &&
-				 ei->rect.y + ei->rect.height > tmpCollBox.y &&
-				 CheckCollisionRecs(ei->rect, tmpCollBox))
+		else if (ei->ftReturnBlocking() &&         							// Hit plafond
+				 rect.x <= p->x &&
+				 rect.x + rect.width >= tmpCollBox.x + tmpCollBox.width &&
+				 rect.y + rect.height > tmpCollBox.y &&
+				 CheckCollisionRecs(rect, tmpCollBox))
 		{
 			player->ftSetSpeed(25);
 		}
-		else if (CheckCollisionRecs(ei->rect, tmpCollBox) && ei->blocking)
+		else if (CheckCollisionRecs(rect, tmpCollBox) && ei->ftReturnBlocking())
 		{
 			if (player->ftReturnFace() == 0 && player->ftReturnCollX() == false)
 			{
@@ -134,28 +135,29 @@ void	ftUsePlayerGravity(Player *player, EnvItems *envItems, float delta, int env
 	}
 }
 
-void	ftUseGravity(SquareProps *prop, EnvItems *envItems, float delta, int envItemsLength)
+void	ftUseGravity(SquareProps *prop, EnvItems **envItems, float delta, int envItemsLength)
 {
 	int 		hitObstacle = 0;
-	Rectangle tmpProp = prop->ftReturnRectangle();
+	Rectangle	tmpProp = prop->ftReturnRectangle();
+	Vector2 p	= prop->ftReturnPos();
 
 	for (int i = 0; i < envItemsLength; i++)
 	{
-		EnvItem *ei = envItems->ftReturnEnvitemPtr(i);
-		Vector2 *p = prop->ftReturnPositionPtr();
-		if (ei->blocking &&
-			ei->rect.x - tmpProp.width <= p->x &&
-			ei->rect.x + ei->rect.width >= p->x &&
-			ei->rect.y - tmpProp.height >= p->y &&
-			ei->rect.y - tmpProp.height<= p->y + prop->ftReturnSpeed() * delta)
+		EnvItems *ei(envItems[i]);
+		Rectangle rect = ei->ftReturnRectangle();
+		if (ei->ftReturnBlocking() &&
+			rect.x - tmpProp.width <= p.x &&
+			rect.x + rect.width >= p.x &&
+			rect.y - tmpProp.height >= p.y &&
+			rect.y - tmpProp.height<= p.y + prop->ftReturnSpeed() * delta)
 		{
 			hitObstacle = 1;
 			prop->ftSetSpeed(prop->ftReturnSpeed() * -1 / 2); // Rebound on ground
-			p->y = ei->rect.y;
-			prop->ftInitPosition((Vector2){tmpProp.x, p->y - tmpProp.height});
+			p.y = rect.y;
+			prop->ftSetPos((Vector2){tmpProp.x, p.y - tmpProp.height});
 			prop->ftSetSpeedModifier(prop->ftReturnSpeedModifier('X') / 1.25, 'X'); // Friction in x on ground
 		}
-		else if (CheckCollisionRecs(ei->rect, tmpProp) && ei->blocking)
+		else if (CheckCollisionRecs(rect, tmpProp) && ei->ftReturnBlocking())
 		{
 			prop->ftSetSpeedModifier(prop->ftReturnSpeedModifier('X') * - 1./(2), 'X');
 		}
@@ -163,7 +165,7 @@ void	ftUseGravity(SquareProps *prop, EnvItems *envItems, float delta, int envIte
 
 	if (!hitObstacle)
 	{
-		prop->ftMovePosition(0, prop->ftReturnSpeed() * delta / 1.1);
+		prop->ftMovePos({0, prop->ftReturnSpeed() * delta / (float)1.1});
 		prop->ftChangeSpeed(G * delta);
 	}
 }

@@ -16,8 +16,8 @@ sources := $(call rwildcard,src/,*.cpp)
 objects := $(patsubst src/%, $(buildDir)/%, $(patsubst %.cpp, %.o, $(sources)))
 depends := $(patsubst %.o, %.d, $(objects))
 compileFlags := -std=c++17 -I include
-linkFlags = -L lib/$(platform) -l raylib
-# linkFlags = ./libraylib.a
+# linkFlags = -L lib/$(platform) -l raylib
+linkFlags = /home/dracken24/Documents/myPackages/raylib/src/libraylib.a
 
 # Check for Windows
 ifeq ($(OS), Windows_NT)

@@ -9,12 +9,13 @@ class Menu
 		Menu(void);
 		~Menu(void);
 
-		void	ftChangeStart(int ct);
-		int		ftReturnStart(void);
 		void	ftChangeChooseCt(int ct);
-		int		ftReturnChooseCt(void);
 		void	ftChangePlayer(int ct);
+		void	ftChangeStart(int ct);
+		
+		int		ftReturnChooseCt(void);
 		int		ftReturnPlayer(void);
+		int		ftReturnStart(void);
 
 	private:
 		int     menuCt = 10;
