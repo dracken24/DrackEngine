@@ -2,10 +2,10 @@
 
 void	ftChangeSidedownPanel(Game *game, Camera2D *camera);
 void	ftDrawSideDownButtons(Game *game);
-void	ftDragAndDrop(Game *game, SquareProps **blocks, EnvItems **envItems, MultipleCam2D *allCameras);
+void	ftDragAndDrop(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, MultipleCam2D *allCameras);
 
 //*** All functions for side down panel ***//
-void	ftSideDownMenu2D(Game *game, SquareProps **blocks, EnvItems **envItems, MultipleCam2D *allCameras)
+void	ftSideDownMenu2D(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, MultipleCam2D *allCameras)
 {
 	ftDrawSideDownButtons(game);
 	ftChangeSidedownPanel(game, &allCameras->camera02.camera);
@@ -25,11 +25,10 @@ void	ftSideDownMenu2D(Game *game, SquareProps **blocks, EnvItems **envItems, Mul
 }
 
 //*** Draw shapes for drag and drop ***//
-void	ftDragAndDrop(Game *game, SquareProps **blocks, EnvItems **envItems, MultipleCam2D *allCameras)
+void	ftDragAndDrop(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, MultipleCam2D *allCameras)
 {
 	Vector2 mousePos = game->mouse.pos;
 	Vector2 rayPos = GetScreenToWorld2D(mousePos, allCameras->camera02.camera);
-
 
 	DrawText("Square", 12, 55, 20, DARKGRAY);
 	Rectangle rec = {1221, 387, 54, 54};
@@ -39,15 +38,15 @@ void	ftDragAndDrop(Game *game, SquareProps **blocks, EnvItems **envItems, Multip
 			game->dragDrop.squareSelect->ftReturnPos(), 0, 1, WHITE); // Square
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
-			Vector2 pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
-			Texture2D text;
+			Vector2		pos = GetScreenToWorld2D(CENTER_SCREEN, allCameras->camera00.camera);
+			Texture2D	text;
 			std::string	name;
 
 			name = "Block";
-			name.append(ft_ftoa(game->nbrSquare, 0));
-			name.erase(name.length() - 7);
-			blocks[game->nbrSquare] = new SquareProps(pos, {24, 24}, 1, DARKGRAY, text, game->nbrSquare + 1, name);
-			game->nbrSquare++;
+			name.insert(name.length(), std::to_string(blocks->size()));
+			blocks->push_back(SquareProps(pos, (Vector2){24, 24}, 0, DARKGRAY, text, blocks->size() + 1, name));
+			blocks->at(blocks->size() - 1).ftSetSpeed(0);
+			blocks->at(blocks->size() - 1).ftSetSpeedModifier(0, 'X');
 		}
 	}
 	else

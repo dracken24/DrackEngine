@@ -1,6 +1,25 @@
 #include "../../../myIncludes/class2D/squareProps.hpp"
 #include <iostream>
 
+SquareProps::SquareProps(void) : Props()
+{
+	_rectangle = {0, 0, 0, 0};
+	_color = WHITE;
+	_texture = {0};
+	_blocking = 0;
+	_name = "default";
+	_varChar.nbr = 4;
+	_varChar.propPosX = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosY = (char *)malloc(sizeof(char) * 9);
+	_varChar.propWidth = (char *)malloc(sizeof(char) * 9);
+	_varChar.propHeight = (char *)malloc(sizeof(char) * 9);
+	_varChar.propPosX[0] = '\0';
+	_varChar.propPosY[0] = '\0';
+	_varChar.propWidth[0] = '\0';
+	_varChar.propHeight[0] = '\0';
+	return ;
+}
+
 SquareProps::SquareProps(Vector2 pos, Vector2 size, int blocking, Color color,
 				Texture2D texture, int nbr, std::string name) : Props()
 {
@@ -36,7 +55,8 @@ SquareProps	&SquareProps::operator=(SquareProps const &rhs)
 {
 	if (this != &rhs)
 	{
-		this->_speedModifier = rhs._speedModifier;
+		this->_speedModifier.x = rhs._speedModifier.x;
+		this->_speedModifier.y = rhs._speedModifier.y;
 		this->_speed = rhs._speed;
 		this->_speedX = rhs._speedX;
 	}

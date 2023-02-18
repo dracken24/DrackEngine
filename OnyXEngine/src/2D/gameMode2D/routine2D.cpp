@@ -1,7 +1,7 @@
 #include "../../../myIncludes/game.hpp"
 
 void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
-	SquareProps **blocks, EnvItems **envItems)
+	std::vector<SquareProps> *blocks, EnvItems **envItems)
 {
 	static int lastAction;
 	static int cameraOption = 0;
@@ -30,9 +30,9 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 	/*********************************************** Gravity ***************************************************/
 	ftGravityGestion(game, player, blocks);
 
-	for (int i = 0; i < game->nbrSquare; i++)
+	for (int i = 0; i < blocks->size(); i++)
 	{
-		ftUseGravity(blocks[i], envItems, game->delta, envItemsLength);
+		ftUseGravity(&blocks->at(i), envItems, game->delta, envItemsLength);
 	}
 
 	/********************************************** Collision **************************************************/
@@ -65,23 +65,22 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 	if (IsKeyPressed(KEY_R))
 	{
 		float dist = 0;
-		for (int i = 0; i < game->nbrSquare; i++)
+		for (int i = 0; i < blocks->size(); i++)
 		{
-			blocks[i]->ftSetPos((Vector2){200, 200 - dist});
-			blocks[i]->ftSetPos((Vector2){200 - dist , 200});
+			blocks->at(i).ftSetPos((Vector2){200 - dist, 200});
 			dist += 50;
 		}
 	}
-	if (IsKeyPressed(KEY_P))
+	else if (IsKeyPressed(KEY_P))
 	{
 		float dist = 0;
 		camera->zoom = 1.0f;
 		player->ftSetPosition((Vector2){500.0f, 300.0f});
-		for (int i = 0; i < game->nbrSquare; i++)
+		for (int i = 0; i < blocks->size(); i++)
 		{
-			blocks[i]->ftSetPos((Vector2){200 - dist, 200});
-			blocks[i]->ftSetSpeed(0);
-			blocks[i]->ftSetSpeedModifier(0, 'X');
+			blocks->at(i).ftSetPos((Vector2){200 - dist, 200});
+			blocks->at(i).ftSetSpeed(0);
+			blocks->at(i).ftSetSpeedModifier(0, 'X');
 
 			dist += 50;
 		}
@@ -94,14 +93,13 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 		DrawText("- Mouse Wheel to Zoom in-out, R to reset zoom", 40, 80, 10, DARKGRAY);
 		DrawText("- Mouse Button Left to Attack", 40, 100, 10, DARKGRAY);
 	}
-	// ftSideMenu(Game, player);
 	ftKeyGestion(game, player, menu, game->delta);
 }
 
 /*******************************************************************************************
 	Gestion Des objets (Plateforms wlakable, objets du decor ...)
 *******************************************************************************************/
-void	ftGestionProps(Game *game, SquareProps **blocks, EnvItems **envItems, float deltaTime, int envItemsLength)
+void	ftGestionProps(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems, float deltaTime, int envItemsLength)
 {
 	static float k;
 	if (!k || k > 360)
@@ -109,16 +107,13 @@ void	ftGestionProps(Game *game, SquareProps **blocks, EnvItems **envItems, float
 	for (int i = 0; i < envItemsLength; i++)
 		DrawRectangleRec(envItems[i]->ftReturnRectangle(), envItems[i]->ftReturnColor());
 	
-	for (int i = 0; i < game->nbrSquare; i++)
+	for (int i = 0; i < blocks->size(); i++)
 	{
-		Rectangle	blockRec = blocks[i]->ftReturnRectangle();
+		blocks->at(i).ftMovePos((Vector2){blocks->at(i).ftReturnSpeedModifier('X'), 0});
 
-		blocks[i]->ftMovePos((Vector2){blocks[i]->ftReturnSpeedModifier('X')
-			+ blockRec.width / 2, blocks[i]->ftReturnSpeedModifier('Y') + blockRec.height / 2});
-		blockRec = blocks[i]->ftReturnRectangle();
-		DrawRectanglePro(blockRec, (Vector2){blockRec.width / 2, blockRec.height / 2}, k, blocks[i]->ftReturnColor());
-		blocks[i]->ftMovePos((Vector2){-blockRec.width / 2, -blockRec.height / 2});
-		blocks[i]->ftSetSpeedModifier(blocks[i]->ftReturnSpeedModifier('X') / 1.01, 'X');
+			DrawRectanglePro(blocks->at(i).ftReturnRectangle(), (Vector2){0, 0}, k, blocks->at(i).ftReturnColor()); 
+
+		blocks->at(i).ftSetSpeedModifier(blocks->at(i).ftReturnSpeedModifier('X') / 1.01, 'X');
 	}
 	k += atof(game->rotation);
 }
@@ -128,8 +123,6 @@ void	ftUpdatePlayer(Game *game, Player *player, Menu *menu,
 			EnvItems **envItems, int envItemsLength, float delta)
 {
 	player->ftChangeLastY(player->ftReturnPlayerPositionY());
-
-	// ftKeyGestion(Game, player, menu, delta);
 	ftUsePlayerGravity(player, envItems, delta, envItemsLength);
 
 	if (player->ftReturnLastY() < player->ftReturnPlayerPositionY() && player->ftReturnAttackCt() == 0)

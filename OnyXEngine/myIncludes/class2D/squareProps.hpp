@@ -7,6 +7,7 @@
 class SquareProps : public Props
 {
 	public:
+		SquareProps(void);
 		SquareProps(Vector2 pos, Vector2 size, int blocking, Color color,
 				Texture2D texture, int nbr, std::string name);
 		SquareProps(SquareProps const &src);

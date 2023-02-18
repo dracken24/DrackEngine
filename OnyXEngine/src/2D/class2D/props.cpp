@@ -41,7 +41,11 @@ Props	&Props::operator=(Props const &rhs)
 		this->_blocking = rhs._blocking;
 		this->_name = rhs._name;
 		this->_nbr = rhs._nbr;
-		this->_varChar = rhs._varChar;
+		this->_varChar.nbr = rhs._varChar.nbr;
+		this->_varChar.propPosX = rhs._varChar.propPosX;
+		this->_varChar.propPosY = rhs._varChar.propPosY;
+		this->_varChar.propWidth = rhs._varChar.propWidth;
+		this->_varChar.propHeight = rhs._varChar.propHeight;
 	}
 	return (*this);
 }

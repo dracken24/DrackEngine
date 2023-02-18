@@ -5,10 +5,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-void	ftDeleteAndFree(Game *game, Player *player, SquareProps **blocks,
+void	ftDeleteAndFree(Game *game, Player *player, std::vector<SquareProps> *blocks,
 			EnvItems **envItems, MultipleCam2D *allCameras);
 
-void	ftInitBlocks(Game *game, SquareProps **blocks, EnvItems **envItems)
+void	ftInitBlocks(Game *game, std::vector<SquareProps> *blocks, EnvItems **envItems)
 {
 	Texture tmp;
 	std::string name;
@@ -17,9 +17,8 @@ void	ftInitBlocks(Game *game, SquareProps **blocks, EnvItems **envItems)
 	{
 		name = "Block";
 		name.insert(name.length(), std::to_string(i));
-		blocks[i] = new SquareProps((Vector2){(float)(200 + (i * 50)), 200}, (Vector2){24, 24}, 0, BLUE, tmp, i, name);
+		blocks->push_back(SquareProps((Vector2){(float)(200 + (i * 50)), 200}, (Vector2){24, 24}, 0, BLUE, tmp, i, name));
 	}
-	game->nbrSquare = 5;
 
 	envItems[0] = new EnvItems((Vector2){0, 400}, (Vector2){1000, 200}, 1, GRAY, tmp, 1, "Platform0");
 	envItems[1] = new EnvItems((Vector2){300, 150}, (Vector2){400, 10}, 1, GRAY, tmp, 2, "Platform1");
@@ -96,14 +95,14 @@ void	ftMode2D(Game *game, Menu *menu)
 	player->ftSetPosition((Vector2){500, 300});
 	player->ftInitVarChar();
 
-	SquareProps	*blocks[256];
+	std::vector<SquareProps> blocks;
 	EnvItems *envItems[256];
 
 	game->imgCercleChrom = LoadImage("./imgs/wheelcolor.png");
 	game->textCercleChrom = LoadTexture("./imgs/wheelcolor.png");
 	game->rectCercleChrom = {0, 0, 150, 150};
 
-	ftInitBlocks(game, blocks, envItems);
+	ftInitBlocks(game, &blocks, envItems);
 	ftInitTextBoxSideUp(game);
 
 //--------------------------------------------------------------------------------------//
@@ -133,57 +132,53 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(LIGHTGRAY);
 			BeginMode2D(allCameras->camera00.camera);
 
-				if (menu->ftReturnStart() == 0) // Menu intro
+				switch (menu->ftReturnStart())
 				{
-					ftChooseMenu(menu);
-					DrawTextEx(game->font1 ,"Untitled Adventure Game", {250, 100}, 40, 2, BLACK);
-					DrawText("Choose Your Character", 250, 200, 20, DARKGRAY);
-					DrawText("Start Game", 250, 250, 20, DARKGRAY);
-				}
-				else if (menu->ftReturnStart() == 1)// Menu choose character
-				{
-					ftMenuChooseCharacter(game, player, menu);
-				}
-				else if (menu->ftReturnStart() == 2) // Main loop
-				{
-					// std::cout << "Help 00" << std::endl;
-					if (game->ctMode == 1)
-					{
-						allCameras->camera00.camera.target = game->posCam;
-						ftRunBuildMode(game, player, envItems, blocks, &allCameras->camera00.camera);
-						ftControlItems(game, player, envItems, blocks);
-					}
-					else if (game->ctMode == -1)
-					{
-						int tmpEnvi = game->nbrEnvi;
-						int tmpSquare = game->nbrSquare;
-
-						Menu			tmpMenu;
-						Player			tmpPlayer;
-						EnvItems		*tmpEnvItems[256];
-						SquareProps		*tmpBlocks[256];
-						MultipleCam2D	tmpAllCameras;
-
-						tmpMenu = *menu;
-						tmpPlayer = *player;
-						for (int i = 0; i < game->nbrEnvi; i++)
+					case 0:
+						ftChooseMenu(menu);
+						DrawTextEx(game->font1 ,"Untitled Adventure Game", {250, 100}, 40, 2, BLACK);
+						DrawText("Choose Your Character", 250, 200, 20, DARKGRAY);
+						DrawText("Start Game", 250, 250, 20, DARKGRAY);
+						break;
+					case 1:
+						ftMenuChooseCharacter(game, player, menu);
+						break;
+					case 2:
+						switch (game->ctMode)
 						{
-							tmpEnvItems[i] = envItems[i];
-						}
-						for (int i = 0; i < game->nbrSquare; i++)
-						{
-							tmpBlocks[i] = blocks[i];
-						}
-						tmpAllCameras = *allCameras;
+							case 1:
+								allCameras->camera00.camera.target = game->posCam;
+								ftRunBuildMode(game, player, envItems, &blocks, &allCameras->camera00.camera);
+								ftControlItems(game, player, envItems, &blocks);
+								break;
+							case -1:
+								int tmpEnvi = game->nbrEnvi;
 
-						allCameras->camera00.camera.target = player->ftReturnPlayerPosition();
-						ftRunGameMode(game, tmpMenu, tmpPlayer, tmpEnvItems,
-							tmpBlocks, tmpAllCameras);
-						game->nbrEnvi = tmpEnvi;
-						game->nbrSquare = tmpSquare;
-						game->ctMode = 1;
-					}
+								Menu			tmpMenu;
+								Player			tmpPlayer;
+								EnvItems		*tmpEnvItems[256];
+								MultipleCam2D	tmpAllCameras;
+
+								tmpMenu = *menu;
+								tmpPlayer = *player;
+								for (int i = 0; i < game->nbrEnvi; i++)
+								{
+									tmpEnvItems[i] = envItems[i];
+								}
+
+								tmpAllCameras = *allCameras;
+								allCameras->camera00.camera.target = player->ftReturnPlayerPosition();
+
+								ftRunGameMode(game, tmpMenu, tmpPlayer, tmpEnvItems,
+									blocks, tmpAllCameras);
+									
+								game->nbrEnvi = tmpEnvi;
+								game->ctMode = 1;
+								break;
+						}
+					break;
 				}
+
 			EndMode2D();
 		EndTextureMode();
 
@@ -196,7 +191,7 @@ void	ftMode2D(Game *game, Menu *menu)
 
 				if (menu->ftReturnStart() == 2)
 				{
-					ftSideUpMenu2D(game, player, blocks, envItems, menu, allCameras);
+					ftSideUpMenu2D(game, player, &blocks, envItems, menu, allCameras);
 				}
 
 			EndMode2D();
@@ -211,7 +206,7 @@ void	ftMode2D(Game *game, Menu *menu)
 
 				if (menu->ftReturnStart() == 2)
 				{
-					ftSideDownMenu2D(game, blocks, envItems, allCameras);
+					ftSideDownMenu2D(game, &blocks, envItems, allCameras);
 				}
 
 			EndMode2D();
@@ -224,7 +219,7 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(DARKGRAY1);
 			BeginMode2D(allCameras->camera03.camera);
 
-				ftUpMenu2D(game, player, blocks, envItems, &allCameras->camera03.camera);
+				ftUpMenu2D(game, player, &blocks, envItems, &allCameras->camera03.camera);
 
 			EndMode2D();
 		EndTextureMode();
@@ -248,10 +243,10 @@ void	ftMode2D(Game *game, Menu *menu)
 //--------------------------------------------------------------------------------------//
 	// CloseWindow();
 
-	ftDeleteAndFree(game, player, blocks, envItems, allCameras);
+	ftDeleteAndFree(game, player, &blocks, envItems, allCameras);
 }
 
-void	ftDeleteAndFree(Game *game, Player *player, SquareProps **blocks,
+void	ftDeleteAndFree(Game *game, Player *player, std::vector<SquareProps> *blocks,
 			EnvItems **envItems, MultipleCam2D *allCameras)
 {
 	UnloadRenderTexture(allCameras->camera00.textForCam);
@@ -260,11 +255,8 @@ void	ftDeleteAndFree(Game *game, Player *player, SquareProps **blocks,
 	UnloadRenderTexture(allCameras->camera00.textForCam);
 
 	player->ftDeleteVarChar();
-	for (int i = 0; i < game->nbrSquare; i++)
-	{
-		blocks[i]->ftDeleteVarsChar();
-		delete blocks[i];
-	}
+	blocks->clear();
+
 	for (int i = 0; i < game->nbrEnvi; i++)
 	{
 		envItems[i]->ftDeleteVarsChar();
@@ -337,7 +329,7 @@ void	ftDeleteAndFree(Game *game, Player *player, SquareProps **blocks,
 }
 
 //*** Move items on Build Mode ***/
-void	ftControlItems(Game *game, Player *player, EnvItems **envItems, SquareProps **blocks)
+void	ftControlItems(Game *game, Player *player, EnvItems **envItems, std::vector<SquareProps> *blocks)
 {
 	Vector2 mousePos = GetMousePosition();
 	Vector2 lastPos = game->mouse.pos;

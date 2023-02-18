@@ -34,8 +34,9 @@ EnvItems::~EnvItems(void)
 
 EnvItems	&EnvItems::operator=(EnvItems const &rhs)
 {
-	if (this != &rhs)
-	{
-	}
+	// if (this != &rhs)
+	// {
+	// 	this->_speedModifier.x = rhs._speedModifier.x;
+	// }
 	return (*this);
 }

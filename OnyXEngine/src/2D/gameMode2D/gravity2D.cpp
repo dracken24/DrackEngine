@@ -1,39 +1,39 @@
 #include "../../../myIncludes/game.hpp"
 
-void	ftGravityX(Game *game, Player *player, SquareProps **blocks)
+void	ftGravityX(Game *game, Player *player, std::vector<SquareProps> *blocks)
 {
 	Rectangle	plyCollBox = player->ftReturnCollisionBox();
 	float		speed = PLAYER_HOR_SPD * game->delta;
 
-	for (int j = 0; j < game->nbrSquare; j++)
+	for (int j = 0; j < blocks->size(); j++)
 	{
-		Rectangle propRect1 = blocks[j]->ftReturnRectangle();
-		for (int k = 0; k < game->nbrSquare - 1; k++)
+		Rectangle propRect1 = blocks->at(j).ftReturnRectangle();
+		for (int k = 0; k < blocks->size() - 1; k++)
 		{
 			if (j == k)
 				k++;
 
-			Rectangle propRect2 = blocks[k]->ftReturnRectangle();
+			Rectangle propRect2 = blocks->at(k).ftReturnRectangle();
 			if (CheckCollisionRecs(propRect1, plyCollBox)) // Collision player
 			{
 				if (propRect1.x - propRect1.width / 2 > plyCollBox.x + 0./(2)) // Right
 				{
-					blocks[j]->ftChangeSpeedModifier(speed / 4.0f, 'X');
+					blocks->at(j).ftChangeSpeedModifier(speed / 4.0f, 'X');
 				}
 				else // Left
 				{
-					blocks[j]->ftChangeSpeedModifier(-speed / 4.0f, 'X');
+					blocks->at(j).ftChangeSpeedModifier(-speed / 4.0f, 'X');
 				}
 			}
 			if (CheckCollisionRecs(propRect1, player->ftReturnWeaponCollRect()) && player->ftReturnDoAttack() == true) // Collision weapon
 			{
 				if (player->ftReturnFace() == 0) // Right
 				{
-					blocks[j]->ftChangeSpeedModifier(speed * 2.0f, 'X');
+					blocks->at(j).ftChangeSpeedModifier(speed * 2.0f, 'X');
 				}
 				else // Left
 				{
-					blocks[j]->ftChangeSpeedModifier(-speed * 2.0f, 'X');
+					blocks->at(j).ftChangeSpeedModifier(-speed * 2.0f, 'X');
 				}
 			}
 
@@ -41,33 +41,33 @@ void	ftGravityX(Game *game, Player *player, SquareProps **blocks)
 			{
 				if (propRect1.y <= propRect2.y + propRect2.height || propRect2.y <= propRect1.y + propRect1.height)
 				{
-					blocks[k]->ftMovePos((Vector2){1, 0.0f});
-					blocks[j]->ftMovePos((Vector2){-1, 0.0f});
+					blocks->at(k).ftMovePos((Vector2){1, 0.0f});
+					blocks->at(j).ftMovePos((Vector2){-1, 0.0f});
 				}
 
 				if (propRect1.x > propRect2.x)
 				{
-					blocks[k]->ftMovePos((Vector2){-speed / 2, 0.0f});
-					blocks[j]->ftChangeSpeedModifier(speed * 0.5, 'X');
+					blocks->at(k).ftMovePos((Vector2){-speed / 2, 0.0f});
+					blocks->at(j).ftChangeSpeedModifier(speed * 0.5, 'X');
 				}
 				else
 				{
-					blocks[k]->ftMovePos((Vector2){speed / 2, 0.0f});
-					blocks[j]->ftChangeSpeedModifier(-speed * 0.5, 'X');
+					blocks->at(k).ftMovePos((Vector2){speed / 2, 0.0f});
+					blocks->at(j).ftChangeSpeedModifier(-speed * 0.5, 'X');
 				}
 			}
 			if (CheckCollisionRecs(propRect2, propRect1)) // Collision block to block ajust
 			{
 				if (propRect1.x > propRect2.x)
 				{
-					blocks[j]->ftMovePos((Vector2){speed / 2, 0.0f});
-					blocks[k]->ftChangeSpeedModifier(-speed * 0.5, 'X');
+					blocks->at(j).ftMovePos((Vector2){speed / 2, 0.0f});
+					blocks->at(k).ftChangeSpeedModifier(-speed * 0.5, 'X');
 
 				}
 				else
 				{
-					blocks[j]->ftMovePos((Vector2){-speed / 2, 0.0f});
-					blocks[k]->ftChangeSpeedModifier(speed * 0.5, 'X');
+					blocks->at(j).ftMovePos((Vector2){-speed / 2, 0.0f});
+					blocks->at(k).ftChangeSpeedModifier(speed * 0.5, 'X');
 				}
 			}
 			
@@ -76,7 +76,7 @@ void	ftGravityX(Game *game, Player *player, SquareProps **blocks)
 	player->ftChangeDoAttack(false);
 }
 
-void	ftGravityGestion(Game *Game, Player *player, SquareProps **blocks)
+void	ftGravityGestion(Game *Game, Player *player, std::vector<SquareProps> *blocks)
 {
 	ftGravityX(Game, player, blocks);
 }

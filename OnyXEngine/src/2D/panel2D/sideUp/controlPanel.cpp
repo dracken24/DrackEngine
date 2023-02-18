@@ -158,7 +158,7 @@ void	ftWitchPanelIsSelected(Game *game, Player *player, Menu *menu)
 }
 
 //*** Draw a list of items in side up panel in list panel ***//
-void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
+void	ftDrawListPanel(Game *game, Player *player, std::vector<SquareProps> *blocks,
 			EnvItems **envItems, Camera2D *camera)
 {
 	if (game->ctMenuUpButtons == 2)
@@ -215,9 +215,9 @@ void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
 // Draw text for blocks in side up panel //
 
 		DrawText("--Blocks--", 10, 75 + mouseWheel, 16, PURPLE);
-		for (int i = 0; i < game->nbrSquare; i ++)
+		for (int i = 0; i < blocks->size(); i ++)
 		{
-			name = blocks[i]->ftReturnName();
+			name = blocks->at(i).ftReturnName();
 			tmp = name.c_str();
 			box = {(float)game->screenWidth - 300, 100 + nbr + mouseWheel + 40, 290, 12};
 
@@ -230,7 +230,7 @@ void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
 					game->selected2D.lastNbr = game->selected2D.nbr;
 					game->selected2D.type = 2;
 					game->selected2D.nbr = i;
-					game->selected2D.prop = blocks[i];
+					game->selected2D.prop = &blocks->at(i);
 					game->mouse.clickName = 600 + i;
 					game->colorCt = false;
 				}
@@ -280,7 +280,7 @@ void	ftDrawListPanel(Game *game, Player *player, SquareProps **blocks,
 	}
 }
 
-void	ftSideUpMenu2D(Game *game, Player *player, SquareProps **blocks,
+void	ftSideUpMenu2D(Game *game, Player *player, std::vector<SquareProps> *blocks,
 			EnvItems **envItems, Menu *menu, MultipleCam2D *allCameras)
 {
 	ftWitchPanelIsSelected(game, player, menu);

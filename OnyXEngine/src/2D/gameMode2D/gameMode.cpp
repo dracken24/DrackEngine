@@ -1,12 +1,11 @@
 #include "../../../myIncludes/game.hpp"
 
 void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
-			SquareProps **blocks, MultipleCam2D allCameras)
+			std::vector<SquareProps> blocks, MultipleCam2D allCameras)
 {
 	Camera2D *tmpCam = &allCameras.camera00.camera;
 	allCameras.camera00.camera.target = player.ftReturnPlayerPosition();
 
-	// InitWindow(Game->screenWidth, Game->screenHeight, "Play");
 	// SetTargetFPS(60);
 	while (!WindowShouldClose() && game->ctMode == -1)
 	{
@@ -15,7 +14,7 @@ void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
 		BeginTextureMode(allCameras.camera00.textForCam);
 			ClearBackground(LIGHTGRAY);
 			BeginMode2D(allCameras.camera00.camera);
-				ftRoutine(game, &player, &menu, tmpCam, blocks, envItems);
+				ftRoutine(game, &player, &menu, tmpCam, &blocks, envItems);
 				// ftKeyGestionBuildMode(Game);
 
 			EndMode2D();
@@ -27,7 +26,7 @@ void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
 			ClearBackground(DARKGRAY);
 			BeginMode2D(allCameras.camera01.camera);
 
-				ftSideUpMenu2D(game, &player, blocks, envItems, &menu, &allCameras);
+				ftSideUpMenu2D(game, &player, &blocks, envItems, &menu, &allCameras);
 
 			EndMode2D();
 		EndTextureMode();
@@ -38,7 +37,7 @@ void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
 			ClearBackground(DARKGRAY2);
 			BeginMode2D(allCameras.camera02.camera);
 
-				ftSideDownMenu2D(game, blocks, envItems, &allCameras);
+				ftSideDownMenu2D(game, &blocks, envItems, &allCameras);
 
 			EndMode2D();
 		EndTextureMode();
@@ -49,7 +48,7 @@ void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
 			ClearBackground(DARKGRAY1);
 			BeginMode2D(allCameras.camera03.camera);
 
-			ftUpMenu2D(game, &player, blocks, envItems, &allCameras.camera03.camera);
+			ftUpMenu2D(game, &player, &blocks, envItems, &allCameras.camera03.camera);
 
 			EndMode2D();
 		EndTextureMode();
@@ -67,6 +66,7 @@ void	ftRunGameMode(Game *game, Menu menu, Player player, EnvItems **envItems,
 		ftSelectItemsTop(game, &allCameras.camera03.camera);
 		game->ctStopAttack = 0;
 	}
+	blocks.clear();
 	//--------------------------------------------------------------------------------------//
 	// CloseWindow();
 	game->ctStopAttack = 1;
