@@ -93,6 +93,15 @@ $(target): $(objects)
 $(buildDir)/%.o: src/%.cpp Makefile
 	$(MKDIR) $(call platformpth, $(@D))
 	$(CXX) -MMD -MP -c $(compileFlags) $< -o $@ $(CXXFLAGS)
+	
+# Commit all changes to the repository
+COMMIT = $(shell date "+%d %B %T")
+git:
+	@cd ..
+	@git add .
+	@git commit -m "$(COMMIT)"
+	@git push
+	@cd OnyxEngine
 
 # Run the executable
 execute:
