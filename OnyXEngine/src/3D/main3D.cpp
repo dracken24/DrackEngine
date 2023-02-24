@@ -97,7 +97,7 @@ void ftMode3D(Game *game)
 		//--------------------------------------------------------------------------------------
 		// Update
 		//----------------------------------------------------------------------------------
-		UpdateCamera(&allCameras->camera00.camera3D, CAMERA_FREE);
+		// UpdateCamera(&allCameras->camera00.camera3D, CAMERA_FREE);
 		//** Drawning **//
 
 		// Draw Workspace

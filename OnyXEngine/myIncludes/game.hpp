@@ -1,7 +1,7 @@
 #ifndef GAME_HPP
 # define GAME_HPP
 
-# include <raylib.h>
+// # include <raylib.h>
 # include "../vendor/raylib/src/raylib.h"
 # include "../vendor/raylib/src/raymath.h"
 # include "./class2D/player.hpp"

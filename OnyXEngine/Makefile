@@ -17,7 +17,7 @@ objects := $(patsubst src/%, $(buildDir)/%, $(patsubst %.cpp, %.o, $(sources)))
 depends := $(patsubst %.o, %.d, $(objects))
 compileFlags := -std=c++17 -I include
 # linkFlags = -L lib/$(platform) -l raylib
-linkFlags = /home/dracken24/Documents/myPackages/raylib/src/libraylib.a
+linkFlags = /home/dracken24/Desktop/save_Ubuntu_fev_2023/prog/OnyXEngine/raylib/src/libraylib.a
 
 # Check for Windows
 ifeq ($(OS), Windows_NT)
