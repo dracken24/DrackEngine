@@ -241,4 +241,3 @@ void	ftUseGravity(SquareProps *prop, EnvItem *envItems, float delta, int envItem
 		prop->ftChangeSpeed(G * delta);
 	}
 }
-
