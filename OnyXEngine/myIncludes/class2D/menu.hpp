@@ -1,7 +1,7 @@
 #ifndef MENU_HPP
 # define MENU_HPP
 
-#include "../../vendor/raylib/src/raylib.h"
+#include "../../../raylib/src/raylib.h"
 
 class Menu
 {
