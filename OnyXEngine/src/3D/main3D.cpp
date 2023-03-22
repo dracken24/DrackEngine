@@ -17,7 +17,8 @@ void	ftUpMenu3D(Game *game)
 }
 
 // Camera global state context data [56 bytes]
-typedef struct {
+typedef struct CameraData
+{
     unsigned int mode;              // Current camera mode
     float targetDistance;           // Camera distance from position to target
     float playerEyesPosition;       // Player eyes position from ground (in meters)
@@ -29,7 +30,7 @@ typedef struct {
     int smoothZoomControl;          // Smooth zoom control key
     int altControl;                 // Alternative control key
     int panControl;                 // Pan view control key
-} CameraData;
+}	CameraData;
 
 static CameraData CAMERA = {        // Global CAMERA state context
     .mode = 0,
@@ -91,9 +92,9 @@ void ftMode3D(Game *game)
 
 	//----------------------------------------------------------------------------------
 	// Main game loop
+	game->mouse.pos = GetMousePosition();
 	while (!WindowShouldClose())
 	{
-		game->mouse.pos = GetMousePosition();
 		//--------------------------------------------------------------------------------------
 		// Update
 		//----------------------------------------------------------------------------------

@@ -18,9 +18,7 @@ MultipleCam2D	*ftInitCameras(Game *game, MultipleCam2D *allCameras)
 	allCameras->camera01.camera.rotation = 0.0f;
 	allCameras->camera01.camera.zoom = 1.0f;
 	allCameras->camera01.textForCam = LoadRenderTexture(300, game->screenHeight / 3);  // color panel
-	allCameras->camera01.textForCam2 = LoadRenderTexture(300, game->screenHeight / 3); // control panel
 	allCameras->camera01.rectForCam = {0.0f, 0.0f, (float)allCameras->camera01.textForCam.texture.width, (float)-allCameras->camera01.textForCam.texture.height};
-	// allCameras->camera01.image = LoadImage();
 
 	// Camera panel side down
 	allCameras->camera02.camera = {0};
