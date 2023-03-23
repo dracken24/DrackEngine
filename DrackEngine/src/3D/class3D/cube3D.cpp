@@ -95,4 +95,3 @@ Texture		CUBE3D::ftReturnTexture(void) const
 {
 	return (this->_cube.texture);
 }
-

@@ -1,3 +1,15 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackenLib PAR: Dracken24  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 	DrackenStruck.hpp         *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
 #include "../../../myIncludes/game.hpp"
 
 void	ftGravityX(Game *game, Player *player, std::vector<SquareProps> *blocks)
@@ -103,10 +115,10 @@ void	ftUsePlayerGravity(Player *player, std::vector<EnvItems> *envItems, float d
 			p->y = rect.y;
 		}
 		else if (ei->ftReturnBlocking() &&         							// Hit plafond
-				 rect.x <= p->x &&
-				 rect.x + rect.width >= tmpCollBox.x + tmpCollBox.width &&
-				 rect.y + rect.height > tmpCollBox.y &&
-				 CheckCollisionRecs(rect, tmpCollBox))
+			rect.x <= p->x &&
+			rect.x + rect.width >= tmpCollBox.x + tmpCollBox.width &&
+			rect.y + rect.height > tmpCollBox.y &&
+			CheckCollisionRecs(rect, tmpCollBox))
 		{
 			player->ftSetSpeed(25);
 		}

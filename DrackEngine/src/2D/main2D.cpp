@@ -25,7 +25,7 @@ void	ftInitBlocks(Game *game, std::vector<SquareProps> *blocks, std::vector<EnvI
 	envItems->push_back(EnvItems((Vector2){250, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 2, "Platform2"));
 	envItems->push_back(EnvItems((Vector2){650, 250}, (Vector2){100, 10}, 1, GRAY, tmp, 3, "Platform3"));
 }
- 
+
 void	ftInitButtons(Game *game)
 {
 	game->buttonsMenuUp.play.ftInitButton({(float)game->screenWidth - 385, 5}, {30, 30}, WHITE,

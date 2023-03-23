@@ -48,5 +48,80 @@
         "numbers": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp"
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/raylib",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "psi-header.config": {
+        "header": [
+            "/*",
+            " * @file ${fileBasename}",
+            " * @brief ${fileBasenameNoExtension}",
+            " * @author Dracken24",
+            " * @date ${date}",
+            " * @version ${version}",
+            " */",
+            ""
+        ],
+        "source": [
+            "/*",
+            " * @file ${fileBasename}",
+            " * @brief ${fileBasenameNoExtension}",
+            " * @author Dracken24",
+            " * @date ${date}",
+            " * @version ${version}",
+            " */",
+            ""
+        ],
+        "cpp": [
+            "/*",
+            " * @file ${fileBasename}",
+            " * @brief ${fileBasenameNoExtension}",
+            " * @author Dracken24",
+            " * @date ${date}",
+            " * @version ${version}",
+            " */",
+            ""
+        ],
+        "c": [
+            "/*",
+            " * @file ${fileBasename}",
+            " * @brief ${fileBasenameNoExtension}",
+            " * @author ${author}",
+            " * @date ${date}",
+            " * @version ${version}",
+            " */",
+            ""
+        ],
+        "h": [
+            "/*",
+            " * @file ${fileBasename}",
+            " * @brief ${fileBasenameNoExtension}",
+            " * @author ${author}",
+            " * @date ${date}",
+            " * @version ${version}",
+            " */",
+            ""
+        ],
+        "hpp": [
+            "/*",
+            " * @file ${fileBasename}",
+            " * @brief ${fileBasenameNoExtension}",
+            " * @author Dracken24",
+            " * @date ${date}",
+            " * @version ${version}",
+            " */",
+            ""
+        ],
+        "py": [
+            "#!/usr/bin/env python3",
+            "# -*- coding: utf-8 -*-",
+            "",
+            "\"\"\"",
+            "${fileBasenameNoExtension}",
+            "",
+            "Created on ${date}",
+            "",
+        ],
     }
 }

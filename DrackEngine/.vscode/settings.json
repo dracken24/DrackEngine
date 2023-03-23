@@ -53,5 +53,7 @@
         "sstream": "cpp",
         "stop_token": "cpp",
         "thread": "cpp"
-    }
+    },
+        "editor.bracketPairColorization.enabled": true,
+        "editor.guides.bracketPairs": "active",
 }
