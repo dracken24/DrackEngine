@@ -52,7 +52,7 @@ void ftChooseMode(Menu *menu)
 
 void	ftBigMenuControl(Menu *menu)
 {
-	DrawText("Welcome to DrackEngine", 535, 250, 40, BLACK);
+	DrawText("Welcome to OnyX Engine", 535, 250, 40, BLACK);
 	DrawText("2D Engine ", 535, 350, 30, DARKGRAY);
 	DrawText("3D Engine ", 535, 400, 30, DARKGRAY);
 
@@ -66,7 +66,7 @@ int main(void)
 
 	game.font1 = LoadFontEx("../fonts/Greenscr.ttf", 32, 0, 250);
 
-	InitWindow(game.screenWidth, game.screenHeight, "DrackEngine");
+	InitWindow(game.screenWidth, game.screenHeight, "OnyX Engine");
 	SetTargetFPS(60);
 
 	while (!WindowShouldClose())

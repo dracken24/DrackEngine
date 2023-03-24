@@ -35,7 +35,6 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <vector>
-# include <cmath>
 
 # define G 800
 # define PLAYER_JUMP_SPD 600.0f

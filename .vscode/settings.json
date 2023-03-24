@@ -47,7 +47,8 @@
         "limits": "cpp",
         "numbers": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "complex": "cpp"
     },
     "cmake.sourceDirectory": "${workspaceFolder}/raylib",
     "editor.bracketPairColorization.enabled": true,
