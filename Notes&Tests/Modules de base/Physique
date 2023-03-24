@@ -1,0 +1,216 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 	       Physique	          *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+Gestion des corps rigides :
+===========================
+
+La gestion des corps rigides est une partie importante du module de physique d un
+moteur de jeu. Les corps rigides sont des objets qui ont une forme et une masse
+définies et qui peuvent être déplacés et tournés dans l espace en réponse aux
+forces qui leur sont appliquées. Les corps rigides sont utilisés pour simuler
+des objets physiques dans le jeu, tels que des voitures, des balles ou des boîtes.
+
+La création d un corps rigide dans un moteur de jeu peut être effectuée en utilisant
+des primitives géométriques telles que des cubes, des sphères ou des capsules.
+Le moteur de physique peut également prendre en charge des modèles 3D plus complexes
+qui sont créés en dehors du moteur de jeu.
+
+Une fois que le corps rigide est créé, il peut être déplacé dans l espace en appliquant
+des forces telles que la gravité, la friction ou des forces appliquées par le joueur
+ou le système de jeu. Les corps rigides peuvent également être soumis à des contraintes,
+telles que des limites de mouvement, des joints ou des ressorts, qui permettent de
+contrôler leur mouvement.
+
+La gestion de la mémoire est un aspect important de la gestion des corps rigides dans
+un moteur de jeu. Les corps rigides peuvent occuper beaucoup d espace mémoire en
+fonction de leur complexité géométrique et physique. Le moteur de physique doit
+donc être capable de gérer efficacement la mémoire pour éviter les problèmes de
+performances.
+
+Enfin, le module de physique peut également être responsable de la gestion des
+collisions entre les corps rigides. Lorsque deux corps rigides entrent en collision,
+le moteur de physique doit calculer la réponse appropriée, telle que la direction
+et la force de la collision. Cela permet de simuler des interactions physiques
+réalistes entre les objets du jeu.
+
+Gestion des collisions :
+========================
+
+La gestion des collisions est un aspect essentiel de la simulation physique dans les
+jeux vidéo. Les collisions se produisent lorsque deux objets entrent en contact
+l un avec l autre, et elles sont souvent utilisées pour simuler des interactions
+réalistes entre les objets dans le monde du jeu.
+
+La détection des collisions est le processus qui permet de détecter si deux objets
+entrent en collision. Dans les jeux en 3D, cela implique généralement de vérifier
+si les surfaces des deux objets se chevauchent. Les méthodes de détection des collisions
+peuvent varier selon les types d objets impliqués et les exigences de performance du jeu.
+Par exemple, certaines techniques utilisent des grilles de collision pour accélérer
+le processus de détection.
+
+La gestion des réactions aux collisions est le processus qui permet de déterminer
+comment les objets réagissent lorsqu ils entrent en collision. Cela peut inclure
+la modification de la vitesse ou de la direction de l objet en fonction de la force
+de la collision, la création d effets sonores et visuels pour simuler la collision, etc.
+
+La gestion de la friction est un aspect important de la gestion des collisions, car
+elle détermine la façon dont les objets se déplacent lorsqu ils entrent en contact.
+La friction peut être utilisée pour simuler des surfaces rugueuses ou glissantes,
+ce qui peut affecter la façon dont les objets se déplacent et interagissent entre eux.
+
+
+Gestion des forces :
+====================
+
+La gestion des forces est une fonctionnalité importante du module de physique d un
+moteur de jeu, car elle permet de simuler les mouvements réalistes des objets dans
+le monde du jeu. Les forces peuvent être appliquées à un objet pour le faire bouger,
+le faire tourner, le faire accélérer ou le freiner.
+
+Les forces peuvent être de différents types, tels que la gravité, la poussée,
+la friction, la force magnétique, la force élastique, etc. La gravité est une
+force constante qui tire tous les objets vers le bas, tandis que la poussée
+est une force qui pousse les objets dans une direction spécifique. La friction
+est une force qui ralentit les objets lorsqu ils se frottent contre une surface,
+tandis que la force magnétique est une force qui attire ou repousse les objets
+chargés électriquement. La force élastique est une force qui tend à ramener les
+objets à leur position d origine lorsqu ils sont étirés ou comprimés.
+
+La gestion des forces dans un moteur de jeu implique plusieurs étapes, telles que
+la détection des forces, le calcul des effets de ces forces sur les objets,
+la mise à jour de la position et de l orientation des objets en fonction des
+forces appliquées, etc.
+
+La détection des forces est effectuée par le module de physique en fonction des
+propriétés des objets et de l environnement du jeu. Par exemple, la gravité est
+une force constante qui s applique à tous les objets, tandis que la friction dépend
+de la surface sur laquelle l objet se déplace.
+
+Une fois que les forces ont été détectées, le module de physique calcule les
+effets de ces forces sur les objets. Le calcul peut inclure des facteurs tels
+que la masse de l objet, la direction et l intensité de la force, ainsi que les
+propriétés physiques de l environnement du jeu.
+
+Enfin, le module de physique met à jour la position et l orientation des objets
+en fonction des forces appliquées. Les objets peuvent être déplacés ou tournés
+en fonction de la force appliquée, ce qui peut donner lieu à des mouvements réalistes
+tels que la chute libre, le rebondissement ou la rotation.
+
+
+Gestion des contraintes :
+=========================
+
+Les contraintes permettent de limiter le mouvement des objets en fonction de leurs
+propriétés physiques, telles que leur forme, leur masse et leur comportement.
+
+Dans un moteur de jeu, il existe différents types de contraintes que le développeur
+peut utiliser pour simuler le comportement des objets. Parmi les types les plus
+courants, on peut citer :
+
+
+    Les contraintes de position : ces contraintes limitent les mouvements des
+    objets en les fixant à une position spécifique. Elles sont utiles pour créer
+    des structures stables dans le jeu, comme des ponts ou des bâtiments.
+
+    Les contraintes de rotation : ces contraintes limitent les rotations des
+    objets autour d un axe spécifique. Elles sont utiles pour simuler des articulations,
+    comme le mouvement des bras ou des jambes d un personnage.
+
+    Les contraintes de distance : ces contraintes limitent la distance entre deux
+    objets en les maintenant à une distance fixe l un de l autre. Elles sont utiles
+    pour simuler des chaînes, des cordes ou des élastiques.
+
+    Les contraintes de limite : ces contraintes limitent les mouvements des objets en
+    définissant des limites spécifiques. Par exemple, elles peuvent être utilisées pour
+    définir des limites de mouvement pour une porte qui ne peut s ouvrir que dans une
+    direction spécifique.
+
+    Les contraintes de collision : ces contraintes permettent de gérer les collisions
+    entre les objets. Elles peuvent être utilisées pour empêcher les objets de traverser
+    les murs ou le sol du jeu.
+
+
+La gestion des contraintes dans un moteur de jeu nécessite des calculs précis pour
+assurer un comportement réaliste des objets. Les développeurs doivent prendre en
+compte les propriétés physiques des objets, telles que leur masse, leur forme et
+leur densité, ainsi que les forces qui agissent sur eux, telles que la gravité ou
+la friction.
+
+
+Gestion des simulations de fluides :
+===================================
+
+La gestion des simulations de fluides dans un jeu vidéo est une tâche complexe qui
+nécessite des algorithmes sophistiqués de simulation physique. Cette simulation est
+utilisée pour simuler le comportement des liquides (eau, huile, etc.) et des gaz
+(air, vapeur, etc.) dans le monde du jeu.
+
+Le module de simulation de fluides doit être en mesure de créer des simulations
+réalistes en temps réel, avec des effets visuels convaincants tels que les éclaboussures,
+les vagues, les écoulements de liquide, les jets, etc. Le processus de simulation
+de fluides se déroule généralement en plusieurs étapes :
+
+
+    Création de la géométrie : avant de commencer la simulation, il faut créer la
+    géométrie dans laquelle le fluide va évoluer. Cette géométrie peut être définie
+    par l environnement du jeu, des objets solides tels que des murs, des sols,
+    des bâtiments, etc.
+
+    Définition des paramètres de la simulation : une fois la géométrie définie,
+    il faut définir les paramètres de la simulation. Ces paramètres incluent les
+    propriétés physiques du fluide, telles que sa densité, sa viscosité, etc.
+    Il faut également définir les conditions de bord, qui définissent les limites
+    du domaine de la simulation.
+
+    Calcul de la simulation : une fois la géométrie et les paramètres de simulation
+    définis, il est possible de lancer la simulation. Cette étape consiste à résoudre
+    les équations de la dynamique des fluides pour obtenir les mouvements du fluide
+    dans l espace et dans le temps. Cette étape est très coûteuse en termes de
+    ressources de calcul et nécessite souvent des solutions de compromis pour assurer
+    des simulations en temps réel.
+
+    Affichage de la simulation : une fois la simulation calculée, il faut l afficher à
+    l écran pour que le joueur puisse interagir avec elle. Cette étape consiste à
+    utiliser les données de la simulation pour générer des effets visuels tels que
+    les éclaboussures, les vagues, les écoulements de liquide, les jets, etc.
+
+
+La gestion des simulations de fluides peut être gérée par le module de physique ou par
+un module dédié, en fonction de l architecture du jeu. Dans les deux cas, il est
+essentiel de disposer d algorithmes efficaces pour garantir des simulations réalistes
+en temps réel.
+
+
+Gestion des simulations de tissus :
+==================================
+
+La simulation de tissus est une technique de simulation physique qui permet de créer
+des vêtements, des drapeaux, des toiles et d autres types de matériaux en tissu qui
+réagissent de manière réaliste aux forces extérieures telles que le vent, la gravité,
+la friction, etc.
+
+Le module de physique est responsable de la gestion des simulations de tissus dans le
+jeu. La première étape de la simulation de tissus consiste à créer un modèle physique
+de la surface du tissu, qui comprend des paramètres tels que la densité, l élasticité,
+la résistance, etc. Ensuite, la simulation applique des forces sur ce modèle pour simuler
+le mouvement du tissu dans le monde du jeu.
+
+Le calcul de la simulation de tissus est assez complexe et nécessite beaucoup de puissance
+de traitement. Par conséquent, les simulations de tissus sont souvent exécutées sur des
+processeurs spécialisés appelés processeurs de physique.
+
+Une fois la simulation de tissus terminée, le module de rendu peut être utilisé pour
+afficher le tissu à l écran, en utilisant des techniques telles que la texturation,
+l éclairage, les ombres, etc. De plus, le module de physique peut également inclure
+la gestion de la collision entre le tissu et les autres objets dans le jeu, ce qui
+permet au tissu de se plier et de se déformer de manière réaliste lorsqu il entre en
+contact avec d autres objets.

@@ -1,0 +1,180 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE:    Gestion des ressources    *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+Chargement et déchargement des ressources :
+=========================================
+
+Le chargement et le déchargement des ressources sont des étapes essentielles
+dans la création de jeux vidéo. Les ressources dans un jeu vidéo peuvent
+inclure des éléments tels que des modèles 3D, des textures, des sons, des
+animations, des scripts et d autres données nécessaires pour créer un monde
+virtuel immersif.
+
+Le processus de chargement des ressources implique la lecture des fichiers de
+données du disque dur et le stockage des données dans la mémoire du système pour
+que le jeu puisse les utiliser. Les fichiers peuvent être stockés sur le disque
+dur sous forme de fichiers binaires, de fichiers texte ou de fichiers compressés.
+Les données peuvent être stockées dans différents formats tels que PNG, JPEG,
+WAV, MP3, FBX, OBJ, etc.
+
+Le chargement des ressources peut être effectué de différentes manières en
+fonction de la plateforme de jeu et du moteur de jeu utilisé. Par exemple,
+le chargement des ressources peut être effectué au démarrage du jeu ou en
+temps réel lors de l exécution du jeu. Certaines plateformes de jeu peuvent
+également permettre le chargement asynchrone des ressources pour améliorer
+les performances.
+
+Le déchargement des ressources est tout aussi important que le chargement,
+car il permet de libérer la mémoire inutilisée. Les ressources qui ne sont
+plus nécessaires pour le jeu doivent être déchargées pour éviter une utilisation
+excessive de la mémoire du système. Cela peut être fait manuellement en
+libérant les ressources en fonction des besoins ou automatiquement à l aide
+de mécanismes de gestion de la mémoire.
+
+En général, le chargement et le déchargement des ressources sont gérés par
+le moteur de jeu et les bibliothèques de gestion de ressources. Ces bibliothèques
+peuvent inclure des mécanismes de gestion de la mémoire tels que la collecte
+de déchets, la réutilisation de ressources, la gestion de la mémoire tampon,
+etc. Les développeurs de jeux doivent être attentifs à la gestion des
+ressources pour éviter les problèmes de performances et les plantages du jeu.
+
+
+Gestion de la mémoire :
+=======================
+
+Une gestion efficace de la mémoire peut permettre de réduire la consommation de
+mémoire et d améliorer les performances globales du jeu. Pour cela, plusieurs
+techniques peuvent être utilisées :
+
+    Utilisation de la mémoire dynamique : La mémoire dynamique, également connue
+    sous le nom de mémoire allouée à la volée, est une technique courante utilisée
+    dans les jeux pour allouer de la mémoire uniquement lorsque cela est nécessaire.
+    Cela permet de minimiser la quantité de mémoire utilisée par le jeu.
+
+    Utilisation de la mémoire partagée : Dans certains cas, plusieurs entités du
+    jeu peuvent utiliser les mêmes ressources, telles que des textures ou des
+    modèles 3D. Dans ces situations, il peut être judicieux d utiliser de la
+    mémoire partagée pour stocker ces ressources, plutôt que d allouer de la mémoire
+    séparée pour chaque entité.
+
+    Utilisation de la pagination : La pagination est une technique qui consiste à
+    stocker des données sur un disque dur plutôt qu en mémoire vive. Les données
+    sont chargées en mémoire au fur et à mesure que le jeu en a besoin. Cette
+    technique peut permettre de réduire la consommation de mémoire, mais peut
+    également entraîner des temps de chargement plus longs.
+
+    Utilisation de la compression de données : La compression de données peut être
+    utilisée pour réduire la quantité de mémoire utilisée par les ressources du
+    jeu, tels que les textures et les modèles 3D. Cela peut permettre de réduire
+    la consommation de mémoire, mais peut également augmenter les temps de chargement.
+
+En plus de ces techniques, la gestion de la mémoire peut également inclure la
+surveillance de la mémoire utilisée par le jeu en temps réel, la libération de 
+la mémoire inutilisée et la gestion des erreurs de mémoire, telles que les
+fuites de mémoire.
+
+
+Cache de ressources :
+=====================
+
+Elle est utilisée pour stocker temporairement des ressources qui sont fréquemment
+utilisées par le jeu, comme des textures, des modèles 3D, des sons et des animations,
+afin de les rendre rapidement accessibles et de réduire le temps de chargement des
+éléments du jeu.
+
+Le processus de mise en cache des ressources peut être effectué de différentes manières.
+Par exemple, les ressources peuvent être préchargées au début du jeu ou en préparation
+d une scène spécifique, puis stockées en mémoire pour être accessibles instantanément
+lorsque nécessaire. Les ressources peuvent également être chargées progressivement
+en arrière-plan pendant que le joueur interagit avec le jeu.
+
+La cache de ressources est souvent gérée par le module de gestion des ressources du
+moteur de jeu. Ce module est responsable de l attribution de la mémoire et du stockage
+des ressources, en veillant à ce qu il y ait suffisamment d espace disponible pour
+les ressources actuellement utilisées, tout en gérant la libération de la mémoire
+pour les ressources inutilisées.
+
+En plus de réduire le temps de chargement des éléments du jeu, la mise en cache des
+ressources peut également améliorer les performances globales du jeu en réduisant
+le temps de chargement des éléments à l écran, en minimisant les temps de chargement
+pendant le jeu et en permettant une utilisation plus efficace de la mémoire disponible.
+
+Cependant, la gestion de la cache de ressources peut également présenter des défis.
+Une gestion inefficace de la mémoire peut entraîner une utilisation excessive de la
+mémoire système, ce qui peut ralentir le jeu et affecter les performances. De plus,
+si la cache de ressources n est pas correctement gérée, elle peut également entraîner
+des problèmes de latence et de synchronisation, en particulier dans les jeux multijoueurs
+en ligne.
+
+Compression et optimisation des ressources :
+============================================
+
+La compression et l optimisation des ressources sont des techniques utilisées pour
+réduire la taille des fichiers de ressources utilisés dans les jeux. La réduction
+de la taille des fichiers permet d améliorer les performances du jeu en réduisant
+le temps de chargement et en utilisant moins de mémoire. Les deux techniques sont
+souvent utilisées ensemble pour obtenir les meilleurs résultats.
+
+La compression des ressources implique l utilisation d un algorithme de compression
+pour réduire la taille des fichiers. Il existe de nombreux algorithmes de compression
+disponibles, chacun ayant des avantages et des inconvénients. Certains algorithmes
+sont meilleurs pour compresser des types spécifiques de fichiers, tandis que d autres
+sont meilleurs pour compresser des fichiers de toutes sortes. Les algorithmes de
+compression couramment utilisés dans les jeux comprennent LZ4, LZO et Zlib.
+
+L optimisation des ressources, quant à elle, implique la réduction de la taille des
+fichiers en éliminant les données inutiles ou en réorganisant les données pour les
+rendre plus efficaces. Par exemple, l optimisation des textures peut impliquer la
+réduction de la taille de la texture en supprimant les pixels inutilisés ou en réduisant
+la résolution de la texture. L optimisation des modèles 3D peut impliquer la
+simplification des modèles en supprimant les détails inutiles ou en réduisant le
+nombre de triangles dans le modèle. L optimisation des scripts peut impliquer la
+suppression des instructions inutiles ou la réécriture des instructions pour les
+rendre plus efficaces.
+
+En plus de réduire la taille des fichiers, la compression et l optimisation des
+ressources peuvent également améliorer les performances en réduisant la quantité
+de données à transférer entre la mémoire et le disque dur. Cela peut réduire le
+temps de chargement des ressources et améliorer le temps de réponse global du jeu.
+
+
+Gestion des mises à jour de ressources :
+========================================
+
+La gestion des mises à jour de ressources est un processus crucial pour les
+jeux en ligne, car les joueurs s attendent à recevoir régulièrement de nouveaux
+contenus et fonctionnalités. Cette gestion comprend généralement plusieurs
+étapes : la vérification des mises à jour, le téléchargement des nouvelles
+ressources et l intégration des mises à jour dans le jeu.
+
+La première étape consiste à vérifier si une mise à jour est disponible.
+Cette étape peut se faire automatiquement en arrière-plan, ou l utilisateur
+peut être informé qu une nouvelle mise à jour est disponible. Si la mise à
+jour est automatique, le système peut vérifier périodiquement si une nouvelle
+version est disponible et la télécharger si nécessaire.
+
+La deuxième étape est le téléchargement des nouvelles ressources. La taille des
+fichiers de mise à jour peut varier considérablement en fonction de la quantité
+de nouvelles ressources à télécharger. Pour minimiser le temps de téléchargement,
+les mises à jour peuvent être divisées en plusieurs paquets, chacun téléchargé
+individuellement.
+
+La dernière étape est l intégration des mises à jour dans le jeu. Les nouvelles
+ressources doivent être chargées et remplacer les anciennes ressources. Si les
+ressources ont été modifiées, les fichiers obsolètes doivent être supprimés et
+remplacés par les nouveaux fichiers. Dans certains cas, une mise à jour peut
+nécessiter une mise à jour de version du logiciel du jeu.
+
+Il est également important de s assurer que les joueurs utilisent la dernière
+version du jeu. Pour ce faire, les joueurs peuvent être automatiquement déconnectés
+ou invités à mettre à jour leur jeu. Cette étape peut également être effectuée
+automatiquement en arrière-plan pour minimiser les perturbations pour l utilisateur.

@@ -101,7 +101,7 @@ git:
 	@git add .
 	@git commit -m "$(COMMIT)"
 	@git push
-	@cd OnyxEngine
+	@cd DrackEngine
 
 # Run the executable
 execute:

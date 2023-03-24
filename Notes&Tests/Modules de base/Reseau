@@ -1,0 +1,127 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE:           Reseau             *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+La gestion des connexions :
+===========================
+
+Ce sous-module doit donc être capable de gérer les différentes connexions,
+de les maintenir, de les vérifier et de les terminer lorsque nécessaire.
+
+La première étape de la gestion des connexions est l identification des
+joueurs qui se connectent au jeu. Cela implique la création d un processus
+d authentification, qui permet de vérifier que les joueurs sont bien
+ceux qu ils prétendent être. Ce processus peut prendre différentes formes,
+comme une connexion avec un compte utilisateur, une vérification par email,
+un code d accès ou une connexion via un réseau social.
+
+Une fois que les joueurs sont identifiés, le module réseau doit gérer
+les demandes de connexion et de déconnexion. Pour cela, il doit être en
+mesure de détecter les nouveaux joueurs qui cherchent à se connecter et
+de leur fournir les informations nécessaires pour rejoindre la partie.
+Il doit également gérer les demandes de déconnexion, qui peuvent être
+initiées par le joueur lui-même ou par le système lorsque la connexion
+est interrompue.
+
+Le module réseau doit également être capable de gérer les pertes de
+connexion. Cela peut se produire lorsque la connexion est interrompue
+de manière inattendue, par exemple en raison d une panne de réseau ou
+d un problème avec l appareil du joueur. Dans ce cas, le module réseau
+doit être en mesure de détecter la perte de connexion et d informer
+les autres joueurs de l état de la connexion du joueur en question.
+
+Enfin, le module réseau doit être en mesure de gérer les informations
+relatives aux joueurs, telles que leur nom, leur score ou leur niveau.
+Ces informations doivent être stockées de manière fiable et sécurisée,
+afin de garantir leur intégrité et leur confidentialité.
+
+
+Le transfert de données :
+=========================
+
+Le module réseau d un game engine doit être capable de transférer les
+données de manière efficace et rapide pour maintenir une expérience de
+jeu fluide. Cela peut être réalisé à l aide de différentes techniques de
+transfert de données, telles que TCP (Transmission Control Protocol)
+ou UDP (User Datagram Protocol).
+
+Le TCP est une méthode de transfert de données fiable qui garantit que
+toutes les données envoyées sont reçues par le destinataire dans l ordre
+correct. Cependant, cette méthode peut entraîner un délai de latence élevé
+et peut ne pas être adaptée aux jeux nécessitant des transferts de données
+en temps réel.
+
+Le UDP, quant à lui, est une méthode de transfert de données rapide qui
+n offre pas de garantie que toutes les données envoyées seront reçues par
+le destinataire. Cela peut entraîner des pertes de données ou des erreurs
+dans le jeu, mais cette méthode est souvent utilisée pour les jeux nécessitant
+des transferts de données en temps réel, tels que les jeux de tir à la
+première personne.
+
+Le module réseau doit également être capable de gérer la synchronisation
+entre les différents joueurs pour maintenir un état cohérent du jeu. Cela
+peut être réalisé en utilisant des techniques de synchronisation basées sur
+le temps ou sur les événements. Par exemple, les données de position des
+joueurs peuvent être envoyées à intervalles réguliers pour maintenir une
+cohérence de l état du jeu.
+
+En outre, le module réseau peut également inclure des fonctionnalités de
+sécurité pour prévenir les tricheries ou le piratage. Cela peut être réalisé
+en utilisant des techniques de chiffrement ou d authentification pour
+s assurer que les données sont envoyées et reçues par les joueurs autorisés.
+
+Enfin, le module réseau doit également être capable de gérer les différents
+types de connexions, tels que les connexions peer-to-peer ou les connexions
+client-serveur. Les connexions peer-to-peer permettent aux joueurs de se
+connecter directement les uns aux autres, tandis que les connexions client-serveur
+nécessitent un serveur central pour coordonner les connexions.
+
+
+La synchronisation :
+===================
+
+Lorsque plusieurs joueurs sont connectés au même jeu en ligne, ils peuvent avoir
+des expériences différentes en fonction de leur situation, par exemple, leur position
+dans le monde virtuel, les objets qu ils ont récupérés ou les actions qu ils ont
+effectuées. La synchronisation permet d harmoniser ces expériences pour tous les
+joueurs, de manière à ce que tous les événements se déroulent de la même manière
+pour tous les joueurs, au même moment.
+
+Pour y parvenir, le module de synchronisation doit gérer plusieurs éléments :
+
+    La latence : Les données mettent du temps à voyager sur internet, ce qui peut
+    causer des retards dans la réception de l information. Pour éviter que cela
+    n affecte la synchronisation, le module de synchronisation doit utiliser des
+    mécanismes pour compenser la latence, comme la prédiction de mouvements ou le
+    recours à des interpolations pour lisser les mouvements des entités.
+
+    Les conflits : Parfois, plusieurs joueurs peuvent essayer d effectuer des
+    actions en même temps, comme récupérer un objet ou interagir avec une entité.
+    Dans ce cas, le module de synchronisation doit être capable de gérer les
+    conflits pour éviter des situations contradictoires et rendre l expérience de
+    jeu cohérente. Cela peut être fait en utilisant des mécanismes de priorité,
+    où l action du joueur ayant le plus de priorité sera prise en compte, ou en
+    utilisant des mécanismes de résolution de conflits, où les joueurs impliqués
+    doivent négocier pour résoudre le conflit.
+
+    La mise à jour de l état : Le module de synchronisation doit également mettre à
+    jour l état du jeu en temps réel pour que tous les joueurs puissent voir les
+    mêmes choses. Cela peut être réalisé grâce à des mécanismes de diffusion de
+    messages, où les données sont envoyées à tous les joueurs simultanément, ou
+    grâce à des mécanismes de communication point à point, où les données sont
+    envoyées à chaque joueur individuellement.
+
+    La gestion des paquets perdus : Enfin, le module de synchronisation doit être
+    en mesure de gérer les pertes de paquets, c est-à-dire les données qui ne
+    parviennent pas à destination en raison de problèmes de réseau. Pour éviter
+    que cela n affecte la synchronisation, le module de synchronisation doit être
+    capable de détecter les paquets manquants et de les renvoyer si nécessaire,
+    pour que tous les joueurs puissent voir la même chose.

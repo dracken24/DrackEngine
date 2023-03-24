@@ -1,0 +1,41 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE:    Generation de quetes      *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+Gestion de quêtes:
+==================
+
+La création de quêtes commence souvent par l écriture d un scénario qui
+détermine l histoire et l univers du jeu. Ensuite, les concepteurs de jeu
+conçoivent les missions, les objectifs et les tâches nécessaires pour faire
+progresser l histoire du jeu et aider les joueurs à développer leurs
+compétences. Les objectifs peuvent inclure la recherche d objets, la destruction
+d ennemis, l exploration de lieux spécifiques, ou même la négociation avec
+d autres personnages non-joueurs.
+
+Le module de gestion de l état des quêtes permet de suivre l état de progression
+des joueurs dans les différentes missions et objectifs. Il permet également
+de stocker les informations relatives à chaque quête, telles que les objets
+récupérés ou les dialogues échangés. Cela permet de s assurer que les joueurs
+ne perdent pas leur progression dans une quête en cas de déconnexion ou de
+fermeture du jeu.
+
+La résolution des quêtes est un processus complexe qui nécessite souvent
+l utilisation d algorithmes spécifiques. Cela peut inclure la prise en compte
+de plusieurs facteurs, tels que la position des joueurs, les interactions avec
+les personnages non-joueurs, et la progression des objectifs. Le module de
+résolution de quêtes peut utiliser des systèmes de conditionnement, où les
+joueurs doivent remplir certaines conditions avant de passer à l étape suivante
+de la quête. Il peut également utiliser des mécanismes de dialogue pour permettre
+aux joueurs de négocier avec des personnages non-joueurs et influencer le cours de
+l histoire.
+
+line 356

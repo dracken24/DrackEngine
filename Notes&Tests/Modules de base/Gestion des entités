@@ -1,0 +1,203 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 	 Gestion des entités	  *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+Gestion de la hiérarchie des entités :
+======================================
+
+Elle permet de définir les relations parent-enfant entre les différentes entités
+dans le monde du jeu. Cette hiérarchie est généralement représentée sous la forme
+d un arbre où chaque nœud représente une entité, avec ses enfants attachés en
+dessous d elle.
+
+La hiérarchie des entités est utilisée pour plusieurs choses dans le monde du jeu,
+notamment pour définir les relations spatiales entre les différentes entités.
+Par exemple, si une voiture est l entité parent et que ses roues sont les entités
+enfants, la hiérarchie des entités permet de déterminer où les roues se trouvent par
+rapport à la voiture et comment elles doivent être déplacées et animées en conséquence.
+
+La hiérarchie des entités peut également être utilisée pour la gestion de la mémoire
+et des ressources. En effet, lorsqu une entité parent est supprimée, tous ses enfants
+doivent également être supprimés. Cela permet d éviter les fuites de mémoire et de
+libérer les ressources inutilisées.
+
+La gestion de la hiérarchie des entités peut également faciliter la gestion des scripts
+et des comportements associés aux différentes entités. Par exemple, si une entité a un
+script qui contrôle son comportement, ce script peut être attaché à l entité parent,
+plutôt qu à chaque enfant individuellement. Cela permet de simplifier la gestion des
+scripts et d éviter la duplication inutile de code.
+
+Enfin, la gestion de la hiérarchie des entités peut faciliter la gestion des interactions
+entre les différentes entités dans le monde du jeu. Par exemple, si une entité enfant
+doit interagir avec une autre entité qui n est pas son parent, la hiérarchie des entités
+peut être utilisée pour trouver la relation parent-enfant la plus proche entre les deux
+entités et ainsi faciliter l interaction.
+
+
+Gestion des scripts :
+=====================
+
+Le module de gestion des entités est responsable de la gestion des scripts dans le jeu,
+y compris leur intégration avec les entités, leur exécution et leur gestion de la mémoire.
+
+Les scripts sont généralement écrits dans des langages de script tels que Lua, JavaScript,
+Python ou C#. Les développeurs peuvent utiliser ces langages pour créer des scripts qui
+définissent le comportement des entités dans le jeu. Par exemple, un script peut être utilisé
+pour gérer le comportement d un ennemi dans un jeu de tir, en définissant ses mouvements,
+sa réaction aux attaques du joueur et ses animations.
+
+Le module de gestion des entités est responsable de l intégration des scripts dans le jeu.
+Cela implique souvent la création d un système de gestion de scripts qui permet aux développeurs
+de charger, de compiler et d exécuter les scripts dans le jeu. Ce système peut également
+inclure des fonctions qui permettent aux scripts de communiquer avec le reste du jeu,
+telles que l accès aux données de la scène et aux composants de l entité.
+
+Une fois que les scripts sont intégrés dans le jeu, le module de gestion des entités est
+également responsable de leur exécution. Les scripts peuvent être exécutés à différents
+moments dans le jeu, tels que lorsque l entité est créée, lorsqu elle est activée ou désactivée,
+ou lorsqu elle entre en collision avec un autre objet. Les scripts peuvent également être
+exécutés à des moments spécifiques définis par les développeurs, tels que lorsqu un événement
+se produit dans le jeu.
+
+Enfin, le module de gestion des entités est responsable de la gestion de la mémoire associée
+aux scripts. Les scripts peuvent utiliser de la mémoire dynamique pour stocker des données
+temporaires, et il est important que cette mémoire soit gérée efficacement pour éviter les
+fuites de mémoire et les crashs du jeu.
+
+
+Gestion des animations :
+========================
+
+Le module de gestion des entités est responsable de la gestion des animations des entités.
+Cela inclut la création, la gestion et l intégration des animations dans le jeu. Les
+animations peuvent être créées en utilisant des logiciels d animation 3D tels que Maya,
+Blender ou 3ds Max. Une fois que l animation est créée, elle doit être importée dans le
+moteur de jeu.
+
+Le module de gestion des entités est responsable de la gestion des données d animation,
+qui comprennent les informations de position, de rotation et de mise à l échelle des entités
+à chaque image clé de l animation. Ces données sont stockées dans des fichiers d animation,
+tels que des fichiers FBX, pour être chargées dans le moteur de jeu.
+
+Lorsqu une entité est animée, le module de gestion des entités calcule la position,
+la rotation et la mise à l échelle de l entité à chaque image clé de l animation en
+utilisant les données d animation. Ces données sont ensuite utilisées pour déplacer et
+faire pivoter l entité dans le monde du jeu.
+
+Le module de gestion des entités peut également gérer la transition entre différentes
+animations. Par exemple, lorsque le personnage passe de la marche à l arrêt, une
+animation de transition peut être jouée pour assurer une transition fluide.
+
+Enfin, la gestion des animations peut également inclure la gestion de la synchronisation
+audio. Par exemple, la gestion des entités peut être programmée pour synchroniser les
+dialogues avec les mouvements des personnages pour créer une expérience de jeu plus immersive.
+
+
+Gestion des comportements :
+===========================
+
+La gestion des comportements dans un jeu vidéo est un aspect crucial pour créer une
+expérience immersive pour les joueurs. Les comportements des entités, comme les
+personnages et les ennemis, sont ce qui permet aux joueurs d interagir avec le monde
+virtuel du jeu.
+
+Le module de gestion des entités est responsable de la création et de l intégration
+des comportements dans le jeu. Les comportements peuvent être définis comme des
+ensembles de règles et de logiques qui déterminent comment les entités réagissent
+à différentes situations et événements dans le jeu.
+
+Par exemple, dans un jeu de tir à la première personne, les ennemis auront un
+comportement qui détermine comment ils réagissent lorsque le joueur s approche,
+comment ils attaquent, comment ils se cachent, comment ils se déplacent, etc.
+Les comportements peuvent être très simples ou très complexes, en fonction des
+besoins du jeu et de la complexité de l interaction.
+
+Les comportements peuvent être programmés à l aide de langages de script ou de
+langages de programmation tels que C++ ou Python. Certains moteurs de jeu offrent
+des outils visuels pour la création de comportements, permettant aux développeurs
+de créer des comportements à l aide d une interface graphique plutôt que d un code.
+
+Il existe de nombreux types de comportements dans les jeux vidéo, chacun ayant un
+but spécifique. Par exemple, les comportements d animation déterminent comment les
+entités se déplacent, sautent et interagissent avec les autres entités du jeu.
+Les comportements d IA (intelligence artificielle) déterminent comment les entités
+réagissent à différents événements dans le jeu, tels que la détection d un joueur
+ou d autres entités.
+
+Enfin, les comportements peuvent être ajustés et modifiés tout au long du développement
+du jeu pour améliorer l expérience de jeu et s assurer que les entités se comportent de
+manière cohérente et réaliste dans le contexte du jeu.
+
+
+Gestion des modèles 3D :
+=========================
+
+La gestion des modèles 3D est une partie importante de la création de jeux en 3D.
+Les modèles 3D sont des objets en trois dimensions qui représentent les entités
+dans le monde du jeu, tels que les personnages, les objets, les bâtiments, etc.
+La gestion des modèles 3D implique la création, la manipulation et l intégration
+de ces modèles dans le jeu.
+
+La création de modèles 3D peut être effectuée à l aide de logiciels de modélisation
+3D tels que Blender, 3ds Max, Maya, ZBrush, etc. Les artistes 3D peuvent créer des
+modèles à partir de zéro ou utiliser des modèles préexistants pour les modifier et
+les adapter aux besoins spécifiques du jeu.
+
+Une fois les modèles 3D créés, ils doivent être optimisés pour une utilisation dans
+le jeu. Cela peut inclure la réduction du nombre de polygones pour améliorer les
+performances du jeu, la création de textures et de matériaux pour donner aux modèles
+leur apparence finale, et la mise en place de l ensemble des animations pour les
+mouvements et les actions des entités.
+
+Ensuite, les modèles 3D doivent être intégrés dans le jeu. Cela peut être fait à
+l aide de logiciels de développement de jeux tels que Unity ou Unreal Engine, où
+les modèles 3D peuvent être importés et placés dans le monde du jeu. Les développeurs
+peuvent également utiliser des systèmes de gestion des ressources pour organiser
+et gérer les modèles 3D, tels que des bibliothèques de modèles pour faciliter
+l accès et l utilisation des modèles.
+
+La gestion des modèles 3D est essentielle pour la création de jeux en 3D. Elle
+implique des compétences spécialisées en modélisation 3D, en animation, en
+texture et en matériau, ainsi qu une bonne compréhension de la manière dont
+les modèles sont intégrés dans le jeu.
+
+Gestion de l intelligence artificielle :
+========================================
+
+Le module de gestion des entités est responsable de la gestion de l IA pour les
+entités dans le jeu. Cela peut inclure plusieurs aspects, tels que la détection de
+l environnement, la prise de décision, la planification, l apprentissage automatique, etc.
+
+La détection de l environnement implique la capacité de l IA à percevoir l environnement
+dans lequel elle se trouve. Cela peut inclure la détection d obstacles, la reconnaissance
+des objets et des personnages, la détection de sons et d odeurs, etc. Pour ce faire,
+l IA utilise souvent des capteurs, tels que des capteurs de vision, des capteurs audio
+et des capteurs de mouvement.
+
+La prise de décision est le processus par lequel l IA sélectionne une action à partir
+des informations qu elle a recueillies de l environnement. Les décisions prises par
+l IA peuvent être basées sur des règles prédéfinies, des algorithmes de recherche, des
+réseaux de neurones ou des techniques d apprentissage automatique.
+
+La planification est le processus par lequel l IA décide comment atteindre un objectif
+donné en prenant en compte les obstacles et les contraintes de l environnement.
+La planification peut être réalisée à l aide d algorithmes de planification traditionnels,
+tels que les arbres de décision, les algorithmes de recherche et les algorithmes de
+planification hiérarchique.
+
+L apprentissage automatique est une technique d IA qui permet aux entités du jeu de
+s améliorer au fil du temps en apprenant de leurs expériences. L apprentissage peut
+être supervisé ou non supervisé, et peut être utilisé pour améliorer la reconnaissance
+des objets, la prise de décision et la planification.
+
+
+
+

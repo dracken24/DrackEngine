@@ -1,0 +1,220 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 	       Rendu	          *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+Module de rendu :
+=================
+
+Gestion de la caméra : 
+
+Le module de gestion de la caméra peut inclure plusieurs fonctionnalités pour offrir
+une expérience de jeu fluide et immersive. Voici quelques-unes des fonctionnalités
+les plus courantes :
+
+Déplacement de la caméra : Le joueur peut déplacer la caméra pour changer l angle de vue.
+Cela peut se faire à l aide des touches fléchées du clavier, de la souris ou d un joystick.
+
+Zoom de la caméra : Le joueur peut zoomer sur la scène pour obtenir un meilleur
+aperçu des détails ou pour se concentrer sur une zone spécifique. Le zoom peut être
+contrôlé à l aide de la molette de la souris ou des touches spéciales du clavier.
+
+Rotation de la caméra : Le joueur peut faire pivoter la caméra autour dun point
+pour voir les détails de différents angles. Cela peut être particulièrement utile
+pour observer des objets ou des personnages spécifiques.
+
+Changement de mode de vue : Les jeux peuvent offrir différents modes de vue,
+tels que la vue à la première personne ou la vue à la troisième personne.
+Le joueur peut changer de mode de vue pour voir le monde du jeu sous différents angles.
+
+Caméra automatique : Certains jeux peuvent inclure des séquences de caméras automatiques
+pour offrir une expérience plus cinématique. Ces séquences peuvent être utilisées
+pour présenter des scènes d action, pour mettre en valeur des environnements spectaculaires,
+ou pour raconter une histoire.
+
+
+Gestion des shaders :
+=====================
+
+Les shaders sont des programmes informatiques qui sont exécutés sur le processeur
+graphique de la carte graphique. Ils permettent de manipuler les images et les
+effets visuels dans le jeu, tels que l éclairage, les ombres, les effets de particules,
+les effets de post-traitement, etc.
+
+Le module de rendu est responsable de la gestion des shaders dans le jeu. Tout d abord,
+il doit compiler les shaders pour les transformer en instructions exécutables que
+la carte graphique peut comprendre. Cela implique généralement de coder les shaders
+en utilisant un langage de programmation spécialisé comme le langage de shader
+OpenGL Shading Language (GLSL) ou le langage de shader High-Level Shader Language (HLSL)
+utilisé par Microsoft DirectX.
+
+Une fois que les shaders sont compilés, le module de rendu doit les charger en mémoire et
+les configurer pour qu ils soient exécutés correctement pendant le jeu. Cela peut inclure
+la définition des entrées et des sorties des shaders, la liaison des shaders à d autres
+parties du système de rendu, comme les textures ou les buffers de profondeur,
+et la configuration des paramètres de rendu pour que les shaders fonctionnent
+correctement avec le reste du système.
+
+Enfin, le module de rendu est responsable de l exécution des shaders pendant le jeu.
+Les shaders sont exécutés de manière efficace et rapide, en utilisant les capacités
+de traitement parallèle de la carte graphique pour accélérer les calculs. Le module
+de rendu peut également être responsable de la gestion des erreurs de shader,
+en signalant les erreurs de compilation ou d exécution au système de gestion
+des erreurs du jeu.
+
+
+Gestion des textures :
+======================
+
+Le module de rendu est responsable de la gestion des textures dans un jeu vidéo.
+Il doit charger et stocker les textures en mémoire pour les utiliser lors de
+l affichage des objets. Les textures peuvent être stockées dans différents formats,
+tels que BMP, PNG, JPEG, etc., en fonction de la qualité et de la taille souhaitées.
+
+Lorsqu un objet est rendu à l écran, la texture associée à l objet est appliquée
+à sa surface 3D en utilisant des coordonnées de texture. Les coordonnées de texture
+sont des informations qui indiquent à la carte graphique comment appliquer la
+texture sur la surface de l objet. Elles sont généralement stockées dans le modèle 3D
+de l objet ou dans un fichier de configuration associé.
+
+La gestion des textures peut avoir un impact important sur les performances du jeu.
+Si trop de textures sont chargées en mémoire, cela peut ralentir le jeu et entraîner
+des temps de chargement plus longs. Pour cette raison, les développeurs de
+jeux vidéo doivent trouver un équilibre entre la qualité des textures et
+la quantité de mémoire qu elles utilisent.
+
+
+Gestion des modèles 3D :
+========================
+
+La gestion des modèles 3D dans un jeu est généralement effectuée par le module de rendu,
+qui est chargé de les afficher à l écran. La première étape consiste à charger les modèles
+3D depuis un fichier sur le disque dur. Le format le plus couramment utilisé pour les
+modèles 3D dans les jeux est le format OBJ (Wavefront Object), bien qu il existe
+de nombreux autres formats tels que FBX, COLLADA, etc.
+
+Une fois le modèle chargé en mémoire, le module de rendu doit effectuer une série de
+traitements pour l afficher correctement à l écran. Tout d abord, le modèle doit être
+positionné et orienté correctement dans l espace 3D du jeu. Cela peut être effectué
+en utilisant une matrice de transformation, qui peut être définie en fonction de la
+position, de la rotation et de l échelle du modèle.
+
+Ensuite, le module de rendu doit appliquer les textures appropriées au modèle.
+Les textures sont des images qui sont appliquées à la surface des modèles 3D pour
+leur donner une apparence réaliste. Le module de rendu peut charger les textures
+à partir de fichiers séparés et les appliquer aux différentes parties du modèle.
+Les textures peuvent également être modifiées dynamiquement pendant l exécution du jeu,
+en fonction de l état du jeu ou des actions du joueur.
+
+Une autre tâche importante de la gestion des modèles 3D est l application des shaders.
+Les shaders sont des programmes informatiques qui définissent comment les surfaces
+des modèles 3D sont éclairées, ombrées et rendues à l écran. Les shaders sont
+utilisés pour créer des effets visuels tels que les reflets, les ombres, les effets
+de brouillard, etc. Le module de rendu peut charger les shaders à partir de
+fichiers séparés et les appliquer aux différents éléments du modèle.
+
+Enfin, le module de rendu doit effectuer le rendu proprement dit du modèle 3D à l écran.
+Cela implique de projeter le modèle 3D sur un plan 2D qui représente l écran du joueur.
+La projection 3D vers 2D est réalisée en utilisant une transformation de perspective,
+qui prend en compte la position et l orientation de la caméra du joueur.
+
+
+Gestion des particules :
+========================
+
+La gestion des particules est un aspect important de la création d effets visuels dans les
+jeux vidéo. Les particules sont de petits éléments graphiques qui peuvent être utilisés
+pour représenter une variété d effets, tels que la fumée, le feu, l eau, les explosions
+et bien d autres encore. Le module de rendu est responsable de la gestion des particules
+dans le jeu, y compris leur création, leur gestion et leur rendu.
+
+La création de particules commence par la définition de leur apparence et de leur
+comportement. Cela peut inclure des paramètres tels que la taille, la forme, la couleur,
+la vitesse, la durée de vie et bien d autres encore. Les développeurs peuvent
+créer des bibliothèques de particules prédéfinies pour être utilisées dans différents
+contextes de jeu.
+
+Une fois que les paramètres de particules sont définis, le module de rendu est chargé
+de gérer leur création et leur gestion. Cela peut impliquer la création de nouveaux
+objets de particules en temps réel, la modification de leurs paramètres en fonction
+des événements dans le jeu, et la gestion de leur durée de vie et de leur suppression
+lorsqu ils ne sont plus nécessaires.
+
+Le rendu de particules est également important pour assurer une apparence réaliste
+et cohérente dans le jeu. Le module de rendu doit être capable de gérer le rendu de
+grandes quantités de particules en temps réel, tout en respectant les performances
+du jeu. Cela peut impliquer l utilisation de techniques de rendu avancées telles
+que la culling, qui consiste à ne rendre que les particules qui sont visibles à
+l écran, ainsi que l utilisation de shaders pour donner des effets de transparence,
+de flou et d autres effets visuels.
+
+
+Gestion de la lumière :
+=======================
+
+Tout d abord, le module de rendu doit définir les sources de lumière présentes
+dans le jeu. Cela peut inclure le soleil, les lampes, les feux, les écrans
+d ordinateur, etc. Chaque source de lumière peut avoir des propriétés différentes,
+telles que sa position, sa couleur, son intensité, sa taille, etc. Ces propriétés
+peuvent être définies par le développeur du jeu ou être calculées de manière
+dynamique en fonction du contexte.
+
+Ensuite, le module de rendu doit gérer les ombres dans le jeu. Les ombres sont
+créées lorsque la lumière est bloquée par un objet, et elles peuvent donner une
+impression de profondeur et de réalisme à l environnement. La gestion des ombres
+peut être complexe car elle nécessite de calculer les interactions entre la
+lumière, les objets et les surfaces du jeu. Les méthodes les plus courantes
+pour générer des ombres dans les jeux vidéo sont les ombres en temps réel, qui
+utilisent des techniques telles que le traçage de rayons ou les cartes d ombre.
+
+En outre, le module de rendu peut gérer les effets de lumière dans le jeu, tels
+que la réflexion et la réfraction. La réflexion est le phénomène où la lumière
+est réfléchie sur une surface, tandis que la réfraction est le phénomène où la
+lumière est déviée lorsqu elle traverse une surface. Ces effets de lumière peuvent
+être utilisés pour créer des effets visuels impressionnants, tels que des miroirs,
+des surfaces brillantes, des effets d eau, etc. La gestion de ces effets de
+lumière peut être complexe car elle nécessite de calculer les interactions entre
+la lumière, les objets et les surfaces du jeu.
+
+Enfin, le module de rendu doit gérer les performances en ce qui concerne la gestion
+de la lumière. La gestion de la lumière peut être très coûteuse en termes de
+ressources informatiques, car elle implique de nombreux calculs et opérations
+graphiques. Les développeurs de jeux doivent donc trouver un équilibre entre
+la qualité visuelle et les performances du jeu, afin de garantir une expérience
+de jeu fluide et agréable pour les joueurs.
+
+
+Gestion de la post-production :
+===============================
+
+La gestion de la post-production est un processus important dans la création d un jeu vidéo,
+car elle permet d ajouter des effets visuels qui améliorent l esthétique et l immersion du
+joueur dans le monde virtuel. Le module de rendu est responsable de la gestion des effets
+de post-production dans le jeu.
+
+L un des effets les plus couramment utilisés en post-production est l effet de flou, qui
+permet de créer une illusion de mouvement en floutant les objets en mouvement. Cela peut
+être utilisé pour simuler le flou de mouvement dans une scène d action, ou pour donner
+une sensation de vitesse dans les jeux de course.
+
+Un autre effet de post-production commun est l effet de bloom, qui crée un halo lumineux
+autour des sources de lumière les plus brillantes de la scène. Cela peut être utilisé pour
+simuler l éblouissement du soleil, ou pour donner une apparence plus réaliste aux lampes
+et autres sources de lumière.
+
+L effet de profondeur de champ est également souvent utilisé en post-production pour créer
+une sensation de profondeur dans les scènes en 3D. Cela peut être utilisé pour attirer
+l attention du joueur sur un objet spécifique dans la scène, en floutant les objets à
+l avant-plan et à l arrière-plan.
+
+Le module de rendu est également responsable de la gestion d autres effets de post-production,
+tels que l effet de distorsion, qui peut être utilisé pour créer des effets de miroir ou de
+verre déformé, ou l effet de vignettage, qui crée un effet de vignette autour des bords
+de l écran pour créer une sensation de mise au point.

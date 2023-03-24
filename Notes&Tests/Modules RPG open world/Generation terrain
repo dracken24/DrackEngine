@@ -1,0 +1,109 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE:     Generation terrain       *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+Les algorithmes utilisés pour la génération de terrain:
+=======================================================
+
+La génération de terrain est un aspect important des jeux vidéo, en
+particulier pour les jeux de type open-world, RPG ou de survie. Les
+algorithmes utilisés pour générer du terrain peuvent varier en fonction
+des besoins et des contraintes du jeu, mais il existe plusieurs techniques
+couramment utilisées.
+
+L un des algorithmes les plus simples pour la génération de terrain est
+la méthode de bruit de Perlin. Cette méthode consiste à créer une carte
+de bruit, qui est une carte aléatoire de valeurs de hauteur, puis à
+appliquer une série de filtres pour adoucir la carte et créer des
+caractéristiques plus naturelles. La méthode de bruit de Perlin est
+souvent utilisée pour générer des terrains naturels tels que des montagnes,
+des collines ou des forêts.
+
+Un autre algorithme couramment utilisé pour la génération de terrain est
+l algorithme des fractales. Cet algorithme consiste à diviser le terrain
+en plusieurs sections fractales, chacune étant une réplique à plus petite
+échelle de la section précédente. Ce processus est répété plusieurs fois
+pour créer un terrain complexe et détaillé. Les fractales sont souvent
+utilisées pour générer des terrains naturels tels que des canyons, des
+rivières ou des falaises.
+
+L algorithme de marche aléatoire est également utilisé pour la génération
+de terrain dans certains jeux. Cette méthode consiste à faire marcher un
+personnage de manière aléatoire sur la carte, en enregistrant la position
+du personnage à chaque étape. Cette méthode peut être utilisée pour créer
+des terrains naturels tels que des chemins de randonnée, des rivières ou
+des lacs.
+
+Il existe également des algorithmes plus avancés tels que les algorithmes
+basés sur la physique, qui simulent les forces de la nature pour générer
+du terrain réaliste, ou les algorithmes basés sur les graphes, qui créent
+des réseaux de connexions pour générer des terrains structurés.
+
+
+Les algorithmes utilisés pour peupler le terrain:
+================================================
+
+L un des algorithmes les plus couramment utilisés est la technique de la
+modélisation procédurale. Cette technique consiste à générer des objets en
+utilisant des algorithmes mathématiques plutôt que de les créer manuellement.
+Les objets sont générés en utilisant des paramètres spécifiques, tels que
+la taille, la forme, la couleur, la densité et la texture. Les objets générés
+de cette manière peuvent être aléatoires ou être basés sur des schémas prédéfinis.
+
+Un autre algorithme couramment utilisé est la technique de la L-system.
+Cette technique utilise des règles de grammaire pour générer des objets
+tels que des arbres, des plantes et des coraux. La grammaire est définie
+par des symboles qui représentent les éléments de base de l objet, ainsi
+que les règles qui indiquent comment les symboles doivent être remplacés
+et modifiés pour créer l objet final.
+
+Une autre technique couramment utilisée pour la création d objets est la
+méthode de la duplication de formes. Cette technique consiste à créer un
+objet de base, puis à le dupliquer et à le modifier pour créer différents
+types d objets. Par exemple, un rocher de base peut être dupliqué et modifié
+pour créer différents types de rochers, tels que des rochers plats, des
+rochers en forme de champignon ou des rochers pointus.
+
+Enfin, l approche de la photogrammétrie peut également être utilisée pour
+générer des objets à partir de photographies réelles. Cette technique utilise
+des photos pour créer des modèles 3D détaillés d objets tels que des bâtiments,
+des arbres et des rochers. Les modèles créés peuvent être texturés et importés
+dans le game engine pour créer un monde virtuel réaliste.
+
+
+Les algorithmes utilisés pour la physique du terrain:
+====================================================
+
+L un des aspects importants de cette fonctionnalité est la gestion des
+collisions.
+Lorsque les joueurs interagissent avec le terrain, ils peuvent entrer
+en collision avec des objets et des éléments du terrain, comme des rochers,
+des arbres, ou même le sol lui-même. La gestion des collisions permet de
+s assurer que les joueurs peuvent interagir avec le terrain de manière
+réaliste et cohérente.
+
+Le module de génération de terrain peut également inclure des fonctionnalités
+de gestion des textures et des niveaux d élévation. Les textures sont
+utilisées pour représenter la surface du terrain, tandis que les niveaux
+d élévation peuvent être utilisés pour représenter les hauteurs et les basses
+du terrain. Les algorithmes de génération de terrain peuvent être utilisés
+pour créer des textures et des niveaux d élévation réalistes qui s adaptent
+à l environnement dans lequel le jeu se déroule.
+
+La gestion des textures peut également être utilisée pour simuler des
+phénomènes tels que les effets de neige ou de pluie sur le terrain. Les
+niveaux d élévation peuvent être utilisés pour créer des caractéristiques
+du terrain telles que des collines, des montagnes ou des vallées.
+
+Enfin, le module de génération de terrain peut également inclure des
+fonctionnalités de gestion de l eau. Les algorithmes de génération de
+terrain peuvent être utilisés pour créer des rivières, des lacs et des
+océans, ainsi que pour simuler les effets des vagues et des courants.

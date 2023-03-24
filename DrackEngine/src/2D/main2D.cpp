@@ -1,9 +1,21 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackenLib PAR: Dracken24  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 09-11-2022  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 		 main2D.hpp           *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
 #include "../../myIncludes/class2D/squareProps.hpp"
 #include "../../myIncludes/class2D/envitems.hpp"
 #include "../../myIncludes/game.hpp"
 #include "../../myIncludes/class/buttons.hpp"
-#include <string.h>
-#include <stdlib.h>
+// #include <string.h>
+// #include <stdlib.h>
 
 void	ftDeleteAndFree(Game *game, Player *player, std::vector<SquareProps> *blocks,
 			std::vector<EnvItems> *envItems, MultipleCam2D *allCameras);
@@ -180,10 +192,7 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(DARKGRAY);
 			BeginMode2D(allCameras->camera01.camera);
 
-				if (menu->ftReturnStart() == 2)
-				{
-					ftSideUpMenu2D(game, player, &blocks, &envItems, menu, allCameras);
-				}
+				ftSideUpMenu2D(game, player, &blocks, &envItems, menu, allCameras);
 
 			EndMode2D();
 		EndTextureMode();
@@ -195,10 +204,7 @@ void	ftMode2D(Game *game, Menu *menu)
 			ClearBackground(DARKGRAY2);
 			BeginMode2D(allCameras->camera02.camera);
 
-				if (menu->ftReturnStart() == 2)
-				{
-					ftSideDownMenu2D(game, &blocks, &envItems, allCameras);
-				}
+				ftSideDownMenu2D(game, &blocks, &envItems, allCameras);
 
 			EndMode2D();
 		EndTextureMode();

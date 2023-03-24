@@ -1,0 +1,119 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE:            Son               *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+La gestion de la musique:
+========================
+
+Le module de son doit être capable de charger des fichiers audio dans
+différents formats, tels que MP3, WAV ou OGG, afin de pouvoir les jouer
+en fonction des événements du jeu. Par exemple, le module de son peut
+être programmé pour jouer une piste musicale d ambiance lorsque le joueur
+entre dans une nouvelle zone, ou pour jouer une musique plus rythmée
+lorsque le joueur se bat contre un boss.
+
+Le module de son peut également être utilisé pour créer des transitions
+en douceur entre les pistes musicales, en ajustant le volume et la vitesse
+de lecture. En outre, le module de son peut être programmé pour s adapter
+aux changements dans le gameplay, tels que les transitions entre le jour
+et la nuit, en ajustant la musique pour refléter ces changements.
+
+Il est important de noter que la gestion de la musique peut également être
+affectée par les ressources système disponibles. Les fichiers audio sont
+souvent de grande taille et peuvent consommer beaucoup de mémoire et de
+puissance de traitement. Par conséquent, la gestion efficace de la musique
+peut être cruciale pour assurer une expérience de jeu fluide et agréable.
+
+La gestion des effets sonores:
+==============================
+
+Le module de son doit être capable de gérer la lecture des effets sonores en
+fonction des événements qui se produisent dans le jeu. Par exemple,
+lorsqu un joueur tire une arme, le module de son doit jouer l effet sonore
+approprié. De même, lorsque le joueur est près d une cascade, le module de
+son doit jouer l effet sonore de l eau qui tombe.
+
+Le module de son doit également être capable de gérer la spatialisation des
+effets sonores. Cela signifie que le son doit sembler venir de l emplacement
+correct dans le monde du jeu. Par exemple, si un joueur entend le son d un avion
+qui vole au-dessus de sa tête, le son doit sembler venir de l emplacement
+correct dans le monde du jeu pour que l expérience soit immersive.
+
+Enfin, le module de son doit être en mesure de gérer la lecture de plusieurs
+effets sonores simultanément. Par exemple, si plusieurs créatures attaquent un
+joueur en même temps, le module de son doit être capable de jouer les effets
+sonores de toutes les attaques en même temps.
+
+
+La spatialisation:
+==================
+
+La spatialisation est un aspect clé du module de son dans un moteur de jeu,
+car elle permet de donner aux joueurs l impression que les sons proviennent
+de différentes directions dans l espace virtuel. Cette technique est utilisée
+pour créer une expérience sonore réaliste et immersive, en permettant aux
+joueurs de localiser les sources de sons dans l environnement du jeu.
+
+La spatialisation peut être réalisée en utilisant différentes techniques,
+telles que la stéréo, la binauralisation, ou l ambisonie. La technique
+la plus couramment utilisée pour la spatialisation est la stéréo, qui utilise
+deux canaux audio pour créer l illusion que les sons viennent de différentes
+directions. Les effets sonores peuvent être pannés sur la gauche ou la droite
+en fonction de leur position dans l espace virtuel, créant ainsi une impression
+de direction.
+
+La binauralisation est une technique plus avancée qui utilise des algorithmes
+pour simuler l écoute d un son à travers deux oreilles humaines. Cette
+technique est capable de produire une expérience de son 3D plus réaliste que
+la stéréo, car elle prend en compte la forme de la tête et des oreilles de
+l auditeur. Cependant, elle nécessite des équipements spéciaux, tels que des
+écouteurs binauraux, pour être efficace.
+
+L ambisonie est une technique de spatialisation plus avancée qui utilise un
+ensemble de microphones pour capturer les sons provenant de toutes les directions.
+Ces sons sont ensuite convertis en signaux audio qui peuvent être manipulés pour
+créer une expérience sonore réaliste en 3D. Cette technique est souvent utilisée
+pour la spatialisation des effets sonores dans les jeux de réalité virtuelle.
+
+Le module de son doit être capable de fournir une localisation spatiale précise
+des effets sonores en fonction de la position de l entité et de la caméra. Cela
+signifie que le son doit être adapté en temps réel en fonction de la position de
+l entité dans l espace virtuel. Le moteur de jeu utilise des algorithmes de
+localisation pour calculer la position des sons en fonction de la distance entre
+l entité et la caméra, ainsi que de l orientation de l entité et de la caméra.
+
+
+La réverbération:
+=================
+
+Elle reproduit les réflexions sonores qui se produisent lorsque le son rebondit
+sur les murs, le sol et le plafond d une pièce. Lorsqu un son est produit dans
+un espace clos, il est réfléchi plusieurs fois, créant ainsi des réverbérations
+qui remplissent la pièce. Cette caractéristique de l acoustique peut être simulée
+dans un jeu vidéo en utilisant des algorithmes de traitement audio spécifiques.
+
+La réverbération est importante pour donner aux joueurs une sensation de profondeur
+et d espace dans le monde du jeu. Elle peut être utilisée pour donner l impression
+que les sons sont produits dans une grande salle, une grotte ou une forêt dense.
+Sans réverbération, les effets sonores peuvent sembler artificiels et plats.
+
+Pour simuler la réverbération dans un jeu vidéo, le module de son doit prendre en
+compte les propriétés acoustiques de l environnement virtuel, telles que la taille
+de la pièce, les matériaux utilisés pour les murs et le sol, et la présence d objets
+réfléchissants. Le module de son doit également être en mesure de générer des
+réverbérations en temps réel pour chaque source sonore dans le jeu.
+
+Les algorithmes de réverbération peuvent être basés sur plusieurs techniques, telles
+que la convolution, le traitement des signaux de réverbération en temps réel,
+la simulation de la propagation des ondes sonores dans l espace virtuel et l utilisation
+de réverbérateurs numériques. Les effets de réverbération peuvent être réglés en fonction
+de la distance entre la source sonore et le joueur, ainsi que de la taille et de
+la forme de l environnement virtuel.

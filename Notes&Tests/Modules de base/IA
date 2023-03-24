@@ -1,0 +1,181 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE:    Gestion des ressources    *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+Perception :
+============
+
+La perception est un aspect important de la conception de jeux, car elle
+permet aux entités de réagir aux changements dans leur environnement et
+de prendre des décisions en fonction de ces informations. Dans les
+jeux vidéo, la perception peut être utilisée pour de nombreux objectifs
+différents, tels que la détection de l ennemi, la collecte de ressources,
+la recherche d objets cachés, la navigation à travers des labyrinthes ou
+des niveaux, et bien plus encore.
+
+Les capteurs utilisés pour la perception peuvent prendre de nombreuses formes
+différentes. Par exemple, une entité peut avoir des capteurs de vision qui
+lui permettent de voir des objets dans son champ de vision. Les capteurs
+de son peuvent permettre à l entité de détecter des sons, tels que le bruit
+de pas d un ennemi ou le cri d un animal. Les capteurs de proximité peuvent
+être utilisés pour détecter les objets qui se trouvent à proximité, tels
+que les murs, les portes ou les obstacles. Enfin, les capteurs de contact
+peuvent être utilisés pour détecter les collisions avec d autres entités
+ou les objets.
+
+Les informations collectées par les capteurs sont ensuite traitées pour
+déterminer ce que l entité perçoit de son environnement. Cela peut inclure
+la création d une carte de l environnement, la reconnaissance de formes,
+la détection de mouvements, la reconnaissance de sons et bien plus encore.
+En fonction de ces informations, l entité peut prendre des décisions pour
+agir en conséquence, telles que se déplacer vers un nouvel endroit, attaquer
+un ennemi, collecter des ressources ou simplement rester immobile.
+
+La perception est particulièrement importante pour les jeux d action ou les
+jeux de simulation, où les entités doivent réagir rapidement à des changements
+dans leur environnement. Par exemple, dans un jeu de tir à la première personne,
+la perception permet aux ennemis de détecter le joueur et de réagir en
+conséquence, tandis que dans un jeu de simulation de ville, la perception permet
+aux citoyens de se déplacer efficacement dans la ville et d interagir avec
+les autres entités de manière réaliste.
+
+
+Comportements :
+===============
+
+Les comportements dans le module IA d un moteur de jeu sont utilisés pour définir
+le comportement d une entité contrôlée par l ordinateur dans le jeu. Les comportements
+peuvent être regroupés en plusieurs catégories, selon les actions que l entité doit
+effectuer. Par exemple :
+
+    Comportements de déplacement : Ces comportements définissent la façon dont
+    une entité se déplace dans le jeu. Cela peut inclure des comportements tels
+    que la marche, la course, le saut, l escalade, la nage, etc. Les comportements
+    de déplacement peuvent également inclure des comportements plus avancés
+    tels que l évitement d obstacles, la poursuite d un autre personnage ou
+    la navigation dans un environnement complexe.
+
+    Comportements de combat : Les comportements de combat définissent les
+    actions qu une entité peut effectuer pendant un combat. Cela peut inclure
+    des comportements tels que l attaque, la défense, l esquive, la parade,
+    etc. Les comportements de combat peuvent également inclure des comportements
+    plus avancés tels que l utilisation de compétences spéciales, la sélection
+    de cibles en fonction de leur vulnérabilité, etc.
+
+    Comportements de recherche : Les comportements de recherche définissent la
+    façon dont une entité explore son environnement pour trouver des objets,
+    des ennemis ou d autres éléments. Cela peut inclure des comportements tels
+    que la recherche d objets cachés, la découverte de chemins cachés,
+    la reconnaissance des ennemis, etc.
+
+    Comportements sociaux : Les comportements sociaux définissent la façon dont
+    une entité interagit avec d autres entités dans le jeu. Cela peut inclure
+    des comportements tels que le dialogue, la négociation, la coopération,
+    l agression, la manipulation, etc.
+
+Chaque comportement peut être programmé pour répondre à certaines conditions dans
+le jeu, telles que la distance entre les entités, la présence d obstacles,
+la santé de l entité, etc. Les comportements peuvent également être organisés
+en hiérarchies, où les comportements plus fondamentaux sont appelés en premier,
+puis les comportements plus complexes sont appelés en fonction des conditions du jeu.
+
+
+Prise de décision :
+===================
+
+Cette fonctionnalité permet aux entités de choisir les actions à effectuer en
+fonction de leur perception de l environnement et de leur objectif.
+
+La prise de décision peut être basée sur différents critères tels que la
+distance à un ennemi, la quantité de santé restante, la quantité de ressources
+disponibles, ou la proximité de l objectif à atteindre. Ces critères sont
+généralement évalués par des algorithmes de décision qui prennent en compte
+la situation actuelle de l entité et les règles prédéfinies du jeu.
+
+Dans certains cas, la prise de décision peut être basée sur des algorithmes
+d apprentissage automatique. Dans ce cas, les entités apprennent à prendre
+des décisions en fonction de leur expérience passée et de leur interaction avec
+l environnement. Les algorithmes d apprentissage peuvent être utilisés pour
+améliorer la performance de l entité dans le jeu, en lui permettant d adapter
+son comportement en fonction de l évolution du jeu.
+
+Il existe différentes approches pour la prise de décision en IA. Par exemple,
+les arbres de décision sont couramment utilisés pour les comportements de type
+"if/then", où l entité évalue une série de conditions pour déterminer la prochaine
+action à effectuer. Les réseaux de neurones peuvent être utilisés pour la
+reconnaissance de formes et l apprentissage profond, tandis que les algorithmes
+de recherche peuvent être utilisés pour explorer un grand nombre de possibilités
+dans un environnement complexe.
+
+
+Mouvement :
+===========
+
+L un des algorithmes de mouvement les plus couramment utilisés est la navigation
+par grille, qui divise l environnement en une grille régulière de cellules.
+Les entités peuvent alors se déplacer d une cellule à l autre, en évitant les
+obstacles et en respectant les règles de mouvement spécifiques. La navigation
+par grille est souvent utilisée dans les jeux de stratégie en temps réel ou les
+jeux de rôle où les entités se déplacent sur une carte.
+
+Un autre algorithme de mouvement courant est la navigation basée sur des
+vecteurs, qui utilise des vecteurs de direction pour déterminer la trajectoire de
+l entité. Ce type de navigation est souvent utilisé pour les entités qui se
+déplacent dans un environnement en trois dimensions, comme dans les jeux de
+simulation de vol ou les jeux de course.
+
+Dans certains cas, le module d IA peut également inclure des algorithmes de
+mouvement basés sur la physique, qui simulent les lois de la physique pour
+les entités en mouvement. Cela peut être utilisé pour des jeux de simulation
+réaliste, comme les jeux de sport ou les jeux de conduite.
+
+Enfin, les algorithmes de mouvement peuvent être adaptés pour prendre en compte
+les interactions entre les entités. Par exemple, les entités peuvent éviter les
+collisions en ajustant leur trajectoire en fonction des positions des autres
+entités dans leur environnement.
+
+
+Apprentissage automatique :
+===========================
+
+L apprentissage automatique est une technique d intelligence artificielle qui
+permet aux entités d un jeu de s adapter à leur environnement en apprenant à
+partir de l expérience. Les algorithmes d apprentissage automatique utilisent
+des données pour construire un modèle ou une fonction qui peut être utilisé
+pour prendre des décisions et agir en conséquence.
+
+Dans le contexte des jeux, l apprentissage automatique peut être utilisé pour
+améliorer les comportements, la prise de décision, la perception et d autres
+aspects de l IA des entités du jeu. Les algorithmes d apprentissage automatique
+peuvent être utilisés pour entraîner des modèles de comportement en fonction de
+données de jeu telles que les mouvements des joueurs ou des ennemis, les actions
+de l IA, etc.
+
+Les types d algorithmes d apprentissage automatique utilisés dans les jeux
+comprennent les réseaux de neurones, les arbres de décision, les méthodes de
+clustering, les réseaux bayésiens et bien d autres. Les algorithmes d apprentissage
+automatique peuvent également être combinés avec d autres techniques d IA, telles
+que la logique floue ou les réseaux de neurones convolutifs, pour améliorer la
+précision et l efficacité de l IA des entités de jeu.
+
+L apprentissage par renforcement est un type d apprentissage automatique
+particulièrement adapté aux jeux. Dans l apprentissage par renforcement,
+les entités apprennent à partir des récompenses et des punitions reçues en
+fonction de leurs actions dans le jeu. Par exemple, un ennemi pourrait
+apprendre à éviter les obstacles en recevant une récompense lorsqu il évite
+un obstacle et une punition lorsqu il le frappe.
+
+L apprentissage automatique peut également être utilisé pour améliorer
+l IA des joueurs. Les algorithmes d apprentissage automatique peuvent
+être utilisés pour créer des agents d IA qui jouent au jeu, en utilisant
+l expérience pour améliorer leurs performances. Cela peut être utilisé pour
+créer des adversaires plus compétitifs ou des coéquipiers plus utiles dans
+les jeux multijoueurs.

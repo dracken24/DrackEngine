@@ -1,0 +1,211 @@
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 23-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 	      Base  	          *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
+
+Gestion de la fenêtre :
+=======================
+
+Le premier rôle du module de gestion de la fenêtre est de définir la taille et
+la résolution de la fenêtre. Les jeux peuvent avoir des résolutions différentes,
+allant des anciens jeux basse résolution aux jeux modernes en 4K et même en 8K.
+La résolution affecte la netteté des images et la qualité globale de l expérience
+visuelle. Le module de gestion de la fenêtre permet donc aux développeurs de définir
+la résolution de leur jeu et de s  assurer que la fenêtre s adapte correctement
+à la résolution sélectionnée.
+
+Le module de gestion de la fenêtre permet également de gérer les options de plein écran,
+ce qui est important pour les joueurs qui souhaitent jouer en plein écran plutôt que
+dans une fenêtre. Les options de plein écran peuvent affecter la qualité visuelle
+et les performances du jeu, et le module de gestion de la fenêtre permet aux développeurs
+de personnaliser ces options pour s adapter aux besoins du jeu.
+
+La gestion des événements de redimensionnement de la fenêtre est également une fonction
+importante du module de gestion de la fenêtre. Lorsque les joueurs redimensionnent la
+fenêtre de jeu, cela peut avoir un impact sur la taille des éléments à lécran, tels que
+les boutons et les menus. Le module de gestion de la fenêtre permet donc aux développeurs
+de définir comment le jeu doit s adapter en conséquence et éviter les problèmes
+d interface utilisateur.
+
+Le module de gestion de la fenêtre peut également gérer les options d affichage avancées,
+telles que la qualité graphique, les filtres d  image, les options de luminosité et de contraste,
+etc. Ces options peuvent avoir un impact sur la qualité visuelle et les performances du jeu,
+et le module de gestion de la fenêtre permet aux développeurs de personnaliser ces options
+pour s adapter aux besoins du jeu et des joueurs.
+
+
+Boucle principale de jeu :
+==========================
+
+Elle se compose généralement de trois étapes principales : la mise à jour du jeu, la gestion des
+entrées utilisateur et le rendu des images.
+
+La première étape de la boucle principale de jeu est la mise à jour du jeu. Cette étape consiste
+à mettre à jour toutes les entités du jeu en fonction de leur état actuel. Cela peut inclure
+la mise à jour de la position et de l orientation des entités, la vérification des collisions
+entre les entités, la mise à jour de l état de la physique, la mise à jour de l état de l IA, etc.
+La mise à jour du jeu doit être effectuée à un taux de rafraîchissement régulier pour garantir
+que le jeu fonctionne en temps réel.
+
+La deuxième étape de la boucle principale de jeu est la gestion des entrées utilisateur.
+Cette étape consiste à lire toutes les entrées de l utilisateur, telles que les mouvements
+de la souris, les touches du clavier, les entrées de manette, etc. Les entrées utilisateur
+sont utilisées pour contrôler le jeu et doivent être lues à chaque boucle principale de
+jeu pour garantir une réponse en temps réel.
+
+La troisième et dernière étape de la boucle principale de jeu est le rendu des images.
+Cette étape consiste à dessiner toutes les entités et les objets du jeu à l écran. Cela inclut
+le rendu des modèles 3D, des textures, des effets spéciaux, des HUD, etc. Le rendu des images
+est effectué à un taux de rafraîchissement régulier pour garantir que le jeu reste fluide et réactif.
+
+
+Gestion des événements :
+========================
+
+Le module de base du moteur de jeu est responsable de la gestion de ces événements pour assurer une
+jouabilité fluide et réactive.
+
+Le processus de gestion des événements commence par la capture de l événement par le système
+d exploitation, qui le transmet ensuite au moteur de jeu. Le module de gestion des événements
+du moteur de jeu est alors chargé de déterminer quelle action doit être entreprise en réponse
+à cet événement.
+
+Dans le cas des événements clavier, par exemple, le module de gestion des événements peut être
+configuré pour exécuter différentes actions en fonction de la touche pressée. Par exemple, si le
+joueur appuie sur la touche "E", cela peut déclencher une action telle que l ouverture d une porte
+ou la collecte d un objet.
+
+De même, pour les événements de la souris, le module de gestion des événements peut être configuré
+pour détecter le type de clic (simple clic, double clic, clic droit, etc.) et déterminer la position
+du curseur sur l écran. Ces informations peuvent être utilisées pour déclencher des actions spécifiques,
+telles que lancer une attaque ou interagir avec un objet dans le jeu.
+
+La gestion des événements doit être rapide et efficace pour garantir que le jeu réponde rapidement
+aux actions du joueur. Pour cela, le module de gestion des événements utilise généralement des mécanismes
+de file d attente pour traiter les événements dans l ordre où ils se produisent. Cela permet de
+garantir que les événements sont traités en temps opportun, sans surcharger le système avec des
+tâches inutiles.
+
+
+Gestion des ressources :
+========================
+
+La gestion des ressources est un aspect important de tout moteur de jeu, car elle permet de gérer
+efficacement les ressources nécessaires au fonctionnement du jeu, tels que les textures,
+les modèles, les sons, les musiques, les animations, etc. La gestion des ressources peut également
+inclure la gestion de la mémoire, afin de s assurer que le jeu fonctionne de manière optimale
+et sans plantage.
+
+Le module de base responsable de la gestion des ressources doit être en mesure de charger les
+ressources nécessaires à partir du disque dur ou d autres sources de stockage, telles que des
+fichiers .zip ou des archives compressées. Il doit également être capable de stocker et de gérer
+efficacement ces ressources en mémoire, afin de s assurer que le jeu fonctionne de manière
+fluide et sans temps de latence.
+
+Le module de gestion des ressources doit également être capable de décharger les ressources
+lorsqu elles ne sont plus nécessaires, afin de libérer de l espace mémoire pour d autres tâches. 
+il doit également être en mesure de gérer les erreurs de chargement ou de déchargement des ressources,
+afin d éviter les plantages et les comportements indésirables du jeu.
+
+En outre, le module de gestion des ressources peut également être responsable de la mise en cache des
+ressources, afin de réduire les temps de chargement et d améliorer les performances du jeu.
+Cette technique consiste à stocker les ressources les plus couramment utilisées en mémoire vive,
+afin de les rendre rapidement accessibles lorsqu elles sont nécessaires.
+
+
+Gestion des erreurs :
+=====================
+
+La gestion des erreurs peut inclure plusieurs aspects :
+
+La détection des erreurs : le jeu peut être conçu pour détecter automatiquement les erreurs,
+telles que les erreurs de mémoire, les erreurs de syntaxe ou les erreurs d exécution.
+Ces erreurs sont généralement détectées par le système d exploitation ou le langage
+de programmation utilisé.
+
+La gestion des erreurs : une fois qu une erreur est détectée, le jeu doit être capable de
+la gérer correctement. La gestion des erreurs peut inclure la journalisation des erreurs,
+l affichage de messages d erreur à l utilisateur, le traitement des exceptions, etc.
+
+La récupération des erreurs : dans certains cas, il peut être possible de récupérer d une erreur,
+par exemple en réinitialisant l état du jeu ou en chargeant une sauvegarde antérieure.
+Le module de base peut donc inclure des fonctionnalités de récupération des erreurs pour
+aider à rétablir le fonctionnement normal du jeu.
+
+La prévention des erreurs : le jeu peut être conçu pour prévenir les erreurs autant que
+possible, par exemple en utilisant des techniques de programmation robustes, en effectuant
+des vérifications de sécurité régulières ou en testant régulièrement le jeu pour détecter
+les erreurs potentielles.
+
+
+
+Gestion du temps :
+==================
+
+La gestion du temps est un élément crucial pour tout jeu, car elle peut affecter de nombreux
+aspects du gameplay tels que l animation, les effets sonores, les transitions et même les
+éléments de l histoire. Le module de base est responsable de la gestion du temps dans le jeu, 
+ce qui inclut plusieurs tâches clés.
+
+Tout d abord, le module de gestion du temps est chargé de calculer le temps écoulé entre
+chaque mise à jour de la boucle de jeu. Cela est nécessaire pour maintenir une constante
+et fluide progression du jeu, ainsi que pour s assurer que les animations et les effets
+sonores sont synchronisés correctement.
+
+Ensuite, le module de gestion du temps est également responsable de la gestion des délais
+de temps pour les animations et les effets sonores. Par exemple, une explosion dans le jeu
+peut être accompagnée d un effet sonore, mais il est important que le son ne se déclenche
+pas avant que l animation de l explosion ne soit terminée. Le module de gestion du temps
+peut être programmé pour définir des délais spécifiques pour ces effets.
+
+De plus, la gestion du temps peut être utilisée pour contrôler le déroulement de l histoire
+dans le jeu. Par exemple, certaines quêtes ou événements peuvent être programmés pour se
+dérouler à des moments précis du jeu, comme une certaine heure de la journée ou un jour
+spécifique de la semaine. La gestion du temps peut être utilisée pour suivre ces événements
+et déclencher les quêtes ou événements au moment approprié.
+
+Enfin, le module de gestion du temps peut également être utilisé pour gérer les transitions
+entre les niveaux ou les zones du jeu. Par exemple, lorsqu un joueur entre dans une nouvelle zone,
+il peut y avoir un effet de fondu pour rendre la transition plus fluide et immersive.
+Le module de gestion du temps peut être programmé pour gérer ces transitions en synchronisant
+le temps de transition avec la boucle de jeu.
+
+
+Gestion de l interface utilisateur :
+====================================
+
+Le module de base est responsable de la gestion du temps dans le jeu, ce qui inclut
+plusieurs tâches clés.
+
+Tout d abord, le module de gestion du temps est chargé de calculer le temps écoulé
+entre chaque mise à jour de la boucle de jeu. Cela est nécessaire pour maintenir 
+une constante et fluide progression du jeu, ainsi que pour s assurer que les animations
+et les effets sonores sont synchronisés correctement.
+
+Ensuite, le module de gestion du temps est également responsable de la gestion des
+délais de temps pour les animations et les effets sonores. Par exemple, une explosion
+dans le jeu peut être accompagnée d un effet sonore, mais il est important que le
+son ne se déclenche pas avant que l animation de l explosion ne soit terminée.
+Le module de gestion du temps peut être programmé pour définir des délais
+spécifiques pour ces effets.
+
+De plus, la gestion du temps peut être utilisée pour contrôler le déroulement de
+l histoire dans le jeu. Par exemple, certaines quêtes ou événements peuvent être
+programmés pour se dérouler à des moments précis du jeu, comme une certaine heure
+de la journée ou un jour spécifique de la semaine. La gestion du temps peut être
+utilisée pour suivre ces événements et déclencher les quêtes ou événements
+au moment approprié.
+
+Enfin, le module de gestion du temps peut également être utilisé pour gérer les
+transitions entre les niveaux ou les zones du jeu. Par exemple, lorsqu un joueur
+entre dans une nouvelle zone, il peut y avoir un effet de fondu pour rendre
+la transition plus fluide et immersive. Le module de gestion du temps peut
+être programmé pour gérer ces transitions en synchronisant le temps de
+transition avec la boucle de jeu.
