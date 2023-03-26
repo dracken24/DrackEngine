@@ -12,6 +12,8 @@
 
 #include "../../includes/core/core.hpp"
 
+extern Core    *g_core;
+
 bl8		logInit()
 {
 	return (true);
@@ -26,6 +28,7 @@ void	logMessage(logLevel level, const std::string& message, ...)
 {
 	const char	*levelStr[6] = {"[*FATAL*]   :", "[*ERROR*]   :", "[*WARNING*] :",
 		"[*INFO*]    :", "[*DEBUG*]   :", "[*TRACE*]   :"};
+	bl8 		shouldLog = level < LOG_LEVEL_WARNING;
 
 	char outMessage[32000];
 	std::memset(outMessage, 0, sizeof(outMessage));
@@ -39,27 +42,19 @@ void	logMessage(logLevel level, const std::string& message, ...)
 	outBuffer += outMessage;
 	outBuffer += "\n";
 
-    // Color for Debug Log messages
-	std::string color;
-	if (level == LOG_LEVEL_FATAL || level == LOG_LEVEL_ERROR)
-		color = T_RED;
-	else if (level == LOG_LEVEL_WARNING)
-		color = T_YELLOW;
-	else if (level == LOG_LEVEL_INFO)
-		color = T_GREEN;
-	else if (level == LOG_LEVEL_DEBUG)
-		color = T_BLUE;
-	else if (level == LOG_LEVEL_TRACE)
-		color = T_CYAN;
+	if (shouldLog)
+	{
+		g_core->platform.platconsoleWriteError(outBuffer, level);
+	}
 	else
-		color = T_WHITE;
-
-	std::cout << color + outBuffer << T_RESET;
+	{
+		g_core->platform.platconsoleWrite(outBuffer, level);
+	}
 }
 
 // From Code/includes/core/assert.hpp
 void	reportAssertionFailure(std::string const expression, std::string const message,
-                            std::string const file, sint32 line)
+							std::string const file, sint32 line)
 {
 	logMessage(LOG_LEVEL_FATAL, "Assertion failed: %s, message: %s, file: %s, line: %d\n",
 		expression.c_str(), message.c_str(), file.c_str(), line);

@@ -40,12 +40,21 @@
 # include "logger.hpp"
 # include "defines.hpp"
 # include "asserts.hpp"
-# include "../../srcs/platform/platform.hpp"
+# include "../platform/Platform.hpp"
 
 # include <iostream>
 
+typedef struct  platformState
+{
+	void	*intetnalState;
+}	platformState;
+
 class Core
 {
+	//****************************************************************************//
+	//**       						Constructors                            	**//
+	//****************************************************************************//
+
 	public:
 		Core();
 		~Core();
@@ -54,10 +63,17 @@ class Core
 		// void	run();
 		// void	cleanup();
 
-	//****************************************************************************//	
+	//****************************************************************************//
+	//**       						PUBLIC METHODS                          	**//
+	//****************************************************************************//
+
+
+	//****************************************************************************//
+	//**       						Private Variables                          	**//
+	//****************************************************************************//
 
 	public:
-		// Logger		_logger;
+		Platform	platform;
 };
 
 #endif

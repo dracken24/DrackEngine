@@ -12,7 +12,7 @@
 
 #include "../includes/core/core.hpp"
 
-Core    *g_core = new Core();
+Core    *g_core = new Core;
 
 int main(void)
 {
@@ -25,9 +25,25 @@ int main(void)
 	DE_DEBUG("Hello World! %f", 1.0f);
 	DE_TRACE("Hello World! %f lol %s", 1.0f, "test");
 
-	std::cout << std::endl;
+	// std::cout << std::endl;
 
-	DE_ASSERT(1 == 2);
+	// DE_ASSERT(1 == 2);
+
+	// platformState state;
+	if (g_core->platform.platformStart(&g_core->platform.platformState, "DrackEngine", {100, 100}, {1280, 720}))
+	{
+		while (true)
+		{
+			g_core->platform.platformUpdate(&g_core->platform.platformState);
+		}
+	}
+	else
+	{
+		DE_FATAL("Failed to start platform\n");
+	}
+
+	g_core->platform.platformShutdown(&g_core->platform.platformState);
+
 
 	delete g_core;
 
