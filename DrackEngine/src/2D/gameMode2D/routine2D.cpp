@@ -54,9 +54,9 @@ void ftRoutine(Game *game, Player *player, Menu *menu, Camera2D *camera,
 
 	ftGestionProps(game, blocks, envItems, game->delta, envItems->size());
 	player->ftSetCollosionBox((Vector2){plyPos.x + AdjCollBox.x, plyPos.y - AdjCollBox.y},
-							  (Vector2){plyCollBox.width, plyCollBox.height}, (Vector2){AdjCollBox.x, AdjCollBox.y});
+		(Vector2){plyCollBox.width, plyCollBox.height}, (Vector2){AdjCollBox.x, AdjCollBox.y});
 
-	DrawRectangleRec(plyCollBox, BLACK); 	// Player collision box
+	// DrawRectangleRec(plyCollBox, BLACK); 	// Player collision box
 	if (player->ftReturnFace() == 0) 		// Weapon collision box use
 	{
 		player->ftNewWeaponCollBoxPos(plyCollBox.x + plyCollBox.width, 'X');
