@@ -10,11 +10,13 @@
 # /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 # /*****************************************************************************/
 
-# Define custom functions
+# ------------------------- Define custom functions --------------------------- #
+
 rwildcard = $(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 platformpth = $(subst /,$(PATHSEP),$1)
 
-# Set global macros
+# ---------------------------- Set global macros ------------------------------ #
+
 buildDir := bin
 executable := DrackEngine
 target := $(buildDir)/$(executable)
@@ -24,7 +26,8 @@ depends := $(patsubst %.o, %.d, $(objects))
 compileFlags := -std=c++17 -I include
 linkFlags = -lglfw -lvulkan
 
-# Check for Windows
+# --------------------------------- Find IOS ---------------------------------- #
+
 ifeq ($(OS), Windows_NT)
 	# Set Windows macros
 	platform := Windows
@@ -42,8 +45,8 @@ else
 	ifeq ($(UNAMEOS), Linux)
 		# Set Linux macros
 		platform := Linux
-		CXX ?= g++
-		linkFlags += -l GL -l m -l pthread -l dl -l rt -l X11
+		CXX ?= clang++
+		linkFlags += -lGL -lm -lpthread -ldl -lrt -lX11 -lX11-xcb -lxcb -lxkbcommon
 	endif
 	ifeq ($(UNAMEOS), Darwin)
 		# Set macOS macros
@@ -61,48 +64,60 @@ else
 	COPY = cp $1$(PATHSEP)$3 $2
 endif
 
-# Lists phony targets for Makefile
-.PHONY: all execute clean
+# -------------------------------- Compilation --------------------------------- #
 
 # Default target, compiles, executes and cleans
-all: clean $(target) execute
-
-# # Sets up the project for compiling, generates includes and libs
-# setup: include lib
-
-# # Pull and update the the build submodules
-# submodules:
-# 	git submodule update --init --recursive
-
-# # Copy the relevant header files into includes
-# include: submodules
-# 	$(MKDIR) $(call platformpth, ./include)
-# 	$(call COPY,vendor/raylib/src,./include,raylib.h)
-# 	$(call COPY,vendor/raylib/src,./include,raymath.h)
-# 	$(call COPY,vendor/raylib-cpp/include,./include,*.hpp)
-
-# # Build the raylib static library file and copy it into lib
-# lib: submodules
-# 	cd vendor/raylib/src $(THEN) "$(MAKE)" PLATFORM=PLATFORM_DESKTOP
-# 	$(MKDIR) $(call platformpth, lib/$(platform))
-# 	$(call COPY,vendor/raylib/$(libGenDir),lib/$(platform),libraylib.a)
+all: signat msg_in $(target) msg_out execute
 
 # Link the program and create the executable
 $(target): $(objects)
-	$(CXX) $(objects) -o $(target) $(linkFlags)
+	@$(CXX) $(objects) -o $(target) $(linkFlags)
+
 
 # Add all rules from dependency files
 -include $(depends)
 
 # Compile objects to the build directory
 $(buildDir)/%.o: Code/%.cpp Makefile
-	$(MKDIR) $(call platformpth, $(@D))
-	$(CXX) -MMD -MP -c $(compileFlags) $< -o $@ $(CXXFLAGS)
+	@$(MKDIR) $(call platformpth, $(@D))
+	@$(CXX) -MMD -MP -c $(compileFlags) $< -o  $@ $(CXXFLAGS)
+	@printf "$G■"
 
-# Run the executable
+# ---------------------------------- Execute ----------------------------------- #
+
 execute:
-	$(target) $(ARGS)
+	@$(target) $(ARGS)
 
-# Clean up all relevant files
+# ---------------------------------- Messages ---------------------------------- #
+
+msg_in:
+	@echo $L"COMPILATION DE DrackEngine EN COURS..."$W
+
+msg_out:
+	@echo $L"\nDrackEngine READY !!!\n"$W
+
+signat:
+	@echo "$G\n\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/"
+	@echo " |             ---------------------------------------------             |"
+	@echo " |             *--* $LPROJET: DrackEngine  PAR: Dracken24$G *--*             |"
+	@echo " |             ---------------------------------------------             |"
+	@echo "/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\ \n$W"
+	
+# ----------------------------------- Colors ----------------------------------- #
+
+L	= $(shell tput -Txterm setaf 5)
+R	= $(shell tput -Txterm setaf 1)
+G	= $(shell tput -Txterm setaf 2)
+C	= $(shell tput -Txterm setaf 6)
+W	= $(shell tput -Txterm setaf 7)
+
+# ----------------------------------- Clean ------------------------------------ #
+
+re: clean all
+
 clean:
-	$(RM) $(call platformpth, $(buildDir)/*)
+	@echo $G"\n                                 Bye Bye ...\n"$W
+	@$(RM) $(call platformpth, $(buildDir)/*)
+
+# Lists phony targets for Makefile
+.PHONY: all execute clean re msg_in msg_out signat

@@ -1,7 +1,7 @@
 /*****************************************************************************/
 /*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
 /* |             ---------------------------------------------             | */
-/* |             *--*  PROJET: DrackenLib PAR: Dracken24  *--*             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
 /* |             ---------------------------------------------             | */
 /* |             *--*  DATE:		 24-03-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
@@ -10,32 +10,20 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../includes/core.hpp"
+#include "../includes/core/core.hpp"
+
+Core    *g_core = new Core();
 
 int main(void)
 {
-    glfwInit();
+	DE_FATAL("Hello World! %f", 1.0f);
+	DE_ERROR("Hello World! %f", 1.0f);
+	DE_WARNING("Hello World! %f", 1.0f);
+	DE_INFO("Hello World! %f", 1.0f);
+	DE_DEBUG("Hello World! %f", 1.0f);
+	DE_TRACE("Hello World! %f lol %s", 1.0f, "test");
 
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    GLFWwindow *window = glfwCreateWindow(800, 600, "DrackEngine", nullptr, nullptr);
+	delete g_core;
 
-    uint32_t extensionCount = 0;
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-
-    std::cout << extensionCount << " extensions supported\n";
-
-    glm::mat4 matrix;
-    glm::vec4 vec;
-    auto test = matrix * vec;
-
-    while (!glfwWindowShouldClose(window))
-    {
-        glfwPollEvents();
-    }
-
-    glfwDestroyWindow(window);
-
-    glfwTerminate();
-
-    return 0;
+	return (0);
 }
