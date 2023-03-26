@@ -22,24 +22,24 @@ void	logShutdown()
 
 }
 
-DE_API void	logMessage(logLevel level, const char *message, ...)
+void	logMessage(logLevel level, const std::string& message, ...)
 {
-	const char	*levelStr[6] = {"[*FATAL*] ", "[*ERROR*] ", "[*WARNING*] ",
-		"[*INFO*] ", "[*DEBUG*] ", "[*TRACE*] "};
-	// bl8	isAnError = level < LOG_LEVEL_WARNING;
+	const char	*levelStr[6] = {"[*FATAL*]   :", "[*ERROR*]   :", "[*WARNING*] :",
+		"[*INFO*]    :", "[*DEBUG*]   :", "[*TRACE*]   :"};
 
-	char	outMessage[32000];
-	memset(outMessage, 0, sizeof(outMessage));
+	char outMessage[32000];
+	std::memset(outMessage, 0, sizeof(outMessage));
 
-	__builtin_va_list args;
+	va_list args;
 	va_start(args, message);
-	vsnprintf(outMessage, 32000, message, args);
+	vsnprintf(outMessage, 32000, message.c_str(), args);
 	va_end(args);
 
-	char	outBuffer[32001];
-	snprintf(outBuffer, sizeof(outBuffer), "%s%s\n", levelStr[level], outMessage);
+	std::string outBuffer = levelStr[level];
+	outBuffer += outMessage;
+	outBuffer += "\n";
 
-	// Color for Debug Log messages
+    // Color for Debug Log messages
 	std::string color;
 	if (level == LOG_LEVEL_FATAL || level == LOG_LEVEL_ERROR)
 		color = T_RED;
@@ -54,6 +54,13 @@ DE_API void	logMessage(logLevel level, const char *message, ...)
 	else
 		color = T_WHITE;
 
-	// printf("%s%s", color.c_str(), outBuffer);
-	std::cout << color << outBuffer << T_RESET;
+	std::cout << color + outBuffer << T_RESET;
+}
+
+// From Code/includes/core/assert.hpp
+void	reportAssertionFailure(std::string const expression, std::string const message,
+                            std::string const file, sint32 line)
+{
+	logMessage(LOG_LEVEL_FATAL, "Assertion failed: %s, message: %s, file: %s, line: %d\n",
+		expression.c_str(), message.c_str(), file.c_str(), line);
 }

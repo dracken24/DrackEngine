@@ -43,7 +43,7 @@ typedef enum	logLevel
 bl8		logInit();
 void	logShutdown();
 
-DE_API void	logMessage(logLevel level, const char* message, ...);
+DE_API void logMessage(logLevel level, const std::string& message, ...);
 
 // Log an error message as a fatal error lvl.
 # define DE_FATAL(message, ...) logMessage(LOG_LEVEL_FATAL, message, ##__VA_ARGS__);

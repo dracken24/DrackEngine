@@ -16,12 +16,18 @@ Core    *g_core = new Core();
 
 int main(void)
 {
+	DE_ASSERT(true);
+
 	DE_FATAL("Hello World! %f", 1.0f);
 	DE_ERROR("Hello World! %f", 1.0f);
 	DE_WARNING("Hello World! %f", 1.0f);
 	DE_INFO("Hello World! %f", 1.0f);
 	DE_DEBUG("Hello World! %f", 1.0f);
 	DE_TRACE("Hello World! %f lol %s", 1.0f, "test");
+
+	std::cout << std::endl;
+
+	DE_ASSERT(1 == 2);
 
 	delete g_core;
 

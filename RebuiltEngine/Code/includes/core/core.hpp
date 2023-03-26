@@ -37,8 +37,10 @@
 # include <glm/gtx/hash.hpp>
 
 # include "../color.hpp"
-# include "../core/logger.hpp"
-# include "../core/defines.hpp"
+# include "logger.hpp"
+# include "defines.hpp"
+# include "asserts.hpp"
+# include "../../srcs/platform/platform.hpp"
 
 # include <iostream>
 
