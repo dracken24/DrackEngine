@@ -79,9 +79,9 @@ bl8 	Platform::platformStart(PlatformState	*platform, std::string appName,
 	// Connect to the Xlib server
 	state->display = XOpenDisplay(NULL);
 
-	// Turn off keyboard autorepeat "WARNING" *Disable for entire OS*
+	// TODO: Turn off keyboard autorepeat "WARNING" *Disable for entire OS*
 	// Need to turn it back on when the program exits
-	XAutoRepeatOff(state->display);
+	// XAutoRepeatOff(state->display);
 	// XAutoRepeatOn(state->display);
 
 	// Retrieve the connexions for the display
@@ -219,16 +219,20 @@ bl8		Platform::platformUpdate(PlatformState	*platform)
 	xcb_client_message_event_t	*clientMessage;
 
 	bl8 quit = false;
+	// std::cout << "Polling for event" << std::endl;
 
 	// Get the next event
 	while (event != 0)
 	{
+		// std::cout << "Event av on: " << std::endl;
 		event = xcb_poll_for_event(state->connection);
 		if (event == 0)
 			break ;
+		// std::cout << "Event av on 2: " << std::endl;
 		
 		switch (event->response_type & ~0x80) // Inverse bitwise operation
 		{
+			// std::cout << "Event on: " << event->response_type << std::endl;
 			case XCB_KEY_PRESS:			// Keys events
 			case XCB_KEY_RELEASE:
 			{
@@ -254,11 +258,15 @@ bl8		Platform::platformUpdate(PlatformState	*platform)
 			case XCB_CLIENT_MESSAGE:	// Close request gestion
 			{
 				clientMessage = (xcb_client_message_event_t *)event;
-
+				// std::cout << "Client message: " << clientMessage->data.data32[0] << std::endl;
 				if (clientMessage->data.data32[0] == state->wm_delete_window)
+				{
 					quit = true;
+					// std::cout << "Quit" << std::endl;
+				}
 			}
 				break ;
+			// std::cout << "Event out: " << event->response_type << std::endl;
 			default:
 				break ;
 		}

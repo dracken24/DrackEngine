@@ -12,7 +12,7 @@
 
 #include "../../includes/core/core.hpp"
 
-extern Core    *g_core;
+// extern Core    *g_core;
 
 bl8		logInit()
 {
@@ -26,8 +26,8 @@ void	logShutdown()
 
 void	logMessage(logLevel level, const std::string& message, ...)
 {
-	const char	*levelStr[6] = {"[*FATAL*]   :", "[*ERROR*]   :", "[*WARNING*] :",
-		"[*INFO*]    :", "[*DEBUG*]   :", "[*TRACE*]   :"};
+	const char	*levelStr[6] = {"[*FATAL*]   : ", "[*ERROR*]   : ", "[*WARNING*] : ",
+		"[*INFO*]    : ", "[*DEBUG*]   : ", "[*TRACE*]   : "};
 	bl8 		shouldLog = level < LOG_LEVEL_WARNING;
 
 	char outMessage[32000];
@@ -42,13 +42,14 @@ void	logMessage(logLevel level, const std::string& message, ...)
 	outBuffer += outMessage;
 	outBuffer += "\n";
 
+	Platform platform;
 	if (shouldLog)
 	{
-		g_core->platform.platconsoleWriteError(outBuffer, level);
+		platform.platconsoleWriteError(outBuffer, level);
 	}
 	else
 	{
-		g_core->platform.platconsoleWrite(outBuffer, level);
+		platform.platconsoleWrite(outBuffer, level);
 	}
 }
 

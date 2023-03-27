@@ -44,36 +44,47 @@
 
 # include <iostream>
 
-typedef struct  platformState
+// Application configuration.
+typedef struct appConfig
 {
-	void	*intetnalState;
-}	platformState;
+	sint16		x;		// Window starting x position, if applicable.
+	sint16		y;		// Window starting y position, if applicable.
+	sint16		width;	// Window starting width, if applicable.
+	sint16		height;	// Window starting height, if applicable.
 
-class Core
+    std::string	name;	// The application name used in windowing, if applicable.
+}	appConfig;
+
+// Core = Engine and Application Layer
+class DE_Core
 {
 	//****************************************************************************//
 	//**       						Constructors                            	**//
 	//****************************************************************************//
 
 	public:
-		Core();
-		~Core();
-
-		// void	init();
-		// void	run();
-		// void	cleanup();
+		DE_Core();
+		~DE_Core();
 
 	//****************************************************************************//
 	//**       						PUBLIC METHODS                          	**//
 	//****************************************************************************//
 
+	public:
+	// Global Methods for the Engine
+		DE_API bl8	applicationStart(appConfig *config);
+		DE_API bl8	applicationRun();
+		DE_API void	applicationShutdown();
 
 	//****************************************************************************//
 	//**       						Private Variables                          	**//
 	//****************************************************************************//
 
 	public:
-		Platform	platform;
+		// Platform	platform;
+	
+	private:
+		
 };
 
 #endif

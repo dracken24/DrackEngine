@@ -12,40 +12,20 @@
 
 #include "../includes/core/core.hpp"
 
-Core    *g_core = new Core;
-
 int main(void)
 {
-	DE_ASSERT(true);
+	DE_Core		core;
+	appConfig	config;
 
-	DE_FATAL("Hello World! %f", 1.0f);
-	DE_ERROR("Hello World! %f", 1.0f);
-	DE_WARNING("Hello World! %f", 1.0f);
-	DE_INFO("Hello World! %f", 1.0f);
-	DE_DEBUG("Hello World! %f", 1.0f);
-	DE_TRACE("Hello World! %f lol %s", 1.0f, "test");
+	config.name = "DrackEngine";
+	config.width = 1280;
+	config.height = 700;
+	config.x = 100;
+	config.y = 100;
 
-	// std::cout << std::endl;
+	core.applicationStart(&config);
 
-	// DE_ASSERT(1 == 2);
-
-	// platformState state;
-	if (g_core->platform.platformStart(&g_core->platform.platformState, "DrackEngine", {100, 100}, {1280, 720}))
-	{
-		while (true)
-		{
-			g_core->platform.platformUpdate(&g_core->platform.platformState);
-		}
-	}
-	else
-	{
-		DE_FATAL("Failed to start platform\n");
-	}
-
-	g_core->platform.platformShutdown(&g_core->platform.platformState);
-
-
-	delete g_core;
+	core.applicationRun();
 
 	return (0);
 }

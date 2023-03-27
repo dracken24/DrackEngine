@@ -16,6 +16,13 @@
 # include "../core/defines.hpp"
 
 // x, y signed int 32 bits
+typedef	struct Vector2si16
+{
+	sint16	x;
+	sint16	y;
+}	Vector2si16;
+
+// x, y signed int 32 bits
 typedef	struct Vector2si
 {
 	sint32	x;
