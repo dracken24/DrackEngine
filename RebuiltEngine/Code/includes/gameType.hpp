@@ -24,16 +24,16 @@ typedef struct Game
 	appConfig	appConfigg;
 
 	// Function pointer to game's initialize function.
-	bl8 (*initialize)(struct Game* game_inst);
+	bl8 (*initialize)(struct Game *gameInstance);
 
 	// Function pointer to game's update function.
-	bl8 (*update)(struct Game* game_inst, fl32 delta_time);
+	bl8 (*update)(struct Game *gameInstance, fl32 deltaTime);
 
 	// Function pointer to game's render function.
-	bl8 (*render)(struct Game* game_inst, fl32 delta_time);
+	bl8 (*render)(struct Game *gameInstance, fl32 deltaTime);
 
 	// Function pointer to handle resizes, if applicable.
-	void (*onResize)(struct Game* game_inst, uint32 width, uint32 height);
+	void (*onResize)(struct Game *gameInstance, uint32 width, uint32 height);
 
 	// Game-specific game state. Created and managed by the game.
 	void* state;

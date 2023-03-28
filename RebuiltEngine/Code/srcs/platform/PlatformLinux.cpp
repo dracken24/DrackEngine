@@ -158,7 +158,7 @@ bl8 	Platform::PlatformStart(PlatformState	*platform, std::string appName,
 
 	xcb_intern_atom_cookie_t wm_protocols_cookie = xcb_intern_atom(
 		state->connection, 0, 12, "WM_PROTOCOLS");
-		
+
 	xcb_intern_atom_reply_t *wm_delete_reply = xcb_intern_atom_reply(
 		state->connection, wm_delete_cookie, nullptr);
 
@@ -227,39 +227,49 @@ bl8		Platform::PlatformUpdate(PlatformState	*platform)
 		{
 			// std::cout << "Event on: " << event->response_type << std::endl;
 			case XCB_KEY_PRESS:			// Keys events
+			{
+				std::cout << "PRESS" << std::endl;
+			}
+				break;
 			case XCB_KEY_RELEASE:
 			{
+				std::cout << "RELEASE" << std::endl;
 				// TODO: Keys events
 			}
 				break ;
 			case XCB_BUTTON_PRESS:		// Buttons events
+			{
+				std::cout << "CLICK CLICK BOOM PRESS" << std::endl;
+			}
+				break ;
 			case XCB_BUTTON_RELEASE:
 			{
+				std::cout << "CLICK CLICK BOOM RELEASE" << std::endl;
 				// TODO: Buttons events
 			}
 				break ;
 			case XCB_MOTION_NOTIFY:		// Mouse mouvments
 			{
+				std::cout << "MOUSE MOOVE" << std::endl;
 				// TODO: Mouse mouvments
 			}
 				break ;
 			case XCB_CONFIGURE_NOTIFY:	// Resizing
 			{
+				std::cout << "STRETCH ME" << std::endl;
 				// TODO: Resizing
 			}
 				break ;
 			case XCB_CLIENT_MESSAGE:	// Close request gestion
 			{
 				clientMessage = (xcb_client_message_event_t *)event;
-				// std::cout << "Client message: " << clientMessage->data.data32[0] << std::endl;
 				if (clientMessage->data.data32[0] == state->wm_delete_window)
 				{
+					std::cout << "DON'T LEAVE MEEEEE!!!!!!!!" << std::endl;
 					quit = true;
-					// std::cout << "Quit" << std::endl;
 				}
 			}
 				break ;
-			// std::cout << "Event out: " << event->response_type << std::endl;
 			default:
 				break ;
 		}
@@ -271,21 +281,13 @@ bl8		Platform::PlatformUpdate(PlatformState	*platform)
 }
 
 // Dealing with memory
-// template <typename T>
-// void	*Platform::platformAllocator(T type, bl8 align)
-// {
-// 	return (new T(type));
-// }
+
 void *Platform::PlatformAllocator(uint64 size, bl8 align)
 {
 	return (malloc(size));
 }
 
 // template <typename T>
-// void	Platform::platformFree(void *memPtr, bl8 align)
-// {
-// 	delete (T *)memPtr;
-// }
 void	Platform::PlatformFree(void *memPtr, bl8 align)
 {
 	free(memPtr);
