@@ -14,17 +14,17 @@
 
 // extern Core    *g_core;
 
-bl8		logInit()
+bl8		LogInit()
 {
 	return (true);
 }
 
-void	logShutdown()
+void	LogShutdown()
 {
 
 }
 
-void	logMessage(logLevel level, const std::string& message, ...)
+void	LogMessage(logLevel level, const char *message, ...)
 {
 	const char	*levelStr[6] = {"[*FATAL*]   : ", "[*ERROR*]   : ", "[*WARNING*] : ",
 		"[*INFO*]    : ", "[*DEBUG*]   : ", "[*TRACE*]   : "};
@@ -35,7 +35,7 @@ void	logMessage(logLevel level, const std::string& message, ...)
 
 	va_list args;
 	va_start(args, message);
-	vsnprintf(outMessage, 32000, message.c_str(), args);
+	vsnprintf(outMessage, 32000, message, args);
 	va_end(args);
 
 	std::string outBuffer = levelStr[level];
@@ -45,18 +45,18 @@ void	logMessage(logLevel level, const std::string& message, ...)
 	Platform platform;
 	if (shouldLog)
 	{
-		platform.platconsoleWriteError(outBuffer, level);
+		platform.PlatconsoleWriteError(outBuffer, level);
 	}
 	else
 	{
-		platform.platconsoleWrite(outBuffer, level);
+		platform.PlatconsoleWrite(outBuffer, level);
 	}
 }
 
 // From Code/includes/core/assert.hpp
-void	reportAssertionFailure(std::string const expression, std::string const message,
+void	ReportAssertionFailure(std::string const expression, std::string const message,
 							std::string const file, sint32 line)
 {
-	logMessage(LOG_LEVEL_FATAL, "Assertion failed: %s, message: %s, file: %s, line: %d\n",
+	LogMessage(LOG_LEVEL_FATAL, "Assertion failed: %s, message: %s, file: %s, line: %d\n",
 		expression.c_str(), message.c_str(), file.c_str(), line);
 }

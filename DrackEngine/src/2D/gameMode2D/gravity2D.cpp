@@ -170,7 +170,7 @@ void	ftUseGravity(SquareProps *prop, std::vector<EnvItems> *envItems, float delt
 			prop->ftSetSpeedModifier(prop->ftReturnSpeedModifier('X') / 1.25, 'X'); // Friction in x on ground
 		}
 		else if (CheckCollisionRecs(rect, tmpProp) && ei->ftReturnBlocking())
-		{
+		{	
 			prop->ftSetSpeedModifier(prop->ftReturnSpeedModifier('X') * - 1./(2), 'X');
 		}
 	}

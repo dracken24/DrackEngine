@@ -43,11 +43,11 @@
 #  endif
 # endif
 
-// void	reportAssertionFailure(const char* expression, const char* message, const char* file, sint32 line);
+// void	ReportAssertionFailure(const char* expression, const char* message, const char* file, sint32 line);
 
 // Asserts that the given expression is true. If it is not, the program will
 // stop and display an error message.
-DE_API void	reportAssertionFailure(std::string const expression, std::string const message,
+DE_API void	ReportAssertionFailure(std::string const expression, std::string const message,
 			std::string const file, sint32 line);
 
 // Asserts that the given expression is true. If it is not,
@@ -59,7 +59,7 @@ DE_API void	reportAssertionFailure(std::string const expression, std::string con
 		}																	\
 		else																\
 		{																	\
-			reportAssertionFailure(#expression, "", __FILE__, __LINE__);	\
+			ReportAssertionFailure(#expression, "", __FILE__, __LINE__);	\
 			DE_DEB_BREAK();													\
 		}																	\
 	}
@@ -71,7 +71,7 @@ DE_API void	reportAssertionFailure(std::string const expression, std::string con
 		}																		\
 		else																	\
 		{																		\
-			reportAssertionFailure(#expression, message, __FILE__, __LINE__);	\
+			ReportAssertionFailure(#expression, message, __FILE__, __LINE__);	\
 			DE_DEB_BREAK();														\
 		}																		\
 	}
@@ -84,8 +84,8 @@ DE_API void	reportAssertionFailure(std::string const expression, std::string con
 		}                                                                  \
 		else                                                               \
 		{                                                                  \
-			report_assertion_failure(#expression, "", __FILE__, __LINE__); \
-			debugBreak();                                                  \
+			ReportAssertionFailure(#expression, "", __FILE__, __LINE__);	\
+			DebugBreak();                                                  \
 		}                                                                  \
 	}
 # else

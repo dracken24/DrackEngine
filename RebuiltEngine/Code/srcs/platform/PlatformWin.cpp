@@ -22,7 +22,7 @@ typedef struct  internalState
 	HWND		hWnd;		// handle to the window
 }	internalState;
 
-bl8 	Platform::platformStart(PlatformState	*platform, std::string appName,
+bl8 	Platform::PlatformStart(PlatformState	*platform, std::string appName,
 			Vector2si position, Vector2si size)
 {
     platform->intetnalState = new internalState;
@@ -51,68 +51,68 @@ Platform::~Platform(void)
 //****************************************************************************//
 
 // Platform states
-bl8 	Platform::platformStart(PlatformState	*platform, std::string appName,
+bl8 	Platform::PlatformStart(PlatformState	*platform, std::string appName,
 			Vector2si position, Vector2si size)
 {
 	
 }
 
-void	Platform::platformStop(PlatformState	*platform)
+void	Platform::PlatformStop(PlatformState	*platform)
 {
 	
 }
 
-bl8		Platform::platformUpdate(PlatformState	*platform)
+bl8		Platform::PlatformUpdate(PlatformState	*platform)
 {
 	
 }
 
 // Dealing with memory
-void	*Platform::platformAllocator(uint64 size, bl8 align)
+void	*Platform::PlatformAllocator(uint64 size, bl8 align)
 {
 	
 }
 
-void	Platform::platformFree(void *memPtr, bl8 align)
+void	Platform::PlatformFree(void *memPtr, bl8 align)
 {
 	
 }
 
-void	*Platform::platZeroMem(void *memPtr, uint64 size)
+void	*Platform::PlatZeroMem(void *memPtr, uint64 size)
 {
 	
 }
 
-void	*Platform::platCopyMem(void *destPtr, const void *srcPtr, uint64 size)
+void	*Platform::PlatCopyMem(void *destPtr, const void *srcPtr, uint64 size)
 {
 	
 }
 
-void	*Platform::platSetMem(void *drstPtr, sint32 value, uint64 size)
+void	*Platform::PlatSetMem(void *drstPtr, sint32 value, uint64 size)
 {
 	
 }
 
 // Dealing with messages
 
-void	Platform::platconsoleWrite(std::string str, uint8 color)
+void	Platform::PlatconsoleWrite(std::string str, uint8 color)
 {
 	
 }
 
-void	Platform::platconsoleWriteError(std::string str, uint8 color)
+void	Platform::PlatconsoleWriteError(std::string str, uint8 color)
 {
 	
 }
 
 // Time
 
-dbl64	Platform::platGetAbsoluteTime(void)
+dbl64	Platform::PlatGetAbsoluteTime(void)
 {
 	
 }
 
-dbl64	Platform::platSleep(uint64 timeMs)
+dbl64	Platform::PlatSleep(uint64 timeMs)
 {
 	
 }

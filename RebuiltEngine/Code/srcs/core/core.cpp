@@ -11,12 +11,13 @@
 /*****************************************************************************/
 
 #include "../../includes/core/core.hpp"
+#include "../../includes/gameType.hpp"
 
 typedef struct appState
 {
+	Game			*gameInstance;
 	bl8				isRunning;
 	bl8				isSuspended;
-	// PlatformState	*platform;
 	Platform		platform;
 	sint16			width;
 	sint16			height;
@@ -31,14 +32,14 @@ static appState	engineState;
 //**       						Constructors                            	**//
 //****************************************************************************//
 
-DE_Core::DE_Core()
+Core::Core()
 {
-	DE_INFO("Core created");
+	DE_DEBUG("Core created");
 }
 
-DE_Core::~DE_Core()
+Core::~Core()
 {
-	DE_INFO("Core destroyed");
+	DE_DEBUG("Core destroyed");
 }
 
 //****************************************************************************//
@@ -46,18 +47,19 @@ DE_Core::~DE_Core()
 //****************************************************************************//
 
 // Global Methods for the Engine
-bl8		DE_Core::applicationStart(appConfig *config)
+bl8		Core::ApplicationStart(Game *gameInstance)
 {
 	if (init)
 	{
 		DE_ERROR("Engine already started!");
-
 		return (false);
 	}
 
+	engineState.gameInstance = gameInstance;
+
 	// Init the engine sub-systems
 	DE_INFO("Engine starting...\n");
-	logInit();
+	LogInit();
 
 	// TODO: remove when log message are fully implemented
 	DE_FATAL("Hello World! %f", 1.0f);
@@ -71,47 +73,76 @@ bl8		DE_Core::applicationStart(appConfig *config)
 	engineState.isSuspended = false;
 
 	// Try initializing the platform
-	if (!engineState.platform.platformStart(
+	if (!engineState.platform.PlatformStart(
 		&engineState.platform.platformState,
-		config->name,
-		{config->x,
-		config->y},
-		{config->width,
-		config->height}))
+		gameInstance->appConfigg.name,
+		{gameInstance->appConfigg.x,
+		gameInstance->appConfigg.y},
+		{gameInstance->appConfigg.width,
+		gameInstance->appConfigg.height}))
 	{
 		// if it fails, shutdown the engine
 		return (false);
 	}
 
+	// Initialize the game
+	if (!engineState.gameInstance->initialize(engineState.gameInstance))
+	{
+		DE_FATAL("Game initialization failed!");
+		return (false);
+	}
+
+	// Resize event
+	engineState.gameInstance->onResize(engineState.gameInstance, engineState.width, engineState.height);
+
 	// Engine initialization is done
 	init = true;
-
 	return (true);
 }
 
-bl8	DE_Core::applicationRun()
+// Main loop of the engine
+bl8	Core::ApplicationRun()
 {
-	DE_INFO("Core update");
+	DE_DEBUG("Core update");
 
 	while (engineState.isRunning)
 	{
-		if (!engineState.platform.platformUpdate(&engineState.platform.platformState))
+		if (!engineState.platform.PlatformUpdate(&engineState.platform.platformState))
 		{
 			engineState.isRunning = false;
+		}
+
+		// Update the game
+		if (!engineState.isSuspended)
+		{
+			if (!engineState.gameInstance->update(engineState.gameInstance, (fl32) 0))
+			{
+				DE_FATAL("Game update failed!, shutting down...");
+				engineState.isRunning = false;
+				break ;
+			}
+
+			// Render the game
+			if (!engineState.gameInstance->render(engineState.gameInstance, (fl32)0))
+			{
+				DE_FATAL("Game render failed!, shutting down...");
+				engineState.isRunning = false;
+				break ;
+			}
 		}
 	}
 
 	engineState.isRunning = false;
 
 	// Shutdown the engine
-	applicationShutdown();
+	ApplicationShutdown();
 
 	return (true);
 }
 
-void	DE_Core::applicationShutdown()
+void	Core::ApplicationShutdown()
 {
-	DE_INFO("Core shutdown");
+	DE_DEBUG("Core shutdown");
 
-	engineState.platform.platformShutdown(&engineState.platform.platformState);
+	engineState.platform.PlatformShutdown(&engineState.platform.platformState);
 }

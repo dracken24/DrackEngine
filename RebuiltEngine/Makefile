@@ -24,15 +24,16 @@ sources := $(call rwildcard,Code/,*.cpp)
 objects := $(patsubst Code/%, $(buildDir)/%, $(patsubst %.cpp, %.o, $(sources)))
 depends := $(patsubst %.o, %.d, $(objects))
 compileFlags := -std=c++17 -I include
-linkFlags = -lglfw -lvulkan
+linkFlags = -lglfw -lvulkan -Wall -Werror -Wextra
 
 # --------------------------------- Find IOS ---------------------------------- #
 
 ifeq ($(OS), Windows_NT)
 	# Set Windows macros
 	platform := Windows
-	CXX ?= g++
+	CXX ?= clang++
 	linkFlags += -Wl,--allow-multiple-definition -pthread -lopengl32 -lgdi32 -lwinmm -mwindows -static -static-libgcc -static-libstdc++
+	ignorFlags = -Wno-comment
 	libGenDir := Code
 	THEN := &&
 	PATHSEP := \$(BLANK)
@@ -40,19 +41,22 @@ ifeq ($(OS), Windows_NT)
 	RM := -del /q
 	COPY = -robocopy "$(call platformpth,$1)" "$(call platformpth,$2)" $3
 else
-	# Check for MacOS/Linux
+	# Check for Linux
 	UNAMEOS := $(shell uname)
 	ifeq ($(UNAMEOS), Linux)
 		# Set Linux macros
 		platform := Linux
-		CXX ?= clang++
+		CXX = clang++
 		linkFlags += -lGL -lm -lpthread -ldl -lrt -lX11 -lX11-xcb -lxcb -lxkbcommon
+		ignorFlags = -Wno-comment 
 	endif
+	# Check for Mac
 	ifeq ($(UNAMEOS), Darwin)
 		# Set macOS macros
 		platform := macOS
-		CXX ?= clang++
+		CXX = clang++
 		linkFlags += -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL
+		ignorFlags = -Wno-comment
 		libGenDir := Code
 	endif
 
@@ -71,8 +75,7 @@ all: signat msg_in $(target) msg_out execute
 
 # Link the program and create the executable
 $(target): $(objects)
-	@$(CXX) $(objects) -o $(target) $(linkFlags)
-
+	@$(CXX) $(objects) -o $(target) $(linkFlags) $(ignorFlags)
 
 # Add all rules from dependency files
 -include $(depends)
@@ -80,7 +83,7 @@ $(target): $(objects)
 # Compile objects to the build directory
 $(buildDir)/%.o: Code/%.cpp Makefile
 	@$(MKDIR) $(call platformpth, $(@D))
-	@$(CXX) -MMD -MP -c $(compileFlags) $< -o  $@ $(CXXFLAGS)
+	@$(CXX) -MMD -MP -c $(compileFlags) $(ignorFlags) $< -o  $@ $(CXXFLAGS)
 	@printf "$G■"
 
 # ---------------------------------- Execute ----------------------------------- #

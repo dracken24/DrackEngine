@@ -1,9 +1,9 @@
 {
   "configurations": [
     {
-      "name": "linux-gcc-x64",
+      "name": "linux-clang-x64",
       "includePath": [
-        "${workspaceFolder}/**"
+        "${workspaceFolder}/Code/includes/**"
       ],
       "defines": [
         "_DEBUG",
@@ -11,10 +11,10 @@
         "_UNICODE",
         "KEXPORT"
       ],
-      "compilerPath": "/usr/bin/gcc",
+      "compilerPath": "/usr/bin/clang",
       "cStandard": "${default}",
       "cppStandard": "${default}",
-      "intelliSenseMode": "linux-gcc-x64"
+      "intelliSenseMode": "linux-clang-x64"
     },
     {
       "name": "Win32",

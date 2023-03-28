@@ -69,7 +69,7 @@ Platform::~Platform(void)
 //****************************************************************************//
 
 // Platform states
-bl8 	Platform::platformStart(PlatformState	*platform, std::string appName,
+bl8 	Platform::PlatformStart(PlatformState	*platform, std::string appName,
 			Vector2si position, Vector2si size)
 {
 	// Create the internal state
@@ -79,10 +79,9 @@ bl8 	Platform::platformStart(PlatformState	*platform, std::string appName,
 	// Connect to the Xlib server
 	state->display = XOpenDisplay(NULL);
 
-	// TODO: Turn off keyboard autorepeat "WARNING" *Disable for entire OS*
+	// WARNING: Turn off keyboard autorepeat "WARNING" *Disable for entire OS*
 	// Need to turn it back on when the program exits
-	// XAutoRepeatOff(state->display);
-	// XAutoRepeatOn(state->display);
+	XAutoRepeatOff(state->display);
 
 	// Retrieve the connexions for the display
 	state->connection = XGetXCBConnection(state->display);
@@ -155,23 +154,17 @@ bl8 	Platform::platformStart(PlatformState	*platform, std::string appName,
 	// Tell the X server to notify us when the massger windows
 	// attempts to kill the window
 	xcb_intern_atom_cookie_t wm_delete_cookie = xcb_intern_atom(
-		state->connection,
-		0,
-		16,
-		"WM_DELETE_WINDOW");
+		state->connection, 0, 16, "WM_DELETE_WINDOW");
+
 	xcb_intern_atom_cookie_t wm_protocols_cookie = xcb_intern_atom(
-		state->connection,
-		0,
-		12,
-		"WM_PROTOCOLS");
+		state->connection, 0, 12, "WM_PROTOCOLS");
+		
 	xcb_intern_atom_reply_t *wm_delete_reply = xcb_intern_atom_reply(
-		state->connection,
-		wm_delete_cookie,
-		nullptr);
+		state->connection, wm_delete_cookie, nullptr);
+
 	xcb_intern_atom_reply_t *wm_protocols_reply = xcb_intern_atom_reply(
-		state->connection,
-		wm_protocols_cookie,
-		nullptr);
+		state->connection, wm_protocols_cookie, nullptr);
+
 	state->wm_delete_window = wm_delete_reply->atom;
 	state->wm_protocols = wm_protocols_reply->atom;
 
@@ -201,7 +194,7 @@ bl8 	Platform::platformStart(PlatformState	*platform, std::string appName,
 	return (true);
 }
 
-void	Platform::platformShutdown(PlatformState	*platform)
+void	Platform::PlatformShutdown(PlatformState	*platform)
 {
 	internalState *state = (internalState *)platform->intetnalState;
 
@@ -211,7 +204,7 @@ void	Platform::platformShutdown(PlatformState	*platform)
 	xcb_destroy_window(state->connection, state->window);
 }
 
-bl8		Platform::platformUpdate(PlatformState	*platform)
+bl8		Platform::PlatformUpdate(PlatformState	*platform)
 {
 	internalState *state = (internalState *)platform->intetnalState;
 
@@ -278,41 +271,51 @@ bl8		Platform::platformUpdate(PlatformState	*platform)
 }
 
 // Dealing with memory
-void	*Platform::platformAllocator(uint64 size, bl8 align)
+// template <typename T>
+// void	*Platform::platformAllocator(T type, bl8 align)
+// {
+// 	return (new T(type));
+// }
+void *Platform::PlatformAllocator(uint64 size, bl8 align)
 {
 	return (malloc(size));
 }
 
-void	Platform::platformFree(void *memPtr, bl8 align)
+// template <typename T>
+// void	Platform::platformFree(void *memPtr, bl8 align)
+// {
+// 	delete (T *)memPtr;
+// }
+void	Platform::PlatformFree(void *memPtr, bl8 align)
 {
 	free(memPtr);
 }
 
-void	*Platform::platZeroMem(void *memPtr, uint64 size)
+void	*Platform::PlatZeroMem(void *memPtr, uint64 size)
 {
 	return (std::memset(memPtr, 0, size));
 }
 
-void	*Platform::platCopyMem(void *destPtr, const void *srcPtr, uint64 size)
+void	*Platform::PlatCopyMem(void *destPtr, const void *srcPtr, uint64 size)
 {
 	return (std::memcpy(destPtr, srcPtr, size));
 }
 
-void	*Platform::platSetMem(void *drstPtr, sint32 value, uint64 size)
+void	*Platform::PlatSetMem(void *drstPtr, sint32 value, uint64 size)
 {
 	return (std::memset(drstPtr, value, size));
 }
 
 // Dealing with messages
 
-void	Platform::platconsoleWrite(std::string str, uint8 color)
+void	Platform::PlatconsoleWrite(std::string str, uint8 color)
 {
 	std::string colorStr[] = { T_YELLOW, T_GREEN, T_BLUE, T_CYAN };
 
 	std::cout << colorStr[color - 2] << str << T_RESET;
 }
 
-void	Platform::platconsoleWriteError(std::string str, uint8 color)
+void	Platform::PlatconsoleWriteError(std::string str, uint8 color)
 {
 	std::string colorStr[] = { T_RED, T_RED };
 
@@ -321,7 +324,7 @@ void	Platform::platconsoleWriteError(std::string str, uint8 color)
 
 // Time
 
-dbl64	Platform::platGetAbsoluteTime(void)
+dbl64	Platform::PlatGetAbsoluteTime(void)
 {
 	struct timespec time;
 	clock_gettime(CLOCK_MONOTONIC, &time);
@@ -329,7 +332,7 @@ dbl64	Platform::platGetAbsoluteTime(void)
 	return (time.tv_sec + time.tv_nsec * 1e-9);
 }
 
-void	Platform::platSleep(uint64 timeMs)
+void	Platform::PlatSleep(uint64 timeMs)
 {
 #if _POSIX_C_SOURCE >= 199309L
 	struct timespec ts;

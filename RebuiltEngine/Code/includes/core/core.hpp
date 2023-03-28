@@ -40,9 +40,12 @@
 # include "logger.hpp"
 # include "defines.hpp"
 # include "asserts.hpp"
+// # include "../gameType.hpp"
 # include "../platform/Platform.hpp"
 
 # include <iostream>
+
+struct Game;
 
 // Application configuration.
 typedef struct appConfig
@@ -56,15 +59,15 @@ typedef struct appConfig
 }	appConfig;
 
 // Core = Engine and Application Layer
-class DE_Core
+class Core
 {
 	//****************************************************************************//
 	//**       						Constructors                            	**//
 	//****************************************************************************//
 
 	public:
-		DE_Core();
-		~DE_Core();
+		Core();
+		~Core();
 
 	//****************************************************************************//
 	//**       						PUBLIC METHODS                          	**//
@@ -72,9 +75,9 @@ class DE_Core
 
 	public:
 	// Global Methods for the Engine
-		DE_API bl8	applicationStart(appConfig *config);
-		DE_API bl8	applicationRun();
-		DE_API void	applicationShutdown();
+		DE_API bl8	ApplicationStart(struct Game *gameInstance);
+		DE_API bl8	ApplicationRun();
+		DE_API void	ApplicationShutdown();
 
 	//****************************************************************************//
 	//**       						Private Variables                          	**//

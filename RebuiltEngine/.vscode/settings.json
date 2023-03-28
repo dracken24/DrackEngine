@@ -1,6 +1,5 @@
 {
   "workbench.colorTheme": "Default Dark+ Experimental",
-  "xmlTools.enforcePrettySelfClosingTagOnFormat": true,
   "editor.minimap.enabled": true,
   "terminal.integrated.shell.windows": "c:/Program Files/PowerShell/7/pwsh.exe",
   "terminal.integrated.fontWeight": "1",
@@ -11,11 +10,12 @@
   "workbench.activityBar.visible": true,
   "workbench.colorCustomizations": {
     "editorCursor.foreground": "#b348d7",
-    "editor.lineHighlightBackground": "#6d335a5f"
+    "editor.lineHighlightBackground": "#6d335a5f",
+    "editor.lineHighlightBorder": "#00ff405f"
   },
   "workbench.statusBar.visible": true,
   "editor.lineNumbers": "on",
-  "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0, NamespaceIndentation: All}",
+  // "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0, NamespaceIndentation: All}",
   "C_Cpp.vcFormat.newLine.beforeOpenBrace.block": "sameLine",
   "C_Cpp.vcFormat.newLine.beforeOpenBrace.type": "sameLine",
   "C_Cpp.vcFormat.newLine.beforeOpenBrace.function": "sameLine",
@@ -39,7 +39,12 @@
     },
     {
       "text": "NOTE:",
-      "color": "green",
+      "color": "#b348d7",
+      "backgroundColor": "rgba(0,0,0,0)"
+    },
+    {
+      "text": "WARNING:",
+      "color": "yellow",
       "backgroundColor": "rgba(0,0,0,0)"
     }
   ],
@@ -113,8 +118,8 @@
     "thread": "cpp"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
-  "C_Cpp_Runner.cCompilerPath": "gcc",
-  "C_Cpp_Runner.cppCompilerPath": "g++",
+  "C_Cpp_Runner.cCompilerPath": "clang",
+  "C_Cpp_Runner.cppCompilerPath": "clang++",
   "C_Cpp_Runner.debuggerPath": "gdb",
   "C_Cpp_Runner.cStandard": "",
   "C_Cpp_Runner.cppStandard": "",

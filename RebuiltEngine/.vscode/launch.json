@@ -16,14 +16,14 @@
       "name": "(Linux) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/bin/testbed",
+      "program": "DrackEngine",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/bin/",
       "environment": []
     },
     {
-      "name": "C/C++: g++ Générer et déboguer le fichier actif",
+      "name": "C/C++: clang++ Générer et déboguer le fichier actif",
       "type": "cppdbg",
       "request": "launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}",
@@ -45,7 +45,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "C/C++: g++ générer le fichier actif",
+      "preLaunchTask": "C/C++: clang++ générer le fichier actif",
       "miDebuggerPath": "/usr/bin/gdb"
     },
     {

@@ -40,22 +40,22 @@ typedef enum	logLevel
 	LOG_LEVEL_TRACE =	5
 }   logLevel;
 
-bl8		logInit();
-void	logShutdown();
+bl8		LogInit();
+void	LogShutdown();
 
-DE_API void logMessage(logLevel level, const std::string& message, ...);
+DE_API void LogMessage(logLevel level, const char *message, ...);
 
 // Log an error message as a fatal error lvl.
-# define DE_FATAL(message, ...) logMessage(LOG_LEVEL_FATAL, message, ##__VA_ARGS__);
+# define DE_FATAL(message, ...) LogMessage(LOG_LEVEL_FATAL, message, ##__VA_ARGS__);
 
 # ifndef DE_ERROR
 // Log an error message as an error lvl.
-#  define DE_ERROR(message, ...) logMessage(LOG_LEVEL_ERROR, message, ##__VA_ARGS__);
+#  define DE_ERROR(message, ...) LogMessage(LOG_LEVEL_ERROR, message, ##__VA_ARGS__);
 # endif
 
 # if LOG_WARNING_ENABLED == 1
 // Log an error message as a warning lvl.
-#  define DE_WARNING(message, ...) logMessage(LOG_LEVEL_WARNING, message, ##__VA_ARGS__);
+#  define DE_WARNING(message, ...) LogMessage(LOG_LEVEL_WARNING, message, ##__VA_ARGS__);
 # else
 // if warnings are disabled, just ignore them
 #  define DE_WARNING(message, ...);
@@ -63,7 +63,7 @@ DE_API void logMessage(logLevel level, const std::string& message, ...);
 
 # if LOG_INFO_ENABLED == 1
 // Log an error message as an info lvl.
-#  define DE_INFO(message, ...) logMessage(LOG_LEVEL_INFO, message, ##__VA_ARGS__);
+#  define DE_INFO(message, ...) LogMessage(LOG_LEVEL_INFO, message, ##__VA_ARGS__);
 # else
 // if info logs are disabled, just ignore them
 #  define DE_INFO(message, ...);
@@ -71,7 +71,7 @@ DE_API void logMessage(logLevel level, const std::string& message, ...);
 
 # if LOG_DEBUG_ENABLED == 1
 // Log an error message as a debug lvl.
-#  define DE_DEBUG(message, ...) logMessage(LOG_LEVEL_DEBUG, message, ##__VA_ARGS__);
+#  define DE_DEBUG(message, ...) LogMessage(LOG_LEVEL_DEBUG, message, ##__VA_ARGS__);
 # else
 // if debug logs are disabled, just ignore them
 #  define DE_DEBUG(message, ...);
@@ -79,7 +79,7 @@ DE_API void logMessage(logLevel level, const std::string& message, ...);
 
 # if LOG_TRACE_ENABLED == 1
 // Log an error message as a trace lvl.
-#  define DE_TRACE(message, ...) logMessage(LOG_LEVEL_TRACE, message, ##__VA_ARGS__);
+#  define DE_TRACE(message, ...) LogMessage(LOG_LEVEL_TRACE, message, ##__VA_ARGS__);
 # else
 // if trace logs are disabled, just ignore them
 #  define DE_TRACE(message, ...);

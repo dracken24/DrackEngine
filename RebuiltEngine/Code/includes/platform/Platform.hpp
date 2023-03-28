@@ -38,25 +38,26 @@ class	Platform
 	//****************************************************************************//
 	
 	// Platform states
-		bl8		platformStart(PlatformState *platform, std::string appName,
+		bl8		PlatformStart(PlatformState *platform, std::string appName,
 					Vector2si position, Vector2si size);
-		void	platformShutdown(PlatformState *platform);
-		bl8		platformUpdate(PlatformState *platform);
+		void	PlatformShutdown(PlatformState *platform);
+		bl8		PlatformUpdate(PlatformState *platform);
 
 	// Dealing with memory
-		void	*platformAllocator(uint64 size, bl8 align);
-		void	platformFree(void *memPtr, bl8 align);
-		void	*platZeroMem(void *memPtr, uint64 size);
-		void	*platCopyMem(void *destPtr, const void *srcPtr, uint64 size);
-		void	*platSetMem(void *drstPtr, sint32 value, uint64 size);
+		DE_API	void	*PlatformAllocator(uint64 size, bl8 align);
+		DE_API	void	PlatformFree(void *memPtr, bl8 align);
+
+		void	*PlatZeroMem(void *memPtr, uint64 size);
+		void	*PlatCopyMem(void *destPtr, const void *srcPtr, uint64 size);
+		void	*PlatSetMem(void *drstPtr, sint32 value, uint64 size);
 
 	// Dealing with messages
-		void	platconsoleWrite(std::string str, uint8 color);
-		void	platconsoleWriteError(std::string str, uint8 color);
+		void	PlatconsoleWrite(std::string str, uint8 color);
+		void	PlatconsoleWriteError(std::string str, uint8 color);
 
 	// Time
-		dbl64	platGetAbsoluteTime(void);
-		void	platSleep(uint64 timeMs);
+		dbl64	PlatGetAbsoluteTime(void);
+		void	PlatSleep(uint64 timeMs);
 
 	//****************************************************************************//
 	public:
