@@ -12,6 +12,7 @@
 
 #include "../../includes/core/core.hpp"
 #include "../../includes/gameType.hpp"
+#include "../../includes/core/input.hpp"
 
 typedef struct appState
 {
@@ -60,6 +61,7 @@ bl8		Core::ApplicationStart(Game *gameInstance)
 	// Init the engine sub-systems
 	DE_INFO("Engine starting...\n");
 	LogInit();
+	InputInit();
 
 	// TODO: remove when log message are fully implemented
 	DE_FATAL("Hello World! %f", 1.0f);
@@ -71,6 +73,12 @@ bl8		Core::ApplicationStart(Game *gameInstance)
 
 	engineState.isRunning = true;
 	engineState.isSuspended = false;
+
+	if (!EventInit())
+	{
+		DE_ERROR("Events initialization failed!");
+		return (false);
+	}
 
 	// Try initializing the platform
 	if (!engineState.platform.PlatformStart(
@@ -129,12 +137,17 @@ bl8	Core::ApplicationRun()
 				engineState.isRunning = false;
 				break ;
 			}
+
+			// Catch all imput events for next frame
+			InputUpdate(0);
 		}
 	}
 
 	engineState.isRunning = false;
 
 	// Shutdown the engine
+	InputShutdown();
+	EventShutdown();
 	ApplicationShutdown();
 
 	return (true);

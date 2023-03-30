@@ -40,15 +40,17 @@ typedef enum memoryTag
 	DE_MEMORY_TAG_MAX_TAGS
 }	memoryTag;
 
-void				InitMemory(void);
 void				ShutdownMemory(void);
+void				InitMemory(void);
 
 // Alloc and track memory
-DE_API void			*DE_Malloc(uint64 size, memoryTag tag);
-DE_API void 		*DE_Calloc(void *memPtr, uint64 size);
-DE_API void 		DE_Free(void *memPtr, uint64 size, memoryTag tag);
 DE_API void 		*DE_CopyMemory(void *destPtr, const void *srcPtr, uint64 size);
 DE_API void 		*DE_SetMemory(void *drstPtr, sint32 value, uint64 size);
+DE_API void 		DE_Free(void *memPtr, uint64 size, memoryTag tag);
+DE_API void			*DE_Malloc(uint64 size, memoryTag tag);
+DE_API void 		*DE_MemSet(void *memPtr, uint64 size);
+
+DE_API void			AddMemoryTag(uint64 size, memoryTag tag);
 DE_API std::string	DE_GetMemoryUsageString(memoryTag tag);
 
 #endif

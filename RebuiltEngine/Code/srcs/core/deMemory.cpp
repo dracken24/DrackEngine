@@ -83,7 +83,7 @@ void	*DE_Malloc(uint64 size, memoryTag tag)
 	return block;
 }
 
-void *DE_Calloc(void *block, uint64 size)
+void *DE_MemSet(void *block, uint64 size)
 {
 	return (Platform::PlatZeroMem(block, size));
 }
@@ -122,7 +122,7 @@ std::string	DE_GetMemoryUsageString(memoryTag tag)
 	uint64 offset = strlen(buffer);
 	for (uint32 i = 0; i <= DE_MEMORY_TAG_MAX_TAGS; ++i)
 	{
-		char unit[4];
+		char unit[3];
 		float amount = 1.0f;
 		if (stats.allocTagged[i] >= gib)
 		{
@@ -183,6 +183,6 @@ std::string	DE_GetMemoryUsageString(memoryTag tag)
 		offset += length;
 	}
 
-	char *outString = strdup(buffer);
-	return outString;
+	std::string outString = buffer;
+	return (outString);
 }

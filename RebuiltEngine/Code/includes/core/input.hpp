@@ -15,13 +15,13 @@
 
 # include "defines.hpp"
 
-typedef enum buttons
+typedef enum mouseButtons
 {
 	BUTTON_LEFT,
 	BUTTON_RIGHT,
 	BUTTON_MIDDLE,
 	BUTTON_MAX_BUTTONS
-}   buttons;
+}   mouseButtons;
 
 #define DEFINE_KEY(name, code) KEY_##name = code
 
@@ -157,9 +157,10 @@ typedef enum keys
 	KEYS_MAX_KEYS
 }   keys;
 
+
 void		InputInit();
 void		InputShutdown();
-void		InputUpdate(dbl64 delta_time);
+void		InputUpdate(dbl64 deltaTime);
 
 // keyboard input
 DE_API bl8	OnKeyPress(keys key);
@@ -170,16 +171,18 @@ DE_API bl8	OnKeyUP(keys key);
 void		OnKeyProcess(keys key, bl8 pressed);
 
 // mouse input
-DE_API bl8	OnMouseButtonPress(buttons button);
-DE_API bl8	OnMouseButtonRelease(buttons button);
-DE_API bl8	OnMouseButtonDown(buttons button);
-DE_API bl8	OnMouseButtonUp(buttons button);
+DE_API bl8	OnMouseButtonPress(mouseButtons button);
+DE_API bl8	OnMouseButtonRelease(mouseButtons button);
+DE_API bl8	OnMouseButtonDown(mouseButtons button);
+DE_API bl8	OnMouseButtonUp(mouseButtons button);
 
 DE_API void	GetMousePosition(sint32 *x, sint32 *y);
 DE_API void	GetPreviousMousePosition(sint32 *x, sint32 *y);
 
-void		OnMouseButtonPress(buttons button, bl8 pressed);
+void		OnMouseButtonPress(mouseButtons button, bl8 pressed);
 void		OnMouseMove(sint16 x, sint16 y);
 void		OnMouseWheel(sint8 deltaZ);
+
+DE_API keys	TranslateKeycode(uint32 keyCode);
 
 #endif

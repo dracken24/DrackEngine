@@ -15,6 +15,8 @@
 
 #include "defines.hpp"
 
+// For send short code message to the event system.
+// short messages = faster program.
 typedef struct eventContext 
 {
 	// 128 bytes
@@ -37,21 +39,21 @@ typedef struct eventContext
 	}	data;
 } eventContext;
 
+// Listener callback function pointer.
 // Should return true if handled.
 typedef bl8	(*EventPointer)(uint16 code, void *sender, void *listenerInst, eventContext data);
 
-bl8		EventInit();
-void	EventShutdown();
+bl8		EventInit(void);
+void	EventShutdown(void);
 
 /**
- * Register to listen for when events are sent with the provided code. Events with duplicate
- * listener/callback combos will not be registered again and will cause this to return FALSE.
+ * Register to listen for new events
  * @param code The event code to listen for.
  * @param listener A pointer to a listener instance. Can be 0/NULL.
  * @param on_event The callback function pointer to be invoked when the event code is fired.
  * @returns TRUE if the event is successfully registered; otherwise false.
  */
-DE_API bl8	EventRegister(uint16 code, void* listener, EventPointer onEvent);
+DE_API bl8	EventRegister(uint16 code, void* listener, EventPointer pntEvent);
 
 /**
  * Unregister from listening for when events are sent with the provided code. If no matching
@@ -124,6 +126,6 @@ typedef enum systemEventCode
 	DE_EVENT_CODE_RESIZED = 0x08,
 
 	DE_MAX_EVENT_CODE = 0xFF
-} systemEventCode;
+}	systemEventCode;
 
 #endif

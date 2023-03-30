@@ -43,7 +43,6 @@
 #  endif
 # endif
 
-// void	ReportAssertionFailure(const char* expression, const char* message, const char* file, sint32 line);
 
 // Asserts that the given expression is true. If it is not, the program will
 // stop and display an error message.

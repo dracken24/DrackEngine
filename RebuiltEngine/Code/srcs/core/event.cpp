@@ -12,44 +12,42 @@
 
 #include "../../../Code/includes/core/deMemory.hpp"
 #include "../../../Code/includes/core/event.hpp"
+#include "../../../Code/includes/core/logger.hpp"
 
 #include <vector>
 
 typedef struct registeredEvent
 {
-	void*			listener;
-	EventPointer	callback;
-}	registeredEvent;
+	void *listener;
+	EventPointer callback;
+} registeredEvent;
 
-// typedef struct eventCodeEntry
-// {
-// 	registeredEvent *events;
-// } eventCodeEntry;
+typedef struct eventCodeEntry
+{
+	std::vector<registeredEvent> events;
+} eventCodeEntry;
 
 // This should be more than enough codes...
-#define MAX_MESSAGE_CODES 16384
+#define DE_MAX_MESSAGE_CODES 16384
 
 // State structure.
-// typedef struct eventSystemState {
-// 	// Lookup table for event codes.
-// 	eventCodeEntry registered[MAX_MESSAGE_CODES];
-// } eventSystemState;
+typedef struct eventSystemState
+{
+	// Lookup table for event codes.
+	std::vector<eventCodeEntry> registered[DE_MAX_MESSAGE_CODES];
+} eventSystemState;
 
-/**
- * Event system internal state.
- */
+//
 static bl8 is_initialized = false;
-// static eventSystemState state;
-static std::vector<registeredEvent> state;
+static eventSystemState state;
 
 bl8 EventInit(void)
 {
+	DE_DEBUG("EventInit: Initializing event system.");
 	if (is_initialized == true)
 	{
 		return false;
 	}
-	is_initialized = false;
-	// DE_Calloc(&state, sizeof(state));
 
 	is_initialized = true;
 
@@ -58,28 +56,33 @@ bl8 EventInit(void)
 
 void EventShutdown(void)
 {
+	// DE_DEBUG("EventShutdown: Shutting down event system.");
 	// Free the events arrays. And objects pointed to should be destroyed on their own.
-	state.clear();
+	for (uint16 i = 0; i < DE_MAX_MESSAGE_CODES; ++i)
+	{
+		if (state.registered[i].size() > 0)
+		{
+			state.registered[i].clear();
+		}
+	}
 }
 
 bl8 EventRegister(uint16 code, void *listener, EventPointer on_event)
 {
-	if(is_initialized == false)
+	if (is_initialized == false)
 	{
 		return false;
 	}
 
-	if(state[code].listener == nullptr)
+	if (state.registered[code].size() == 0)
 	{
-		registeredEvent newEvent;
-		newEvent.listener = listener;
-		newEvent.callback = on_event;
-		state[code] = newEvent;
+		eventCodeEntry entry;
+		state.registered[code].push_back(entry);
 	}
 
-	for (size_t i = 0; i < state.size(); ++i)
+	for (size_t it = 0; it < state.registered->at(code).events.size(); ++it)
 	{
-		if(state[code].listener == listener)
+		if (state.registered->at(code).events.at(it).listener == listener)
 		{
 			// TODO: warn
 			return false;
@@ -90,37 +93,33 @@ bl8 EventRegister(uint16 code, void *listener, EventPointer on_event)
 	registeredEvent event;
 	event.listener = listener;
 	event.callback = on_event;
-	
-	// eventCodeEntry entry;
-	// entry.events = event;
-
-	state.push_back(event);
-	// darray_push(state.registered[code].events, event);
+	state.registered->at(code).events.push_back(event);
 
 	return true;
 }
 
-bl8 EventUnregister(uint16 code, void *listener, EventPointer on_event)
+bl8 EventUnregister(uint16 code, void *listener, EventPointer pntEvent)
 {
-	if(is_initialized == false)
+	// DE_DEBUG("EventUnregister: Unregistering event for code %d", code);
+	if (is_initialized == false)
 	{
 		return false;
 	}
 
 	// On nothing is registered for the code, boot out.
-	if(state[code].listener == 0)
+	if (state.registered[code].size() == 0)
 	{
 		// TODO: warn
 		return false;
 	}
 
-	for(size_t i = 0; i < state.size(); ++i)
+	for (size_t it = 0; it < state.registered->at(code).events.size(); ++it)
 	{
-		registeredEvent e = state.at(i);
-		if(e.listener == listener && e.callback == on_event)
+		registeredEvent event = state.registered->at(code).events.at(it);
+		if (event.listener == listener && event.callback == pntEvent)
 		{
 			// Found one, remove it
-			state.erase(state.begin() + i);
+			state.registered->at(code).events.erase(state.registered->at(code).events.begin() + it);
 			return true;
 		}
 	}
@@ -131,22 +130,20 @@ bl8 EventUnregister(uint16 code, void *listener, EventPointer on_event)
 
 bl8 EventFire(uint16 code, void *sender, eventContext context)
 {
-	if(is_initialized == false)
+	if (is_initialized == false)
 	{
 		return false;
 	}
-
 	// If nothing is registered for the code, boot out.
-	if(state[code].listener == 0)
+	if (state.registered[code].size() == 0)
 	{
 		return false;
 	}
 
-	// uint64 registered_count = darray_length(state.registered[code].events);
-	for(size_t i = 0; i < state.size(); ++i)
+	for (size_t it = 0; it < state.registered->at(code).events.size(); ++it)
 	{
-		registeredEvent e = state.at(code);
-		if(e.callback(code, sender, e.listener, context))
+		registeredEvent currentEvent = state.registered->at(code).events.at(it);
+		if (currentEvent.callback(code, sender, currentEvent.listener, context))
 		{
 			// Message has been handled, do not send to other listeners.
 			return true;

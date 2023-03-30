@@ -15,6 +15,7 @@
 #if DE_PLATFORM_LINUX
 
 # include "../../includes/core/logger.hpp"
+# include "../../includes/core/input.hpp"
 # include "../../includes/color.hpp"
 // # include "../../../Vulkan/vulkanTypes.inl"
 
@@ -44,11 +45,13 @@ typedef struct  internalState
 	xcb_connection_t	*connection;
 	xcb_window_t        window;
 	xcb_screen_t        *screen;
-	xcb_atom_t          wm_protocols;
-	xcb_atom_t          wm_delete_window;
+	xcb_atom_t          wmProtocols;
+	xcb_atom_t          wmDeleteWindow;
 	// VkSurfaceKHR		surface;
 }	internalState;
 
+// Key translation
+// keys	TranslateKeycode(uint32 x_keycode);
 
 //****************************************************************************//
 //**       						Constructors                            	**//
@@ -165,19 +168,19 @@ bl8 	Platform::PlatformStart(PlatformState	*platform, std::string appName,
 	xcb_intern_atom_reply_t *wm_protocols_reply = xcb_intern_atom_reply(
 		state->connection, wm_protocols_cookie, nullptr);
 
-	state->wm_delete_window = wm_delete_reply->atom;
-	state->wm_protocols = wm_protocols_reply->atom;
+	state->wmDeleteWindow = wm_delete_reply->atom;
+	state->wmProtocols = wm_protocols_reply->atom;
 
 	// Callback
 	xcb_change_property(
 		state->connection,
 		XCB_PROP_MODE_REPLACE,
 		state->window,
-		state->wm_protocols,
+		state->wmProtocols,
 		4,
 		32,
 		1,
-		&state->wm_delete_window);
+		&state->wmDeleteWindow);
 
 	// Map the window on the screen
 	xcb_map_window(state->connection, state->window);
@@ -208,76 +211,120 @@ bl8		Platform::PlatformUpdate(PlatformState	*platform)
 {
 	internalState *state = (internalState *)platform->intetnalState;
 
-	xcb_generic_event_t			*event;
-	xcb_client_message_event_t	*clientMessage;
+	xcb_generic_event_t *event;
+	xcb_client_message_event_t *cm;
 
 	bl8 quit = false;
-	// std::cout << "Polling for event" << std::endl;
 
-	// Get the next event
+	// Poll for events until null is returned.
 	while (event != 0)
 	{
-		// std::cout << "Event av on: " << std::endl;
 		event = xcb_poll_for_event(state->connection);
 		if (event == 0)
-			break ;
-		// std::cout << "Event av on 2: " << std::endl;
-		
-		switch (event->response_type & ~0x80) // Inverse bitwise operation
 		{
-			// std::cout << "Event on: " << event->response_type << std::endl;
-			case XCB_KEY_PRESS:			// Keys events
+			break;
+		}
+
+		// Input events
+		switch (event->response_type & ~0x80)
+		{
+		case XCB_KEY_PRESS:
+		case XCB_KEY_RELEASE:
+		{
+			// Key press event - xcb_key_press_event_t and xcb_key_release_event_t are the same
+			xcb_key_press_event_t *xcbEvent = (xcb_key_press_event_t *)event;
+			bl8 pressed = event->response_type == XCB_KEY_PRESS;
+			xcb_keycode_t code = xcbEvent->detail;
+			
+			KeySym key_sym = XkbKeycodeToKeysym(
+				state->display,
+				(KeyCode)code, // event.xkey.keycode,
+				0,
+				code & ShiftMask ? 1 : 0);
+
+			keys key = TranslateKeycode(key_sym);
+
+			// Pass to the input subsystem for processing.
+			OnKeyProcess(key, pressed);
+
+			switch (key)
 			{
-				std::cout << "PRESS" << std::endl;
-			}
-				break;
-			case XCB_KEY_RELEASE:
-			{
-				std::cout << "RELEASE" << std::endl;
-				// TODO: Keys events
-			}
-				break ;
-			case XCB_BUTTON_PRESS:		// Buttons events
-			{
-				std::cout << "CLICK CLICK BOOM PRESS" << std::endl;
-			}
-				break ;
-			case XCB_BUTTON_RELEASE:
-			{
-				std::cout << "CLICK CLICK BOOM RELEASE" << std::endl;
-				// TODO: Buttons events
-			}
-				break ;
-			case XCB_MOTION_NOTIFY:		// Mouse mouvments
-			{
-				std::cout << "MOUSE MOOVE" << std::endl;
-				// TODO: Mouse mouvments
-			}
-				break ;
-			case XCB_CONFIGURE_NOTIFY:	// Resizing
-			{
-				std::cout << "STRETCH ME" << std::endl;
-				// TODO: Resizing
-			}
-				break ;
-			case XCB_CLIENT_MESSAGE:	// Close request gestion
-			{
-				clientMessage = (xcb_client_message_event_t *)event;
-				if (clientMessage->data.data32[0] == state->wm_delete_window)
+			case KEY_ESCAPE: // Quit on escape
+				if (pressed)
 				{
-					std::cout << "DON'T LEAVE MEEEEE!!!!!!!!" << std::endl;
 					quit = true;
 				}
+				break;
+				default:
+					break;
 			}
-				break ;
-			default:
-				break ;
+
+		}
+		break;
+		case XCB_BUTTON_PRESS:
+		case XCB_BUTTON_RELEASE:
+		{
+			xcb_button_press_event_t *mouseEvent = (xcb_button_press_event_t *)event;
+			bl8 pressed = event->response_type == XCB_BUTTON_PRESS;
+			mouseButtons mouseButton = BUTTON_MAX_BUTTONS;
+			
+			switch (mouseEvent->detail)
+			{
+			case XCB_BUTTON_INDEX_1:
+				mouseButton = BUTTON_LEFT;
+				break;
+			case XCB_BUTTON_INDEX_2:
+				mouseButton = BUTTON_MIDDLE;
+				break;
+			case XCB_BUTTON_INDEX_3:
+				mouseButton = BUTTON_RIGHT;
+				break;
+			}
+
+			// Pass over to the input subsystem.
+			if (mouseButton != BUTTON_MAX_BUTTONS)
+			{
+				OnMouseButtonPress(mouseButton, pressed);
+				DE_DEBUG("Mouse button: %d, pressed: %d", mouseButton, pressed);
+				DE_DEBUG("Mouse position: X: %d, Y: %d", mouseEvent->event_x, mouseEvent->event_y);
+			}
+		}
+		break;
+		case XCB_MOTION_NOTIFY:
+		{
+			// Mouse move
+			xcb_motion_notify_event_t *moveEvent = (xcb_motion_notify_event_t *)event;
+
+			// Pass over to the input subsystem.
+			OnMouseMove(moveEvent->event_x, moveEvent->event_y);
+			DE_DEBUG("Mouse move: X: %d, Y: %d", moveEvent->event_x, moveEvent->event_y);
+		}
+		break;
+		case XCB_CONFIGURE_NOTIFY:
+		{
+			// TODO: Resizing
+		}
+		break;
+
+		case XCB_CLIENT_MESSAGE:
+		{
+			cm = (xcb_client_message_event_t *)event;
+
+			// Window close
+			if (cm->data.data32[0] == state->wmDeleteWindow)
+			{
+				quit = true;
+			}
+		}
+		break;
+		default:
+			// Something else
+			break;
 		}
 
 		free(event);
 	}
-
-	return !(quit);
+	return !quit;
 }
 
 // Dealing with memory
