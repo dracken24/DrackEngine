@@ -3,7 +3,7 @@
 /* |             ---------------------------------------------             | */
 /* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  DATE:		 24-03-2023  		  *--*             | */
+/* |             *--*  DATE:		 27-03-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
 /* |             *--*  FILE: 	    deMemory.hpp          *--*             | */
 /* |             ---------------------------------------------             | */
@@ -45,7 +45,7 @@ void				ShutdownMemory(void);
 
 // Alloc and track memory
 DE_API void			*DE_Malloc(uint64 size, memoryTag tag);
-DE_API void 		*DE_Kalloc(void *memPtr, uint64 size);
+DE_API void 		*DE_Calloc(void *memPtr, uint64 size);
 DE_API void 		DE_Free(void *memPtr, uint64 size, memoryTag tag);
 DE_API void 		*DE_CopyMemory(void *destPtr, const void *srcPtr, uint64 size);
 DE_API void 		*DE_SetMemory(void *drstPtr, sint32 value, uint64 size);

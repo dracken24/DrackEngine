@@ -284,13 +284,13 @@ bl8		Platform::PlatformUpdate(PlatformState	*platform)
 
 void *Platform::PlatformAllocator(uint64 size, bl8 align)
 {
-	return (malloc(size));
+	return (std::malloc(size));
 }
 
 // template <typename T>
 void	Platform::PlatformFree(void *memPtr, bl8 align)
 {
-	free(memPtr);
+	std::free(memPtr);
 }
 
 void	*Platform::PlatZeroMem(void *memPtr, uint64 size)

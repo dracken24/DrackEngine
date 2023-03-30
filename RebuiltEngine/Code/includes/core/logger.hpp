@@ -19,10 +19,10 @@
 # include <cstring>
 # include <iostream>
 
-# define LOG_WARNING_ENABLED 1
-# define LOG_INFO_ENABLED 1
-# define LOG_DEBUG_ENABLED 1
-# define LOG_TRACE_ENABLED 1
+# define LOG_WARNING_ENABLED	true
+# define LOG_INFO_ENABLED		true
+# define LOG_DEBUG_ENABLED		true
+# define LOG_TRACE_ENABLED		true
 
 // Disable debug and trace logs in release builds
 # if DE_RELEASE == 1

@@ -12,33 +12,50 @@
 
 #include "../includes/gameType.hpp"
 #include "../includes/game.hpp"
+#include "../includes/core/deMemory.hpp"
 
-bl8		CreateGame(Game* game)
+bl8		CreateGame(Game* gameInst)
 {
 	DE_INFO("Creating game...");
 
 	// Basic game configuration.
-	game->appConfigg.name = "DrackEngine";
-	game->appConfigg.width = 1280;
-	game->appConfigg.height = 700;
-	game->appConfigg.x = 100;
-	game->appConfigg.y = 100;
+	gameInst->appConfigg.name = "DrackEngine";
+	gameInst->appConfigg.width = 800;
+	gameInst->appConfigg.height = 550;
+	gameInst->appConfigg.x = 100;
+	gameInst->appConfigg.y = 100;
 
 	// Function pointers.
-	game->initialize = GameInit;
-	game->update = GameUpdate;
-	game->render = GameRender;
-	game->onResize = GameResize;
+	gameInst->initialize = GameInit;
+	gameInst->update = GameUpdate;
+	gameInst->render = GameRender;
+	gameInst->onResize = GameResize;
 
-	game->state = game->platform.PlatformAllocator(sizeof(gameState), true);
+	gameInst->state = DE_Malloc(sizeof(gameInst->state) * 1, DE_MEMORY_TAG_GAME);
 
 	DE_INFO("Game created.");
 	return (true);
 }
 
+void	TEST_MEMORY(void)
+{
+	char	*str = (char *)DE_Malloc(sizeof(char) * 50000000, DE_MEMORY_TAG_STRING);
+	Game	*game = (Game *)DE_Malloc(sizeof(Game) * 15000000, DE_MEMORY_TAG_DICT);
+	char	*la = (char *)DE_Malloc(sizeof(char) * 500000000, DE_MEMORY_TAG_ENTITY);
+
+	std::cout << DE_GetMemoryUsageString(DE_MEMORY_TAG_MAX_TAGS) << std::endl;
+
+	DE_Free(str, sizeof(char) * 50000000, DE_MEMORY_TAG_STRING);
+	DE_Free(game, sizeof(Game) * 15000000, DE_MEMORY_TAG_DICT);
+	DE_Free(la, sizeof(char) * 500000000, DE_MEMORY_TAG_ENTITY);
+}
+
 // Main entry point for the application.
 int main(void)
 {
+	// Initialize the platform.
+	InitMemory();
+
 	Core		core;
 
 	// Create an instance of the game.
@@ -48,6 +65,7 @@ int main(void)
 		DE_FATAL("Failed to create game.");
 		return (-1);
 	}
+	std::cout << DE_GetMemoryUsageString(DE_MEMORY_TAG_MAX_TAGS) << std::endl;
 
 	// Check if the game has a valid function pointer for initialize.
 	if (!gameInst.render || !gameInst.update || !gameInst.initialize || !gameInst.onResize)
@@ -56,6 +74,7 @@ int main(void)
 		return (-2);
 	}
 
+	// TEST_MEMORY();
 	// Initialize the engine.
 	if (!core.ApplicationStart(&gameInst))
 	{
@@ -71,7 +90,10 @@ int main(void)
 	}
 
 	// TODO: Function for free memory.
-	gameInst.platform.PlatformFree(gameInst.state, false);
+	// gameInst.platform.PlatformFree(gameInst.state, false);
+	DE_Free(gameInst.state, sizeof(gameInst.state), DE_MEMORY_TAG_GAME);
+	ShutdownMemory();
+	std::cout << DE_GetMemoryUsageString(DE_MEMORY_TAG_MAX_TAGS) << std::endl;
 
 	return (0);
 }
