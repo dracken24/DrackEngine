@@ -59,7 +59,7 @@ class	Platform
 		dbl64		PlatGetAbsoluteTime(void);
 		void		PlatSleep(uint64 timeMs);
 
-	//****************************************************************************//
+		//****************************************************************************//
 	public:
 		PlatformState	platformState;
 };

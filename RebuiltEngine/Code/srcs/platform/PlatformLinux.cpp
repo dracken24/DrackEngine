@@ -260,14 +260,14 @@ bl8		Platform::PlatformUpdate(PlatformState	*platform)
 			}
 
 		}
-		break;
+			break;
 		case XCB_BUTTON_PRESS:
 		case XCB_BUTTON_RELEASE:
 		{
 			xcb_button_press_event_t *mouseEvent = (xcb_button_press_event_t *)event;
 			bl8 pressed = event->response_type == XCB_BUTTON_PRESS;
 			mouseButtons mouseButton = BUTTON_MAX_BUTTONS;
-			
+
 			switch (mouseEvent->detail)
 			{
 			case XCB_BUTTON_INDEX_1:
@@ -289,7 +289,7 @@ bl8		Platform::PlatformUpdate(PlatformState	*platform)
 				DE_DEBUG("Mouse position: X: %d, Y: %d", mouseEvent->event_x, mouseEvent->event_y);
 			}
 		}
-		break;
+			break;
 		case XCB_MOTION_NOTIFY:
 		{
 			// Mouse move
@@ -299,12 +299,13 @@ bl8		Platform::PlatformUpdate(PlatformState	*platform)
 			OnMouseMove(moveEvent->event_x, moveEvent->event_y);
 			DE_DEBUG("Mouse move: X: %d, Y: %d", moveEvent->event_x, moveEvent->event_y);
 		}
-		break;
+			break;
 		case XCB_CONFIGURE_NOTIFY:
 		{
+			DE_DEBUG("Window resize/move");
 			// TODO: Resizing
 		}
-		break;
+			break;
 
 		case XCB_CLIENT_MESSAGE:
 		{
@@ -316,7 +317,7 @@ bl8		Platform::PlatformUpdate(PlatformState	*platform)
 				quit = true;
 			}
 		}
-		break;
+			break;
 		default:
 			// Something else
 			break;
@@ -378,7 +379,7 @@ dbl64	Platform::PlatGetAbsoluteTime(void)
 	struct timespec time;
 	clock_gettime(CLOCK_MONOTONIC, &time);
 
-	return (time.tv_sec + time.tv_nsec * 1e-9);
+	return (time.tv_sec + time.tv_nsec * 0.000000001);
 }
 
 void	Platform::PlatSleep(uint64 timeMs)
@@ -386,7 +387,7 @@ void	Platform::PlatSleep(uint64 timeMs)
 #if _POSIX_C_SOURCE >= 199309L
 	struct timespec ts;
 	ts.tv_sec = timeMs / 1000;
-	ts.tv_nsec = (timeMs % 1000) * 1000000;
+	ts.tv_nsec = (timeMs % 1000) * 1000 * 1000;
 	nanosleep(&ts, &ts);
 #else
 	if (timeMs >= 1000)

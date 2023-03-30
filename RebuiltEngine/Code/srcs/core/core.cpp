@@ -13,6 +13,7 @@
 #include "../../includes/core/core.hpp"
 #include "../../includes/gameType.hpp"
 #include "../../includes/core/input.hpp"
+#include "../../includes/core/time.hpp"
 
 typedef struct appState
 {
@@ -22,8 +23,9 @@ typedef struct appState
 	Platform		platform;
 	sint16			width;
 	sint16			height;
-	// clock			clock;
+	Clock			clock;
 	dbl64			lastTime;
+	dbl64			deltaTime;
 }	appState;
 
 static bl8		init = false;
@@ -113,6 +115,15 @@ bl8	Core::ApplicationRun()
 {
 	DE_DEBUG("Core update");
 
+	// Start the clock for DeltaTime
+	engineState.clock.ClockStart();
+	engineState.clock.ClockUpdate();
+	engineState.lastTime = engineState.clock._clock.elapsedTime;
+
+	dbl64	runningTime = 0.0f;
+	uint8	framesCount = 0;
+	dbl64	targetFrameSec = 1.0f / 60.0f; // 60 fps
+
 	while (engineState.isRunning)
 	{
 		if (!engineState.platform.PlatformUpdate(&engineState.platform.platformState))
@@ -120,10 +131,18 @@ bl8	Core::ApplicationRun()
 			engineState.isRunning = false;
 		}
 
+		// std::cout << "Frame: " << (int)framesCount << std::endl;
+
 		// Update the game
 		if (!engineState.isSuspended)
 		{
-			if (!engineState.gameInstance->update(engineState.gameInstance, (fl32) 0))
+			// Update the clock
+			engineState.clock.ClockUpdate();
+			dbl64 currentTime = engineState.clock._clock.elapsedTime;
+			engineState.deltaTime = currentTime - engineState.lastTime;
+			dbl64	frameStartTime = engineState.platform.PlatGetAbsoluteTime();
+
+			if (!engineState.gameInstance->update(engineState.gameInstance, (fl32)engineState.deltaTime))
 			{
 				DE_FATAL("Game update failed!, shutting down...");
 				engineState.isRunning = false;
@@ -131,15 +150,37 @@ bl8	Core::ApplicationRun()
 			}
 
 			// Render the game
-			if (!engineState.gameInstance->render(engineState.gameInstance, (fl32)0))
+			if (!engineState.gameInstance->render(engineState.gameInstance, (fl32)engineState.deltaTime))
 			{
 				DE_FATAL("Game render failed!, shutting down...");
 				engineState.isRunning = false;
 				break ;
 			}
 
+			// Update the last time
+			dbl64	frameEndTime = engineState.platform.PlatGetAbsoluteTime();
+			dbl64	frameElapsedTime = frameEndTime - frameStartTime;
+			runningTime += frameElapsedTime;
+			dbl64	remainingSec = targetFrameSec - frameElapsedTime;
+			if (remainingSec > 0)
+			{
+				dbl64	remainingMs = remainingSec * 1000;
+
+				// Sleep for the remaining time
+				bl8	limitFrame = true;
+				if (remainingMs > 0 && limitFrame)
+				{
+					// std::cout << "DeltaTime: " << engineState.deltaTime << std::endl;
+					engineState.platform.PlatSleep(remainingMs - 1);
+				}
+				framesCount++;
+			}
 			// Catch all imput events for next frame
-			InputUpdate(0);
+			InputUpdate(engineState.deltaTime);
+			// std::cout << "DeltaTime: " << engineState.deltaTime << std::endl;
+
+			// Update the last time
+			engineState.lastTime = engineState.clock._clock.elapsedTime;
 		}
 	}
 

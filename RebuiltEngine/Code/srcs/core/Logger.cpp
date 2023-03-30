@@ -24,6 +24,8 @@ void	LogShutdown()
 
 }
 
+Platform	platform;
+
 void	LogMessage(logLevel level, const char *message, ...)
 {
 	const char	*levelStr[6] = {"[*FATAL*]   : ", "[*ERROR*]   : ", "[*WARNING*] : ",
@@ -42,7 +44,6 @@ void	LogMessage(logLevel level, const char *message, ...)
 	outBuffer += outMessage;
 	outBuffer += "\n";
 
-	Platform platform;
 	if (shouldLog)
 	{
 		platform.PlatconsoleWriteError(outBuffer, level);

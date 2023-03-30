@@ -91,7 +91,7 @@ int main(void)
 
 	// TODO: Function for free memory.
 	// gameInst.platform.PlatformFree(gameInst.state, false);
-	DE_Free(gameInst.state, sizeof(gameInst.state), DE_MEMORY_TAG_GAME);
+	DE_Free(gameInst.state, sizeof(gameInst.state) * 1, DE_MEMORY_TAG_GAME);
 	ShutdownMemory();
 	std::cout << DE_GetMemoryUsageString(DE_MEMORY_TAG_MAX_TAGS) << std::endl;
 

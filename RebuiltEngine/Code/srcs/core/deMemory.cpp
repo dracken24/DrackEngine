@@ -115,65 +115,62 @@ void *DE_SetMemory(void *dest, sint32 value, uint64 size)
 std::string	DE_GetMemoryUsageString(memoryTag tag)
 {
 	const uint64 gib = 1024 * 1024 * 1024;
-	const uint64 mib = 1024 * 1024;
-	const uint64 kib = 1024;
+	const uint32 mib = 1024 * 1024;
+	const uint16 kib = 1024;
 
 	char buffer[8000] = "\nMemory in use for the engine :\n\n";
 	uint64 offset = strlen(buffer);
 	for (uint32 i = 0; i <= DE_MEMORY_TAG_MAX_TAGS; ++i)
 	{
-		char unit[3];
+		char unit[4] = " Xb";
 		float amount = 1.0f;
-		if (stats.allocTagged[i] >= gib)
+
+		if (i < DE_MEMORY_TAG_MAX_TAGS)
 		{
-			unit[0] = ' ';
-			unit[1] = 'G';
-			unit[2] = 'b';
-			amount = stats.allocTagged[i] / (float)gib;
-		}
-		else if (stats.allocTagged[i] >= mib)
-		{
-			unit[0] = ' ';
-			unit[1] = 'M';
-			unit[2] = 'b';
-			amount = stats.allocTagged[i] / (float)mib;
-		}
-		else if (stats.allocTagged[i] >= kib)
-		{
-			unit[0] = ' ';
-			unit[1] = 'K';
-			unit[2] = 'b';
-			amount = stats.allocTagged[i] / (float)kib;
+			if (stats.allocTagged[i] >= gib)
+			{
+				unit[1] = 'G';
+				amount = stats.allocTagged[i] / (float)gib;
+			}
+			else if (stats.allocTagged[i] >= mib)
+			{
+				unit[1] = 'M';
+				amount = stats.allocTagged[i] / (float)mib;
+			}
+			else if (stats.allocTagged[i] >= kib)
+			{
+				unit[1] = 'K';
+				amount = stats.allocTagged[i] / (float)kib;
+			}
+			else
+			{
+				unit[1] = 'B';
+				unit[2] = 0;
+				amount = (float)stats.allocTagged[i];
+			}
 		}
 		else
 		{
-			unit[0] = ' ';
-			unit[1] = 'B';
-			unit[2] = 0;
-			amount = (float)stats.allocTagged[i];
-		}
-		if (i == 17)
-		{
 			if (stats.allocTotal >= gib)
 			{
-				unit[0] = ' ';
 				unit[1] = 'G';
-				unit[2] = 'b';
 				amount = stats.allocTotal / (float)gib;
 			}
 			else if (stats.allocTotal >= mib)
 			{
-				unit[0] = ' ';
 				unit[1] = 'M';
-				unit[2] = 'b';
 				amount = stats.allocTotal / (float)mib;
 			}
 			else if (stats.allocTotal >= kib)
 			{
-				unit[0] = ' ';
 				unit[1] = 'K';
-				unit[2] = 'b';
 				amount = stats.allocTotal / (float)kib;
+			}
+			else
+			{
+				unit[1] = 'B';
+				unit[2] = 0;
+				amount = (float)stats.allocTotal;
 			}
 			snprintf(buffer + offset, 8000, "  %s: %.2f%s\n", memoryTagStrings[i], amount, unit);
 			break ;
