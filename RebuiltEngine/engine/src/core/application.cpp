@@ -14,6 +14,9 @@
 #include "../../includes/gameType.hpp"
 #include "../../includes/core/input.hpp"
 #include "../../includes/core/time.hpp"
+#include "../../includes/core/deMemory.hpp"
+
+#include "../../renderer/renderFrontend.hpp"
 
 typedef struct appState
 {
@@ -49,6 +52,10 @@ Core::~Core()
 //**       						PUBLIC METHODS                          	**//
 //****************************************************************************//
 
+// Event handlers
+bl8 ApplicationOnEvent(uint16 code, void *sender, void *listener_inst, eventContext context);
+bl8 ApplicationOnKey(uint16 code, void *sender, void *listener_inst, eventContext context);
+
 // Global Methods for the Engine
 bl8		Core::ApplicationStart(Game *gameInstance)
 {
@@ -81,6 +88,13 @@ bl8		Core::ApplicationStart(Game *gameInstance)
 		DE_ERROR("Events initialization failed!");
 		return (false);
 	}
+	DE_INFO("HELP");
+	EventRegister(DE_EVENT_CODE_APPLICATION_QUIT, 0, ApplicationOnEvent);
+	DE_INFO("HELP1");
+	EventRegister(DE_EVENT_CODE_KEY_PRESSED, 0, ApplicationOnKey);
+	DE_INFO("HELP2");
+	EventRegister(DE_EVENT_CODE_KEY_RELEASED, 0, ApplicationOnKey);
+	DE_INFO("HELP3");
 
 	// Try initializing the platform
 	if (!engineState.platform.PlatformStart(
@@ -92,6 +106,13 @@ bl8		Core::ApplicationStart(Game *gameInstance)
 		gameInstance->appConfigg.height}))
 	{
 		// if it fails, shutdown the engine
+		return (false);
+	}
+
+	// Start Renderer
+	if (!RendererInitialize(gameInstance->appConfigg.name, &engineState.platform.platformState))
+	{
+		DE_FATAL("Renderer initialization failed!");
 		return (false);
 	}
 
@@ -121,7 +142,7 @@ bl8	Core::ApplicationRun()
 	engineState.lastTime = engineState.clock._clock.elapsedTime;
 
 	dbl64	runningTime = 0.0f;
-	uint8	framesCount = 0;
+	uint64	framesCount = 0;
 	dbl64	targetFrameSec = 1.0f / 60.0f; // 60 fps
 
 	while (engineState.isRunning)
@@ -157,6 +178,11 @@ bl8	Core::ApplicationRun()
 				break ;
 			}
 
+			// TODO: refactor packet creation
+			renderPacket	renderPkt;
+			renderPkt.deltaTime = engineState.deltaTime;
+			RendererDrawFrame(&renderPkt);
+
 			// Update the last time
 			dbl64	frameEndTime = engineState.platform.PlatGetAbsoluteTime();
 			dbl64	frameElapsedTime = frameEndTime - frameStartTime;
@@ -180,15 +206,23 @@ bl8	Core::ApplicationRun()
 			// std::cout << "DeltaTime: " << engineState.deltaTime << std::endl;
 
 			// Update the last time
-			engineState.lastTime = engineState.clock._clock.elapsedTime;
+			engineState.lastTime = currentTime;
 		}
 	}
 
 	engineState.isRunning = false;
 
+	// Shutdown event system
+	EventUnregister(DE_EVENT_CODE_APPLICATION_QUIT, 0, ApplicationOnEvent);
+	EventUnregister(DE_EVENT_CODE_KEY_PRESSED, 0, ApplicationOnKey);
+	EventUnregister(DE_EVENT_CODE_KEY_RELEASED, 0, ApplicationOnKey);
+	EventShutdown();
+
+	// Shutdown the renderer
+	RendererShutdown();
+
 	// Shutdown the engine
 	InputShutdown();
-	EventShutdown();
 	ApplicationShutdown();
 
 	return (true);
@@ -199,4 +233,60 @@ void	Core::ApplicationShutdown()
 	DE_DEBUG("Core shutdown");
 
 	engineState.platform.PlatformShutdown(&engineState.platform.platformState);
+}
+
+bl8		ApplicationOnEvent(uint16 code, void *sender, void *listener_inst, eventContext context)
+{
+	DE_INFO("EVENT 1");
+	switch (code)
+	{
+	case DE_EVENT_CODE_APPLICATION_QUIT:
+		{
+			DE_INFO("EVENT_CODE_APPLICATION_QUIT recieved, shutting down.\n");
+			engineState.isRunning = false;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bl8		ApplicationOnKey(uint16 code, void *sender, void *listenerInst, eventContext context)
+{
+	if (code == DE_EVENT_CODE_KEY_PRESSED)
+	{
+		uint16 key_code = context.data.u16[0];
+		if (key_code == KEY_ESCAPE)
+		{
+			// NOTE: Technically firing an event to itself, but there may be other listeners.
+			eventContext data = {};
+			EventFire(DE_EVENT_CODE_APPLICATION_QUIT, 0, data);
+
+			// Block anything else from processing this.
+			return true;
+		}
+		else if (key_code == KEY_A)
+		{
+			// Example on checking for a key
+			DE_DEBUG("Explicit - A key pressed!");
+		}
+		else
+		{
+			DE_DEBUG("'%c' key pressed in window.", key_code);
+		}
+	}
+	else if (code == DE_EVENT_CODE_KEY_RELEASED)
+	{
+		uint16 key_code = context.data.u16[0];
+		if (key_code == KEY_B)
+		{
+			// Example on checking for a key
+			DE_DEBUG("Explicit - B key released!");
+		}
+		else
+		{
+			DE_DEBUG("'%c' key released in window.", key_code);
+		}
+	}
+	return false;
 }

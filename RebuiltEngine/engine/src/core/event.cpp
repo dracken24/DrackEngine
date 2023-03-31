@@ -10,38 +10,37 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../../../Code/includes/core/deMemory.hpp"
-#include "../../../Code/includes/core/event.hpp"
-#include "../../../Code/includes/core/logger.hpp"
+#include "../../includes/core/deMemory.hpp"
+#include "../../includes/core/event.hpp"
+#include "../../includes/core/logger.hpp"
+#include "../../container/myArray.hpp"
 
-#include <vector>
-
-typedef struct registeredEvent
+typedef struct	registeredEvent
 {
-	void *listener;
-	EventPointer callback;
-} registeredEvent;
+	void			*listener;
+	EventPointer	callback;
+}	registeredEvent;
 
-typedef struct eventCodeEntry
+typedef struct	eventCodeEntry
 {
-	std::vector<registeredEvent> events;
-} eventCodeEntry;
+	registeredEvent	*events;
+}	eventCodeEntry;
 
 // This should be more than enough codes...
 #define DE_MAX_MESSAGE_CODES 16384
 
 // State structure.
-typedef struct eventSystemState
+typedef struct	eventSystemState
 {
 	// Lookup table for event codes.
-	std::vector<eventCodeEntry> registered[DE_MAX_MESSAGE_CODES];
-} eventSystemState;
+	eventCodeEntry registered[DE_MAX_MESSAGE_CODES];
+}	eventSystemState;
 
 //
-static bl8 is_initialized = false;
-static eventSystemState state;
+static bl8				is_initialized = false;
+static eventSystemState	state;
 
-bl8 EventInit(void)
+bl8		EventInit(void)
 {
 	DE_DEBUG("EventInit: Initializing event system.");
 	if (is_initialized == true)
@@ -60,9 +59,10 @@ void EventShutdown(void)
 	// Free the events arrays. And objects pointed to should be destroyed on their own.
 	for (uint16 i = 0; i < DE_MAX_MESSAGE_CODES; ++i)
 	{
-		if (state.registered[i].size() > 0)
+		if (state.registered[i].events != 0)
 		{
-			state.registered[i].clear();
+			MyArrayDestroy(state.registered[i].events);
+			state.registered[i].events = 0;
 		}
 	}
 }
@@ -74,15 +74,15 @@ bl8 EventRegister(uint16 code, void *listener, EventPointer on_event)
 		return false;
 	}
 
-	if (state.registered[code].size() == 0)
+	if (state.registered[code].events == 0)
 	{
-		eventCodeEntry entry;
-		state.registered[code].push_back(entry);
+		state.registered[code].events = (registeredEvent *)MyArrayCreate(registeredEvent);
 	}
 
-	for (size_t it = 0; it < state.registered->at(code).events.size(); ++it)
+	uint64 registeredCount = MyArrayLength(state.registered[code].events);
+	for (uint64 i = 0; i < registeredCount; ++i)
 	{
-		if (state.registered->at(code).events.at(it).listener == listener)
+		if (state.registered[code].events[i].listener == listener)
 		{
 			// TODO: warn
 			return false;
@@ -93,7 +93,9 @@ bl8 EventRegister(uint16 code, void *listener, EventPointer on_event)
 	registeredEvent event;
 	event.listener = listener;
 	event.callback = on_event;
-	state.registered->at(code).events.push_back(event);
+	DE_WARNING("EventRegister1: Registering event for code %d", code);
+	MyArrayPush(state.registered[code].events, &event);
+	DE_WARNING("EventRegister2: Registering event for code %d", code);
 
 	return true;
 }
@@ -107,19 +109,21 @@ bl8 EventUnregister(uint16 code, void *listener, EventPointer pntEvent)
 	}
 
 	// On nothing is registered for the code, boot out.
-	if (state.registered[code].size() == 0)
+	if (state.registered[code].events == 0)
 	{
 		// TODO: warn
 		return false;
 	}
 
-	for (size_t it = 0; it < state.registered->at(code).events.size(); ++it)
+	uint64 registeredCount = MyArrayLength(state.registered[code].events);
+	for (uint64 i = 0; i < registeredCount; ++i)
 	{
-		registeredEvent event = state.registered->at(code).events.at(it);
-		if (event.listener == listener && event.callback == pntEvent)
+		registeredEvent e = state.registered[code].events[i];
+		if (e.listener == listener && e.callback == pntEvent)
 		{
 			// Found one, remove it
-			state.registered->at(code).events.erase(state.registered->at(code).events.begin() + it);
+			registeredEvent popped_event;
+			MyArrayPopAt(state.registered[code].events, i, &popped_event);
 			return true;
 		}
 	}
@@ -135,15 +139,16 @@ bl8 EventFire(uint16 code, void *sender, eventContext context)
 		return false;
 	}
 	// If nothing is registered for the code, boot out.
-	if (state.registered[code].size() == 0)
+	if (state.registered[code].events == 0)
 	{
 		return false;
 	}
 
-	for (size_t it = 0; it < state.registered->at(code).events.size(); ++it)
+	uint64 registered_count = MyArrayLength(state.registered[code].events);
+	for (uint64 i = 0; i < registered_count; ++i)
 	{
-		registeredEvent currentEvent = state.registered->at(code).events.at(it);
-		if (currentEvent.callback(code, sender, currentEvent.listener, context))
+		registeredEvent ev = state.registered[code].events[i];
+		if (ev.callback(code, sender, ev.listener, context))
 		{
 			// Message has been handled, do not send to other listeners.
 			return true;

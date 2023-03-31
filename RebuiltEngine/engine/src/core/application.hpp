@@ -41,7 +41,7 @@
 # include "defines.hpp"
 # include "asserts.hpp"
 // # include "../gameType.hpp"
-# include "../platform/Platform.hpp"
+# include "platform/Platform.hpp"
 # include "event.hpp"
 
 # include <iostream>

@@ -16,8 +16,12 @@
 
 # include "../../includes/core/logger.hpp"
 # include "../../includes/core/input.hpp"
+#include "../../includes/core/event.hpp"
 # include "../../includes/color.hpp"
-// # include "../../../Vulkan/vulkanTypes.inl"
+# include "../../renderer/vulkan/vulkanTypes.inl"
+
+#include "../../container/myArray.hpp"
+#include "../../includes/core/deString.hpp"
 
 # include <xcb/xcb.h>
 # include <X11/keysym.h>
@@ -28,6 +32,7 @@
 // For surface creation
 # define VK_USE_PLATFORM_XCB_KHR
 # include <vulkan/vulkan.h>
+# include <vulkan/vulkan_xcb.h>
 
 # include <sys/time.h>
 # include <iostream>
@@ -39,7 +44,9 @@
 #  include <unistd.h> // for usleep
 # endif
 
-typedef struct  internalState
+struct vulkanContext;
+
+	typedef struct internalState
 {
 	Display		        *display; // Connection to the Xlib server
 	xcb_connection_t	*connection;
@@ -47,7 +54,7 @@ typedef struct  internalState
 	xcb_screen_t        *screen;
 	xcb_atom_t          wmProtocols;
 	xcb_atom_t          wmDeleteWindow;
-	// VkSurfaceKHR		surface;
+	VkSurfaceKHR		surface;
 }	internalState;
 
 // Key translation
@@ -310,7 +317,7 @@ bl8		Platform::PlatformUpdate(PlatformState	*platform)
 		case XCB_CLIENT_MESSAGE:
 		{
 			cm = (xcb_client_message_event_t *)event;
-
+			DE_DEBUG("Client message");
 			// Window close
 			if (cm->data.data32[0] == state->wmDeleteWindow)
 			{
@@ -394,6 +401,36 @@ void	Platform::PlatSleep(uint64 timeMs)
 		sleep(timeMs / 1000);
 	usleep((timeMs % 1000) * 1000);
 #endif
+}
+
+void	PlatformGetRequiredExtensionNames(const char ***namesArray)
+{
+	_MyArrayPush(*namesArray, &"VK_KHR_xcb_surface"); // VK_KHR_xlib_surface?
+}
+
+// Surface creation for Vulkan
+bl8		PlatformCreateVulkanSurface(PlatformState *platState, vulkanContext *context)
+{
+	// Simply cold-cast to the known type.
+	internalState *state = (internalState *)platState->intetnalState;
+
+	VkXcbSurfaceCreateInfoKHR create_info = {VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR};
+	create_info.connection = state->connection;
+	create_info.window = state->window;
+
+	VkResult result = vkCreateXcbSurfaceKHR(
+		context->instance,
+		&create_info,
+		context->allocator,
+		&state->surface);
+	if (result != VK_SUCCESS)
+	{
+		DE_FATAL("Vulkan surface creation failed.");
+		return false;
+	}
+
+	context->surface = state->surface;
+	return true;
 }
 
 #endif

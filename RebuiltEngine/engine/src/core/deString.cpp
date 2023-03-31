@@ -3,51 +3,35 @@
 /* |             ---------------------------------------------             | */
 /* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  DATE:		 26-03-2023  		  *--*             | */
+/* |             *--*  DATE:		 31-03-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  FILE: 	    structs.hpp           *--*             | */
+/* |             *--*  FILE: 	    deString.cpp          *--*             | */
 /* |             ---------------------------------------------             | */
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#ifndef STRUCTS_HPP
-# define STRUCTS_HPP
+#include "../../includes/core/deString.hpp"
+#include "../../includes/core/deMemory.hpp"
 
-# include "../core/defines.hpp"
+#include <string.h>
 
-// x, y signed int 32 bits
-typedef	struct Vector2si16
+uint64 StrLen(const char *str)
 {
-	sint16	x;
-	sint16	y;
-}	Vector2si16;
+	return strlen(str);
+}
 
-// x, y signed int 32 bits
-typedef	struct Vector2si
+char *StrDup(const char *str)
 {
-	sint32	x;
-	sint32	y;
-}	Vector2si;
+	uint64 length = StrLen(str);
+	char *copy = (char *)DE_Malloc(length + 1, DE_MEMORY_TAG_STRING);
 
-// x, y unsigned int 32 bits
-typedef	struct Vector2ui
+	DE_CopyMemory(copy, str, length + 1);
+
+	return (copy);
+}
+
+// Case-sensitive string comparison. True if the same, otherwise false.
+bl8 StrEqual(const char *str0, const char *str1)
 {
-	uint32	x;
-	uint32	y;
-}	Vector2ui;
-
-// x, y float 32 bits
-typedef	struct Vector2f
-{
-	fl32	x;
-    fl32    y;
-}	Vector2f;
-
-// x, y double 64 bits
-typedef	struct Vector2d
-{
-	dbl64	x;
-	dbl64	y;
-}	Vector2d;
-
-#endif
+	return (strcmp(str0, str1) == 0);
+}

@@ -50,7 +50,7 @@ void	EventShutdown(void);
  * Register to listen for new events
  * @param code The event code to listen for.
  * @param listener A pointer to a listener instance. Can be 0/NULL.
- * @param on_event The callback function pointer to be invoked when the event code is fired.
+ * @param pntEvent The callback function pointer to be invoked when the event code is fired.
  * @returns TRUE if the event is successfully registered; otherwise false.
  */
 DE_API bl8	EventRegister(uint16 code, void* listener, EventPointer pntEvent);

@@ -5,16 +5,16 @@
 /* |             ---------------------------------------------             | */
 /* |             *--*  DATE:		 26-03-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  FILE: 	  vulkan_types.inl        *--*             | */
+/* |             *--*  FILE: 	   vulkanTypes.inl        *--*             | */
 /* |             ---------------------------------------------             | */
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#ifndef VULKAN_TYPES_INL
-# define VULKAN_TYPES_INL
+#ifndef VULKANTYPES_INL
+# define VULKANTYPES_INL
 
-#include "../Code/includes/core/defines.hpp"
-#include "../Code/includes/core/asserts.hpp"
+#include "../../../Code/includes/core/defines.hpp"
+#include "../../../Code/includes/core/asserts.hpp"
 
 #include <vulkan/vulkan.h>
 
@@ -24,44 +24,44 @@
 		DE_ASSERT(expr == VK_SUCCESS);	\
 	}
 
-typedef struct  vulkan_swapchain_support_info
+typedef struct  vulkanSwapchainSupportInfo
 {
 	VkSurfaceCapabilitiesKHR		capabilities;
-	uint32							format_count;
+	uint32							formatCount;
 	VkSurfaceFormatKHR				*formats;
-	uint32							present_mode_count;
-	VkPresentModeKHR				*present_modes;
-}   vulkan_swapchain_support_info;
+	uint32							presentModeCount;
+	VkPresentModeKHR				*presentModes;
+}   vulkanSwapchainSupportInfo;
 
-typedef struct  vulkan_device
+typedef struct  vulkanDevice
 {
-	VkPhysicalDevice					physical_device;
-	VkDevice							logical_device;
-	vulkan_swapchain_support_info		swapchain_support;
-	sint32								graphics_queue_index;
-	sint32								present_queue_index;
-	sint32								transfer_queue_index;
+	VkPhysicalDevice					physicalDevice;
+	VkDevice							logicalDevice;
+	vulkanSwapchainSupportInfo			swapchainSupport;
+	sint32								graphicsQueueIndex;
+	sint32								presentQueueIndex;
+	sint32								transferQueueIndex;
 
-	VkQueue								graphics_queue;
-	VkQueue								present_queue;
-	VkQueue								transfer_queue;
+	VkQueue								graphicsQueue;
+	VkQueue								presentQueue;
+	VkQueue								transferQueue;
 
 	VkPhysicalDeviceProperties			properties;
 	VkPhysicalDeviceFeatures			features;
 	VkPhysicalDeviceMemoryProperties	memory;
-}	vulkan_device;
+}	vulkanDevice;
 
-typedef struct vulkan_context
+typedef struct	vulkanContext
 {
 	VkInstance					instance;
 	VkAllocationCallbacks		*allocator;
 	VkSurfaceKHR				surface;
 
 #if defined(_DEBUG)
-	VkDebugUtilsMessengerEXT	debug_messenger;
+	VkDebugUtilsMessengerEXT	debugMessenger;
 #endif
 
-	vulkan_device				device;
-}	vulkan_context;
+	vulkanDevice				device;
+}	vulkanContext;
 
 #endif
