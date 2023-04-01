@@ -10,10 +10,10 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../../includes/core/deMemory.hpp"
-#include "../../includes/core/logger.hpp"
-#include "../../includes/platform/Platform.hpp"
-#include "../../includes/game.hpp"
+#include "core/deMemory.hpp"
+#include "core/logger.hpp"
+#include "platform/Platform.hpp"
+#include "core/application.hpp"
 
 struct memoryStats
 {
@@ -56,16 +56,16 @@ void	ShutdownMemory()
 	
 }
 
-void	AddMemoryTag(uint64 size, memoryTag tag)
-{
-	if (tag == DE_MEMORY_TAG_UNKNOWN)
-	{
-		DE_WARNING("AddMemoryTag called using DE_MEMORY_TAG_UNKNOWN. Re-class this allocation.");
-	}
+// void	AddMemoryTag(uint64 size, memoryTag tag)
+// {
+// 	if (tag == DE_MEMORY_TAG_UNKNOWN)
+// 	{
+// 		DE_WARNING("AddMemoryTag called using DE_MEMORY_TAG_UNKNOWN. Re-class this allocation.");
+// 	}
 
-	stats.allocTotal += size;
-	stats.allocTagged[tag] += size;
-}
+// 	stats.allocTotal += size;
+// 	stats.allocTagged[tag] += size;
+// }
 
 void	*DE_Malloc(uint64 size, memoryTag tag)
 {

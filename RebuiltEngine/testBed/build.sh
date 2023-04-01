@@ -10,7 +10,7 @@
 # /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 # /*****************************************************************************/
 
-#!/bin/bash
+#!/bin/zsh
 # Build script for testbed
 set echo on
 
@@ -19,7 +19,7 @@ mkdir -p ../bin
 # Get a list of all the .c files.
 cFilenames=$(find . -type f -name "*.cpp")
 
-# echo "Files:" $cFilenames
+echo "Files:" $cFilenames
 
 assembly="testbed"
 compilerFlags="-g -fdeclspec -fPIC" 
@@ -27,8 +27,9 @@ compilerFlags="-g -fdeclspec -fPIC"
 # -Wall -Werror
 includeFlags="-Isrc -I../engine/src/"
 linkerFlags="-L../bin/ -lengine -Wl,-rpath,."
+ignoreFlags="-Wno-comment"
 defines="-D_DEBUG -DKIMPORT"
 
-echo "Building $assembly..."
-echo clang $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags
-clang $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags
+echo "Building $assembly... in testBed/build.sh"
+echo clang++ $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags $ignoreFlags
+clang++ $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags $ignoreFlags

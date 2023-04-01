@@ -13,8 +13,8 @@
 #ifndef PLATFORM_HPP
 # define PLATFORM_HPP
 
-# include "../core/defines.hpp"
-# include "../utils/structs.hpp"
+# include "defines.hpp"
+# include "structs.hpp"
 
 # include <string>
 

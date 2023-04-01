@@ -10,13 +10,12 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../../includes/core/core.hpp"
-#include "../../includes/gameType.hpp"
-#include "../../includes/core/input.hpp"
-#include "../../includes/core/time.hpp"
-#include "../../includes/core/deMemory.hpp"
+#include "gameType.hpp"
+#include "core/input.hpp"
+#include "core/time.hpp"
+#include "core/deMemory.hpp"
 
-#include "../../renderer/renderFrontend.hpp"
+#include "renderer/renderFrontend.hpp"
 
 typedef struct appState
 {
@@ -88,13 +87,13 @@ bl8		Core::ApplicationStart(Game *gameInstance)
 		DE_ERROR("Events initialization failed!");
 		return (false);
 	}
-	DE_INFO("HELP");
+	// DE_INFO("HELP");
 	EventRegister(DE_EVENT_CODE_APPLICATION_QUIT, 0, ApplicationOnEvent);
-	DE_INFO("HELP1");
+	// DE_INFO("HELP1");
 	EventRegister(DE_EVENT_CODE_KEY_PRESSED, 0, ApplicationOnKey);
-	DE_INFO("HELP2");
+	// DE_INFO("HELP2");
 	EventRegister(DE_EVENT_CODE_KEY_RELEASED, 0, ApplicationOnKey);
-	DE_INFO("HELP3");
+	// DE_INFO("HELP3");
 
 	// Try initializing the platform
 	if (!engineState.platform.PlatformStart(
@@ -141,9 +140,9 @@ bl8	Core::ApplicationRun()
 	engineState.clock.ClockUpdate();
 	engineState.lastTime = engineState.clock._clock.elapsedTime;
 
-	dbl64	runningTime = 0.0f;
+	dbl64	runningTime = 0;
 	uint64	framesCount = 0;
-	dbl64	targetFrameSec = 1.0f / 60.0f; // 60 fps
+	dbl64	targetFrameSec = 1.0f / 60; // 60 fps
 
 	while (engineState.isRunning)
 	{

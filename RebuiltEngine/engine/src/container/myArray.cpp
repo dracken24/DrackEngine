@@ -12,8 +12,8 @@
 
 #include "myArray.hpp"
 
-#include "../includes/core/deMemory.hpp"
-#include "../includes/core/logger.hpp"
+#include "core/deMemory.hpp"
+#include "core/logger.hpp"
 
 void	*_MyArrayCreate(uint64 length, uint64 stride)
 {

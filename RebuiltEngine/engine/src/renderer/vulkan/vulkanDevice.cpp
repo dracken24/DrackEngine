@@ -10,11 +10,11 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "vulkanDevice.hpp"
-#include "../../includes/core/logger.hpp"
-#include "../../includes/core/deMemory.hpp"
-#include "../../includes/core/deString.hpp"
-#include "../../container/myArray.hpp"
+#include "renderer/vulkan/vulkanDevice.hpp"
+#include "core/logger.hpp"
+#include "core/deMemory.hpp"
+#include "core/deString.hpp"
+#include "container/myArray.hpp"
 
 typedef struct	vulkanPhysicalDeviceRequirements
 {

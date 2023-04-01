@@ -13,7 +13,7 @@
 #ifndef DEMEMORY_HPP
 # define DEMEMORY_HPP
 
-# include "defines.hpp"
+# include "../defines.hpp"
 
 # include <string>
 

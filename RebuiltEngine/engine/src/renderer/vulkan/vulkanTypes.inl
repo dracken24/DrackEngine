@@ -13,8 +13,8 @@
 #ifndef VULKANTYPES_INL
 # define VULKANTYPES_INL
 
-#include "../../../Code/includes/core/defines.hpp"
-#include "../../../Code/includes/core/asserts.hpp"
+#include "core/asserts.hpp"
+#include "defines.hpp"
 
 #include <vulkan/vulkan.h>
 
@@ -38,6 +38,7 @@ typedef struct  vulkanDevice
 	VkPhysicalDevice					physicalDevice;
 	VkDevice							logicalDevice;
 	vulkanSwapchainSupportInfo			swapchainSupport;
+	
 	sint32								graphicsQueueIndex;
 	sint32								presentQueueIndex;
 	sint32								transferQueueIndex;

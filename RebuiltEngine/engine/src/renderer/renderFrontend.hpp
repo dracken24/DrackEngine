@@ -13,7 +13,7 @@
 #ifndef RENDERFRONTEND_HPP
 # define RENDERFRONTEND_HPP
 
-# include "renderType.inl"
+# include "renderer/renderType.inl"
 
 struct staticMeshData;
 struct PlatformState;

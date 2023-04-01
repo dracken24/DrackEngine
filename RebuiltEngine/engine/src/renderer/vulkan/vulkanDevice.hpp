@@ -13,7 +13,7 @@
 #ifndef VULKANDEVICE_HPP
 # define VULKANDEVICE_HPP
 
-# include "vulkanTypes.inl"
+# include "renderer/vulkan/vulkanTypes.inl"
 
 bl8		VulkanDeviceCreate(vulkanContext *context);
 

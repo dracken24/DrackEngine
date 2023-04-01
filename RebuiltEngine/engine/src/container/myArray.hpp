@@ -13,7 +13,7 @@
 #ifndef MYARRAY_HPP
 # define MYARRAY_HPP
 
-# include "../includes/core/defines.hpp"
+# include "defines.hpp"
 
 /*
 Memory layout
@@ -52,14 +52,20 @@ DE_API void		*_MyArrayInsertAt(void *array, uint64 index, void *valuePtr);
 	_MyArrayCreate(MYARRAY_DEFAULT_CAPACITY, sizeof(type))
 
 #define MyArrayReserve(type, capacity) \
-	_MyArrayCreate(capacity, decltype(type))
+	_MyArrayCreate(capacity, sizeof(type))
 
 #define MyArrayDestroy(array) _MyArrayDestroy(array);
 
-#define MyArrayPush(array, value)                                                                                                                \
-	{                                                                                                                                            \
-		decltype(value) temp = value;                                                                                                            \
-		state.registered[code].events = static_cast<registeredEvent *>(_MyArrayPush(static_cast<void *>(state.registered[code].events), &temp)); \
+#define MyArrayPush(array, value)                                                             \
+	{                                                                                         \
+		decltype(value) temp = value;                                                         \
+		array = static_cast<const char **>(_MyArrayPush(static_cast<void *>(array), &temp)); \
+	}
+
+#define MyArrayPushEvent(array, value)                                                           \
+	{                                                                                            \
+		decltype(value) temp = value;                                                            \
+		array = static_cast<registeredEvent *>(_MyArrayPush(static_cast<void *>(array), &temp)); \
 	}
 // NOTE: could use __auto_type for temp above, but intellisense
 // for VSCode flags it as an unknown type. typeof() seems to

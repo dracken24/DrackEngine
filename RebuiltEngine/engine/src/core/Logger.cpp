@@ -10,9 +10,8 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../../includes/core/core.hpp"
-
-// extern Core    *g_core;
+#include "core/application.hpp"
+#include "platform/Platform.hpp"
 
 bl8		LogInit()
 {

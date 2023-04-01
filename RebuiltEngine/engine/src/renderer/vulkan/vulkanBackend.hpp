@@ -13,7 +13,7 @@
 #ifndef VULKANBACKEND_HPP
 # define VULKANBACKEND_HPP
 
-# include "../renderBackend.hpp"
+# include "renderer/renderBackend.hpp"
 
 bl8		VulkanRendererBackendInitialize(rendererBackend *backend, std::string applicationName,
 			struct PlatformState *platState);

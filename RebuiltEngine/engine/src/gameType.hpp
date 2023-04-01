@@ -13,7 +13,8 @@
 #ifndef GAME_TYPE_HPP
 # define GAME_TYPE_HPP
 
-# include "core/core.hpp"
+# include "core/application.hpp"
+# include "platform/Platform.hpp"
 
 // Represents the basic game state in a game.
 // Called for creation by the application.

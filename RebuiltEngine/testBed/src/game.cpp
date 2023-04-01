@@ -10,14 +10,14 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../../includes/game.hpp"
+#include "game.hpp"
 
 //*** NOTE: Thoses functions work with pointer functions enum in gameType.hpp ***//
 
 // Function pointer to game's initialize function.
 bl8		GameInit(struct Game *gameInstance)
 {
-	DE_DEBUG("Initializing game in game.cpp ...");
+	DE_DEBUG("Initializing engine ...");
 	return (true);
 }
 
@@ -25,7 +25,6 @@ bl8		GameInit(struct Game *gameInstance)
 bl8		GameUpdate(struct Game *gameInstance, fl32 deltaTime)
 {
 	// DE_DEBUG("Updating game in game.cpp ...");
-	std::cout << "";
 	return (true);
 }
 
@@ -39,5 +38,5 @@ bl8		GameRender(struct Game *gameInstance, fl32 deltaTime)
 // Function pointer to handle resizes, if applicable.
 void	GameResize(struct Game *gameInstance, uint32 width, uint32 height)
 {
-	DE_DEBUG("Resizing game in game.cpp ...");
+	DE_DEBUG("Resizing windows ...");
 }

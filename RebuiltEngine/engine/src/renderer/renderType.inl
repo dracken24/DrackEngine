@@ -13,7 +13,6 @@
 #ifndef RENDERTYPE_INL
 # define RENDERTYPE_INL
 
-
 # include "defines.hpp"
 
 # include <string>

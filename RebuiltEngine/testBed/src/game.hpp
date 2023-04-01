@@ -13,7 +13,7 @@
 #ifndef GAME_HPP
 # define GAME_HPP
 
-# include "core/defines.hpp"
+# include "defines.hpp"
 # include "gameType.hpp"
 
 typedef struct gameState

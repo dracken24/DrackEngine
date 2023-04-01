@@ -10,8 +10,8 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../../includes/core/deString.hpp"
-#include "../../includes/core/deMemory.hpp"
+#include "core/deString.hpp"
+#include "core/deMemory.hpp"
 
 #include <string.h>
 

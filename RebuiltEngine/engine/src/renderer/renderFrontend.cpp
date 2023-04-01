@@ -10,8 +10,8 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../includes/core/logger.hpp"
-#include "../includes/core/deMemory.hpp"
+#include "core/logger.hpp"
+#include "core/deMemory.hpp"
 
 #include "renderFrontend.hpp"
 #include "renderBackend.hpp"

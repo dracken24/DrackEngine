@@ -10,7 +10,7 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../../includes/platform/Platform.hpp"
+#include "platform/Platform.hpp"
 
 #if DE_PLATFORM_WINDOWS
 # include <Windows.h>

@@ -13,7 +13,7 @@
 #ifndef RENDERBACKHAND_HPP
 # define RENDERBACKHAND_HPP
 
-# include "renderType.inl"
+#include "renderer/renderType.inl"
 
 struct PlatformState;
 

@@ -10,11 +10,13 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../includes/gameType.hpp"
-#include "../includes/game.hpp"
-#include "../includes/core/deMemory.hpp"
+#include "gameType.hpp"
+#include "game.hpp"
+#include "core/deMemory.hpp"
 
-bl8		CreateGame(Game* gameInst)
+struct Game;
+
+bl8		CreateGame(Game *gameInst)
 {
 	DE_INFO("Creating game...");
 
@@ -31,7 +33,7 @@ bl8		CreateGame(Game* gameInst)
 	gameInst->render = GameRender;
 	gameInst->onResize = GameResize;
 
-	gameInst->state = DE_Malloc(sizeof(gameInst->state) * 1, DE_MEMORY_TAG_GAME);
+	gameInst->state = DE_Malloc(sizeof(struct gameState) * 1, DE_MEMORY_TAG_GAME);
 
 	DE_INFO("Game created.");
 	return (true);

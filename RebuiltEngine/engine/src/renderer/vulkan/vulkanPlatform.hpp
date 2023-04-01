@@ -13,7 +13,7 @@
 #ifndef VULKANPLATFORM_HPP
 # define VULKANPLATFORM_HPP
 
-# include "../../includes/core/defines.hpp"
+# include "defines.hpp"
 
 # include <vector>
 # include <string>

@@ -13,8 +13,8 @@
 #ifndef CLOCK_HPP
 # define CLOCK_HPP
 
-# include "../core/defines.hpp"
-# include "../platform/Platform.hpp"
+# include "defines.hpp"
+# include "platform/Platform.hpp"
 
 class Clock
 {

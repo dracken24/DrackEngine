@@ -10,8 +10,8 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../../includes/core/deMemory.hpp"
-#include "../../includes/core/event.hpp"
+#include "core/deMemory.hpp"
+#include "core/event.hpp"
 
 #include <vector>
 

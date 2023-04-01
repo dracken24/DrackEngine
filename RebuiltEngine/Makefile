@@ -20,8 +20,8 @@ platformpth = $(subst /,$(PATHSEP),$1)
 buildDir := bin
 executable := DrackEngine
 target := $(buildDir)/$(executable)
-sources := $(call rwildcard,Code/,*.cpp)
-objects := $(patsubst Code/%, $(buildDir)/%, $(patsubst %.cpp, %.o, $(sources)))
+sources := $(call rwildcard,engine/,*.cpp)
+objects := $(patsubst engine/%, $(buildDir)/%, $(patsubst %.cpp, %.o, $(sources)))
 depends := $(patsubst %.o, %.d, $(objects))
 compileFlags := -std=c++17 -I include
 linkFlags = -lglfw -lvulkan -Wall -Werror -Wextra
@@ -34,7 +34,7 @@ ifeq ($(OS), Windows_NT)
 	CXX ?= clang++
 	linkFlags += -Wl,--allow-multiple-definition -pthread -lopengl32 -lgdi32 -lwinmm -mwindows -static -static-libgcc -static-libstdc++
 	ignorFlags = -Wno-comment
-	libGenDir := Code
+	libGenDir := engine
 	THEN := &&
 	PATHSEP := \$(BLANK)
 	MKDIR := -mkdir -p
@@ -57,7 +57,7 @@ else
 		CXX = clang++
 		linkFlags += -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL
 		ignorFlags = -Wno-comment
-		libGenDir := Code
+		libGenDir := engine
 	endif
 
 	# Set UNIX macros
@@ -81,7 +81,7 @@ $(target): $(objects)
 -include $(depends)
 
 # Compile objects to the build directory
-$(buildDir)/%.o: Code/%.cpp Makefile
+$(buildDir)/%.o: engine/%.cpp Makefile
 	@$(MKDIR) $(call platformpth, $(@D))
 	@$(CXX) -MMD -MP -c $(compileFlags) $(ignorFlags) $< -o  $@ $(CXXFLAGS)
 	@printf "$G■"

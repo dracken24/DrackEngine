@@ -10,10 +10,10 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../../includes/core/deMemory.hpp"
-#include "../../includes/core/event.hpp"
-#include "../../includes/core/logger.hpp"
-#include "../../container/myArray.hpp"
+#include "deMemory.hpp"
+#include "core/event.hpp"
+#include "core/logger.hpp"
+#include "container/myArray.hpp"
 
 typedef struct	registeredEvent
 {
@@ -48,6 +48,9 @@ bl8		EventInit(void)
 		return false;
 	}
 
+	is_initialized = false;
+	DE_MemSet(&state, sizeof(state));
+
 	is_initialized = true;
 
 	return true;
@@ -69,33 +72,38 @@ void EventShutdown(void)
 
 bl8 EventRegister(uint16 code, void *listener, EventPointer on_event)
 {
+	DE_DEBUG("EventRegister1: Registering event for code %d", code);
 	if (is_initialized == false)
 	{
 		return false;
 	}
+	DE_DEBUG("EventRegister2: Registering event for code %d", code);
 
 	if (state.registered[code].events == 0)
 	{
 		state.registered[code].events = (registeredEvent *)MyArrayCreate(registeredEvent);
 	}
+	DE_DEBUG("EventRegister3: Registering event for code %d", code);
 
 	uint64 registeredCount = MyArrayLength(state.registered[code].events);
 	for (uint64 i = 0; i < registeredCount; ++i)
 	{
 		if (state.registered[code].events[i].listener == listener)
 		{
+			DE_DEBUG("EventRegister4: Registering event for code %d", code);
 			// TODO: warn
 			return false;
 		}
 	}
+	DE_DEBUG("EventRegister5: Registering event for code %d", code);
 
 	// If at this point, no duplicate was found. Proceed with registration.
 	registeredEvent event;
 	event.listener = listener;
 	event.callback = on_event;
-	DE_WARNING("EventRegister1: Registering event for code %d", code);
-	MyArrayPush(state.registered[code].events, &event);
-	DE_WARNING("EventRegister2: Registering event for code %d", code);
+	DE_WARNING("EventRegister8: Registering event for code %d", code);
+	MyArrayPushEvent(state.registered[code].events, event);
+	DE_WARNING("EventRegister7: Registering event for code %d", code);
 
 	return true;
 }
@@ -118,8 +126,8 @@ bl8 EventUnregister(uint16 code, void *listener, EventPointer pntEvent)
 	uint64 registeredCount = MyArrayLength(state.registered[code].events);
 	for (uint64 i = 0; i < registeredCount; ++i)
 	{
-		registeredEvent e = state.registered[code].events[i];
-		if (e.listener == listener && e.callback == pntEvent)
+		registeredEvent ev = state.registered[code].events[i];
+		if (ev.listener == listener && ev.callback == pntEvent)
 		{
 			// Found one, remove it
 			registeredEvent popped_event;

@@ -10,15 +10,18 @@
 # /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 # /*****************************************************************************/
 
-#!/bin/bash
+#!/bin/zsh
 # Build script for rebuilding everything
 set echo on
 
 echo "Building everything..."
 
+alias pushd='cd'
+alias popd='cd ..'
 
 pushd engine
-source build.sh
+./build.sh
+echo $PWD
 popd
 
 ERRORLEVEL=$?
@@ -27,8 +30,8 @@ then
 echo "Error:"$ERRORLEVEL && exit
 fi
 
-pushd testbed
-source build.sh
+pushd testBed
+./build.sh
 popd
 ERRORLEVEL=$?
 if [ $ERRORLEVEL -ne 0 ]
