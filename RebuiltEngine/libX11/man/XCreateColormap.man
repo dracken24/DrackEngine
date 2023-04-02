@@ -94,14 +94,14 @@ For
 .BR StaticGray ,
 .BR StaticColor ,
 and
-.BR TrueColor ,
+.BR trueColor ,
 the entries have defined values,
 but those values are specific to the visual and are not defined by X.
 For
 .BR StaticGray ,
 .BR StaticColor ,
 and
-.BR TrueColor ,
+.BR trueColor ,
 alloc must be
 .BR AllocNone ,
 or a

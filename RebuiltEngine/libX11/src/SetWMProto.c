@@ -65,10 +65,10 @@ Status XSetWMProtocols (
 {
     Atom prop;
 
-    prop = XInternAtom (dpy, "WM_PROTOCOLS", False);
-    if (prop == None) return False;
+    prop = XInternAtom (dpy, "WM_PROTOCOLS", false);
+    if (prop == None) return false;
 
     XChangeProperty (dpy, w, prop, XA_ATOM, 32,
 		     PropModeReplace, (unsigned char *) protocols, count);
-    return True;
+    return true;
 }

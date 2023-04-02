@@ -53,15 +53,15 @@ wcs_to_mbs(
 
     conv = _XomInitConverter(oc, XOMWideChar);
     if (conv == NULL)
-	return False;
+	return false;
 
     to_left = length;
     ret = _XlcConvert(conv, (XPointer *) &from, &length, (XPointer *) &to,
 		      &to_left, NULL, 0);
     if (ret != 0 || length > 0)
-	return False;
+	return false;
 
-    return True;
+    return true;
 }
 
 static Bool
@@ -76,15 +76,15 @@ utf8_to_mbs(
 
     conv = _XomInitConverter(oc, XOMUtf8String);
     if (conv == NULL)
-	return False;
+	return false;
 
     to_left = length;
     ret = _XlcConvert(conv, (XPointer *) &from, &length, (XPointer *) &to,
 		      &to_left, NULL, 0);
     if (ret != 0 || length > 0)
-	return False;
+	return false;
 
-    return True;
+    return true;
 }
 
 int
@@ -103,7 +103,7 @@ _XwcDefaultTextEscapement(XOC oc, _Xconst wchar_t *text, int length)
     if (buf == NULL)
 	return 0;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False) {
+    if (wcs_to_mbs(oc, buf, text, length) == false) {
 	ret = 0;
 	goto err;
     }
@@ -126,7 +126,7 @@ _Xutf8DefaultTextEscapement(XOC oc, _Xconst char *text, int length)
     if (buf == NULL)
 	return 0;
 
-    if (utf8_to_mbs(oc, buf, text, length) == False) {
+    if (utf8_to_mbs(oc, buf, text, length) == false) {
 	ret = 0;
 	goto err;
     }
@@ -177,7 +177,7 @@ _XwcDefaultTextExtents(XOC oc, _Xconst wchar_t *text, int length,
     if (buf == NULL)
 	return 0;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False) {
+    if (wcs_to_mbs(oc, buf, text, length) == false) {
 	ret = 0;
 	goto err;
     }
@@ -201,7 +201,7 @@ _Xutf8DefaultTextExtents(XOC oc, _Xconst char *text, int length,
     if (buf == NULL)
 	return 0;
 
-    if (utf8_to_mbs(oc, buf, text, length) == False) {
+    if (utf8_to_mbs(oc, buf, text, length) == false) {
 	ret = 0;
 	goto err;
     }
@@ -223,7 +223,7 @@ _XmbDefaultTextPerCharExtents(XOC oc, _Xconst char *text, int length,
 {
     XFontStruct *font = *oc->core.font_info.font_struct_list;
     XCharStruct *def, *cs, overall;
-    Bool first = True;
+    Bool first = true;
 
     if (buf_size < length)
 	return 0;
@@ -253,7 +253,7 @@ _XmbDefaultTextPerCharExtents(XOC oc, _Xconst char *text, int length,
 
 	if (first) {
 	    overall = *cs;
-	    first = False;
+	    first = false;
 	} else {
 	    overall.ascent = max(overall.ascent, cs->ascent);
 	    overall.descent = max(overall.descent, cs->descent);
@@ -298,7 +298,7 @@ _XwcDefaultTextPerCharExtents(XOC oc, _Xconst wchar_t *text, int length,
     if (buf == NULL)
 	return 0;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False) {
+    if (wcs_to_mbs(oc, buf, text, length) == false) {
 	ret = 0;
 	goto err;
     }
@@ -327,7 +327,7 @@ _Xutf8DefaultTextPerCharExtents(XOC oc, _Xconst char *text, int length,
     if (buf == NULL)
 	return 0;
 
-    if (utf8_to_mbs(oc, buf, text, length) == False) {
+    if (utf8_to_mbs(oc, buf, text, length) == false) {
 	ret = 0;
 	goto err;
     }
@@ -365,7 +365,7 @@ _XwcDefaultDrawString(Display *dpy, Drawable d, XOC oc, GC gc, int x, int y,
     if (buf == NULL)
 	return 0;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False) {
+    if (wcs_to_mbs(oc, buf, text, length) == false) {
 	ret = 0;
 	goto err;
     }
@@ -389,7 +389,7 @@ _Xutf8DefaultDrawString(Display *dpy, Drawable d, XOC oc, GC gc, int x, int y,
     if (buf == NULL)
 	return 0;
 
-    if (utf8_to_mbs(oc, buf, text, length) == False) {
+    if (utf8_to_mbs(oc, buf, text, length) == false) {
 	ret = 0;
 	goto err;
     }
@@ -420,7 +420,7 @@ _XwcDefaultDrawImageString(Display *dpy, Drawable d, XOC oc, GC gc, int x,
     if (buf == NULL)
 	return;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False)
+    if (wcs_to_mbs(oc, buf, text, length) == false)
 	goto err;
 
     _XmbDefaultDrawImageString(dpy, d, oc, gc, x, y, buf, length);
@@ -439,7 +439,7 @@ _Xutf8DefaultDrawImageString(Display *dpy, Drawable d, XOC oc, GC gc, int x,
     if (buf == NULL)
 	return;
 
-    if (utf8_to_mbs(oc, buf, text, length) == False)
+    if (utf8_to_mbs(oc, buf, text, length) == false)
 	goto err;
 
     _XmbDefaultDrawImageString(dpy, d, oc, gc, x, y, buf, length);

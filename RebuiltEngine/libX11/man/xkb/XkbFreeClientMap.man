@@ -41,7 +41,7 @@ keyboard description containing client map to free
 mask identifying components of map to free
 .TP
 .I free_all
-True => free all client components and map itself 
+true => free all client components and map itself 
 .SH DESCRIPTION
 .LP
 .I XkbFreeClientMap 
@@ -55,7 +55,7 @@ parameter specifies a combination of the client map masks shown in Table 1.
 
 If 
 .I free_all 
-is True, 
+is true, 
 .I which 
 is ignored; 
 .I XkbFreeClientMap 

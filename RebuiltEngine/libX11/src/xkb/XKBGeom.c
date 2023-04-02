@@ -68,7 +68,7 @@ XkbComputeShapeBounds(XkbShapePtr shape)
     XkbPointPtr pt;
 
     if ((!shape) || (shape->num_outlines < 1))
-        return False;
+        return false;
     shape->bounds.x1 = shape->bounds.y1 = MAXSHORT;
     shape->bounds.x2 = shape->bounds.y2 = MINSHORT;
     for (outline = shape->outlines, o = 0; o < shape->num_outlines;
@@ -80,7 +80,7 @@ XkbComputeShapeBounds(XkbShapePtr shape)
             _XkbCheckBounds(&shape->bounds, 0, 0);
         }
     }
-    return True;
+    return true;
 }
 
 Bool
@@ -91,7 +91,7 @@ XkbComputeShapeTop(XkbShapePtr shape, XkbBoundsPtr bounds)
     XkbPointPtr pt;
 
     if ((!shape) || (shape->num_outlines < 1))
-        return False;
+        return false;
     if (shape->approx)
         outline = shape->approx;
     else
@@ -107,7 +107,7 @@ XkbComputeShapeTop(XkbShapePtr shape, XkbBoundsPtr bounds)
     for (pt = outline->points, p = 0; p < outline->num_points; p++, pt++) {
         _XkbCheckBounds(bounds, pt->x, pt->y);
     }
-    return True;
+    return true;
 }
 
 Bool
@@ -118,7 +118,7 @@ XkbComputeRowBounds(XkbGeometryPtr geom, XkbSectionPtr section, XkbRowPtr row)
     XkbBoundsPtr bounds, sbounds;
 
     if ((!geom) || (!section) || (!row))
-        return False;
+        return false;
     bounds = &row->bounds;
     bzero(bounds, sizeof(XkbBoundsRec));
     for (key = row->keys, pos = k = 0; k < row->num_keys; k++, key++) {
@@ -143,7 +143,7 @@ XkbComputeRowBounds(XkbGeometryPtr geom, XkbSectionPtr section, XkbRowPtr row)
             pos += sbounds->y2;
         }
     }
-    return True;
+    return true;
 }
 
 Bool
@@ -156,12 +156,12 @@ XkbComputeSectionBounds(XkbGeometryPtr geom, XkbSectionPtr section)
     XkbBoundsPtr bounds, rbounds;
 
     if ((!geom) || (!section))
-        return False;
+        return false;
     bounds = &section->bounds;
     bzero(bounds, sizeof(XkbBoundsRec));
     for (i = 0, row = section->rows; i < section->num_rows; i++, row++) {
         if (!XkbComputeRowBounds(geom, section, row))
-            return False;
+            return false;
         rbounds = &row->bounds;
         _XkbCheckBounds(bounds, row->left + rbounds->x1,
                         row->top + rbounds->y1);
@@ -202,7 +202,7 @@ XkbComputeSectionBounds(XkbGeometryPtr geom, XkbSectionPtr section)
         _XkbCheckBounds(bounds, rbounds->x1, rbounds->y1);
         _XkbCheckBounds(bounds, rbounds->x2, rbounds->y2);
     }
-    return True;
+    return true;
 }
 
 /***====================================================================***/
@@ -262,7 +262,7 @@ _XkbReadGeomProperties(XkbReadBufferPtr buf,
         return Success;
     if ((rtrn = XkbAllocGeomProps(geom, rep->nProperties)) == Success) {
         register int i;
-        register Bool ok = True;
+        register Bool ok = true;
 
         for (i = 0; (i < rep->nProperties) && ok; i++) {
             char *name = NULL;
@@ -616,7 +616,7 @@ _XkbReadGetGeometryReply(Display *dpy,
     if (!geom)
         return BadAlloc;
     if (xkb->geom)
-        XkbFreeGeometry(xkb->geom, XkbGeomAllMask, True);
+        XkbFreeGeometry(xkb->geom, XkbGeomAllMask, true);
     xkb->geom = geom;
 
     geom->name = rep->name;
@@ -652,7 +652,7 @@ _XkbReadGetGeometryReply(Display *dpy,
             if ((status != Success) || left || buf.error) {
                 if (status == Success)
                     status = BadLength;
-                XkbFreeGeometry(geom, XkbGeomAllMask, True);
+                XkbFreeGeometry(geom, XkbGeomAllMask, true);
                 xkb->geom = NULL;
                 return status;
             }
@@ -660,7 +660,7 @@ _XkbReadGetGeometryReply(Display *dpy,
             geom->label_color = &geom->colors[rep->labelColorNdx];
         }
         else {
-            XkbFreeGeometry(geom, XkbGeomAllMask, True);
+            XkbFreeGeometry(geom, XkbGeomAllMask, true);
             xkb->geom = NULL;
             return BadAlloc;
         }
@@ -685,7 +685,7 @@ XkbGetGeometry(Display *dpy, XkbDescPtr xkb)
     req->xkbReqType = X_kbGetGeometry;
     req->deviceSpec = xkb->device_spec;
     req->name = None;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse))
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse))
         status = BadImplementation;
     else if (!rep.found)
         status = BadName;
@@ -713,7 +713,7 @@ XkbGetNamedGeometry(Display *dpy, XkbDescPtr xkb, Atom name)
     req->xkbReqType = X_kbGetGeometry;
     req->deviceSpec = xkb->device_spec;
     req->name = (CARD32) name;
-    if ((!_XReply(dpy, (xReply *) &rep, 0, xFalse)) || (!rep.found))
+    if ((!_XReply(dpy, (xReply *) &rep, 0, xfalse)) || (!rep.found))
         status = BadImplementation;
     else if (!rep.found)
         status = BadName;

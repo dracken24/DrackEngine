@@ -42,7 +42,7 @@ Atom *XListProperties(
 
     LockDisplay(dpy);
     GetResReq(ListProperties, window, req);
-    if (!_XReply(dpy, (xReply *)&rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *)&rep, 0, xfalse)) {
 	*n_props = 0;
 	UnlockDisplay(dpy);
         SyncHandle();

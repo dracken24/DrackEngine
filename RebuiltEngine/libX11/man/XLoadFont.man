@@ -184,9 +184,9 @@ the
 function returns the value of the specified font property.
 .B XGetFontProperty
 also returns
-.B False
+.B false
 if the property was not defined or
-.B True
+.B true
 if it was defined.
 A set of predefined atoms exists for font properties,
 which can be found in
@@ -335,7 +335,7 @@ inclusive have the same information,
 as given by both min_bounds and max_bounds.
 .IP \(bu 5
 If all_chars_exist is
-.BR True ,
+.BR true ,
 all characters in the per_char array have nonzero bounding boxes.
 .IP \(bu 5
 The default_char member specifies the character that will be used when an

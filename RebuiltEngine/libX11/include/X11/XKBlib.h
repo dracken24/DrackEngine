@@ -1003,13 +1003,13 @@ extern	int	XkbKeyTypesForCoreSymbols(	/* returns # of groups */
     KeySym * 	/* xkb_syms_rtrn */		/* must have enough space */
 );
 
-extern	Bool	XkbApplyCompatMapToKey(	/* False only on error */
+extern	Bool	XkbApplyCompatMapToKey(	/* false only on error */
     XkbDescPtr		/* xkb */,		/* keymap to be edited */
     KeyCode		/* key */,		/* key to be updated */
     XkbChangesPtr	/* changes */		/* resulting changes to map */
 );
 
-extern	Bool	XkbUpdateMapFromCore( /* False only on error */
+extern	Bool	XkbUpdateMapFromCore( /* false only on error */
     XkbDescPtr		/* xkb */,		/* XKB keyboard to be edited */
     KeyCode		/* first_key */,	/* first changed key */
     int			/* num_keys */, 	/* number of changed keys */

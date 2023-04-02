@@ -11,7 +11,7 @@
 /*****************************************************************************/
 
 #include "core/time.hpp"
-#include "platform/Platform.hpp"
+#include "platform/platform.hpp"
 
 //****************************************************************************//
 //**       						Constructors                            	**//
@@ -48,7 +48,7 @@ Clock	&Clock::operator=(const Clock &copy)
 // Start or restart the clock
 void	Clock::ClockStart(void)
 {
-	_clock.startTime = _platform.PlatGetAbsoluteTime();
+	_clock.startTime = platform_get_absolute_time();
 	_clock.elapsedTime = 0.0;
 }
 
@@ -57,7 +57,7 @@ void	Clock::ClockUpdate(void)
 {
 	if (_clock.startTime != 0)
 	{
-		_clock.elapsedTime = _platform.PlatGetAbsoluteTime() - _clock.startTime;
+		_clock.elapsedTime = platform_get_absolute_time() - _clock.startTime;
 	}
 }
 

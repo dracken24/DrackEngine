@@ -62,11 +62,11 @@ static Bool
 _XimCheckBool(str)
     char	*str;
 {
-    if(!strcmp(str, "True") || !strcmp(str, "true") ||
+    if(!strcmp(str, "true") || !strcmp(str, "true") ||
        !strcmp(str, "Yes")  || !strcmp(str, "yes")  ||
        !strcmp(str, "ON")   || !strcmp(str, "on"))
-	return True;
-    return False;
+	return true;
+    return false;
 }
 
 void
@@ -377,7 +377,7 @@ _XimDefaultStyles(
     n = XIMNumber(supported_local_styles) - 1;
     len = sizeof(XIMStyles) + sizeof(XIMStyle) * n;
     if(!(tmp = Xcalloc(1, len))) {
-	return False;
+	return false;
     }
 
     styles = (XIMStyles *)tmp;
@@ -392,7 +392,7 @@ _XimDefaultStyles(
 
     out = (XIMStyles **)((char *)top + info->offset);
     *out = styles;
-    return True;
+    return true;
 }
 
 static Bool
@@ -412,7 +412,7 @@ _XimDefaultIMValues(
     n = XIMNumber(supported_local_im_values_list);
     len = sizeof(XIMValuesList) + sizeof(char **) * n;
     if(!(tmp = Xcalloc(1, len))) {
-	return False;
+	return false;
     }
 
     values_list = (XIMValuesList *)tmp;
@@ -428,7 +428,7 @@ _XimDefaultIMValues(
 
     out = (XIMValuesList **)((char *)top + info->offset);
     *out = values_list;
-    return True;
+    return true;
 }
 
 static Bool
@@ -448,7 +448,7 @@ _XimDefaultICValues(
     n = XIMNumber(supported_local_ic_values_list);
     len = sizeof(XIMValuesList) + sizeof(char **) * n;
     if(!(tmp = Xcalloc(1, len))) {
-	return False;
+	return false;
     }
 
     values_list = (XIMValuesList *)tmp;
@@ -464,7 +464,7 @@ _XimDefaultICValues(
 
     out = (XIMValuesList **)((char *)top + info->offset);
     *out = values_list;
-    return True;
+    return true;
 }
 
 static Bool
@@ -477,8 +477,8 @@ _XimDefaultVisiblePos(
     Bool		*out;
 
     out = (Bool *)((char *)top + info->offset);
-    *out = False;
-    return True;
+    *out = false;
+    return true;
 }
 
 static Bool
@@ -492,12 +492,12 @@ _XimDefaultFocusWindow(
     Window		*out;
 
     if(ic->core.client_window == (Window)NULL) {
-	return True;
+	return true;
     }
 
     out = (Window *)((char *)top + info->offset);
     *out = ic->core.client_window;
-    return True;
+    return true;
 }
 
 static Bool
@@ -512,12 +512,12 @@ _XimDefaultResName(
     char		**out;
 
     if(im->core.res_name == (char *)NULL) {
-	return True;
+	return true;
     }
 
     out = (char **)((char *)top + info->offset);
     *out = im->core.res_name;
-    return True;
+    return true;
 }
 
 static Bool
@@ -532,12 +532,12 @@ _XimDefaultResClass(
     char		**out;
 
     if(im->core.res_class == (char *)NULL) {
-	return True;
+	return true;
     }
 
     out = (char **)((char *)top + info->offset);
     *out = im->core.res_class;
-    return True;
+    return true;
 }
 
 static Bool
@@ -553,7 +553,7 @@ _XimDefaultDestroyCB(
 
     out = (XIMCallback *)((char *)top + info->offset);
     *out = im->core.destroy_callback;
-    return True;
+    return true;
 }
 
 static Bool
@@ -567,7 +567,7 @@ _XimDefaultResetState(
 
     out = (XIMResetState *)((char *)top + info->offset);
     *out = XIMInitialState;
-    return True;
+    return true;
 }
 
 static Bool
@@ -581,7 +581,7 @@ _XimDefaultHotKeyState(
 
     out = (XIMHotKeyState *)((char *)top + info->offset);
     *out = XIMHotKeyStateOFF;
-    return True;
+    return true;
 }
 
 static Bool
@@ -602,13 +602,13 @@ _XimDefaultArea(
     XRectangle		*out;
 
     if(ic->core.focus_window == (Window)NULL) {
-	return True;
+	return true;
     }
     if(XGetGeometry(im->core.display, (Drawable)ic->core.focus_window,
 		&root_return, &x_return, &y_return, &width_return,
 		&height_return, &border_width_return, &depth_return)
 		== (Status)Success) {
-	return True;
+	return true;
     }
     area.x	= 0;
     area.y	= 0;
@@ -617,7 +617,7 @@ _XimDefaultArea(
 
     out = (XRectangle *)((char *)top + info->offset);
     *out = area;
-    return True;
+    return true;
 }
 
 static Bool
@@ -633,16 +633,16 @@ _XimDefaultColormap(
     Colormap		*out;
 
     if(ic->core.client_window == (Window)NULL) {
-	return True;
+	return true;
     }
     if(XGetWindowAttributes(im->core.display, ic->core.client_window,
 					&win_attr) == (Status)Success) {
-	return True;
+	return true;
     }
 
     out = (Colormap *)((char *)top + info->offset);
     *out = win_attr.colormap;
-    return True;
+    return true;
 }
 
 static Bool
@@ -656,7 +656,7 @@ _XimDefaultStdColormap(
 
     out = (Atom *)((char *)top + info->offset);
     *out = (Atom)0;
-    return True;
+    return true;
 }
 
 static Bool
@@ -674,7 +674,7 @@ _XimDefaultFg(
     fg = WhitePixel(im->core.display, DefaultScreen(im->core.display));
     out = (unsigned long *)((char *)top + info->offset);
     *out = fg;
-    return True;
+    return true;
 }
 
 static Bool
@@ -692,7 +692,7 @@ _XimDefaultBg(
     bg = BlackPixel(im->core.display, DefaultScreen(im->core.display));
     out = (unsigned long *)((char *)top + info->offset);
     *out = bg;
-    return True;
+    return true;
 }
 
 static Bool
@@ -706,7 +706,7 @@ _XimDefaultBgPixmap(
 
     out = (Pixmap *)((char *)top + info->offset);
     *out = (Pixmap)0;
-    return True;
+    return true;
 }
 
 static Bool
@@ -720,7 +720,7 @@ _XimDefaultFontSet(
 
     out = (XFontSet *)((char *)top + info->offset);
     *out = 0;
-    return True;
+    return true;
 }
 
 static Bool
@@ -741,7 +741,7 @@ _XimDefaultLineSpace(
     } else if(mode & XIM_STATUS_ATTR) {
 	fontset = ic->core.status_attr.fontset;
     } else {
-	return True;
+	return true;
     }
     if (fontset) {
 	fset_extents = XExtentsOfFontSet(fontset);
@@ -749,7 +749,7 @@ _XimDefaultLineSpace(
     }
     out = (int *)((char *)top + info->offset);
     *out = line_space;
-    return True;
+    return true;
 }
 
 static Bool
@@ -763,7 +763,7 @@ _XimDefaultCursor(
 
     out = (Cursor *)((char *)top + info->offset);
     *out = (Cursor)0;
-    return True;
+    return true;
 }
 
 static Bool
@@ -777,7 +777,7 @@ _XimDefaultPreeditState(
 
     out = (XIMPreeditState *)((char *)top + info->offset);
     *out = XIMPreeditDisable;
-    return True;
+    return true;
 }
 
 static Bool
@@ -787,7 +787,7 @@ _XimDefaultNest(
     XPointer	 	 parm,
     unsigned long	 mode)
 {
-    return True;
+    return true;
 }
 
 static Bool
@@ -800,7 +800,7 @@ _XimEncodeCallback(
 
     out = (XIMCallback *)((char *)top + info->offset);
     *out = *((XIMCallback *)val);
-    return True;
+    return true;
 }
 
 static Bool
@@ -813,10 +813,10 @@ _XimEncodeString(
     char		**out;
 
     if(val == (XPointer)NULL) {
-	return False;
+	return false;
     }
     if (!(string = strdup((char *)val))) {
-	return False;
+	return false;
     }
 
     out = (char **)((char *)top + info->offset);
@@ -824,7 +824,7 @@ _XimEncodeString(
 	Xfree(*out);
     }
     *out = string;
-    return True;
+    return true;
 }
 
 static Bool
@@ -837,7 +837,7 @@ _XimEncodeStyle(
 
     out = (XIMStyle *)((char *)top + info->offset);
     *out = (XIMStyle)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -850,7 +850,7 @@ _XimEncodeWindow(
 
     out = (Window *)((char *)top + info->offset);
     *out = (Window)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -862,7 +862,7 @@ _XimEncodeStringConv(
     /*
      * Not yet
      */
-    return True;
+    return true;
 }
 
 static Bool
@@ -875,7 +875,7 @@ _XimEncodeResetState(
 
     out = (XIMResetState *)((char *)top + info->offset);
     *out = (XIMResetState)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -894,16 +894,16 @@ _XimEncodeHotKey(
     register int	  i;
 
     if(hotkey == (XIMHotKeyTriggers *)NULL) {
-	return True;
+	return true;
     }
 
     if((num = hotkey->num_hot_key) == 0) {
-	return True;
+	return true;
     }
 
     len = sizeof(XIMHotKeyTriggers) + sizeof(XIMHotKeyTrigger) * num;
     if(!(tmp = Xmalloc(len))) {
-	return False;
+	return false;
     }
 
     key_list = (XIMHotKeyTriggers *)tmp;
@@ -918,7 +918,7 @@ _XimEncodeHotKey(
 
     out = (XIMHotKeyTriggers **)((char *)top + info->offset);
     *out = key_list;
-    return True;
+    return true;
 }
 
 static Bool
@@ -931,7 +931,7 @@ _XimEncodeHotKetState(
 
     out = (XIMHotKeyState *)((char *)top + info->offset);
     *out = (XIMHotKeyState)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -944,7 +944,7 @@ _XimEncodeRectangle(
 
     out = (XRectangle *)((char *)top + info->offset);
     *out = *((XRectangle *)val);
-    return True;
+    return true;
 }
 
 static Bool
@@ -957,7 +957,7 @@ _XimEncodeSpot(
 
     out = (XPoint *)((char *)top + info->offset);
     *out = *((XPoint *)val);
-    return True;
+    return true;
 }
 
 static Bool
@@ -970,7 +970,7 @@ _XimEncodeColormap(
 
     out = (Colormap *)((char *)top + info->offset);
     *out = (Colormap)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -983,7 +983,7 @@ _XimEncodeStdColormap(
 
     out = (Atom *)((char *)top + info->offset);
     *out = (Atom)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -996,7 +996,7 @@ _XimEncodeLong(
 
     out = (unsigned long *)((char *)top + info->offset);
     *out = (unsigned long)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1009,7 +1009,7 @@ _XimEncodeBgPixmap(
 
     out = (Pixmap *)((char *)top + info->offset);
     *out = (Pixmap)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1022,7 +1022,7 @@ _XimEncodeFontSet(
 
     out = (XFontSet *)((char *)top + info->offset);
     *out = (XFontSet)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1035,7 +1035,7 @@ _XimEncodeLineSpace(
 
     out = (int *)((char *)top + info->offset);
     *out = (long)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1048,7 +1048,7 @@ _XimEncodeCursor(
 
     out = (Cursor *)((char *)top + info->offset);
     *out = (Cursor)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1061,7 +1061,7 @@ _XimEncodePreeditState(
 
     out = (XIMPreeditState *)((char *)top + info->offset);
     *out = (XIMPreeditState)val;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1070,7 +1070,7 @@ _XimEncodeNest(
     XPointer	 	 top,
     XPointer	 	 val)
 {
-    return True;
+    return true;
 }
 
 static Bool
@@ -1087,7 +1087,7 @@ _XimDecodeStyles(
     XPointer		 tmp;
 
     if(val == (XPointer)NULL) {
-	return False;
+	return false;
     }
 
     styles = *((XIMStyles **)((char *)top + info->offset));
@@ -1095,7 +1095,7 @@ _XimDecodeStyles(
 
     len = sizeof(XIMStyles) + sizeof(XIMStyle) * num;
     if(!(tmp = Xcalloc(1, len))) {
-	return False;
+	return false;
     }
 
     out = (XIMStyles *)tmp;
@@ -1108,7 +1108,7 @@ _XimDecodeStyles(
 	}
     }
     *((XIMStyles **)val) = out;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1125,7 +1125,7 @@ _XimDecodeValues(
     XPointer		 tmp;
 
     if(val == (XPointer)NULL) {
-	return False;
+	return false;
     }
 
     values_list = *((XIMValuesList **)((char *)top + info->offset));
@@ -1133,7 +1133,7 @@ _XimDecodeValues(
 
     len = sizeof(XIMValuesList) + sizeof(char **) * num;
     if(!(tmp = Xcalloc(1, len))) {
-	return False;
+	return false;
     }
 
     out = (XIMValuesList *)tmp;
@@ -1146,7 +1146,7 @@ _XimDecodeValues(
 	}
     }
     *((XIMValuesList **)val) = out;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1160,13 +1160,13 @@ _XimDecodeCallback(
 
     in = (XIMCallback *)((char *)top + info->offset);
     if(!(callback = Xmalloc(sizeof(XIMCallback)))) {
-	return False;
+	return false;
     }
     callback->client_data = in->client_data;
     callback->callback    = in->callback;
 
     *((XIMCallback **)val) = callback;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1185,10 +1185,10 @@ _XimDecodeString(
 	string = Xcalloc(1, 1); /* strdup("") */
     }
     if (string == NULL) {
-	return False;
+	return false;
     }
     *((char **)val) = string;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1201,7 +1201,7 @@ _XimDecodeBool(
 
     in = (Bool *)((char *)top + info->offset);
     *((Bool *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1214,7 +1214,7 @@ _XimDecodeStyle(
 
     in = (XIMStyle *)((char *)top + info->offset);
     *((XIMStyle *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1227,7 +1227,7 @@ _XimDecodeWindow(
 
     in = (Window *)((char *)top + info->offset);
     *((Window *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1239,7 +1239,7 @@ _XimDecodeStringConv(
     /*
      * Not yet
      */
-    return True;
+    return true;
 }
 
 static Bool
@@ -1252,7 +1252,7 @@ _XimDecodeResetState(
 
     in = (XIMResetState *)((char *)top + info->offset);
     *((XIMResetState *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1273,7 +1273,7 @@ _XimDecodeHotKey(
     num = in->num_hot_key;
     len = sizeof(XIMHotKeyTriggers) + sizeof(XIMHotKeyTrigger) * num;
     if(!(tmp = Xmalloc(len))) {
-	return False;
+	return false;
     }
 
     hotkey = (XIMHotKeyTriggers *)tmp;
@@ -1286,7 +1286,7 @@ _XimDecodeHotKey(
     hotkey->key = key;
 
     *((XIMHotKeyTriggers **)val) = hotkey;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1299,7 +1299,7 @@ _XimDecodeHotKetState(
 
     in = (XIMHotKeyState *)((char *)top + info->offset);
     *((XIMHotKeyState *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1313,11 +1313,11 @@ _XimDecodeRectangle(
 
     in = (XRectangle *)((char *)top + info->offset);
     if(!(rect = Xmalloc(sizeof(XRectangle)))) {
-	return False;
+	return false;
     }
     *rect = *in;
     *((XRectangle **)val) = rect;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1331,11 +1331,11 @@ _XimDecodeSpot(
 
     in = (XPoint *)((char *)top + info->offset);
     if(!(spot = Xmalloc(sizeof(XPoint)))) {
-	return False;
+	return false;
     }
     *spot = *in;
     *((XPoint **)val) = spot;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1348,7 +1348,7 @@ _XimDecodeColormap(
 
     in = (Colormap *)((char *)top + info->offset);
     *((Colormap *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1361,7 +1361,7 @@ _XimDecodeStdColormap(
 
     in = (Atom *)((char *)top + info->offset);
     *((Atom *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1374,7 +1374,7 @@ _XimDecodeLong(
 
     in = (unsigned long *)((char *)top + info->offset);
     *((unsigned long *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1387,7 +1387,7 @@ _XimDecodeBgPixmap(
 
     in = (Pixmap *)((char *)top + info->offset);
     *((Pixmap *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1400,7 +1400,7 @@ _XimDecodeFontSet(
 
     in = (XFontSet *)((char *)top + info->offset);
     *((XFontSet *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1413,7 +1413,7 @@ _XimDecodeLineSpace(
 
     in = (int *)((char *)top + info->offset);
     *((int *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1426,7 +1426,7 @@ _XimDecodeCursor(
 
     in = (Cursor *)((char *)top + info->offset);
     *((Cursor *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1439,7 +1439,7 @@ _XimDecodePreeditState(
 
     in = (XIMPreeditState *)((char *)top + info->offset);
     *((XIMPreeditState *)val) = *in;
-    return True;
+    return true;
 }
 
 static Bool
@@ -1448,7 +1448,7 @@ _XimDecodeNest(
     XPointer	 	 top,
     XPointer	 	 val)
 {
-    return True;
+    return true;
 }
 
 static	XIMResource	im_resources[] = {
@@ -2148,7 +2148,7 @@ _XimSetResourceList(
 
     len = sizeof(XIMResource) * num_resource;
     if(!(res = Xcalloc(1, len))) {
-	return False;
+	return false;
     }
 
     for(i = 0; i < num_resource; i++, id++) {
@@ -2159,7 +2159,7 @@ _XimSetResourceList(
     _XIMCompileResourceList(res, num_resource);
     *res_list  = res;
     *list_num  = num_resource;
-    return True;
+    return true;
 }
 
 Bool
@@ -2220,9 +2220,9 @@ _XimCheckCreateICValues(
     unsigned int	 list_num)
 {
     if (!_XimGetResourceListRecByMode(res_list, list_num, XIM_MODE_IC_CREATE)) {
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 XIMResourceList
@@ -2631,24 +2631,24 @@ _XimSetLocalIMDefaults(
     for(i = 0; i < num; i++) {
 	if((res = _XimGetResourceListRecByQuark( res_list, list_num,
 				info[i].quark)) == (XIMResourceList)NULL) {
-	    return False;
+	    return false;
 	}
 
 	check = _XimCheckIMMode(res, XIM_SETIMDEFAULTS);
 	if(check == XIM_CHECK_INVALID) {
 	    continue;
 	} else if (check == XIM_CHECK_ERROR) {
-	    return False;
+	    return false;
 	}
 
 	if(!info[i].defaults) {
 	    continue;
 	}
 	if(!(info[i].defaults(&info[i], top, (XPointer)NULL, 0))) {
-	    return False;
+	    return false;
 	}
     }
-    return True;
+    return true;
 }
 
 Bool
@@ -2685,35 +2685,35 @@ _XimSetICDefaults(
 	if(info[i].quark == pre_quark) {
 	    if(!_XimSetICDefaults(ic, (XPointer)((char *)top + info[i].offset),
 			(mode | XIM_PREEDIT_ATTR), res_list, list_num)) {
-		return False;
+		return false;
 	    }
 	} else if (info[i].quark == sts_quark) {
 	    if(!_XimSetICDefaults(ic, (XPointer)((char *)top + info[i].offset),
 			(mode | XIM_STATUS_ATTR), res_list, list_num)) {
-		return False;
+		return false;
 	    }
 	} else {
 	    if(!(res = _XimGetResourceListRecByQuark(res_list, list_num,
 							info[i].quark))) {
-		return False;
+		return false;
 	    }
 
 	    check = _XimCheckICMode(res, mode);
 	    if (check == XIM_CHECK_INVALID) {
 		continue;
 	    } else if (check == XIM_CHECK_ERROR) {
-		return False;
+		return false;
 	    }
 
 	    if (!info[i].defaults) {
 		continue;
 	    }
 	    if (!(info[i].defaults(&info[i], top, (XPointer)ic, mode))) {
-		return False;
+		return false;
 	    }
 	}
     }
-    return True;
+    return true;
 }
 
 static Bool
@@ -2729,12 +2729,12 @@ _XimEncodeAttr(
     for(i = 0; i < num; i++ ) {
 	if(info[i].quark == res->xrm_name) {
 	    if(!info[i].encode) {
-		return False;
+		return false;
 	    }
 	    return (*info[i].encode)(&info[i], top, val);
 	}
     }
-    return False;
+    return false;
 }
 
 Bool
@@ -2805,7 +2805,7 @@ _XimEncodeLocalTopValue(
 	} else
 	    ic->core.focus_window = (Window)p->value;
     }
-    return True;
+    return true;
 }
 
 static Bool
@@ -2823,11 +2823,11 @@ _XimEncodeLocalPreeditValue(
 	if (!(XGetRGBColormaps(ic->core.im->core.display,
 				ic->core.focus_window, &colormap_ret,
 				&count, (Atom)p->value)))
-	    return False;
+	    return false;
 
 	Xfree(colormap_ret);
     }
-    return True;
+    return true;
 }
 
 static Bool
@@ -2845,11 +2845,11 @@ _XimEncodeLocalStatusValue(
 	if (!(XGetRGBColormaps(ic->core.im->core.display,
 				ic->core.focus_window, &colormap_ret,
 				&count, (Atom)p->value)))
-	    return False;
+	    return false;
 
 	Xfree(colormap_ret);
     }
-    return True;
+    return true;
 }
 
 char *
@@ -2909,7 +2909,7 @@ _XimSetICValueData(
 		if (!_XimEncodeLocalTopValue(ic, res, (XPointer)p, flag))
 		    return p->name;
     	    }
-	    if(_XimEncodeLocalICAttr(ic, res, top, p, mode) == False) {
+	    if(_XimEncodeLocalICAttr(ic, res, top, p, mode) == false) {
 		return p->name;
 	    }
 	}
@@ -2927,10 +2927,10 @@ _XimCheckInputStyle(
 
     for(i = 0; i < num; i++) {
 	if(styles->supported_styles[i] == style) {
-	    return True;
+	    return true;
 	}
     }
-    return False;
+    return false;
 }
 
 Bool
@@ -2949,19 +2949,19 @@ _XimCheckLocalInputStyle(
     for(p = values; p && p->name != NULL; p++) {
 	if(quark == XrmStringToQuark(p->name)) {
 	    if(!(res = _XimGetResourceListRec(res_list, list_num, p->name))) {
-		return False;
+		return false;
 	    }
 	    if(!_XimEncodeLocalICAttr(ic, res, top, p, 0)) {
-		return False;
+		return false;
 	    }
 	    if (_XimCheckInputStyle(styles,
 			((XimDefICValues *)top)->input_style)) {
-		return True;
+		return true;
 	    }
-	    return False;
+	    return false;
 	}
     }
-    return False;
+    return false;
 }
 
 static Bool
@@ -2977,12 +2977,12 @@ _XimDecodeAttr(
     for(i = 0; i < num; i++ ) {
 	if(info[i].quark == res->xrm_name) {
 	    if(!info[i].decode) {
-		return False;
+		return false;
 	    }
 	    return (*info[i].decode)(&info[i], top, val);
 	}
     }
-    return False;
+    return false;
 }
 
 Bool
@@ -3060,7 +3060,7 @@ _XimGetICValueData(Xic ic, XPointer top, XIMResourceList res_list,
 		return p->name;
 	    }
 
-	    if(_XimDecodeLocalICAttr(res, top, p->value, mode) == False) {
+	    if(_XimDecodeLocalICAttr(res, top, p->value, mode) == false) {
 		return p->name;
 	    }
 	}
@@ -3199,14 +3199,14 @@ _XimInitialICMode(void)
 void
 _XimInitialResourceInfo(void)
 {
-    static Bool	init_flag = False;
+    static Bool	init_flag = false;
 
-    if(init_flag == True) {
+    if(init_flag == true) {
 	return;
     }
     _XimInitialIMOffsetInfo();
     _XimInitialICOffsetInfo();
     _XimInitialIMMode();
     _XimInitialICMode();
-    init_flag = True;
+    init_flag = true;
 }

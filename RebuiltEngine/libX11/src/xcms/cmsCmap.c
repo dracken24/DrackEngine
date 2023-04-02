@@ -184,7 +184,7 @@ CmapRecForColormap(
 		_X_UNUSED register xReq *req;
 
 		GetEmptyReq(GetInputFocus, req);
-		(void) _XReply (dpy, (xReply *)&rep, 0, xTrue);
+		(void) _XReply (dpy, (xReply *)&rep, 0, xtrue);
 	    }
 	    DeqAsyncHandler(dpy, &async);
 	    UnlockDisplay(dpy);

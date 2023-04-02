@@ -138,7 +138,7 @@ XkbDF_DisableLocks	(1 << 0)	Disable actions that lock modifiers
 .TE
 
 .I XkbSetDebuggingFlags 
-returns True if successful and False otherwise. The only protocol error it may 
+returns true if successful and false otherwise. The only protocol error it may 
 generate is BadAlloc, if for some reason it is unable to allocate storage. 
 
 .I XkbSetDebuggingFlags 
@@ -154,15 +154,15 @@ dependent but is normally the same device where X server error messages are
 directed. 
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbSetDebuggingFlags 
-function returns True when successful.
+function returns true when successful.
 .TP 15
-False
+false
 The 
 .I XkbSetDebuggingFlags 
-function returns False when not successful.
+function returns false when not successful.
 .SH DIAGNOSTICS
 .TP 15
 .B BadAlloc

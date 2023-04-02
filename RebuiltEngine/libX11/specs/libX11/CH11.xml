@@ -280,11 +280,11 @@ event queue.
 <para>
 <!-- .LP -->
 Finally, if you passed 
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 <xref linkend='XSync' xrefstyle='select: title'/>
 does not discard the events in the queue.
 If you passed 
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 <xref linkend='XSync' xrefstyle='select: title'/>
 discards all events in the queue,
 including those events that were on the queue before
@@ -647,9 +647,9 @@ function.
 The predicate procedure is called once for each
 event in the queue until it finds a match. 
 After finding a match, the predicate procedure must return 
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 If it did not find a match, it must return
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -720,7 +720,7 @@ The
 <xref linkend='XIfEvent' xrefstyle='select: title'/>
 function completes only when the specified predicate
 procedure returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 for an event, 
 which indicates an event in the queue matches.
 <xref linkend='XIfEvent' xrefstyle='select: title'/>
@@ -800,12 +800,12 @@ When the predicate procedure finds a match,
 copies the matched event into the client-supplied
 <structname>XEvent</structname>
 structure and returns 
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 (This event is removed from the queue.)
 If the predicate procedure finds no match,
 <xref linkend='XCheckIfEvent' xrefstyle='select: title'/>
 returns
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 and the output buffer will have been flushed.
 All earlier events stored in the queue are not discarded.
 </para>
@@ -878,7 +878,7 @@ The
 <xref linkend='XPeekIfEvent' xrefstyle='select: title'/>
 function returns only when the specified predicate
 procedure returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 for an event.
 After the predicate procedure finds a match,
 <xref linkend='XPeekIfEvent' xrefstyle='select: title'/>
@@ -1056,12 +1056,12 @@ If it finds a match,
 removes that event, copies it into the specified
 <structname>XEvent</structname>
 structure, and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 The other events stored in the queue are not discarded.
 If the event you requested is not available,
 <xref linkend='XCheckWindowEvent' xrefstyle='select: title'/>
 returns
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 and the output buffer will have been flushed.
 </para>
 <para>
@@ -1196,12 +1196,12 @@ If it finds a match,
 removes that event, copies it into the specified
 <structname>XEvent</structname>
 structure, and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 The other events stored in the queue are not discarded.
 If the event you requested is not available,
 <xref linkend='XCheckMaskEvent' xrefstyle='select: title'/>
 returns
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 and the output buffer will have been flushed.
 </para>
 <para>
@@ -1266,12 +1266,12 @@ If it finds a match,
 removes that event, copies it into the specified
 <structname>XEvent</structname>
 structure, and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 The other events in the queue are not discarded.
 If the event is not available,
 <xref linkend='XCheckTypedEvent' xrefstyle='select: title'/>
 returns
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 and the output buffer will have been flushed.
 </para>
 <para>
@@ -1349,12 +1349,12 @@ If it finds a match,
 removes the event from the queue, copies it into the specified
 <structname>XEvent</structname>
 structure, and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 The other events in the queue are not discarded.
 If the event is not available,
 <xref linkend='XCheckTypedWindowEvent' xrefstyle='select: title'/>
 returns
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 and the output buffer will have been flushed.
 </para>
 </sect2>
@@ -1549,7 +1549,7 @@ no event is sent.
   <listitem>
     <para>
 If propagate is 
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the event is sent to every client selecting on destination any of the event
 types in the event_mask argument.
     </para>
@@ -1557,7 +1557,7 @@ types in the event_mask argument.
   <listitem>
     <para>
 If propagate is 
-<symbol>True</symbol>
+<symbol>true</symbol>
 and no clients have selected on destination any of
 the event types in event-mask, the destination is replaced with the
 closest ancestor of destination for which some client has selected a
@@ -1584,7 +1584,7 @@ error results) so that the X server can correctly byte-swap
 the contents as necessary.  
 The contents of the event are
 otherwise unaltered and unchecked by the X server except to force send_event to
-<symbol>True</symbol>
+<symbol>true</symbol>
 in the forwarded event and to set the serial number in the event correctly;
 therefore these fields
 and the display field are ignored by
@@ -1911,11 +1911,11 @@ The
 function returns 
 the previous after function.
 If onoff is 
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 <function>XSynchronize</function>
 turns on synchronous behavior.
 If onoff is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 <function>XSynchronize</function>
 turns off synchronous behavior.
 </para>

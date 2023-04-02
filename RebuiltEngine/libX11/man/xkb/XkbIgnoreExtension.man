@@ -32,7 +32,7 @@ X Keyboard Extension
 .SH ARGUMENTS
 .TP
 .I ignore
-True means ignore the extension
+true means ignore the extension
 .SH DESCRIPTION
 .LP
 If a server supports the Xkb extension, the X library normally implements preXkb 
@@ -52,28 +52,28 @@ extension once a connection is established.
 
 .I XkbIgnoreExtension 
 tells the X library whether to use the X Keyboard Extension 
-on any subsequently opened X display connections. If ignore is True, the library 
+on any subsequently opened X display connections. If ignore is true, the library 
 does not initialize the Xkb extension when it opens a new display. This forces 
 the X server to use compatibility mode and communicate with the client using 
-only core protocol requests and events. If ignore is False, the library treats 
+only core protocol requests and events. If ignore is false, the library treats 
 subsequent calls to 
 .I XOpenDisplay 
 normally and uses Xkb extension requests, 
 events, and state. Do not explicitly use Xkb on a connection for which it is 
 disabled. 
 .I XkbIgnoreExtension 
-returns False if it was unable to apply the ignore 
+returns false if it was unable to apply the ignore 
 request.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbIgnoreExtension 
-returns True if 
+returns true if 
 .TP 15
-False
+false
 The 
 .I XkbIgnoreExtension 
-function returns False if it was unable to apply the ignore request.
+function returns false if it was unable to apply the ignore request.
 .SH "SEE ALSO"
 .BR XOpenDisplay (__libmansuffix__)

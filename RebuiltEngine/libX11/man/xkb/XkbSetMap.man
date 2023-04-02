@@ -75,8 +75,8 @@ are not present in the
 .I xkb 
 parameter, 
 .I XkbSetMap 
-returns False. Otherwise, it sends the update request to the server and returns 
-True. 
+returns false. Otherwise, it sends the update request to the server and returns 
+true. 
 .I XkbSetMap 
 can generate BadAlloc, BadLength, and BadValue protocol errors.
 
@@ -240,19 +240,19 @@ XkbVirtualModMapMask	first_vmodmap_key,	server->vmodmap[first_vmodmap_key] ..
 .TE
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbSetMap 
-function returns True all components specified by 
+function returns true all components specified by 
 .I which 
 are present in the 
 .I xkb 
 parameter.
 .TP 15
-False
+false
 The 
 .I XkbSetMap 
-function returns False if any component specified by 
+function returns false if any component specified by 
 .I which 
 is not present in the 
 .I xkb 

@@ -52,7 +52,7 @@ _XomGenericTextPerCharExtents(
     XCharStruct *def, *cs, overall;
     int buf_len, left, require_num;
     int logical_ascent, logical_descent;
-    Bool first = True;
+    Bool first = true;
 
     conv = _XomInitConverter(oc, type);
     if (conv == NULL)
@@ -125,7 +125,7 @@ _XomGenericTextPerCharExtents(
 
 	    if (first) {
 		overall = *cs;
-		first = False;
+		first = false;
 	    } else {
 		overall.ascent = max(overall.ascent, cs->ascent);
 		overall.descent = max(overall.descent, cs->descent);

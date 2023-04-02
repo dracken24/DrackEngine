@@ -52,15 +52,15 @@ ismatch_scopes(
     register int scopes_num = fontdata->scopes_num;
     FontScope scopes = fontdata->scopes;
     if (!scopes_num)
-        return False;
+        return false;
 
     if(fontdata->font == NULL)
-	return False;
+	return false;
 
     for(;scopes_num--;scopes++)
         if ((scopes->start <= (*value & 0x7f7f)) &&
                         ((scopes->end) >= (*value & 0x7f7f))){
-	    if(is_shift == True) {
+	    if(is_shift == true) {
                 if(scopes->shift){
                     if(scopes->shift_direction == '+'){
                         *value += scopes->shift ;
@@ -69,10 +69,10 @@ ismatch_scopes(
                     }
                 }
             }
-            return True;
+            return true;
         }
 
-    return False;
+    return false;
 }
 
 static int
@@ -83,16 +83,16 @@ check_vertical_fonttype(
     int		type = 0;
 
     if(name == (char *)NULL || (int) strlen(name) <= 0)
-	return False;
+	return false;
 
     /* Obtains the pointer of CHARSET_ENCODING_FIELD. */
     if((ptr = strchr(name, '-')) == (char *) NULL)
-	return False;
+	return false;
     ptr++;
 
     /* Obtains the pointer of vertical_map font type. */
     if((ptr = strchr(ptr, '.')) == (char *) NULL)
-	return False;
+	return false;
     ptr++;
 
     switch(*ptr) {
@@ -181,7 +181,7 @@ _XomGetFontDataFromFontSet(
 			break;
 		    } else {
 			/* The vertical rotate glyph is not have code shift. */
-			if (ismatch_scopes(&(fontdata[i]),&value,False)) {
+			if (ismatch_scopes(&(fontdata[i]),&value,false)) {
 			    break;
 			}
 		    }
@@ -195,7 +195,7 @@ _XomGetFontDataFromFontSet(
 			if(fontdata[i].scopes_num <= 0)
 			    break;
 
-			if (ismatch_scopes(&(fontdata[i]),&value,True)) {
+			if (ismatch_scopes(&(fontdata[i]),&value,true)) {
 			    break;
 			}
 		    }
@@ -204,7 +204,7 @@ _XomGetFontDataFromFontSet(
 		if(fontdata[i].font) {
 		    if(fontdata[i].scopes_num <= 0)
                         break;
-		    if (ismatch_scopes(&(fontdata[i]),&value,True)){
+		    if (ismatch_scopes(&(fontdata[i]),&value,true)){
 		        break;
                     }
 		}
@@ -288,18 +288,18 @@ load_font(
     font_set->font = XLoadQueryFont(oc->core.om->core.display,
 			oc->core.font_info.font_name_list[font_set->id]);
     if (font_set->font == NULL)
-	return False;
+	return false;
 
     oc->core.font_info.font_struct_list[font_set->id] = font_set->font;
     XFreeFontInfo(NULL, font_set->info, 1);
     font_set->info = NULL;
 
     if (font_set->font->min_byte1 || font_set->font->max_byte1)
-	font_set->is_xchar2b = True;
+	font_set->is_xchar2b = true;
     else
-	font_set->is_xchar2b = False;
+	font_set->is_xchar2b = false;
 
-    return True;
+    return true;
 }
 
 int
@@ -330,7 +330,7 @@ _XomConvert(
     if (font_set == NULL)
 	return -1;
 
-    if (font_set->font == NULL && load_font(oc, font_set) == False)
+    if (font_set->font == NULL && load_font(oc, font_set) == false)
 	return -1;
 
     length = *to_left - cs_left;

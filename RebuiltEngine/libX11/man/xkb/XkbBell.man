@@ -229,7 +229,7 @@ with the specified
 .I display 
 and 
 .I percent, 
-and returns False. Otherwise, 
+and returns false. Otherwise, 
 .I XkbBell 
 calls 
 .I XkbDeviceBell 
@@ -243,7 +243,7 @@ of XkbUseCoreKbd, a
 .I bell_class 
 of XkbDfltXIClass, and a 
 .I bell_id 
-of XkbDfltXIId, and returns True.
+of XkbDfltXIId, and returns true.
  
 If you have disabled the audible bell, the server does not ring the system bell, 
 although it does generate a XkbBellNotify event.
@@ -253,8 +253,8 @@ You can call
 without first initializing the keyboard extension.
 .SH "RETURN VALUES"
 .TP 15
-FALSE
-The XkbBell function returns FALSE if XlibDisplayNoXkb is set.
+false
+The XkbBell function returns false if XlibDisplayNoXkb is set.
 .SH STRUCTURES
 .LP
 Xkb generates XkbBellNotify events for all bells except for those resulting from 
@@ -290,7 +290,7 @@ The structure for the XkbBellNotify event type contains:
    typedef struct _XkbBellNotify {
        int            type;        /\&* Xkb extension base event code */
        unsigned long  serial;      /\&* X server serial number for event */
-       Bool           send_event;  /\&* True => synthetically generated */
+       Bool           send_event;  /\&* true => synthetically generated */
        Display *      display;     /\&* server connection where event generated */
        Time           time;        /\&* server time when event generated */
        int            xkb_type;    /\&* XkbBellNotify */
@@ -302,7 +302,7 @@ The structure for the XkbBellNotify event type contains:
        unsigned int   bell_id;     /\&* X input extension feedback ID */
        Atom           name;        /\&* "name" of requested bell */
        Window         window;      /\&* window associated with event */
-       Bool           event_only;  /\&* False -> the server did not produce a beep */
+       Bool           event_only;  /\&* false -> the server did not produce a beep */
    } XkbBellNotifyEvent;
    
 .fi   

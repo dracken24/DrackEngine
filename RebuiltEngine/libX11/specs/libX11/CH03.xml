@@ -43,13 +43,13 @@ The class member specifies one of the possible visual classes of the screen
 and can be 
 <indexterm><primary>Visual Classes</primary><secondary>StaticGray</secondary></indexterm>
 <indexterm><primary>Visual Classes</primary><secondary>StaticColor</secondary></indexterm>
-<indexterm><primary>Visual Classes</primary><secondary>TrueColor</secondary></indexterm>
+<indexterm><primary>Visual Classes</primary><secondary>trueColor</secondary></indexterm>
 <indexterm><primary>Visual Classes</primary><secondary>StaticColor</secondary></indexterm>
 <indexterm><primary>Visual Classes</primary><secondary>GrayScale</secondary></indexterm>
 <indexterm><primary>Visual Classes</primary><secondary>PseudoColor</secondary></indexterm>
 <symbol>StaticGray</symbol>,
 <symbol>StaticColor</symbol>,
-<symbol>TrueColor</symbol>,
+<symbol>trueColor</symbol>,
 <symbol>GrayScale</symbol>,
 <symbol>PseudoColor</symbol>,
 or
@@ -73,7 +73,7 @@ This leads to the following diagram:
  Undecomposed    Static  Pseudo   Static  Gray
    Colormap      Color   Color    Gray    Scale
 
- Decomposed       True   Direct
+ Decomposed       true   Direct
    Colormap       Color  Color
 ----------------------------------------------
 </literallayout>
@@ -121,7 +121,7 @@ The <acronym>RGB</acronym> values can be changed dynamically.
   </listitem>
   <listitem>
     <para>
-<symbol>TrueColor</symbol>
+<symbol>trueColor</symbol>
 is treated the same way as 
 <symbol>DirectColor</symbol>
 except that the colormap has predefined, read-only <acronym>RGB</acronym> values.
@@ -156,7 +156,7 @@ colormap can be thought of as monochrome.
 The red_mask, green_mask, and blue_mask members are only defined for
 <symbol>DirectColor</symbol>
 and 
-<symbol>TrueColor</symbol>.
+<symbol>trueColor</symbol>.
 Each has one contiguous set of bits with no
 intersections.
 The bits_per_rgb member specifies the log base 2 of the
@@ -167,7 +167,7 @@ in a newly created colormap.
 For 
 <symbol>DirectColor</symbol>
 and 
-<symbol>TrueColor</symbol>,
+<symbol>trueColor</symbol>,
 this is the size of an individual pixel subfield.
 <!-- .sp -->
 </para>
@@ -497,7 +497,7 @@ windows:
     </row>
     <row>
       <entry>save-under</entry>
-      <entry><symbol>False</symbol></entry>
+      <entry><symbol>false</symbol></entry>
       <entry>Yes</entry>
       <entry>No</entry>
     </row>
@@ -515,7 +515,7 @@ windows:
     </row>
     <row>
       <entry>override-redirect</entry>
-      <entry><symbol>False</symbol></entry>
+      <entry><symbol>false</symbol></entry>
       <entry>Yes</entry>
       <entry>Yes</entry>
     </row>
@@ -961,12 +961,12 @@ so the temporarily obscured applications do not have to repaint.
 <para>
 <!-- .LP -->
 You can set the save-under flag to
-<symbol>True</symbol>
+<symbol>true</symbol>
 or
-<symbol>False</symbol>
+<symbol>false</symbol>
 (default).
 If save-under is 
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the X server is advised that, when this window is mapped, 
 saving the contents of windows it obscures would be beneficial.
 </para>
@@ -1069,9 +1069,9 @@ on this window should override a
 <symbol>SubstructureRedirectMask</symbol>
 on the parent.
 You can set the override-redirect flag to
-<symbol>True</symbol>
+<symbol>true</symbol>
 or
-<symbol>False</symbol>
+<symbol>false</symbol>
 (default).
 Window managers use this information to avoid tampering with pop-up windows
 (see also <link linkend='Inter_Client_Communication_Functions'>chapter 14</link>).
@@ -1868,7 +1868,7 @@ and the window manager is sent a
 <symbol>MapRequest</symbol>
 event.
 However, if the override-redirect flag on the child had been set to
-<symbol>True</symbol>
+<symbol>true</symbol>
 (usually only on pop-up menus),
 the map request is performed.
 </para>
@@ -1952,7 +1952,7 @@ This function has no effect if the window is already mapped.
 <para>
 <!-- .LP -->
 If the override-redirect of the window is
-<symbol>False</symbol>
+<symbol>false</symbol>
 and if some other client has selected
 <symbol>SubstructureRedirectMask</symbol>
 on the parent window, then the X server generates a
@@ -2368,7 +2368,7 @@ or
 <para>
 <!-- .LP -->
 If the override-redirect flag of the window is
-<symbol>False</symbol>
+<symbol>false</symbol>
 and if some other client has selected
 <symbol>SubstructureRedirectMask</symbol>
 on the parent, the X server generates a
@@ -2716,7 +2716,7 @@ events on any formerly obscured windows.
 <para>
 <!-- .LP -->
 If the override-redirect flag of the window is 
-<symbol>False</symbol>
+<symbol>false</symbol>
 and some
 other client has selected 
 <symbol>SubstructureRedirectMask</symbol>
@@ -2815,7 +2815,7 @@ events on windows that the mapped window formerly obscured.
 <para>
 <!-- .LP -->
 If the override-redirect flag of the window is 
-<symbol>False</symbol>
+<symbol>false</symbol>
 and some
 other client has selected 
 <symbol>SubstructureRedirectMask</symbol>
@@ -2939,7 +2939,7 @@ events on windows that the window formerly obscured.
 <para>
 <!-- .LP -->
 If the override-redirect flag of the window is 
-<symbol>False</symbol>
+<symbol>false</symbol>
 and some
 other client has selected 
 <symbol>SubstructureRedirectMask</symbol>
@@ -3091,7 +3091,7 @@ events for the window and any mapped subwindows that were formerly obscured.
 <para>
 <!-- .LP -->
 If the override-redirect attribute of the window is 
-<symbol>False</symbol>
+<symbol>false</symbol>
 and some
 other client has selected 
 <symbol>SubstructureRedirectMask</symbol>
@@ -3164,7 +3164,7 @@ events on any windows it formerly obscured.
 <para>
 <!-- .LP -->
 If the override-redirect attribute of the window is 
-<symbol>False</symbol>
+<symbol>false</symbol>
 and some
 other client has selected 
 <symbol>SubstructureRedirectMask</symbol>
@@ -3462,7 +3462,7 @@ error results.
 <para>
 <!-- .LP -->
 If the override-redirect attribute of a window is 
-<symbol>False</symbol>
+<symbol>false</symbol>
 and some
 other client has selected 
 <symbol>SubstructureRedirectMask</symbol>

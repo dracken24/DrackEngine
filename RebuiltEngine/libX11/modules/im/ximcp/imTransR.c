@@ -139,7 +139,7 @@ _XimReadData(
 
 		if (data_len) {
 		    if (!(tmp = Xmalloc(data_len))) {
-			return XIM_FALSE;
+			return XIM_false;
 		    }
 		    memcpy(tmp, &hold_buf[i], data_len);
 		    im->private.proto.hold_data = tmp;
@@ -150,7 +150,7 @@ _XimReadData(
 		}
 		Xfree(hold_buf);
 		*len = (INT16)packet_size;
-		return XIM_TRUE;
+		return XIM_true;
 	    }
 	}
 	memcpy(buf, hold_buf, data_len);
@@ -164,7 +164,7 @@ _XimReadData(
 	while (data_len < XIM_HEADER_SIZE) {
 	    if (!(im->private.proto.read(im,
 			(XPointer)&buf[data_len], buf_size, &ret_len))) {
-		return XIM_FALSE;
+		return XIM_false;
 	    }
 	    data_len += ret_len;
 	    buf_size -= ret_len;
@@ -174,7 +174,7 @@ _XimReadData(
 
     if (packet_size > buf_size) {
 	if (!(tmp = Xmalloc(data_len))) {
-	    return XIM_FALSE;
+	    return XIM_false;
 	}
 	memcpy(tmp, buf, data_len);
 	bzero(buf, data_len);
@@ -187,7 +187,7 @@ _XimReadData(
     while (data_len < packet_size) {
 	if (!(im->private.proto.read(im,
 			(XPointer)&buf[data_len], buf_size, &ret_len))) {
-	    return XIM_FALSE;
+	    return XIM_false;
 	}
 	data_len += ret_len;
 	buf_size -= ret_len;
@@ -201,7 +201,7 @@ _XimReadData(
 
     if (data_len) {
 	if (!(tmp = Xmalloc(data_len))) {
-	    return XIM_FALSE;
+	    return XIM_false;
 	}
 	memcpy(tmp, &buf[i], data_len);
 	bzero(&buf[i], data_len);
@@ -212,7 +212,7 @@ _XimReadData(
 	im->private.proto.hold_data_len = 0;
     }
     *len = (INT16)packet_size;
-    return XIM_TRUE;
+    return XIM_true;
 }
 
 static Bool
@@ -233,7 +233,7 @@ _XimRead(Xim im, INT16 *len, XPointer buf, int buf_size,
 
     for (;;) {
 	ret_code = _XimReadData(im, &read_len, buf, buf_size);
-	if(ret_code != XIM_TRUE) {
+	if(ret_code != XIM_true) {
 	    return ret_code;
 	}
 	if ((*predicate)(im, read_len, buf, arg))
@@ -243,7 +243,7 @@ _XimRead(Xim im, INT16 *len, XPointer buf, int buf_size,
 	_XimError(im, 0, XIM_BadProtocol, (INT16)0, (CARD16)0, (char *)NULL);
     }
     *len = read_len;
-    return True;
+    return true;
 }
 
 Bool
@@ -276,7 +276,7 @@ _XimFilterWaitEvent(Xim im)
 
     buf_size = BUFSIZE;
     ret_code = _XimReadData(im, &read_len, (XPointer)reply, buf_size);
-    if(ret_code == XIM_TRUE) {
+    if(ret_code == XIM_true) {
 	preply = reply;
     } else if(ret_code == XIM_OVERFLOW) {
 	if(read_len <= 0) {
@@ -285,22 +285,22 @@ _XimFilterWaitEvent(Xim im)
 	    buf_size = (int)read_len;
 	    preply = Xmalloc(buf_size);
 	    ret_code = _XimReadData(im, &read_len, preply, buf_size);
-	    if(ret_code != XIM_TRUE) {
+	    if(ret_code != XIM_true) {
 		if (preply != reply)
 		    Xfree(preply);
-		return False;
+		return false;
 	    }
 	}
     } else {
-	return False;
+	return false;
     }
     if (_XimCallDispatcher(im, read_len, preply)) {
 	if(reply != preply)
 	    Xfree(preply);
-	return True;
+	return true;
     }
     _XimError(im, 0, XIM_BadProtocol, (INT16)0, (CARD16)0, (char *)NULL);
     if(reply != preply)
 	Xfree(preply);
-    return True;
+    return true;
 }

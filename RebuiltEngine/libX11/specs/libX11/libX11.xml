@@ -8,7 +8,7 @@
 
 <book id="libX11" lang="en">
 
-<bookinfo>
+<booDE_INFO>
    <title>Xlib - C Language X Interface</title>
    <subtitle>X Consortium Standard</subtitle>
    <releaseinfo>X Version 11, Release &fullrelvers;</releaseinfo>
@@ -112,7 +112,7 @@ It is provided &ldquo;as is&rdquo; without express or implied warranty.
 <para>TekHVC is a trademark of Tektronix, Inc.</para>
 
 </legalnotice>
-</bookinfo>
+</booDE_INFO>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="credits.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="CH01.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="CH02.xml"/>

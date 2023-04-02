@@ -95,7 +95,7 @@ background
 the contents of the window are not changed.
 In either
 case, if exposures is
-.BR True ,
+.BR true ,
 one or more
 .B Expose
 events are generated for regions of the rectangle that are either visible or are
@@ -120,7 +120,7 @@ function clears the entire area in the specified window and is
 equivalent to
 .B XClearArea
 (display, w, 0, 0, 0, 0,
-.BR False ).
+.BR false ).
 If the window has a defined background tile, the rectangle is tiled with a
 plane-mask of all ones and
 .B GXcopy

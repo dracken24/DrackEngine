@@ -78,12 +78,12 @@ XLC_XLOCALE
 
 encoding_name		zh_TW.euc
 mb_cur_max		4
-state_depend_encoding	False
+state_depend_encoding	false
 wc_encoding_mask	\x3fffc000
 wc_shift_bits		7
 
-use_stdc_env		True
-force_convert_to_mb	True
+use_stdc_env		true
+force_convert_to_mb	true
 
 XCOMM 	cs0 class
 cs0	{
@@ -115,7 +115,7 @@ cs3	{
 	side		GR
 	length		2
 	mb_encoding	<SS> \x8e\xae
-	wc_encoding	\x100b8000
+	wc_encoding	\x100bl8000
 	ct_encoding	CNS11643.1986-14:GR
 }
 

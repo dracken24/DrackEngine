@@ -1176,7 +1176,7 @@ If the same specifier is used for an entry in both the file and
 the database,
 the entry in the file will replace the entry in the database
 if override is
-<symbol>True</symbol>;
+<symbol>true</symbol>;
 otherwise, the entry in the file is discarded.
 The file is parsed in the current locale.
 If the file cannot be read,
@@ -1249,7 +1249,7 @@ function merges the contents of one database into another.
 If the same specifier is used for an entry in both databases,
 the entry in the source_db will replace the entry in the target_db
 if override is
-<symbol>True</symbol>;
+<symbol>true</symbol>;
 otherwise, the entry in source_db is discarded.
 If target_db contains NULL,
 <xref linkend='XrmCombineDatabase' xrefstyle='select: title'/>
@@ -1308,7 +1308,7 @@ Calling the
 function is equivalent to calling the
 <xref linkend='XrmCombineDatabase' xrefstyle='select: title'/>
 function with an override argument of
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 </sect1>
 <sect1 id="Looking_Up_Resources">
@@ -1483,9 +1483,9 @@ If a resource was found, both
 and
 <xref linkend='XrmQGetResource' xrefstyle='select: title'/>
 return 
-<symbol>True</symbol>;
+<symbol>true</symbol>;
 otherwise, they return 
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -1590,9 +1590,9 @@ for determining precedence.
 If list_return was large enough for the search list,
 <function>XrmQGetSearchList</function>
 returns 
-<symbol>True</symbol>;
+<symbol>true</symbol>;
 otherwise, it returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -1694,10 +1694,10 @@ that is fully identified by the specified name and class.
 The search stops with the first match.
 <xref linkend='XrmQGetSearchResource' xrefstyle='select: title'/>
 returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the resource was found;
 otherwise, it returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -2195,13 +2195,13 @@ just a single name and class appended.  If mode is
 the resource must match the given name/class prefix with one or more names and
 classes appended.
 If the procedure returns
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the enumeration terminates and the function returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 If the procedure always returns
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 all matching resources are enumerated and the function returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->

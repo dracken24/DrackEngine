@@ -76,7 +76,7 @@ T}
 XkbAXN_BKReject	T{
 A key was rejected (pressed before the BounceKeys delay expired).
 T}
-XkbAXN_AXKWarning	T{
+XkbAXN_AXDE_WARNINGing	T{
 AccessXKeys is about to turn on/off StickyKeys or BounceKeys.
 T}
 .TE
@@ -140,7 +140,7 @@ T}
 XkbAXN_BKRejectMask	(1<<5)	T{
 Bounce key reject notification wanted
 T}
-XkbAXN_AXKWarningMask	(1<<6)	T{
+XkbAXN_AXDE_WARNINGingMask	(1<<6)	T{
 AccessX warning notification wanted
 T}
 XkbAllAccessXEventsMask	(0x7f)	T{
@@ -166,25 +166,25 @@ reply, and backfills
 .I delay_rtrn 
 with the BounceKeys delay attribute. 
 .I XkbGetBounceKeysDelay 
-returns True if successful; if a compatible version of the Xkb extension is not 
+returns true if successful; if a compatible version of the Xkb extension is not 
 available in the server 
 .I XkbGetSlowKeysDelay 
-returns False.
+returns false.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbGetBounceKeysDelay 
-function returns True when it successfully requests the attributes of the 
+function returns true when it successfully requests the attributes of the 
 BounceKeys control from the server, waits for a 
 reply, and backfills 
 .I delay_rtrn 
 with the BounceKeys delay attribute.
 .TP 15
-False
+false
 The 
 .I XkbGetBounceKeysDelay 
-function returns False if a compatible version of the Xkb extension is not 
+function returns false if a compatible version of the Xkb extension is not 
 available in the server. 
 .SH STRUCTURES
 .LP
@@ -194,7 +194,7 @@ The structure for the XkbAccessXNotify event type is as follows:
 typedef struct {
     int            type;           /\&* Xkb extension base event code */
     unsigned long  serial;         /\&* X server serial number for event */
-    Bool           send_event;     /\&* True => synthetically generated */
+    Bool           send_event;     /\&* true => synthetically generated */
     Display *      display;        /\&* server connection where event generated */
     Time           time;           /\&* server time when event generated */
     int            xkb_type;       /\&* XkbAccessXNotify */

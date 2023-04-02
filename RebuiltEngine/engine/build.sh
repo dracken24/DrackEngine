@@ -28,7 +28,7 @@ compilerFlags="-g -shared -fdeclspec -fPIC"
 includeFlags="-Isrc -I$VULKAN_SDK/include"
 linkerFlags="-lvulkan -lxcb -lX11 -lX11-xcb -lxkbcommon -L$VULKAN_SDK/lib -L/usr/X11R6/lib"
 ignoreFlags="-Wno-comment"
-defines="-D_DEBUG -DKEXPORT"
+defines="-D_DEBUG -DDE_EXPORT"
 
 echo "Building $assembly... in engine/build.sh"
 clang++ $cFilenames $compilerFlags -o ../bin/lib$assembly.so $defines $includeFlags $linkerFlags $ignoreFlags

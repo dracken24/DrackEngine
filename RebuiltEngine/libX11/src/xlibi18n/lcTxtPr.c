@@ -83,10 +83,10 @@ _XTextListToTextProperty(
     XPointer from;
     char *to, *buf, *value;
     int from_left, to_left, buf_len, nitems, unconv_num = 0, ret, i;
-    Bool is_wide_char = False;
+    Bool is_wide_char = false;
 
     if (strcmp(XlcNWideChar, from_type) == 0)
-	is_wide_char = True;
+	is_wide_char = true;
 
     buf_len = get_buf_size(is_wide_char, list, count);
     if ((buf = Xmalloc(buf_len)) == NULL)
@@ -99,17 +99,17 @@ _XTextListToTextProperty(
 	    to_type = XlcNString;
 	    break;
 	case XUTF8StringStyle:
-	    encoding = XInternAtom(dpy, "UTF8_STRING", False);
+	    encoding = XInternAtom(dpy, "UTF8_STRING", false);
 	    to_type = XlcNUtf8String;
 	    break;
 	case XCompoundTextStyle:
-	    encoding = XInternAtom(dpy, "COMPOUND_TEXT", False);
+	    encoding = XInternAtom(dpy, "COMPOUND_TEXT", false);
 	    to_type = XlcNCompoundText;
 	    break;
 	case XTextStyle:
-	    encoding = XInternAtom(dpy, XLC_PUBLIC(lcd, encoding_name), False);
+	    encoding = XInternAtom(dpy, XLC_PUBLIC(lcd, encoding_name), false);
 	    to_type = XlcNMultiByte;
-	    if (is_wide_char == False) {
+	    if (is_wide_char == false) {
 		nitems = 0;
 		mb_list = (char **) list;
 		to = buf;
@@ -173,7 +173,7 @@ retry:
 
 	if (ret > 0 && style == XStdICCTextStyle && encoding == XA_STRING) {
 	    _XlcCloseConverter(conv);
-	    encoding = XInternAtom(dpy, "COMPOUND_TEXT", False);
+	    encoding = XInternAtom(dpy, "COMPOUND_TEXT", false);
 	    to_type = XlcNCompoundText;
 	    goto retry;
 	}

@@ -624,7 +624,7 @@ one, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; load into <parameter>device_spec</parameter>
+        <symbol>true</symbol> &rArr; load into <parameter>device_spec</parameter>
       </para>
     </listitem>
   </varlistentry>
@@ -802,7 +802,7 @@ resulting in the component values being taken from
 In addition, if
 <parameter>load</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the server modifies
 <parameter>names</parameter>
 if necessary (again using a
@@ -918,11 +918,11 @@ have no effect in the context of
 If
 <parameter>load</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the server updates its keyboard description for
 <parameter>device_spec</parameter>
 to match the result of the keyboard description just built. If load is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the server’s description for device
 <parameter>device_spec</parameter>
 is not updated. In all cases, the parts specified by
@@ -1160,7 +1160,7 @@ as follows:
 <symbol>NULL</symbol>,
 <parameter>which</parameter>,
 <parameter>which</parameter>,
-<symbol>False</symbol>).
+<symbol>false</symbol>).
 
 </para>
 

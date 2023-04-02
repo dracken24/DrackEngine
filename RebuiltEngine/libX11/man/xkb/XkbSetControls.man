@@ -107,7 +107,7 @@ If
 is NULL, the server does not support a compatible version of Xkb, or the Xkb 
 extension has not been properly initialized, 
 .I XkbSetControls 
-returns False. Otherwise, it sends the request to the X server and returns True.
+returns false. Otherwise, it sends the request to the X server and returns true.
 
 Note that changes to attributes of controls in the XkbControlsRec structure are 
 apparent only when the associated control is enabled, although the corresponding 
@@ -141,15 +141,15 @@ provided for this purpose,
 .I XkbChangeEnabledControls.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbSetControls 
-function returns True when it sends the request to the X server.
+function returns true when it sends the request to the X server.
 .TP 15
-False
+false
 The 
 .I XkbSetControls 
-function returns False when 
+function returns false when 
 .I xkb->ctrls 
 is NULL, the server does not support a compatible version of Xkb, or the Xkb 
 extension has not been properly initialized.

@@ -130,9 +130,9 @@ If a resource was found, both
 and
 .B XrmQGetResource
 return
-.BR True ;
+.BR true ;
 otherwise, they return
-.BR False .
+.BR false .
 .LP
 The
 .B XrmQGetSearchList
@@ -145,9 +145,9 @@ for determining precedence.
 If list_return was large enough for the search list,
 .B XrmQGetSearchList
 returns
-.BR True ;
+.BR true ;
 otherwise, it returns
-.BR False .
+.BR false .
 .LP
 The size of the search list that the caller must allocate is
 dependent upon the number of levels and wildcards in the resource specifiers
@@ -168,10 +168,10 @@ that is fully identified by the specified name and class.
 The search stops with the first match.
 .B XrmQGetSearchResource
 returns
-.B True
+.B true
 if the resource was found;
 otherwise, it returns
-.BR False .
+.BR false .
 .LP
 A call to
 .B XrmQGetSearchList

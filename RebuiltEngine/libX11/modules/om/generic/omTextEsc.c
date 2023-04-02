@@ -60,10 +60,10 @@ is_rotate(
 	    vrotate_num = font_set->vrotate_num;
 	    for( ; vrotate_num-- ; vrotate++)
 		if(vrotate->font == font)
-		    return True;
+		    return true;
 	}
     }
-    return False;
+    return false;
 }
 
 static int
@@ -85,10 +85,10 @@ is_codemap(
 	    vmap_num = font_set->vmap_num;
 	    for( ; vmap_num-- ; vmap++)
 		if(vmap->font == font)
-		    return True;
+		    return true;
 	}
     }
-    return False;
+    return false;
 }
 
 static int
@@ -105,7 +105,7 @@ escapement_vertical(
 
     if(is_xchar2b) {
 	for(i = 0, buf2b = (XChar2b *) text ; i < length ; i++, buf2b++) {
-	    if(is_rotate(oc, font) == True) {
+	    if(is_rotate(oc, font) == true) {
 		escapement += _XTextHeight16(font, buf2b, 1);
 	    } else {
 		escapement += (int) (font->max_bounds.ascent +
@@ -114,7 +114,7 @@ escapement_vertical(
 	}
     } else {
 	for(i = 0, buf = (char *)text ; i < length && *buf ; i++, buf++) {
-	    if(is_rotate(oc, font) == True) {
+	    if(is_rotate(oc, font) == true) {
 		escapement += _XTextHeight(font, buf, 1);
 	    } else {
 		escapement += (int) (font->max_bounds.ascent +
@@ -199,7 +199,7 @@ TextWidthWithFontSet(
 		   (font = fd->font) == (XFontStruct *) NULL)
 		    break;
 
-		if(is_codemap(oc, fd->font) == False) {
+		if(is_codemap(oc, fd->font) == false) {
 		    fd = _XomGetFontDataFromFontSet(font_set, ptr, length,
 						    &ptr_len, is_xchar2b,
 						    VROTATE);

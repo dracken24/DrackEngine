@@ -247,17 +247,17 @@ The backing_pixel member is set to indicate what values to use
 for planes not set in backing_planes.
 .LP
 The save_under member is set to
-.B True
+.B true
 or
-.BR False .
+.BR false .
 The colormap member is set to the colormap for the specified window and can be
 a colormap ID or
 .BR None .
 The map_installed member is set to indicate whether the colormap is
 currently installed and can be
-.B True
+.B true
 or
-.BR False .
+.BR false .
 The map_state member is set to indicate the state of the window and can be
 .BR IsUnmapped ,
 .BR IsUnviewable ,
@@ -275,11 +275,11 @@ set of events that should not propagate.
 .LP
 The override_redirect member is set to indicate whether this window overrides
 structure control facilities and can be
-.B True
+.B true
 or
-.BR False .
+.BR false .
 Window manager clients should ignore the window if this member is
-.BR True .
+.BR true .
 .LP
 The screen member is set to a screen pointer that gives you a back pointer
 to the correct screen.

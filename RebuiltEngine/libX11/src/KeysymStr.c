@@ -63,9 +63,9 @@ SameValue(
 	!strncmp((char *)value->addr, (char *)gd->value->addr, value->size))
     {
 	gd->name = XrmQuarkToString(*quarks); /* XXX */
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 char *XKeysymToString(KeySym ks)

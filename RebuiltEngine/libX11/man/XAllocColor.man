@@ -200,7 +200,7 @@ For
 .BR DirectColor ,
 each has exactly three bits set to 1.
 If contig is
-.B True
+.B true
 and if all masks are ORed
 together, a single contiguous set of bits set to 1 will be formed for
 .B GrayScale
@@ -233,7 +233,7 @@ If ncolors colors, nreds reds, ngreens greens, and nblues blues are requested,
 ncolors pixels are returned; and the masks have nreds, ngreens, and
 nblues bits set to 1, respectively.
 If contig is
-.BR True ,
+.BR true ,
 each mask will have
 a contiguous set of bits set to 1.
 No mask will have any bits set to 1 in common with

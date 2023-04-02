@@ -47,4 +47,4 @@ checks the bounds of all keys in the
 .I row 
 and updates the bounding box of the row if necessary. 
 .I XkbComputeRowBounds 
-returns False if any of the arguments is NULL; otherwise, it returns True.
+returns false if any of the arguments is NULL; otherwise, it returns true.

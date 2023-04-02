@@ -39,7 +39,7 @@ XGetInputFocus(
     _X_UNUSED register xReq *req;
     LockDisplay(dpy);
     GetEmptyReq(GetInputFocus, req);
-    (void) _XReply (dpy, (xReply *)&rep, 0, xTrue);
+    (void) _XReply (dpy, (xReply *)&rep, 0, xtrue);
     *focus = rep.focus;
     *revert_to = rep.revertTo;
     UnlockDisplay(dpy);

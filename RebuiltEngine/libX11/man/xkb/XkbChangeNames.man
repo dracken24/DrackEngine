@@ -55,7 +55,7 @@ from the keyboard description,
 .I xkb, 
 to the X server specified by 
 .I dpy. XkbChangeNames 
-aborts and returns False if any illegal type names or type shift level names are 
+aborts and returns false if any illegal type names or type shift level names are 
 specified by changes.
 
 To change the symbolic names in the server, first modify a local copy of the 

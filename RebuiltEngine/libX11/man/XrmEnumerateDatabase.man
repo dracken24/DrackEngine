@@ -102,13 +102,13 @@ If mode is
 the resource must match the given name/class prefix with one or more names and
 classes appended.
 If the procedure returns
-.BR True ,
+.BR true ,
 the enumeration terminates and the function returns
-.BR True .
+.BR true .
 If the procedure always returns
-.BR False ,
+.BR false ,
 all matching resources are enumerated and the function returns
-.BR False .
+.BR false .
 .LP
 The procedure is called with the following arguments:
 .LP

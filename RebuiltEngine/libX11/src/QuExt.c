@@ -50,7 +50,7 @@ XQueryExtension(
     req->nbytes = name ? (CARD16) strlen(name) : 0;
     req->length += (req->nbytes+(unsigned)3)>>2;
     _XSend(dpy, name, (long)req->nbytes);
-    (void) _XReply (dpy, (xReply *)&rep, 0, xTrue);
+    (void) _XReply (dpy, (xReply *)&rep, 0, xtrue);
     *major_opcode = rep.major_opcode;
     *first_event = rep.first_event;
     *first_error = rep.first_error;

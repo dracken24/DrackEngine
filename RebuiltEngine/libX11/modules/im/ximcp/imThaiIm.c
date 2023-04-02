@@ -71,9 +71,9 @@ _XimCheckIfThaiProcessing(Xim im)
         strcmp(im->core.im_name, "Thaicat") == 0 ||
         strcmp(im->core.im_name, "Passthrough") == 0))
     {
-	return(True);
+	return(true);
     }
-    return(False);
+    return(false);
 }
 
 Bool
@@ -86,11 +86,11 @@ _XimThaiOpenIM(Xim im)
 
     _XimInitialResourceInfo();
     if(_XimSetIMResourceList(&im->core.im_resources,
-		 		&im->core.im_num_resources) == False) {
+		 		&im->core.im_num_resources) == false) {
 	goto Open_Error;
     }
     if(_XimSetICResourceList(&im->core.ic_resources,
-				&im->core.ic_num_resources) == False) {
+				&im->core.ic_num_resources) == false) {
 	goto Open_Error;
     }
 
@@ -98,7 +98,7 @@ _XimThaiOpenIM(Xim im)
 
     _XimGetCurrentIMValues(im, &im_values);
     if(_XimSetLocalIMDefaults(im, (XPointer)&im_values,
-		im->core.im_resources, im->core.im_num_resources) == False) {
+		im->core.im_resources, im->core.im_num_resources) == false) {
 	goto Open_Error;
     }
     _XimSetCurrentIMValues(im, &im_values);
@@ -138,11 +138,11 @@ _XimThaiOpenIM(Xim im)
     im->methods = &Xim_im_thai_methods;
     private->current_ic = (XIC)NULL;
 
-    return(True);
+    return(true);
 
 Open_Error :
     _XimThaiIMFree(im);
-    return(False);
+    return(false);
 }
 
 void
@@ -231,5 +231,5 @@ _XimThaiCloseIM(XIM xim)
 	ic = next;
     }
     _XimThaiIMFree(im);
-    return(True);
+    return(true);
 }

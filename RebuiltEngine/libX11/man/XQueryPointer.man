@@ -83,7 +83,7 @@ coordinates relative to the root window's origin.
 If
 .B XQueryPointer
 returns
-.BR False ,
+.BR false ,
 the pointer is not on the same screen as the specified window, and
 .B XQueryPointer
 returns
@@ -92,7 +92,7 @@ to child_return and zero to win_x_return and win_y_return.
 If
 .B XQueryPointer
 returns
-.BR True ,
+.BR true ,
 the pointer coordinates returned to win_x_return and win_y_return
 are relative to the origin of the specified window.
 In this case,

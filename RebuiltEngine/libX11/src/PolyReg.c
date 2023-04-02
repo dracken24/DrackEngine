@@ -459,7 +459,7 @@ static int PtsToRegion(
     }
     reg->numRects = numRects;
 
-    return(TRUE);
+    return(true);
 }
 
 /*
@@ -487,7 +487,7 @@ XPolygonRegion(
     EdgeTableEntry AET;              /* header node for AET     */
     EdgeTableEntry *pETEs;           /* EdgeTableEntries pool   */
     ScanLineListBlock SLLBlock;      /* header for scanlinelist */
-    int fixWAET = FALSE;
+    int fixWAET = false;
     POINTBLOCK FirstPtBlock, *curPtBlock; /* PtBlock buffers    */
     POINTBLOCK *tmpPtBlock;
     int numFullPtBlocks = 0;
@@ -620,7 +620,7 @@ XPolygonRegion(
              */
             if (InsertionSort(&AET) || fixWAET) {
                 computeWAET(&AET);
-                fixWAET = FALSE;
+                fixWAET = false;
             }
         }
     }

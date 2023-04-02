@@ -55,17 +55,17 @@ _XWAttrsHandler(
 	    !state->attr &&
 	    rep->generic.type == X_Error &&
 	    rep->error.errorCode == BadDrawable)
-	    return True;
-	return False;
+	    return true;
+	return false;
     }
     if (rep->generic.type == X_Error) {
 	state->attr = (XWindowAttributes *)NULL;
-	return False;
+	return false;
     }
     repl = (xGetWindowAttributesReply *)
 	_XGetAsyncReply(dpy, (char *)&replbuf, rep, buf, len,
 		     (SIZEOF(xGetWindowAttributesReply) - SIZEOF(xReply)) >> 2,
-			True);
+			true);
     attr = state->attr;
     attr->class = repl->class;
     attr->bit_gravity = repl->bitGravity;
@@ -82,7 +82,7 @@ _XWAttrsHandler(
     attr->do_not_propagate_mask = repl->doNotPropagateMask;
     attr->override_redirect = repl->override;
     attr->visual = _XVIDtoVisual (dpy, repl->visualID);
-    return True;
+    return true;
 }
 
 Status
@@ -112,7 +112,7 @@ _XGetWindowAttributes(
 
     async_state.geom_seq = X_DPY_GET_REQUEST(dpy);
 
-    if (!_XReply (dpy, (xReply *)&rep, 0, xTrue)) {
+    if (!_XReply (dpy, (xReply *)&rep, 0, xtrue)) {
 	DeqAsyncHandler(dpy, &async);
 	return (0);
 	}

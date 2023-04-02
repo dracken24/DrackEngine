@@ -50,7 +50,7 @@ Status XAllocColorCells(
     req->planes = nplanes;
     req->contiguous = contig;
 
-    status = _XReply(dpy, (xReply *)&rep, 0, xFalse);
+    status = _XReply(dpy, (xReply *)&rep, 0, xfalse);
 
     if (status) {
 	if ((rep.nPixels > ncolors) || (rep.nMasks > nplanes)) {

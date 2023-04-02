@@ -44,7 +44,7 @@ Status XGetGeometry (
     register xResourceReq *req;
     LockDisplay(dpy);
     GetResReq(GetGeometry, d, req);
-    if (!_XReply (dpy, (xReply *)&rep, 0, xTrue)) {
+    if (!_XReply (dpy, (xReply *)&rep, 0, xtrue)) {
 	UnlockDisplay(dpy);
 	SyncHandle();
 	return (0);

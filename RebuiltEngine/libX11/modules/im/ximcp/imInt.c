@@ -49,7 +49,7 @@ _XimSetIMStructureList(
 
     if(!(_XimCurrentIMlist)) {
 	if(!(_XimCurrentIMlist = Xmalloc(sizeof(Xim))))
-	    return False;
+	    return false;
 	_XimCurrentIMlist[0] = im;
 	_XimCurrentIMcount   = 1;
     }
@@ -63,13 +63,13 @@ _XimSetIMStructureList(
 	if(i >= _XimCurrentIMcount) {
 	    if(!(xim = Xrealloc(_XimCurrentIMlist,
 					 ((i + 1) * sizeof(Xim)))))
-		return False;
+		return false;
 	    _XimCurrentIMlist			  = xim;
 	    _XimCurrentIMlist[_XimCurrentIMcount] = im;
 	    _XimCurrentIMcount++;
 	}
     }
-    return True;
+    return true;
 }
 
 void
@@ -252,9 +252,9 @@ Bool
 _XInitIM(XLCd lcd)
 {
     if(lcd == (XLCd)NULL)
-	return False;
+	return false;
     lcd->methods->open_im = _XimOpenIM;
     lcd->methods->register_callback = _XimRegisterIMInstantiateCallback;
     lcd->methods->unregister_callback = _XimUnRegisterIMInstantiateCallback;
-    return True;
+    return true;
 }

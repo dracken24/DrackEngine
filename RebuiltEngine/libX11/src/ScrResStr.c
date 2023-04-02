@@ -39,10 +39,10 @@ char *XScreenResourceString(Screen *screen)
     unsigned long leftover;
     char *val = NULL;
 
-    prop_name = XInternAtom(screen->display, "SCREEN_RESOURCES", True);
+    prop_name = XInternAtom(screen->display, "SCREEN_RESOURCES", true);
     if (prop_name &&
 	XGetWindowProperty(screen->display, screen->root, prop_name,
-			   0L, 100000000L, False,
+			   0L, 100000000L, false,
 			   XA_STRING, &actual_type, &actual_format,
 			   &nitems, &leftover,
 			   (unsigned char **) &val) == Success) {

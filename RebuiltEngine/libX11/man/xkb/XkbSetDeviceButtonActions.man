@@ -57,16 +57,16 @@ and are taken from the actions specified in
 
 If the server does not support assignment of Xkb actions to extension device buttons,
 .I XkbSetDeviceButtonActions 
-has no effect and returns False. If the device has no buttons or if 
+has no effect and returns false. If the device has no buttons or if 
 .I first_button 
 or 
 .I num_buttons 
 specify buttons outside of the valid range as determined by 
 .I device_info->num_btns, 
-the function has no effect and returns False. Otherwise, 
+the function has no effect and returns false. Otherwise, 
 .I XkbSetDeviceButtonActions 
 sends a request to the server to change the actions for the specified buttons and returns 
-True.
+true.
 
 If the actual request sent to the server involved illegal button numbers, a BadValue protocol 
 error is generated. If an invalid device identifier is specified in 

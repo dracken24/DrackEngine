@@ -34,10 +34,10 @@ XkbSetDetectableAutoRepeat \- Sets DetectableAutoRepeat
 connection to X server
 .TP
 .I detectable
-True => set DetectableAutoRepeat
+true => set DetectableAutoRepeat
 .TP
 .I supported_rtrn
-backfilled True if DetectableAutoRepeat supported
+backfilled true if DetectableAutoRepeat supported
 .SH DESCRIPTION
 .LP
 Auto-repeat is the generation of multiple key events by a keyboard when the user
@@ -78,26 +78,26 @@ have requested otherwise.
 sends a request to the server to set DetectableAutoRepeat on for the current
 client if
 .I detectable
-is True, and off if
+is true, and off if
 .I detectable
-is False; it then waits for a reply. If
+is false; it then waits for a reply. If
 .I supported_rtrn
 is not NULL,
 .I XkbSetDetectableAutoRepeat
 backfills
 .I supported_rtrn
-with True if the server supports DetectableAutoRepeat, and False if it does not.
+with true if the server supports DetectableAutoRepeat, and false if it does not.
 .I XkbSetDetectableAutoRepeat
 returns the current state of DetectableAutoRepeat for the requesting client:
-True if DetectableAutoRepeat is set, and False otherwise.
+true if DetectableAutoRepeat is set, and false otherwise.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The
 .I XkbSetDetectableAutoRepeat
-function returns True if DetectableAutoRepeat is set.
+function returns true if DetectableAutoRepeat is set.
 .TP 15
-False
+false
 The
 .I XkbSetDetectableAutoRepeat
-function returns False if DetectableAutoRepeat is not set.
+function returns false if DetectableAutoRepeat is not set.

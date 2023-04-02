@@ -106,15 +106,15 @@ _XimCheckIfLocalProcessing(Xim im)
 	    Xfree(name);
 	    if (fp != (FILE *)NULL) {
 		fclose(fp);
-		return(True);
+		return(true);
 	    }
 	}
-	return(False);
+	return(false);
     } else if(strcmp(im->core.im_name, "local") == 0 ||
 	      strcmp(im->core.im_name, "none" ) == 0 ) {
-	return(True);
+	return(true);
     }
-    return(False);
+    return(false);
 }
 
 static void
@@ -229,7 +229,7 @@ _XimLocalCloseIM(
     }
     _XimLocalIMFree(im);
     _XimDestroyIMStructureList(im);
-    return(True);
+    return(true);
 }
 
 char *
@@ -277,28 +277,28 @@ _XimReadCachedDefaultTree(
 
     m = mmap (NULL, size, PROT_READ, MAP_PRIVATE, fd_cache, 0);
     if (m == NULL || m == MAP_FAILED)
-        return False;
+        return false;
     assert (m->id == XIM_CACHE_MAGIC);
     assert (m->version == XIM_CACHE_VERSION);
     if (size != m->size ||
 	size < sizeof (struct _XimCacheStruct) + namelen + encodinglen) {
 	fprintf (stderr, "Ignoring broken XimCache %s [%s]\n", name, encoding);
         munmap (m, size);
-        return False;
+        return false;
     }
     if (strncmp (name, m->fname, namelen) != 0) {
 	/* m->fname may *not* be terminated - but who cares here */
 	fprintf (stderr, "Filename hash clash - expected %s, got %s\n",
 		 name, m->fname);
         munmap (m, size);
-        return False;
+        return false;
     }
     if (strncmp (encoding, m->fname + namelen, encodinglen) != 0) {
 	/* m->fname+namelen may *not* be terminated - but who cares here */
 	fprintf (stderr, "Enoding hash clash - expected %s, got %s\n",
 		 encoding, m->fname + namelen);
         munmap (m, size);
-        return False;
+        return false;
     }
     _XimCache_mmap    = m;
     _XimCachedDefaultTreeBase.tree = (DefTree *) (((char *) m) + m->tree);
@@ -312,7 +312,7 @@ _XimReadCachedDefaultTree(
     /* treesize etc. is ignored because only used during parsing */
     _XimCachedDefaultTreeRefcount = 0;
 /* fprintf (stderr, "read cached tree at %p: %s\n", (void *) m, name); */
-    return True;
+    return true;
 }
 
 static unsigned int strToHash (
@@ -425,10 +425,10 @@ static Bool _XimLoadCache (
        memcpy (&im->private.local.base, &_XimCachedDefaultTreeBase,
 	       sizeof (_XimCachedDefaultTreeBase));
        im->private.local.top = _XimCache_mmap->top;
-       return True;
+       return true;
     }
 
-    return False;
+    return false;
 }
 
 
@@ -643,11 +643,11 @@ _XimLocalOpenIM(
 
     _XimInitialResourceInfo();
     if(_XimSetIMResourceList(&im->core.im_resources,
-		 		&im->core.im_num_resources) == False) {
+		 		&im->core.im_num_resources) == false) {
 	goto Open_Error;
     }
     if(_XimSetICResourceList(&im->core.ic_resources,
-				&im->core.ic_num_resources) == False) {
+				&im->core.ic_num_resources) == false) {
 	goto Open_Error;
     }
 
@@ -655,7 +655,7 @@ _XimLocalOpenIM(
 
     _XimGetCurrentIMValues(im, &im_values);
     if(_XimSetLocalIMDefaults(im, (XPointer)&im_values,
-		im->core.im_resources, im->core.im_num_resources) == False) {
+		im->core.im_resources, im->core.im_num_resources) == false) {
 	goto Open_Error;
     }
     _XimSetCurrentIMValues(im, &im_values);
@@ -702,9 +702,9 @@ _XimLocalOpenIM(
     im->methods = &Xim_im_local_methods;
     private->current_ic = (XIC)NULL;
 
-    return(True);
+    return(true);
 
 Open_Error :
     _XimLocalIMFree(im);
-    return(False);
+    return(false);
 }

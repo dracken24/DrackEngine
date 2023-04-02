@@ -125,9 +125,9 @@ XkbGetCompatMap(Display *dpy, unsigned which, XkbDescPtr xkb)
     req->xkbReqType = X_kbGetCompatMap;
     req->deviceSpec = xkb->device_spec;
     if (which & XkbSymInterpMask)
-        req->getAllSI = True;
+        req->getAllSI = true;
     else
-        req->getAllSI = False;
+        req->getAllSI = false;
     req->firstSI = req->nSI = 0;
 
     if (which & XkbGroupCompatMask)
@@ -135,7 +135,7 @@ XkbGetCompatMap(Display *dpy, unsigned which, XkbDescPtr xkb)
     else
         req->groups = 0;
 
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
         return BadLength;
@@ -178,7 +178,7 @@ _XkbWriteSetCompatMap(Display *dpy, xkbSetCompatMapReq *req, XkbDescPtr xkb)
     BufAlloc(char *, buf, size);
 
     if (!buf)
-        return False;
+        return false;
 
     if (nSI) {
         XkbSymInterpretPtr sym = &xkb->compat->sym_interpret[firstSI];
@@ -207,7 +207,7 @@ _XkbWriteSetCompatMap(Display *dpy, xkbSetCompatMapReq *req, XkbDescPtr xkb)
         }
         buf += nGroups * SIZEOF(xkbModsWireDesc);
     }
-    return True;
+    return true;
 }
 
 Bool
@@ -220,10 +220,10 @@ XkbSetCompatMap(Display *dpy, unsigned which, XkbDescPtr xkb,
 
     if ((dpy->flags & XlibDisplayNoXkb) || (dpy != xkb->dpy) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     if ((!xkb->compat) ||
         ((which & XkbSymInterpMask) && (!xkb->compat->sym_interpret)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbSetCompatMap, req);
@@ -232,12 +232,12 @@ XkbSetCompatMap(Display *dpy, unsigned which, XkbDescPtr xkb,
     req->deviceSpec = xkb->device_spec;
     req->recomputeActions = updateActions;
     if (which & XkbSymInterpMask) {
-        req->truncateSI = True;
+        req->truncateSI = true;
         req->firstSI = 0;
         req->nSI = xkb->compat->num_si;
     }
     else {
-        req->truncateSI = False;
+        req->truncateSI = false;
         req->firstSI = 0;
         req->nSI = 0;
     }

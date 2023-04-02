@@ -78,7 +78,7 @@ Specify the x and y coordinates within the source window.
 If
 .B XTranslateCoordinates
 returns
-.BR True ,
+.BR true ,
 it takes the src_x and src_y coordinates relative
 to the source window's origin and returns these coordinates to
 dest_x_return and dest_y_return
@@ -86,7 +86,7 @@ relative to the destination window's origin.
 If
 .B XTranslateCoordinates
 returns
-.BR False ,
+.BR false ,
 src_w and dest_w are on different screens,
 and dest_x_return and dest_y_return are zero.
 If the coordinates are contained in a mapped child of dest_w,

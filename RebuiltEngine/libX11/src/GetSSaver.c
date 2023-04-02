@@ -44,7 +44,7 @@ XGetScreenSaver(
     LockDisplay(dpy);
     GetEmptyReq(GetScreenSaver, req);
 
-    (void) _XReply (dpy, (xReply *)&rep, 0, xTrue);
+    (void) _XReply (dpy, (xReply *)&rep, 0, xtrue);
     *timeout = rep.timeout;
     *interval = rep.interval;
     *prefer_blanking = rep.preferBlanking;

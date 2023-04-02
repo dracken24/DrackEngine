@@ -327,10 +327,10 @@ XOffsetRegion(
    Utility procedure Compress:
    Replace r by the region r', where
      p in r' iff (Quantifer m <= dx) (p + m in r), and
-     Quantifier is Exists if grow is TRUE, For all if grow is FALSE, and
-     (x,y) + m = (x+m,y) if xdir is TRUE; (x,y+m) if xdir is FALSE.
+     Quantifier is Exists if grow is true, For all if grow is false, and
+     (x,y) + m = (x+m,y) if xdir is true; (x,y+m) if xdir is false.
 
-   Thus, if xdir is TRUE and grow is FALSE, r is replaced by the region
+   Thus, if xdir is true and grow is false, r is replaced by the region
    of all points p such that p and the next dx points on the same
    horizontal scan line are all in r.  We do this using by noting
    that p is the head of a run of length 2^i + k iff p is the head
@@ -392,9 +392,9 @@ XShrinkRegion(
 	return 0;
     }
     if ((grow = (dx < 0))) dx = -dx;
-    if (dx) Compress(r, s, t, (unsigned) 2*dx, TRUE, grow);
+    if (dx) Compress(r, s, t, (unsigned) 2*dx, true, grow);
     if ((grow = (dy < 0))) dy = -dy;
-    if (dy) Compress(r, s, t, (unsigned) 2*dy, FALSE, grow);
+    if (dy) Compress(r, s, t, (unsigned) 2*dy, false, grow);
     XOffsetRegion(r, dx, dy);
     XDestroyRegion(s);
     XDestroyRegion(t);
@@ -1415,7 +1415,7 @@ miSubtractO (
  *	S stands for subtrahend, M for minuend and D for difference.
  *
  * Results:
- *	TRUE.
+ *	true.
  *
  * Side Effects:
  *	regD is overwritten.
@@ -1477,8 +1477,8 @@ int
 XEmptyRegion(
     Region r)
 {
-    if( r->numRects == 0 ) return TRUE;
-    else  return FALSE;
+    if( r->numRects == 0 ) return true;
+    else  return false;
 }
 
 /*
@@ -1489,19 +1489,19 @@ XEqualRegion(Region r1, Region r2)
 {
     int i;
 
-    if( r1->numRects != r2->numRects ) return FALSE;
-    else if( r1->numRects == 0 ) return TRUE;
-    else if ( r1->extents.x1 != r2->extents.x1 ) return FALSE;
-    else if ( r1->extents.x2 != r2->extents.x2 ) return FALSE;
-    else if ( r1->extents.y1 != r2->extents.y1 ) return FALSE;
-    else if ( r1->extents.y2 != r2->extents.y2 ) return FALSE;
+    if( r1->numRects != r2->numRects ) return false;
+    else if( r1->numRects == 0 ) return true;
+    else if ( r1->extents.x1 != r2->extents.x1 ) return false;
+    else if ( r1->extents.x2 != r2->extents.x2 ) return false;
+    else if ( r1->extents.y1 != r2->extents.y1 ) return false;
+    else if ( r1->extents.y2 != r2->extents.y2 ) return false;
     else for( i=0; i < r1->numRects; i++ ) {
-    	if ( r1->rects[i].x1 != r2->rects[i].x1 ) return FALSE;
-    	else if ( r1->rects[i].x2 != r2->rects[i].x2 ) return FALSE;
-    	else if ( r1->rects[i].y1 != r2->rects[i].y1 ) return FALSE;
-    	else if ( r1->rects[i].y2 != r2->rects[i].y2 ) return FALSE;
+    	if ( r1->rects[i].x1 != r2->rects[i].x1 ) return false;
+    	else if ( r1->rects[i].x2 != r2->rects[i].x2 ) return false;
+    	else if ( r1->rects[i].y1 != r2->rects[i].y1 ) return false;
+    	else if ( r1->rects[i].y2 != r2->rects[i].y2 ) return false;
     }
-    return TRUE;
+    return true;
 }
 
 int
@@ -1512,15 +1512,15 @@ XPointInRegion(
     int i;
 
     if (pRegion->numRects == 0)
-        return FALSE;
+        return false;
     if (!INBOX(pRegion->extents, x, y))
-        return FALSE;
+        return false;
     for (i=0; i<pRegion->numRects; i++)
     {
         if (INBOX (pRegion->rects[i], x, y))
-	    return TRUE;
+	    return true;
     }
-    return FALSE;
+    return false;
 }
 
 int
@@ -1544,10 +1544,10 @@ XRectInRegion(
     if ((region->numRects == 0) || !EXTENTCHECK(&region->extents, prect))
         return(RectangleOut);
 
-    partOut = FALSE;
-    partIn = FALSE;
+    partOut = false;
+    partIn = false;
 
-    /* can stop when both partOut and partIn are TRUE, or we reach prect->y2 */
+    /* can stop when both partOut and partIn are true, or we reach prect->y2 */
     for (pbox = region->rects, pboxEnd = pbox + region->numRects;
 	 pbox < pboxEnd;
 	 pbox++)
@@ -1558,7 +1558,7 @@ XRectInRegion(
 
 	if (pbox->y1 > ry)
 	{
-	   partOut = TRUE;	/* missed part of rectangle above */
+	   partOut = true;	/* missed part of rectangle above */
 	   if (partIn || (pbox->y1 >= prect->y2))
 	      break;
 	   ry = pbox->y1;	/* x guaranteed to be == prect->x1 */
@@ -1569,14 +1569,14 @@ XRectInRegion(
 
 	if (pbox->x1 > rx)
 	{
-	   partOut = TRUE;	/* missed part of rectangle to left */
+	   partOut = true;	/* missed part of rectangle to left */
 	   if (partIn)
 	      break;
 	}
 
 	if (pbox->x1 < prect->x2)
 	{
-	    partIn = TRUE;	/* definitely overlap */
+	    partIn = true;	/* definitely overlap */
 	    if (partOut)
 	       break;
 	}

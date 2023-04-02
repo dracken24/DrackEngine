@@ -44,7 +44,7 @@ XQueryKeymap(
     LockDisplay(dpy);
     GetEmptyReq(QueryKeymap, req);
     (void) _XReply(dpy, (xReply *)&rep,
-       (SIZEOF(xQueryKeymapReply) - SIZEOF(xReply)) >> 2, xTrue);
+       (SIZEOF(xQueryKeymapReply) - SIZEOF(xReply)) >> 2, xtrue);
     *(struct kmap *) keys = *(struct kmap *)rep.map;  /* faster than memcpy */
     UnlockDisplay(dpy);
     SyncHandle();

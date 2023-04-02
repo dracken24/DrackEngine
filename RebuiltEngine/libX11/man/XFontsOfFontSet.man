@@ -163,27 +163,27 @@ Until freed, it will not be modified by Xlib.
 The
 .B XContextDependentDrawing
 function returns
-.B True
+.B true
 if the drawing functions implement implicit text directionality or
 if text drawn with the font_set might include context-dependent drawing;
 otherwise, it returns
-.BR False .
+.BR false .
 .LP
 The
 .B XContextualDrawing
 function returns
-.B True
+.B true
 if text drawn with the font set might include context-dependent drawing;
 otherwise, it returns
-.BR False .
+.BR false .
 .LP
 The
 .B XDirectionalDependentDrawing
 function returns
-.B True
+.B true
 if the drawing functions implement implicit text directionality;
 otherwise, it returns
-.BR False .
+.BR false .
 .SH "SEE ALSO"
 XCreateFontSet(__libmansuffix__),
 XCreateOM(__libmansuffix__),

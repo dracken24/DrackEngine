@@ -65,9 +65,9 @@ in this Software without prior written authorization from The Open Group.
 #define NUM_FREE_CVLS 4
 
 /* in lcWrap.c */
-extern LockInfoPtr _Xi18n_lock;
+extern LocDE_INFOPtr _Xi18n_lock;
 /* in lcConv.c */
-extern LockInfoPtr _conv_lock;
+extern LocDE_INFOPtr _conv_lock;
 
 #ifdef WIN32
 static DWORD _X_TlsIndex = (DWORD)-1;
@@ -98,12 +98,12 @@ static xthread_t _Xthread_self(void)
     return xthread_self();
 }
 
-static LockInfoRec global_lock;
-static LockInfoRec i18n_lock;
-static LockInfoRec conv_lock;
+static LocDE_INFORec global_lock;
+static LocDE_INFORec i18n_lock;
+static LocDE_INFORec conv_lock;
 
 static void _XLockMutex(
-    LockInfoPtr lip
+    LocDE_INFOPtr lip
     XTHREADS_FILE_LINE_ARGS
     )
 {
@@ -111,7 +111,7 @@ static void _XLockMutex(
 }
 
 static void _XUnlockMutex(
-    LockInfoPtr lip
+    LocDE_INFOPtr lip
     XTHREADS_FILE_LINE_ARGS
     )
 {
@@ -119,7 +119,7 @@ static void _XUnlockMutex(
 }
 
 static void _XCreateMutex(
-    LockInfoPtr lip)
+    LocDE_INFOPtr lip)
 {
     lip->lock = xmutex_malloc();
     if (lip->lock) {
@@ -129,7 +129,7 @@ static void _XCreateMutex(
 }
 
 static void _XFreeMutex(
-    LockInfoPtr lip)
+    LocDE_INFOPtr lip)
 {
     xmutex_clear(lip->lock);
     xmutex_free(lip->lock);
@@ -140,13 +140,13 @@ static void _XFreeMutex(
 static char *locking_file;
 static int locking_line;
 static xthread_t locking_thread;
-static Bool xlibint_unlock = False; /* XlibInt.c may Unlock and re-Lock */
+static Bool xlibint_unlock = false; /* XlibInt.c may Unlock and re-Lock */
 
 /* history that is useful to examine in a debugger */
 #define LOCK_HIST_SIZE 21
 
 static struct {
-    Bool lockp;			/* True for lock, False for unlock */
+    Bool lockp;			/* true for lock, false for unlock */
     xthread_t thread;
     char *file;
     int line;
@@ -182,7 +182,7 @@ static void _XLockDisplayWarn(
 	if (!xlibint_unlock)
 	    printf("Xlib ERROR: XlibInt.c line %d thread %x locking display it did not unlock\n",
 		   line, self);
-	xlibint_unlock = False;
+	xlibint_unlock = false;
     }
 
 #ifdef XTHREADS_DEBUG
@@ -199,7 +199,7 @@ static void _XLockDisplayWarn(
     locking_history[lock_hist_loc].file = file;
     locking_history[lock_hist_loc].line = line;
     locking_history[lock_hist_loc].thread = self;
-    locking_history[lock_hist_loc].lockp = True;
+    locking_history[lock_hist_loc].lockp = true;
     lock_hist_loc++;
     if (lock_hist_loc >= LOCK_HIST_SIZE)
 	lock_hist_loc = 0;
@@ -223,7 +223,7 @@ static void _XUnlockDisplay(
 	printf("Xlib ERROR: %s line %d thread %x: unlocking display that is not locked\n",
 	       file, line, self);
     else if (strcmp(file, "XlibInt.c") == 0)
-	xlibint_unlock = True;
+	xlibint_unlock = true;
 #ifdef XTHREADS_DEBUG
     else if (strcmp(file, locking_file) != 0)
 	/* not always an error because locking_file is not per-thread */
@@ -235,7 +235,7 @@ static void _XUnlockDisplay(
     locking_history[lock_hist_loc].file = file;
     locking_history[lock_hist_loc].line = line;
     locking_history[lock_hist_loc].thread = self;
-    locking_history[lock_hist_loc].lockp = False;
+    locking_history[lock_hist_loc].lockp = false;
     lock_hist_loc++;
     if (lock_hist_loc >= LOCK_HIST_SIZE)
 	lock_hist_loc = 0;
@@ -350,7 +350,7 @@ static void _XConditionWait(
     locking_history[lock_hist_loc].file = file;
     locking_history[lock_hist_loc].line = line;
     locking_history[lock_hist_loc].thread = self;
-    locking_history[lock_hist_loc].lockp = False;
+    locking_history[lock_hist_loc].lockp = false;
     lock_hist_loc++;
     if (lock_hist_loc >= LOCK_HIST_SIZE)
 	lock_hist_loc = 0;
@@ -366,7 +366,7 @@ static void _XConditionWait(
     locking_history[lock_hist_loc].file = file;
     locking_history[lock_hist_loc].line = line;
     locking_history[lock_hist_loc].thread = self;
-    locking_history[lock_hist_loc].lockp = True;
+    locking_history[lock_hist_loc].lockp = true;
     lock_hist_loc++;
     if (lock_hist_loc >= LOCK_HIST_SIZE)
 	lock_hist_loc = 0;
@@ -539,7 +539,7 @@ static int _XInitDisplayLock(
     dpy->lock_fns = Xmalloc(sizeof(struct _XLockPtrs));
     if (dpy->lock_fns == NULL)
 	return -1;
-    dpy->lock = Xmalloc(sizeof(struct _XLockInfo));
+    dpy->lock = Xmalloc(sizeof(struct _XLocDE_INFO));
     if (dpy->lock == NULL) {
 	_XFreeDisplayLock(dpy);
 	return -1;
@@ -553,12 +553,12 @@ static int _XInitDisplayLock(
     }
 
     dpy->lock->reply_bytes_left = 0;
-    dpy->lock->reply_was_read = False;
+    dpy->lock->reply_was_read = false;
     dpy->lock->reply_awaiters = NULL;
     dpy->lock->reply_awaiters_tail = &dpy->lock->reply_awaiters;
     dpy->lock->event_awaiters = NULL;
     dpy->lock->event_awaiters_tail = &dpy->lock->event_awaiters;
-    dpy->lock->reply_first = False;
+    dpy->lock->reply_first = false;
     dpy->lock->locking_level = 0;
     dpy->lock->num_free_cvls = 0;
     dpy->lock->free_cvls = NULL;

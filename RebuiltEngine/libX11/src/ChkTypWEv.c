@@ -61,7 +61,7 @@ Bool XCheckTypedWindowEvent (
 		    _XDeq(dpy, prev, qelt);
 		    _XStoreEventCookie(dpy, event);
 		    UnlockDisplay(dpy);
-		    return True;
+		    return true;
 		}
 	    }
 	    if (prev)
@@ -79,5 +79,5 @@ Bool XCheckTypedWindowEvent (
 		prev = NULL;
 	}
 	UnlockDisplay(dpy);
-	return False;
+	return false;
 }

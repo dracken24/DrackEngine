@@ -50,7 +50,7 @@ int XGetPointerMapping (
 
     LockDisplay(dpy);
     GetEmptyReq(GetPointerMapping, req);
-    if (! _XReply(dpy, (xReply *)&rep, 0, xFalse)) {
+    if (! _XReply(dpy, (xReply *)&rep, 0, xfalse)) {
 	UnlockDisplay(dpy);
 	SyncHandle();
 	return 0;
@@ -104,7 +104,7 @@ XGetKeyboardMapping (Display *dpy,
     GetReq(GetKeyboardMapping, req);
     req->firstKeyCode = first_keycode;
     req->count = count;
-    if (! _XReply(dpy, (xReply *)&rep, 0, xFalse)) {
+    if (! _XReply(dpy, (xReply *)&rep, 0, xfalse)) {
 	UnlockDisplay(dpy);
 	SyncHandle();
 	return (KeySym *) NULL;

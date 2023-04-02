@@ -53,12 +53,12 @@ Status XTextPropertyToStringList (
     /*
      * make sure we understand how to do it
      */
-    if (tp->encoding != XA_STRING ||  tp->format != 8) return False;
+    if (tp->encoding != XA_STRING ||  tp->format != 8) return false;
 
     if (datalen == 0) {
 	*list_return = NULL;
 	*count_return = 0;
-	return True;
+	return true;
     }
 
     /*
@@ -73,12 +73,12 @@ Status XTextPropertyToStringList (
      * allocate list and duplicate
      */
     list = Xmallocarray (nelements, sizeof (char *));
-    if (!list) return False;
+    if (!list) return false;
 
     start = Xmalloc ((datalen + 1) * sizeof (char));	/* for <NUL> */
     if (!start) {
 	Xfree (list);
-	return False;
+	return false;
     }
 
     /*
@@ -103,7 +103,7 @@ Status XTextPropertyToStringList (
      */
     *list_return = list;
     *count_return = nelements;
-    return True;
+    return true;
 }
 
 

@@ -45,7 +45,7 @@ index in xkb->map->types of type to change
 total # of map entries needed for the type
 .TP
 .I want_preserve
-True => list of preserved modifiers is necessary
+true => list of preserved modifiers is necessary
 .TP
 .I new_num_lvls
 new max # of levels for type
@@ -85,13 +85,13 @@ parameter specifies whether a
 .I preserve 
 list for the key should be created. If 
 .I want_preserve 
-is True, the 
+is true, the 
 .I preserve 
 list with 
 .I map_count 
 entries is allocated or reallocated if it already exists. Otherwise, if
 .I want_preserve 
-is False, the 
+is false, the 
 .I preserve 
 field is freed if necessary and set to NULL.
 

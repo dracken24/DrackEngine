@@ -66,7 +66,7 @@ field specifies which bits in the
 .I enabled_ctrls 
 field have changed. If the number of keyboard groups has changed, the 
 .I num_groups_changed 
-field is set to True.
+field is set to true.
 
 Table 1 shows the actual values for the individual mask bits used to select 
 controls for 
@@ -304,7 +304,7 @@ The XkbControlsChangesRec structure is defined as follows:
 typedef struct _XkbControlsChanges {
     unsigned int  changed_ctrls;         /\&* bits indicating changed control data */
     unsigned int  enabled_ctrls_changes; /\&* bits indicating enabled/disabled controls */
-    Bool          num_groups_changed;    /\&* True if number of keyboard groups changed */
+    Bool          num_groups_changed;    /\&* true if number of keyboard groups changed */
 } XkbControlsChangesRec,*XkbControlsChangesPtr;
 
 .fi

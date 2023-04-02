@@ -472,9 +472,9 @@ but not selected by
 <parameter>values</parameter>.
 <function>XkbLockModifiers</function>
 does not wait for a reply from the server. It returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the request was sent, and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -554,9 +554,9 @@ but not selected by
 <parameter>values</parameter>.
 <function>XkbLatchModifiers</function>
 does not wait for a reply from the server. It returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the request was sent, and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -661,9 +661,9 @@ To lock the keysym group, use
 sends a request to the server to lock the specified
 <parameter>group</parameter>
 and does not wait for a reply. It returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the request was sent and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -723,9 +723,9 @@ To latch the keysym group, use
 <para>
 <function>XkbLatchGroup</function>
 sends a request to the server to latch the specified group and does not wait for a reply. It returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the request was sent and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -984,7 +984,7 @@ events is:
 typedef struct {
     int            type;            /* Xkb extension base event code */
     unsigned long  serial;          /* X server serial number for event */
-    Bool           send_event;      /* <symbol>True</symbol> &rArr; synthetically generated */
+    Bool           send_event;      /* <symbol>true</symbol> &rArr; synthetically generated */
     Display *      display;         /* server connection where event generated */
     Time           time;            /* server time when event generated */
     int            xkb_type;        /* <symbol>XkbStateNotify</symbol> */

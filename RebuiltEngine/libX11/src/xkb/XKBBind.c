@@ -283,7 +283,7 @@ XkbTranslateKeyCode(register XkbDescPtr xkb,
     if ((!XkbKeycodeInRange(xkb, key)) || (nKeyGroups == 0)) {
         if (keysym_rtrn != NULL)
             *keysym_rtrn = NoSymbol;
-        return False;
+        return false;
     }
 
     syms = XkbKeySymsPtr(xkb, key);
@@ -558,7 +558,7 @@ _XkbReloadDpy(Display *dpy)
     LockDisplay(dpy);
     if (xkbi->desc) {
         oldDeviceID = xkbi->desc->device_spec;
-        XkbFreeKeyboard(xkbi->desc, XkbAllComponentsMask, True);
+        XkbFreeKeyboard(xkbi->desc, XkbAllComponentsMask, true);
         xkbi->desc = NULL;
         xkbi->flags &= ~(XkbMapPending | XkbXlibNewKeyboard);
         xkbi->changes.changed = 0;

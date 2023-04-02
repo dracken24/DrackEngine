@@ -48,7 +48,7 @@ static XGCValues const initial_GC = {
     0,		/* ts_y_origin */
     (Font)~0L,	/* font, impossible (unknown) resource */
     ClipByChildren, /* subwindow_mode */
-    True,	/* graphics_exposures */
+    true,	/* graphics_exposures */
     0,		/* clip_x_origin */
     0,		/* clip_y_origin */
     None,	/* clip_mask */
@@ -302,7 +302,7 @@ _XUpdateGCCache (
 	  }
 
     if (mask & GCDashList)
-        if ((gv->dashes != attr->dashes) || (gc->dashes == True)) {
+        if ((gv->dashes != attr->dashes) || (gc->dashes == true)) {
             gv->dashes = attr->dashes;
 	    gc->dirty |= GCDashList;
 	    gc->dashes = 0;

@@ -40,7 +40,7 @@ Xkb description in which to free controls components
 mask of components of ctrls to free
 .TP
 .I free_all
-True => free everything + ctrls itself
+true => free everything + ctrls itself
 .SH DESCRIPTION
 .LP
 .I XkbFreeControls 
@@ -102,7 +102,7 @@ XkbAllControlsMask	ok		(0xF8001FFF)
 
 If 
 .I free_all 
-is True, 
+is true, 
 .I XkbFreeControls 
 frees every non-NULL structure component in the controls, frees the XkbControlsRec structure referenced by the 
 .I ctrls 

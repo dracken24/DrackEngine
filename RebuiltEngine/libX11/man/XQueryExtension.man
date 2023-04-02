@@ -45,7 +45,7 @@ Specifies the list of extension names.
 The \fIXQueryExtension\fP function determines if the named extension is
 present.
 If the extension is not present, \fIXQueryExtension\fP returns
-\fIFalse\fP; otherwise, it returns \fITrue\fP.  If the extension is present,
+\fIfalse\fP; otherwise, it returns \fItrue\fP.  If the extension is present,
 \fIXQueryExtension\fP returns the major opcode for the extension to
 major_opcode_return; otherwise, it returns zero.
 Any minor opcode and the

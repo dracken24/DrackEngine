@@ -43,7 +43,7 @@ Status XFetchName (
     unsigned long nitems;
     unsigned long leftover;
     unsigned char *data = NULL;
-    if (XGetWindowProperty(dpy, w, XA_WM_NAME, 0L, (long)BUFSIZ, False, XA_STRING,
+    if (XGetWindowProperty(dpy, w, XA_WM_NAME, 0L, (long)BUFSIZ, false, XA_STRING,
 	&actual_type,
 	&actual_format, &nitems, &leftover, &data) != Success) {
         *name = NULL;
@@ -73,7 +73,7 @@ Status XGetIconName (
     unsigned long nitems;
     unsigned long leftover;
     unsigned char *data = NULL;
-    if (XGetWindowProperty(dpy, w, XA_WM_ICON_NAME, 0L, (long)BUFSIZ, False,
+    if (XGetWindowProperty(dpy, w, XA_WM_ICON_NAME, 0L, (long)BUFSIZ, false,
         XA_STRING,
 	&actual_type,
 	&actual_format, &nitems, &leftover, &data) != Success) {

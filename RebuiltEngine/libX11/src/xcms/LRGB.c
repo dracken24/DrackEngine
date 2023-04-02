@@ -464,8 +464,8 @@ LINEAR_RGB_InitSCCData(
  *
  */
 {
-    Atom  CorrectAtom = XInternAtom (dpy, XDCCC_CORRECT_ATOM_NAME, True);
-    Atom  MatrixAtom  = XInternAtom (dpy, XDCCC_MATRIX_ATOM_NAME, True);
+    Atom  CorrectAtom = XInternAtom (dpy, XDCCC_CORRECT_ATOM_NAME, true);
+    Atom  MatrixAtom  = XInternAtom (dpy, XDCCC_MATRIX_ATOM_NAME, true);
     int	  format_return, count, cType, nTables;
     unsigned long nitems, nbytes_return;
     char *property_return, *pChar;

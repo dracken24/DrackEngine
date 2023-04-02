@@ -68,7 +68,7 @@ Status XGetTextProperty (
     unsigned long nitems = 0L, leftover = 0L;
     unsigned char *prop = NULL;
 
-    if (XGetWindowProperty (display, window, property, 0L, 1000000L, False,
+    if (XGetWindowProperty (display, window, property, 0L, 1000000L, false,
 			    AnyPropertyType, &actual_type, &actual_format,
 			    &nitems, &leftover, &prop) == Success &&
 	actual_type != None) {
@@ -77,14 +77,14 @@ Status XGetTextProperty (
 	tp->encoding = actual_type;
 	tp->format = actual_format;
 	tp->nitems = nitems;
-	return True;
+	return true;
     }
 
     tp->value = NULL;
     tp->encoding = None;
     tp->format = 0;
     tp->nitems = 0;
-    return False;
+    return false;
 }
 
 Status XGetWMName (

@@ -148,10 +148,10 @@ static Bool	    _XcursorModuleTried;
     _XLockMutex (_Xglobal_lock); \
     if (!been_here) \
     { \
-	been_here = True; \
+	been_here = true; \
 	if (!_XcursorModuleTried) \
 	{ \
-	    _XcursorModuleTried = True; \
+	    _XcursorModuleTried = true; \
 	    _XcursorModule = open_library (); \
 	} \
 	if (_XcursorModule) \

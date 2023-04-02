@@ -66,7 +66,7 @@ XGetWindowProperty(
     req->longLength = length;
     error.sequenceNumber = dpy->request;
 
-    if (!_XReply (dpy, (xReply *) &reply, 0, xFalse)) {
+    if (!_XReply (dpy, (xReply *) &reply, 0, xfalse)) {
 	UnlockDisplay(dpy);
 	SyncHandle();
 	return (1);	/* not Success */

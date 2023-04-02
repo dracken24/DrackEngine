@@ -536,11 +536,11 @@ XOpenDisplay (
 	    req->window = RootWindow(dpy, 0);
 	    req->property = XA_RESOURCE_MANAGER;
 	    req->type = XA_STRING;
-	    req->delete = False;
+	    req->delete = false;
 	    req->longOffset = 0;
 	    req->longLength = 100000000L;
 
-	    if (_XReply (dpy, (xReply *) &reply, 0, xFalse)) {
+	    if (_XReply (dpy, (xReply *) &reply, 0, xfalse)) {
 		if (reply.format == 8 && reply.propertyType == XA_STRING &&
 		    (reply.nItems + 1 > 0) &&
 		    (reply.nItems <= req->longLength * 4) &&

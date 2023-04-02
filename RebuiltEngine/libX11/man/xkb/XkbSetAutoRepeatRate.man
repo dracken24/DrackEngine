@@ -71,7 +71,7 @@ and
 .I interval.
  
 .I XkbSetAutoRepeatRate 
-does not wait for a reply; it normally returns True. Specifying a zero value for 
+does not wait for a reply; it normally returns true. Specifying a zero value for 
 either 
 .I timeout 
 or 
@@ -79,18 +79,18 @@ or
 causes the server to generate a BadValue protocol error. If a compatible version 
 of the Xkb extension is not available in the server, 
 .I XkbSetAutoRepeatRate 
-returns False.
+returns false.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbSetAutoRepeatRate 
-function returns True normally.
+function returns true normally.
 .TP 15
-False
+false
 The 
 .I XkbSetAutoRepeatRate 
-function returns False if a compatible version of the Xkb extension is not 
+function returns false if a compatible version of the Xkb extension is not 
 available in the server.
 .SH DIAGNOSTICS
 .TP 15

@@ -41,7 +41,7 @@ keyboard description to be updated
 symbol interpretation to be added
 .TP
 .I updateMap
-True=>apply compatibility map to keys
+true=>apply compatibility map to keys
 .TP
 .I changes
 changes are put here 
@@ -54,12 +54,12 @@ to the list of symbol interpretations in
 .I xkb. 
 If 
 .I updateMap 
-is True, it (re)applies the compatibility map to all of the keys on the 
+is true, it (re)applies the compatibility map to all of the keys on the 
 keyboard. If 
 .I changes 
 is non-NULL, it reports the parts of the keyboard that were affected (unless
 .I updateMap 
-is True, not much changes). 
+is true, not much changes). 
 .I XkbAddSymInterpret 
 returns a pointer to the actual new symbol interpretation in the list or NULL if 
 it failed.

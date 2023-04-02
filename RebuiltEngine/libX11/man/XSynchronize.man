@@ -68,11 +68,11 @@ The
 function returns
 the previous after function.
 If onoff is
-.BR True ,
+.BR true ,
 .B XSynchronize
 turns on synchronous behavior.
 If onoff is
-.BR False ,
+.BR false ,
 .B XSynchronize
 turns off synchronous behavior.
 .LP

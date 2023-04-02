@@ -40,7 +40,7 @@ keyboard description for which names are to be freed
 mask of names components to be freed
 .TP
 .I free_map
-True => XkbNamesRec structure itself should be freed
+true => XkbNamesRec structure itself should be freed
 .SH DESCRIPTION
 .LP
 Do not free symbolic names structures directly using 

@@ -104,7 +104,7 @@ typedef struct {                     /* Key Type */
 
 <programlisting>
 typedef struct {                     /* Modifiers for a key type */
-    Bool              active;        /* <symbol>True</symbol> &rArr; entry active when
+    Bool              active;        /* <symbol>true</symbol> &rArr; entry active when
                                         determining shift level */
     unsigned char     level;         /* shift level if modifiers match <structfield>mods</structfield> */
     XkbModsRec        mods;          /* mods needed for this level to be
@@ -172,13 +172,13 @@ field determines whether the modifier combination listed in the
 field should be considered when determining shift level. If
 <structfield>active</structfield>
 is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 this
 <structfield>map</structfield>
 entry is ignored. If
 <structfield>active</structfield>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the
 <structfield>level</structfield>
 field of the
@@ -913,7 +913,7 @@ To change the number of levels in a key type, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol>
+        <symbol>true</symbol>
          &rArr; list of preserved modifiers is necessary
       </para>
     </listitem>
@@ -975,7 +975,7 @@ parameter specifies whether a
 list for the key should be created. If
 <parameter>want_preserve</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the
 <structfield>preserve</structfield>
 list with
@@ -983,7 +983,7 @@ list with
 entries is allocated or reallocated if it already exists. Otherwise, if
 <parameter>want_preserve</parameter>
 is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the
 <structfield>preserve</structfield>
 field is freed if necessary and set to

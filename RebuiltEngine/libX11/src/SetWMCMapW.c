@@ -65,10 +65,10 @@ Status XSetWMColormapWindows (
 {
     Atom prop;
 
-    prop = XInternAtom (dpy, "WM_COLORMAP_WINDOWS", False);
-    if (prop == None) return False;
+    prop = XInternAtom (dpy, "WM_COLORMAP_WINDOWS", false);
+    if (prop == None) return false;
 
     XChangeProperty (dpy, w, prop, XA_WINDOW, 32,
 		     PropModeReplace, (unsigned char *) windows, count);
-    return True;
+    return true;
 }

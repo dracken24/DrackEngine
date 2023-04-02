@@ -513,15 +513,15 @@ parseline(
 	    token = nexttoken(fp, tokenbuf, &lastch);
 	} else {
 	    modifier_mask = modifier = 0;
-	    exclam = False;
+	    exclam = false;
 	    if (token == EXCLAM) {
-		exclam = True;
+		exclam = true;
 		token = nexttoken(fp, tokenbuf, &lastch);
 	    }
 	    while (token == TILDE || token == KEY) {
-		tilde = False;
+		tilde = false;
 		if (token == TILDE) {
-		    tilde = True;
+		    tilde = true;
 		    token = nexttoken(fp, tokenbuf, &lastch);
 		    if (token != KEY)
 			goto error;

@@ -33,8 +33,8 @@ in this Software without prior written authorization from The Open Group.
 
 /*
  * XStringListToTextProperty - fill in TextProperty structure with
- * concatenated list of null-separated strings.  Return True if successful
- * else False.  Allocate room on end for trailing NULL, but don't include in
+ * concatenated list of null-separated strings.  Return true if successful
+ * else false.  Allocate room on end for trailing NULL, but don't include in
  * count.
  */
 
@@ -64,7 +64,7 @@ Status XStringListToTextProperty (
     /* build concatenated list of strings */
     if (nbytes > 0) {
 	register char *buf = Xmalloc (nbytes);
-	if (!buf) return False;
+	if (!buf) return false;
 
 	proto.value = (unsigned char *) buf;
 	for (i = 0; i < argc; i++) {
@@ -79,12 +79,12 @@ Status XStringListToTextProperty (
 	}
     } else {
 	proto.value = Xmalloc (1);		/* easier for client */
-	if (!proto.value) return False;
+	if (!proto.value) return false;
 
 	proto.value[0] = '\0';
     }
 
     /* we were successful, so set return value */
     *textprop = proto;
-    return True;
+    return true;
 }

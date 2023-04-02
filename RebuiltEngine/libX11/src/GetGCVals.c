@@ -55,10 +55,10 @@ Status XGetGCValues (
 	*values = gc->values;
 	values->dashes = dashes;
 	values->clip_mask = clip_mask;
-	return True;
+	return true;
     }
 
-    if (valuemask & ~ValidGCValuesBits) return False;
+    if (valuemask & ~ValidGCValuesBits) return false;
 
     if (valuemask & GCFunction)
       values->function = gc->values.function;
@@ -124,5 +124,5 @@ Status XGetGCValues (
     if (valuemask & GCArcMode)
       values->arc_mode = gc->values.arc_mode;
 
-    return True;
+    return true;
 }

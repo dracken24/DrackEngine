@@ -83,7 +83,7 @@ The override_redirect member returned in this event is
 set to the window's corresponding attribute.
 Window manager clients usually should ignore this window if this member
 is set to
-.BR True .
+.BR true .
 Finally, if the specified window was originally mapped,
 the X server automatically performs a
 .B MapWindow

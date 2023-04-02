@@ -45,10 +45,10 @@ Bool XQueryPointer(
 
     LockDisplay(dpy);
     GetResReq(QueryPointer, w, req);
-    if (_XReply (dpy, (xReply *)&rep, 0, xTrue) == 0) {
+    if (_XReply (dpy, (xReply *)&rep, 0, xtrue) == 0) {
 	    UnlockDisplay(dpy);
 	    SyncHandle();
-	    return(False);
+	    return(false);
 	}
 
     *root = rep.root;

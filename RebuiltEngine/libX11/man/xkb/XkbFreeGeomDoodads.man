@@ -39,7 +39,7 @@ doodads to be freed
 number of doodads to be freed
 .TP
 .I free_all
-True => all doodads are freed
+true => all doodads are freed
 .SH DESCRIPTION
 .LP
 Xkb provides a number of functions to allocate and free subcomponents of a 
@@ -59,7 +59,7 @@ not able to allocate space, or BadValue if a parameter is not as expected.
 
 If 
 .I free_all 
-is True, all doodads in the array are freed, regardless of the value of 
+is true, all doodads in the array are freed, regardless of the value of 
 .I count. 
 Otherwise, 
 .I count 

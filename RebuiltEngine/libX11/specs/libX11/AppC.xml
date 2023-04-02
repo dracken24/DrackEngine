@@ -101,9 +101,9 @@ function determines if the named extension is present.
 If the extension is not present,
 <xref linkend='XQueryExtension' xrefstyle='select: title'/>
 returns
-<symbol>False</symbol>;
+<symbol>false</symbol>;
 otherwise, it returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 If the extension is present,
 <xref linkend='XQueryExtension' xrefstyle='select: title'/>
 returns the major opcode for the extension to major_opcode_return;
@@ -924,9 +924,9 @@ structure (wire format) to the
 <structname>XEvent</structname>
 structure (host format).
 Your conversion procedure should return 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the event should be placed in the queue or
-<symbol>False</symbol>
+<symbol>false</symbol>
 if it should not be placed in the queue.
 </para>
 <para>
@@ -1161,9 +1161,9 @@ If the error is to be completely ignored by Xlib
 (for example, several protocol error structures will be combined into
 one Xlib error),
 then the function should return
-<symbol>False</symbol>;
+<symbol>false</symbol>;
 otherwise, it should return
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 <indexterm significance="preferred"><primary>XESetError</primary></indexterm>
 <!-- .sM -->
@@ -2689,11 +2689,11 @@ which have longer replies.
 <para>
 <!-- .LP -->
 The last argument should be 
-<symbol>False</symbol>
+<symbol>false</symbol>
 if the reply structure is followed
 by additional variable-length data (such as a list or string).  
 It should be 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if there is not any variable-length data.
 <!-- .NT -->
 This last argument is provided for upward-compatibility reasons
@@ -2708,9 +2708,9 @@ that contains additional attribute data at the end.
 <!-- .NE -->
 <xref linkend='_XReply' xrefstyle='select: title'/>
 returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if it received a reply successfully or 
-<symbol>False</symbol>
+<symbol>false</symbol>
 if it received any sort of error. 
 </para>
 <para>
@@ -2722,7 +2722,7 @@ data, you write something like:
 <!-- .LP -->
 <!-- .R -->
 <programlisting>
-_XReply(display, (xReply *)&amp;rep, 0, True);
+_XReply(display, (xReply *)&amp;rep, 0, true);
 *ret1 = rep.ret1;
 *ret2 = rep.ret2;
 *ret3 = rep.ret3;
@@ -2734,9 +2734,9 @@ return (rep.ret4);
 </programlisting>
 If there is variable-length data after the reply, 
 change the 
-<symbol>True</symbol>
+<symbol>true</symbol>
 to 
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 and use the appropriate
 <xref linkend='_XRead' xrefstyle='select: title'/>
 function to read the variable-length data.

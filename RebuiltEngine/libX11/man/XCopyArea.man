@@ -116,19 +116,19 @@ of the destination are tiled with that background
 function).
 Regardless of tiling or whether the destination is a window or a pixmap,
 if graphics-exposures is
-.BR True ,
+.BR true ,
 then
 .B GraphicsExpose
 events for all corresponding destination regions are generated.
 If graphics-exposures is
-.B True
+.B true
 but no
 .B GraphicsExpose
 events are generated, a
 .B NoExpose
 event is generated.
 Note that by default graphics-exposures is
-.B True
+.B true
 in new GCs.
 .LP
 This function uses these GC components: function, plane-mask,

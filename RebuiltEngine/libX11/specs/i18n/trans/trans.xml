@@ -7,7 +7,7 @@
 
 <book id="trans">
 
-<bookinfo>
+<booDE_INFO>
    <title>The XIM Transport Specification</title>
    <subtitle>Revision 0.1</subtitle>
    <releaseinfo>X Version 11, Release &fullrelvers;</releaseinfo>
@@ -73,7 +73,7 @@ this Software without prior written authorization from the X Consortium.
 <para>X Window System is a trademark of The Open Group.</para>
 
 </legalnotice>
-</bookinfo>
+</booDE_INFO>
 
 <chapter id='X_Transport_Specification'>
 <title>X Transport Specification</title>
@@ -244,7 +244,7 @@ appropriate transporter functions.
 
 <para>
 If the specified transporter has been configured successfully, this
-function returns True. There is no Alternative Entry for config
+function returns true. There is no Alternative Entry for config
 function itself.
 </para>
 
@@ -367,7 +367,7 @@ Specifies XIM structure address.
 
 <para>
 This function must establishes the connection to the IM Server. If the
-connection is established successfully, this function returns True.
+connection is established successfully, this function returns true.
 The Alternative Entry for this function is:
 </para>
 
@@ -427,7 +427,7 @@ Specifies XIM structure address.
 <para>
 <!-- .LP -->
 This function must close connection with the IM Server. If the
-connection is closed successfully, this function returns True. The
+connection is closed successfully, this function returns true. The
 Alternative Entry for this function is:
 </para>
 
@@ -506,7 +506,7 @@ Specifies the writing data.
 This function writes the <emphasis remap='I'>data</emphasis> to the IM Server, regardless
 of the contents.  The number of bytes is passed to <emphasis remap='I'>len</emphasis>. The
 writing data is passed to <emphasis remap='I'>data</emphasis>. If data is sent successfully,
-the function returns True. Refer to "The Input Method Protocol" for
+the function returns true. Refer to "The Input Method Protocol" for
 the contents of the writing data. The Alternative Entry for this
 function is:
 </para>
@@ -617,7 +617,7 @@ Specifies the length of stored data.
 <para>
 This function stores the read data in <emphasis remap='I'>read_buf</emphasis>, which size is
 specified as <emphasis remap='I'>buf_len</emphasis>. The size of data is set to <emphasis remap='I'>ret_len</emphasis>.
-This function return True, if the data is read normally or reading
+This function return true, if the data is read normally or reading
 data is completed.
 </para>
 <para>
@@ -706,7 +706,7 @@ XIM or not. <emphasis remap='I'>len</emphasis>
 This function stores the read data in <emphasis remap='I'>buf</emphasis>, which size
 is specified as <emphasis remap='I'>buf_len</emphasis>. The size of data is set to
 <emphasis remap='I'>ret_len</emphasis>.  If <emphasis remap='I'>preedicate()</emphasis>
-returns True, this function returns True.  If not, it calls the registered callback function.
+returns true, this function returns true.  If not, it calls the registered callback function.
 </para>
 
 <para>
@@ -797,7 +797,7 @@ Specifies XIM structure address.
 <para>
 This function must flush the data stored in internal buffer on the
 transport layer. If data transfer is completed, the function returns
-True.  The Alternative Entry for this function is:
+true.  The Alternative Entry for this function is:
 </para>
 
 <funcsynopsis id='_XimFlush'>
@@ -946,11 +946,11 @@ Specifies a parameter passed to the register_dispatcher.
 <para>
 The dispatcher is provided by the protocol layer. They are called once
 for every asynchronous data, in order of registration. If the data is
-used, it must return True. otherwise, it must return False.
+used, it must return true. otherwise, it must return false.
 </para>
 
 <para>
-If the dispatcher function returns True, the Transport Layer assume
+If the dispatcher function returns true, the Transport Layer assume
 that the data has been processed by the upper layer.  The Alternative
 Entry for this function is:
 </para>
@@ -1055,7 +1055,7 @@ register_dispatcher.
 
 <para>
 The return values are checked at each invocation, and if it finds
-True, it immediately return with true for its return value.
+true, it immediately return with true for its return value.
 </para>
 
 <para>
@@ -1428,7 +1428,7 @@ If data is sent via ClientMessage event, the format is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_MOREDATA", False)</entry>
+      <entry>XInternAtom(display, "_XIM_MOREDATA", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -1489,7 +1489,7 @@ If data is sent via ClientMessage event, the format is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_PROTOCOL", False)</entry>
+      <entry>XInternAtom(display, "_XIM_PROTOCOL", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -1603,7 +1603,7 @@ The arguments of the XChangeProperty are as follows:
 
 <para>
 The client changes the property with the mode of PropModeAppend and
-the IM Server will read it with the delete mode i.e. (delete = True).
+the IM Server will read it with the delete mode i.e. (delete = true).
 </para>
 
 <para>
@@ -1654,7 +1654,7 @@ is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_PROTOCOL", False)</entry>
+      <entry>XInternAtom(display, "_XIM_PROTOCOL", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -1729,7 +1729,7 @@ The format of the ClientMessage is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_MOREDATA", False)</entry>
+      <entry>XInternAtom(display, "_XIM_MOREDATA", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -1792,7 +1792,7 @@ The format of the ClientMessage is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_PROTOCOL", False)</entry>
+      <entry>XInternAtom(display, "_XIM_PROTOCOL", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -1905,7 +1905,7 @@ allocated by the client, by <olink targetdoc='libX11' targetptr='XInternAtom'><f
 
 <para>
 The IM Server changes the property with the mode of PropModeAppend and
-the client reads it with the delete mode, i.e. (delete = True).
+the client reads it with the delete mode, i.e. (delete = true).
 </para>
 
 <para>
@@ -1956,7 +1956,7 @@ is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_PROTOCOL", False)</entry>
+      <entry>XInternAtom(display, "_XIM_PROTOCOL", false)</entry>
     </row>
     <row>
       <entry>int</entry>

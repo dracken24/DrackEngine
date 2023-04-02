@@ -883,8 +883,8 @@ typedef struct _XkbRow {           /* row in a section */
                                       relative to section’s origin */
     unsigned short      num_keys;  /* number of keys in the keys array */
     unsigned short      sz_keys;   /* size of the keys array */
-    int                 vertical;  /* <symbol>True</symbol> &rArr;vertical row,
-                                      <symbol>False</symbol> &rArr;horizontal row */
+    int                 vertical;  /* <symbol>true</symbol> &rArr;vertical row,
+                                      <symbol>false</symbol> &rArr;horizontal row */
     XkbKeyPtr           keys;      /* array of keys in the row */
     XkbBoundsRec        bounds;    /* bounding box for the row */
 } <structname>XkbRowRec</structname>, *XkbRowPtr;
@@ -1317,13 +1317,13 @@ the top surface is defined as the last outline in the
 array of outlines.
 <function>XkbComputeShapeTop</function>
 returns
-<symbol>False</symbol>
+<symbol>false</symbol>
 if
 <parameter>shape</parameter>
 is
 <symbol>NULL</symbol>
 or if there are no outlines for the shape; otherwise, it returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 
@@ -1374,13 +1374,13 @@ to the minimum x and minimum y, and maximum x and maximum y values found in
 those outlines.
 <function>XkbComputeShapeBounds</function>
 returns
-<symbol>False</symbol>
+<symbol>false</symbol>
 if
 <parameter>shape</parameter>
 is
 <symbol>NULL</symbol>
 or if there are no outlines for the shape; otherwise, it returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 <para>
@@ -1444,11 +1444,11 @@ checks the bounds of all keys in the
 and updates the bounding box of the row if necessary.
 <function>XkbComputeRowBounds</function>
 returns
-<symbol>False</symbol>
+<symbol>false</symbol>
 if any of the arguments is
 <symbol>NULL</symbol>;
 otherwise, it returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 <para>
@@ -1501,11 +1501,11 @@ examines all the rows of the
 and updates the bounding box of that section so that it contains all rows.
 <function>XkbComputeSectionBounds</function>
 returns
-<symbol>False</symbol>
+<symbol>false</symbol>
 if any of the arguments is
 <symbol>NULL</symbol>;
 otherwise, it returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 <para>
@@ -2600,7 +2600,7 @@ To free geometry outlines, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all outlines are freed
+        <symbol>true</symbol> &rArr; all outlines are freed
       </para>
     </listitem>
   </varlistentry>
@@ -2608,7 +2608,7 @@ To free geometry outlines, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all outlines are freed regardless of the value of first or count. Otherwise,
 count outlines are freed beginning with the one specified by first.
 </para>
@@ -2723,7 +2723,7 @@ To free geometry keys, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all keys are freed
+        <symbol>true</symbol> &rArr; all keys are freed
       </para>
     </listitem>
   </varlistentry>
@@ -2731,7 +2731,7 @@ To free geometry keys, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all keys are freed regardless of the value of first or count. Otherwise,
 count keys are freed beginning with the one specified by first.
 </para>
@@ -2852,7 +2852,7 @@ To free geometry properties, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all properties are freed
+        <symbol>true</symbol> &rArr; all properties are freed
       </para>
     </listitem>
   </varlistentry>
@@ -2860,7 +2860,7 @@ To free geometry properties, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all properties are freed regardless of the value of first or count.
 Otherwise, count properties are freed beginning with the one specified by first.
 </para>
@@ -2978,7 +2978,7 @@ To free geometry key aliases, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all key aliases are freed
+        <symbol>true</symbol> &rArr; all key aliases are freed
       </para>
     </listitem>
   </varlistentry>
@@ -2986,7 +2986,7 @@ To free geometry key aliases, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all aliases in the top level of the specified geometry
 <parameter>geom</parameter>
 are freed regardless of the value of first or count. Otherwise, count aliases
@@ -3108,7 +3108,7 @@ To free geometry colors, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all colors are freed
+        <symbol>true</symbol> &rArr; all colors are freed
       </para>
     </listitem>
   </varlistentry>
@@ -3116,7 +3116,7 @@ To free geometry colors, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all colors are freed regardless of the value of first or count. Otherwise,
 count colors are freed beginning with the one specified by first.
 </para>
@@ -3234,7 +3234,7 @@ To free points in a outline, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all points are freed
+        <symbol>true</symbol> &rArr; all points are freed
       </para>
     </listitem>
   </varlistentry>
@@ -3242,7 +3242,7 @@ To free points in a outline, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all points are freed regardless of the value of first and count. Otherwise,
 the number of points specified by count are freed, beginning with the point
 specified by first in the specified outline.
@@ -3361,7 +3361,7 @@ To free geometry shapes, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all shapes are freed
+        <symbol>true</symbol> &rArr; all shapes are freed
       </para>
     </listitem>
   </varlistentry>
@@ -3369,7 +3369,7 @@ To free geometry shapes, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all shapes in the geometry are freed regardless of the values of first and
 count. Otherwise, count shapes are freed, beginning with the shape specified by
 first.
@@ -3485,7 +3485,7 @@ To free geometry sections, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all sections are freed
+        <symbol>true</symbol> &rArr; all sections are freed
       </para>
     </listitem>
   </varlistentry>
@@ -3493,7 +3493,7 @@ To free geometry sections, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all sections are freed regardless of the value of first and count. Otherwise,
 the number of sections specified by count are freed, beginning with the section
 specified by first in the specified geometry.
@@ -3609,7 +3609,7 @@ To free rows in a section, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all rows are freed
+        <symbol>true</symbol> &rArr; all rows are freed
       </para>
     </listitem>
   </varlistentry>
@@ -3617,7 +3617,7 @@ To free rows in a section, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all rows are freed regardless of the value of first and count. Otherwise, the
 number of rows specified by count are freed, beginning with the row specified
 by first in the specified section.
@@ -3733,7 +3733,7 @@ To free rows in an section, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all overlays are freed
+        <symbol>true</symbol> &rArr; all overlays are freed
       </para>
     </listitem>
   </varlistentry>
@@ -3741,7 +3741,7 @@ To free rows in an section, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all overlays are freed regardless of the value of first and count. Otherwise,
 the number of overlays specified by count are freed, beginning with the overlay
 specified by first in the specified section.
@@ -3857,7 +3857,7 @@ To free rows in an overlay, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all rows are freed
+        <symbol>true</symbol> &rArr; all rows are freed
       </para>
     </listitem>
   </varlistentry>
@@ -3865,7 +3865,7 @@ To free rows in an overlay, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all rows are freed regardless of the value of first and count. Otherwise, the
 number of rows specified by count are freed, beginning with the row specified
 by first in the specified overlay.
@@ -3981,7 +3981,7 @@ To free keys in an overlay row, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all keys are freed
+        <symbol>true</symbol> &rArr; all keys are freed
       </para>
     </listitem>
   </varlistentry>
@@ -3989,7 +3989,7 @@ To free keys in an overlay row, use
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all keys are freed regardless of the value of first and count. Otherwise, the
 number of keys specified by count are freed, beginning with the key specified
 by first in the specified row.
@@ -4144,7 +4144,7 @@ To free geometry doodads, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; all doodads are freed
+        <symbol>true</symbol> &rArr; all doodads are freed
       </para>
     </listitem>
   </varlistentry>
@@ -4154,7 +4154,7 @@ To free geometry doodads, use
 If
 <parameter>free_all</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all doodads in the array are freed, regardless of the value of count.
 Otherwise, count doodads are freed.
 </para>
@@ -4261,7 +4261,7 @@ To free an entire geometry, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; the entire geometry is freed.
+        <symbol>true</symbol> &rArr; the entire geometry is freed.
       </para>
     </listitem>
   </varlistentry>
@@ -4282,7 +4282,7 @@ is freed. The valid values for which are:
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the entire geometry is freed regardless of the value of which. Otherwise, the
 portions of the geometry specified by which are freed.
 </para>

@@ -108,7 +108,7 @@ XCOMM Sequences with COMBINING CARON / <dead_caron>
 <dead_caron> <EZH>                      :  "Ǯ"  U01EE  #  LATIN CAPITAL LETTER EZH WITH CARON
 
 XCOMM Sequences with COMBINING CEDILLA / <dead_cedilla>
-<dead_cedilla> <space>                  :  "¸"  U00B8  #  CEDILLA
+<dead_cedilla> <space>                  :  "¸"  U00bl8  #  CEDILLA
 <dead_cedilla> <c>                      :  "ç"  U00E7  #  LATIN SMALL LETTER C WITH CEDILLA
 <dead_cedilla> <C>                      :  "Ç"  U00C7  #  LATIN CAPITAL LETTER C WITH CEDILLA
 <dead_cedilla> <g>                      :  "ģ"  U0123  #  LATIN SMALL LETTER G WITH CEDILLA
@@ -207,7 +207,7 @@ XCOMM <dead_belowdot> <space>              :  " "  U....  #  DOT BELOW
 <dead_belowdot> <a>                     :  "ạ"  U1EA1  #  LATIN SMALL LETTER A WITH DOT BELOW
 <dead_belowdot> <A>                     :  "Ạ"  U1EA0  #  LATIN CAPITAL LETTER A WITH DOT BELOW
 <dead_belowdot> <e>                     :  "ẹ"  U1EB9  #  LATIN SMALL LETTER E WITH DOT BELOW
-<dead_belowdot> <E>                     :  "Ẹ"  U1EB8  #  LATIN CAPITAL LETTER E WITH DOT BELOW
+<dead_belowdot> <E>                     :  "Ẹ"  U1Ebl8  #  LATIN CAPITAL LETTER E WITH DOT BELOW
 <dead_belowdot> <i>                     :  "ị"  U1ECB  #  LATIN SMALL LETTER I WITH DOT BELOW
 <dead_belowdot> <I>                     :  "Ị"  U1ECA  #  LATIN CAPITAL LETTER I WITH DOT BELOW
 <dead_belowdot> <o>                     :  "ọ"  U1ECD  #  LATIN SMALL LETTER O WITH DOT BELOW

@@ -65,21 +65,21 @@ are not present in the
 .I xkb 
 parameter, 
 .I XkbChangeMap 
-returns False. Otherwise, it sends a request to the server and returns True. 
+returns false. Otherwise, it sends a request to the server and returns true. 
 
 .I XkbChangeMap 
 can generate BadAlloc, BadLength, and BadValue protocol errors. 
 .SH "RETURN VALUES"
 .TP 15
-True
-The XkbChangeMap function returns True if the components specified by 
+true
+The XkbChangeMap function returns true if the components specified by 
 .I changes 
 are present in the 
 .I xkb 
 parameter.
 .TP 15
-False
-The XkbChangeMap function returns False if the components specified by 
+false
+The XkbChangeMap function returns false if the components specified by 
 .I changes 
 are not present in the 
 .I xkb 

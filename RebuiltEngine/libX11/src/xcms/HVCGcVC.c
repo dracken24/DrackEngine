@@ -137,7 +137,7 @@ XcmsTekHVCClipVC (
 	_XcmsDIConvertColors(ccc, pColor, &ccc->pPerScrnInfo->screenWhitePt,
 		1, XcmsCIEXYZFormat);
 	if (pCompressed) {
-	    *(pCompressed + i) = True;
+	    *(pCompressed + i) = true;
 	}
 	return(XcmsSuccess);
     } else {
@@ -189,7 +189,7 @@ XcmsTekHVCClipVC (
 		    &myCCC.pPerScrnInfo->screenWhitePt, 1, XcmsCIEXYZFormat);
 
 	    if (retval != XcmsFailure && pCompressed != NULL) {
-		*(pCompressed + i) = True;
+		*(pCompressed + i) = true;
 	    }
 	    return (retval);
 	}
@@ -255,7 +255,7 @@ XcmsTekHVCClipVC (
 		&myCCC.pPerScrnInfo->screenWhitePt, 1, XcmsCIEXYZFormat);
 
 	if (retval != XcmsFailure && pCompressed != NULL) {
-	    *(pCompressed + i) = True;
+	    *(pCompressed + i) = true;
 	}
 	return(retval);
     }

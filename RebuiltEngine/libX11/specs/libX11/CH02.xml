@@ -2371,10 +2371,10 @@ structure.
 Both return a Boolean value indicating whether the
 screen supports save unders.
 If
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the screen supports save unders.
 If
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the screen does not support save unders
 (see <link linkend="Save_Under_Flag">section 3.2.5</link>).
 </para>
@@ -3440,11 +3440,11 @@ internal connection for the specified display.  The procedure is passed the
 display, the specified client_data, the file descriptor for the connection,
 a Boolean indicating whether the connection is being opened or closed, and a
 pointer to a location for private watch data.  If opening is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the procedure can store a pointer to private data in the location pointed
 to by watch_data;
 when the procedure is later called for this same connection and opening is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the location pointed to by watch_data will hold this same private data pointer.
 </para>
 <para>

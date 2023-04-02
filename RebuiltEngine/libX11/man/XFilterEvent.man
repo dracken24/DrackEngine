@@ -70,19 +70,19 @@ has been redirected.
 If
 .B XFilterEvent
 returns
-.BR True ,
+.BR true ,
 then some input method has filtered the event,
 and the client should discard the event.
 If
 .B XFilterEvent
 returns
-.BR False ,
+.BR false ,
 then the client should continue processing the event.
 .LP
 If a grab has occurred in the client and
 .B XFilterEvent
 returns
-.BR True ,
+.BR true ,
 the client should ungrab the keyboard.
 .SH "SEE ALSO"
 XNextEvent(__libmansuffix__)

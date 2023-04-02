@@ -167,7 +167,7 @@ XcmsCIELabClipL (
 		           ScreenWhitePointOfCCC(&myCCC), 1, XcmsCIEXYZFormat);
 	}
 	if (retval != XcmsFailure && pCompressed != NULL) {
-	    *(pCompressed + i) = True;
+	    *(pCompressed + i) = true;
 	}
 	return(retval);
     }

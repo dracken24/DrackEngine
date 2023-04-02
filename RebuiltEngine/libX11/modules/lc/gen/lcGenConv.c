@@ -249,7 +249,7 @@ gi_to_wc(
 
     *wc = *wc | wc_encoding;
 
-    return(True);
+    return(true);
 }
 
 static Bool
@@ -275,7 +275,7 @@ wc_to_gi(
         }
     }
     if (*codeset == NULL)
-	return(False);
+	return(false);
 
     mask = (1 << wc_shift_bits) - 1 ;
 
@@ -284,7 +284,7 @@ wc_to_gi(
 	*glyph_index = (*glyph_index << 8) |
 		      ( ((unsigned long)wc >> (i * wc_shift_bits)) & mask );
 
-    return(True);
+    return(true);
 }
 
 static CodeSet
@@ -329,7 +329,7 @@ byteM_parse_codeset(
     ByteInfoListRec byteM_rec;
     ByteInfo byteinfo;
     ByteInfoRec byteinfo_rec;
-    Bool hit = False;
+    Bool hit = false;
     int i, j, k;
 
     int codeset_num               = XLC_GENERIC(lcd, codeset_num);
@@ -346,10 +346,10 @@ byteM_parse_codeset(
 	    byteM_rec = byteM[j];
 	    byteinfo = byteM_rec.byteinfo;
 
-	    for (hit = False, k = 0; k < byteM_rec.byteinfo_num; k++) {
+	    for (hit = false, k = 0; k < byteM_rec.byteinfo_num; k++) {
 	        byteinfo_rec = byteinfo[k];
 	        if (byteinfo_rec.start <= ch && ch <= byteinfo_rec.end) {
-	            hit = True;
+	            hit = true;
 		    break;
                 }
             }
@@ -430,10 +430,10 @@ ct_parse_csi(
 
 	if ( strncmp(inbufptr, directionality_data[i].encoding,
 						*ctr_seq_len) == 0)
-            return(True);
+            return(true);
     }
 
-    return(False);
+    return(false);
 }
 
 static int
@@ -518,31 +518,31 @@ ct_parse_charset(
 	for (j = 0; j < num_charsets; j++) {
 	    *charset = charset_list[j];
             if ((*ctr_seq_len = cmp_esc_sequence(inbufptr, *charset)))
-		return(True);
+		return(true);
 	}
 
 	if (ctextseg) {
 	    *charset = ctextseg->charset;
             if ((*ctr_seq_len = cmp_esc_sequence(inbufptr, *charset)))
-		return(True);
+		return(true);
 	}
     }
 
     /* get charset from XLC_SEGMENTCONVERSION by escape sequence */
 
     if (!segment_conv)
-	return(False);
+	return(false);
 
     for (i = 0; i < segment_conv_num; i++) {
 	*charset = segment_conv[i].source;
         if ((*ctr_seq_len = cmp_esc_sequence(inbufptr, *charset)))
-	    return(True);
+	    return(true);
 	*charset = segment_conv[i].dest;
         if ((*ctr_seq_len = cmp_esc_sequence(inbufptr, *charset)))
-	    return(True);
+	    return(true);
     }
 
-    return(False);
+    return(false);
 }
 
 static Bool
@@ -558,7 +558,7 @@ segment_conversion(
     ConversionRec conv_rec;
 
     if (!segment_conv)
-	return(True);
+	return(true);
 
     for (i = 0; i < segment_conv_num; i++) {
 	if (segment_conv[i].source == *charset)
@@ -566,18 +566,18 @@ segment_conversion(
     }
 
     if (i >= segment_conv_num)
-	return(True);
+	return(true);
 
     range = segment_conv[i].range;
     if (*glyph_index < range.start || range.end < *glyph_index)
-	return(True);
+	return(true);
 
     *charset = segment_conv[i].dest;
     conv_rec.conv_num = segment_conv[i].conv_num;
     conv_rec.convlist = segment_conv[i].conv;
     *glyph_index = conv_to_dest(&conv_rec, *glyph_index);
 
-    return(True);
+    return(true);
 }
 
 static CodeSet
@@ -673,10 +673,10 @@ _XlcGetCodeSetFromCharSet(
 end_loop:
     if (num < codeset_num) {
 	*glyph_index = glyph_index_tmp;
-	return(True);
+	return(true);
     }
 
-    return(False);
+    return(false);
 }
 
 #define check_string_encoding(codeset)	(codeset->string_encoding)
@@ -950,23 +950,23 @@ wcstombs_org(
         } else {
             mb = gi_to_mb(glyph_index, codeset);
 	    if (codeset->parse_info) {
-                Bool need_shift = False;
+                Bool need_shift = false;
                 switch (codeset->parse_info->type) {
                     case E_LSL :
                         if (codeset != state->GL_codeset) {
-                            need_shift = True;
+                            need_shift = true;
                             state->GL_codeset = codeset;
                         }
                         break;
                     case E_LSR :
                         if (codeset != state->GR_codeset) {
-                            need_shift = True;
+                            need_shift = true;
                             state->GR_codeset = codeset;
                         }
                         break;
                     /* case E_SS */
                     default:
-                        need_shift = True;
+                        need_shift = true;
                 }
 
 		/* output shift sequence */
@@ -1064,7 +1064,7 @@ wcstocts(
 
     int total_len, seq_len, name_len;
     int unconv_num = 0;
-    Bool first_flag = True, standard_flag;
+    Bool first_flag = true, standard_flag;
     XlcSide side;
 
     CodeSet codeset;
@@ -1102,7 +1102,7 @@ wcstocts(
         }
 
         /* Standard Character Set Encoding ? */
-	standard_flag = charset->source == CSsrcStd ? True : False;
+	standard_flag = charset->source == CSsrcStd ? true : false;
 
         /*
          *   Non-Standard Character Set Encoding
@@ -1161,7 +1161,7 @@ wcstocts(
 
 	    (*to_left) -= total_len;
 
-	    first_flag = False;
+	    first_flag = false;
 	    old_charset = charset;
 	}
 
@@ -1978,23 +1978,23 @@ wcstostr(
 
 	    if (check_string_encoding(codeset)) {
 	        if (codeset->parse_info) {
-                    Bool need_shift = False;
+                    Bool need_shift = false;
                     switch (codeset->parse_info->type) {
                         case E_LSL :
                             if (codeset != state->GL_codeset) {
-                                need_shift = True;
+                                need_shift = true;
                                 state->GL_codeset = codeset;
                             }
                             break;
                         case E_LSR :
                             if (codeset != state->GR_codeset) {
-                                need_shift = True;
+                                need_shift = true;
                                 state->GR_codeset = codeset;
                             }
                             break;
                         /* case E_SS */
                         default:
-                            need_shift = True;
+                            need_shift = true;
                     }
 
 		    /* output shift sequence */
@@ -2436,23 +2436,23 @@ strtombs(
 
         mb = gi_to_mb(glyph_index, codeset);
 	if (codeset->parse_info) {
-            Bool need_shift = False;
+            Bool need_shift = false;
             switch (codeset->parse_info->type) {
                 case E_LSL :
                     if (codeset != state->GL_codeset) {
-                        need_shift = True;
+                        need_shift = true;
                         state->GL_codeset = codeset;
                     }
                     break;
                 case E_LSR :
                     if (codeset != state->GR_codeset) {
-                        need_shift = True;
+                        need_shift = true;
                         state->GR_codeset = codeset;
                     }
                     break;
                 /* case E_SS */
                 default:
-                    need_shift = True;
+                    need_shift = true;
             }
 
 	    /* output shift sequence */
@@ -3077,7 +3077,7 @@ _XlcGenericLoader(
 #ifdef STDCVT
      gen = XLC_GENERIC_PART(lcd);
 
-     if (gen->use_stdc_env != True) {
+     if (gen->use_stdc_env != true) {
 #endif
         _XlcSetConverter(lcd, XlcNMultiByte, lcd, XlcNWideChar,     open_mbstowcs);
         _XlcSetConverter(lcd, XlcNWideChar,  lcd, XlcNMultiByte,    open_wcstombs);
@@ -3093,7 +3093,7 @@ _XlcGenericLoader(
 #endif
 
 #ifdef STDCVT
-    if (gen->use_stdc_env == True) {
+    if (gen->use_stdc_env == true) {
         _XlcSetConverter(lcd, XlcNMultiByte, lcd, XlcNWideChar,     open_stdc_mbstowcs);
         _XlcSetConverter(lcd, XlcNWideChar,  lcd, XlcNMultiByte,    open_stdc_wcstombs);
         _XlcSetConverter(lcd, XlcNWideChar,  lcd, XlcNCompoundText, open_stdc_wcstocts);

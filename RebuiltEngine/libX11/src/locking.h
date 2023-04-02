@@ -52,7 +52,7 @@ extern xthread_t (*_Xthread_self_fn)( /* in XlibInt.c */
 
 /* Display->lock is a pointer to one of these */
 
-struct _XLockInfo {
+struct _XLocDE_INFO {
 	xmutex_t mutex;		/* mutex for critical sections */
 	int reply_bytes_left;	/* nbytes of the reply still to read */
 	Bool reply_was_read;	/* _XReadEvents read a reply for _XReply */
@@ -145,9 +145,9 @@ struct _XLockInfo {
 	(*(d)->lock->condition_broadcast)(c)
 #endif
 
-typedef struct _LockInfoRec {
+typedef struct _LocDE_INFORec {
 	xmutex_t	lock;
-} LockInfoRec;
+} LocDE_INFORec;
 
 /* A list of threads currently invoking error handlers on this display
  * LockDisplay operates differently for these threads, avoiding

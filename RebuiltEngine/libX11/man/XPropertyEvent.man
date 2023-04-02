@@ -79,7 +79,7 @@ structure with the type member set to
 .BR GraphicsExpose .
 The display member is set to a pointer to the display the event was read on.
 The send_event member is set to
-.B True
+.B true
 if the event came from a
 .B SendEvent
 protocol request.
@@ -115,7 +115,7 @@ The state member is set to
 when a property of the window is deleted using
 .B XDeleteProperty
 or, if the delete argument is
-.BR True ,
+.BR true ,
 .BR XGetWindowProperty .
 .SH "SEE ALSO"
 XAnyEvent(__libmansuffix__),

@@ -64,22 +64,22 @@ are:
      
 .fi     
 .I XkbGetStickyKeysOptions 
-returns True if successful; if a compatible version of the Xkb extension is not available in the 
+returns true if successful; if a compatible version of the Xkb extension is not available in the 
 server 
 .I XkbGetStickyKeysOptions 
-returns False.
+returns false.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbGetStickyKeysOptions 
-function returns True if the request for the attributes of the StickyKeys control from the 
+function returns true if the request for the attributes of the StickyKeys control from the 
 server was successful.
 .TP 15
-False
+false
 The 
 .I XkbGetStickyKeysOptions 
-function returns False if a compatible version of the Xkb extension is not available in the 
+function returns false if a compatible version of the Xkb extension is not available in the 
 server. 
 .SH STRUCTURES
 .nf

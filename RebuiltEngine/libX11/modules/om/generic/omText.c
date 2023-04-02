@@ -59,10 +59,10 @@ is_rotate(
 	    vrotate_num = font_set->vrotate_num;
 	    for( ; vrotate_num-- ; vrotate++)
 		if(vrotate->font == font)
-		    return True;
+		    return true;
 	}
     }
-    return False;
+    return false;
 }
 
 static int
@@ -84,10 +84,10 @@ is_codemap(
 	    vmap_num = font_set->vmap_num;
 	    for( ; vmap_num-- ; vmap++)
 		if(vmap->font == font)
-		    return True;
+		    return true;
 	}
     }
-    return False;
+    return false;
 }
 
 static int
@@ -113,7 +113,7 @@ draw_vertical(
     wy = y;
     if (is_xchar2b) {
 	for(i = 0, buf2b = (XChar2b *) text ; i < length ; i++, buf2b++) {
-	    if(is_rotate(oc, font) == True) {
+	    if(is_rotate(oc, font) == true) {
 		XTextExtents16(font, buf2b, 1,
 			       &direction, &font_ascent_return,
 			       &font_descent_return, &overall);
@@ -133,7 +133,7 @@ draw_vertical(
 	}
     } else {
 	for(i = 0, buf = (char *)text ; i < length && *buf ; i++, buf++) {
-	    if(is_rotate(oc, font) == True) {
+	    if(is_rotate(oc, font) == true) {
 		XTextExtents(font, buf, 1,
 			     &direction, &font_ascent_return,
 			     &font_descent_return, &overall);
@@ -228,7 +228,7 @@ DrawStringWithFontSet(
 		   (font = fd->font) == (XFontStruct *) NULL)
 		    break;
 
-		if(is_codemap(oc, fd->font) == False) {
+		if(is_codemap(oc, fd->font) == false) {
 		    fd = _XomGetFontDataFromFontSet(fs,
 			     ptr,length,&ptr_len,is_xchar2b,VROTATE);
 		    if(ptr_len <= 0)

@@ -38,13 +38,13 @@ XLC_XLOCALE
 
 encoding_name		zh_HK.big5hkscs
 mb_cur_max		2
-state_depend_encoding	False
+state_depend_encoding	false
 
 wc_encoding_mask	\x00008000
 wc_shift_bits		8
 
-use_stdc_env		True
-force_convert_to_mb	True
+use_stdc_env		true
+force_convert_to_mb	true
 
 +XCOMM	cs0 class
 cs0	{

@@ -60,9 +60,9 @@ is NULL, the top surface is defined as the last outline in the
 .I shape's 
 array of outlines. 
 .I XkbComputeShapeTop 
-returns False if 
+returns false if 
 .I shape 
-is NULL or if there are no outlines for the shape; otherwise, it returns True.
+is NULL or if there are no outlines for the shape; otherwise, it returns true.
 .SH STRUCTURES
 .LP
 .nf

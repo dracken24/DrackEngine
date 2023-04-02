@@ -184,7 +184,7 @@ resolve_object(char *path, const char *lc_name)
     FILE *fp;
     char buf[BUFSIZ];
 
-    if (lc_len == 0) { /* True only for the 1st time */
+    if (lc_len == 0) { /* true only for the 1st time */
       lc_len = OBJECT_INIT_LEN;
       xi18n_objects_list = Xmallocarray(lc_len, sizeof(XI18NObjectsListRec));
       if (!xi18n_objects_list) return;
@@ -302,7 +302,7 @@ open_object(
   if (object->refcount == 0) {
       path = __lc_path(object->dl_name, lc_dir);
       if (!path)
-	  return False;
+	  return false;
 #if defined(hpux)
       object->dl_module = shl_load(path, BIND_DEFERRED, 0L);
 #else
@@ -311,11 +311,11 @@ open_object(
       Xfree(path);
 
       if (!object->dl_module)
-	  return False;
+	  return false;
     }
 
   object->refcount++;
-  return True;
+  return true;
 }
 
 static void *
@@ -465,7 +465,7 @@ _XDynamicRegisterIMInstantiateCallback(
   char lc_dir[BUFSIZE];
   char *lc_name;
   dynamicRegisterCBProcp im_registerIM = (dynamicRegisterCBProcp)NULL;
-  Bool ret_flag = False;
+  Bool ret_flag = false;
   int count;
   XI18NObjectsList objects_list = xi18n_objects_list;
 #if defined(hpux)
@@ -475,7 +475,7 @@ _XDynamicRegisterIMInstantiateCallback(
 
   lc_name = lcd->core->name;
 
-  if (_XlcLocaleLibDirName(lc_dir, BUFSIZE, lc_name) == NULL) return False;
+  if (_XlcLocaleLibDirName(lc_dir, BUFSIZE, lc_name) == NULL) return false;
 
   count = lc_count;
   for (; count-- > 0; objects_list++) {
@@ -513,7 +513,7 @@ _XDynamicUnRegisterIMInstantiateCallback(
   char lc_dir[BUFSIZE];
   const char *lc_name;
   dynamicUnregisterProcp im_unregisterIM = (dynamicUnregisterProcp)NULL;
-  Bool ret_flag = False;
+  Bool ret_flag = false;
   int count;
   XI18NObjectsList objects_list = xi18n_objects_list;
 #if defined(hpux)
@@ -522,7 +522,7 @@ _XDynamicUnRegisterIMInstantiateCallback(
 #endif
 
   lc_name = lcd->core->name;
-  if (_XlcLocaleDirName(lc_dir, BUFSIZE, lc_name) == NULL) return False;
+  if (_XlcLocaleDirName(lc_dir, BUFSIZE, lc_name) == NULL) return false;
 
   count = lc_count;
   for (; count-- > 0; objects_list++) {
@@ -551,11 +551,11 @@ Bool
 _XInitDynamicIM(XLCd lcd)
 {
     if(lcd == (XLCd)NULL)
-	return False;
+	return false;
     lcd->methods->open_im = _XDynamicOpenIM;
     lcd->methods->register_callback = _XDynamicRegisterIMInstantiateCallback;
     lcd->methods->unregister_callback = _XDynamicUnRegisterIMInstantiateCallback;
-    return True;
+    return true;
 }
 
 
@@ -603,9 +603,9 @@ Bool
 _XInitDynamicOM(XLCd lcd)
 {
     if(lcd == (XLCd)NULL)
-	return False;
+	return false;
 
     lcd->methods->open_om = _XDynamicOpenOM;
 
-    return True;
+    return true;
 }

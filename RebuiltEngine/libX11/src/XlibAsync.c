@@ -67,9 +67,9 @@ _XAsyncErrorHandler(
 	(_XLIB_ASYNC_SEQUENCE_CMP(state->max_sequence_number,>=,dpy->last_request_read))) {
 	state->last_error_received = rep->error.errorCode;
 	state->error_count++;
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 void _XDeqAsyncHandler(

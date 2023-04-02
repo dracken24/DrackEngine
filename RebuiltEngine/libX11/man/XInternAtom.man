@@ -85,7 +85,7 @@ The
 function returns the atom identifier associated with the specified atom_name
 string.
 If only_if_exists is
-.BR False ,
+.BR false ,
 the atom is created if it does not exist.
 Therefore,
 .B XInternAtom

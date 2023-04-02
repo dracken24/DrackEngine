@@ -89,7 +89,7 @@ XLookupColor (
 	req->nbytes = n;
 	req->length += (n + 3) >> 2;
 	Data (dpy, spec, (long)n);
-	if (!_XReply (dpy, (xReply *) &reply, 0, xTrue)) {
+	if (!_XReply (dpy, (xReply *) &reply, 0, xtrue)) {
 	    UnlockDisplay(dpy);
 	    SyncHandle();
 	    return (0);

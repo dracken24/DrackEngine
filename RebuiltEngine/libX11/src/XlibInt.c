@@ -70,19 +70,19 @@ from The Open Group.
 #endif
 
 /* these pointers get initialized by XInitThreads */
-LockInfoPtr _Xglobal_lock = NULL;
-void (*_XCreateMutex_fn)(LockInfoPtr) = NULL;
+LocDE_INFOPtr _Xglobal_lock = NULL;
+void (*_XCreateMutex_fn)(LocDE_INFOPtr) = NULL;
 /* struct _XCVList *(*_XCreateCVL_fn)() = NULL; */
-void (*_XFreeMutex_fn)(LockInfoPtr) = NULL;
+void (*_XFreeMutex_fn)(LocDE_INFOPtr) = NULL;
 void (*_XLockMutex_fn)(
-    LockInfoPtr /* lock */
+    LocDE_INFOPtr /* lock */
 #if defined(XTHREADS_WARN) || defined(XTHREADS_FILE_LINE)
     , char * /* file */
     , int /* line */
 #endif
     ) = NULL;
 void (*_XUnlockMutex_fn)(
-    LockInfoPtr /* lock */
+    LocDE_INFOPtr /* lock */
 #if defined(XTHREADS_WARN) || defined(XTHREADS_FILE_LINE)
     , char * /* file */
     , int /* line */
@@ -141,13 +141,13 @@ Bool _XPollfdCacheInit(
 
     pfp = Xmalloc(POLLFD_CACHE_SIZE * sizeof(struct pollfd));
     if (!pfp)
-	return False;
+	return false;
     pfp[0].fd = dpy->fd;
     pfp[0].events = POLLIN;
 
     dpy->filedes = (XPointer)pfp;
 #endif
-    return True;
+    return true;
 }
 
 void _XPollfdCacheAdd(
@@ -220,7 +220,7 @@ void _XSeqSyncFunction(
 
     if ((X_DPY_GET_REQUEST(dpy) - X_DPY_GET_LAST_REQUEST_READ(dpy)) >= (65535 - BUFSIZE/SIZEOF(xReq))) {
 	GetEmptyReq(GetInputFocus, req);
-	(void) _XReply (dpy, (xReply *)&rep, 0, xTrue);
+	(void) _XReply (dpy, (xReply *)&rep, 0, xtrue);
 	sync_while_locked(dpy);
     } else if (sync_hazard(dpy))
 	_XSetPrivSyncFunction(dpy);
@@ -350,7 +350,7 @@ _XSetLastRequestRead(
  * a XConnectionWatchProc with XAddConnectionWatch
  * to be called when fds are registered or unregistered.
  *
- * Returns True if registration succeeded, False if not, typically
+ * Returns true if registration succeeded, false if not, typically
  * because could not allocate memory.
  * Assumes Display locked when called.
  */
@@ -389,7 +389,7 @@ _XRegisterInternalConnection(
 	 watchers;
 	 watchers=watchers->next, wd++) {
 	*wd = NULL;		/* for cleanliness */
-	(*watchers->fn) (dpy, watchers->client_data, fd, True, wd);
+	(*watchers->fn) (dpy, watchers->client_data, fd, true, wd);
     }
 
     return 1;
@@ -421,7 +421,7 @@ _XUnregisterInternalConnection(
 	    for (watch=dpy->conn_watchers, wd=info_list->watch_data;
 		 watch;
 		 watch=watch->next, wd++) {
-		(*watch->fn) (dpy, watch->client_data, fd, False, wd);
+		(*watch->fn) (dpy, watch->client_data, fd, false, wd);
 	    }
 	    Xfree (info_list->watch_data);
 	    Xfree (info_list);
@@ -555,7 +555,7 @@ XAddConnectionWatch(
 
     /* call new watcher on all currently registered fds */
     for (info_list=dpy->im_fd_info; info_list; info_list=info_list->next) {
-	(*callback) (dpy, client_data, info_list->fd, True,
+	(*callback) (dpy, client_data, info_list->fd, true,
 		     info_list->watch_data + dpy->watcher_count - 1);
     }
 
@@ -688,7 +688,7 @@ _XStoreEventCookie(Display *dpy, XEvent *event)
 Bool
 _XFetchEventCookie(Display *dpy, XGenericEventCookie* ev)
 {
-    Bool ret = False;
+    Bool ret = false;
     struct stored_event **head, *event;
     head = (struct stored_event**)&dpy->cookiejar;
 
@@ -702,7 +702,7 @@ _XFetchEventCookie(Display *dpy, XGenericEventCookie* ev)
             *ev = event->ev;
             DL_DELETE(*head, event);
             Xfree(event);
-            ret = True;
+            ret = true;
             break;
         }
     }
@@ -713,7 +713,7 @@ _XFetchEventCookie(Display *dpy, XGenericEventCookie* ev)
 Bool
 _XCopyEventCookie(Display *dpy, XGenericEventCookie *in, XGenericEventCookie *out)
 {
-    Bool ret = False;
+    Bool ret = false;
     int extension;
 
     if (!_XIsEventCookie(dpy, (XEvent*)in) || !out)
@@ -836,7 +836,7 @@ _XUnknownWireEvent(
 	    "Xlib: unhandled wire event! event number = %d, display = %x\n.",
 			event->u.u.type, dpy);
 #endif
-	return(False);
+	return(false);
 }
 
 Bool
@@ -850,7 +850,7 @@ _XUnknownWireEventCookie(
 	    "Xlib: unhandled wire cookie event! extension number = %d, display = %x\n.",
 			((xGenericEvent*)event)->extension, dpy);
 #endif
-	return(False);
+	return(false);
 }
 
 Bool
@@ -864,7 +864,7 @@ _XUnknownCopyEventCookie(
 	    "Xlib: unhandled cookie event copy! extension number = %d, display = %x\n.",
 			in->extension, dpy);
 #endif
-	return(False);
+	return(false);
 }
 
 /*ARGSUSED*/
@@ -966,9 +966,9 @@ _XWireToEvent(
 			ev->state	= event->u.enterLeave.state;
 			ev->mode	= event->u.enterLeave.mode;
 			ev->same_screen = (event->u.enterLeave.flags &
-				ELFlagSameScreen) && True;
+				ELFlagSameScreen) && true;
 			ev->focus	= (event->u.enterLeave.flags &
-			  	ELFlagFocus) && True;
+			  	ELFlagFocus) && true;
 			ev->detail	= event->u.u.detail;
 		}
 		  break;
@@ -1251,7 +1251,7 @@ _XWireToEvent(
 	      default:
 		return(_XUnknownWireEvent(dpy, re, event));
 	}
-	return(True);
+	return(true);
 }
 
 static int
@@ -1293,7 +1293,7 @@ _X_NORETURN int _XDefaultIOError(
 	 * this to get the more informative error message.
 	 */
 	if (ECHECK(EAGAIN) && SocketBytesReadable(dpy) <= 0)
-	    killed = True;
+	    killed = true;
 
 	if (killed) {
 	    fprintf (stderr,
@@ -1453,7 +1453,7 @@ int _XDefaultError(
 /*ARGSUSED*/
 Bool _XDefaultWireError(Display *display, XErrorEvent *he, xError *we)
 {
-    return True;
+    return true;
 }
 
 /*
@@ -1760,7 +1760,7 @@ Screen *_XScreenOfWindow(Display *dpy, Window w)
     unsigned int width, height, bw, depth;  /* dummy variables */
 
     if (XGetGeometry (dpy, w, &root, &x, &y, &width, &height,
-		      &bw, &depth) == False) {
+		      &bw, &depth) == false) {
 	return NULL;
     }
     for (i = 0; i < ScreenCount (dpy); i++) {	/* find root from list */
@@ -1993,19 +1993,19 @@ int _XAccessFile(path)
 #undef _Xdebug
 int _Xdebug = 0;
 int *_Xdebug_p = &_Xdebug;
-void (**_XCreateMutex_fn_p)(LockInfoPtr) = &_XCreateMutex_fn;
-void (**_XFreeMutex_fn_p)(LockInfoPtr) = &_XFreeMutex_fn;
-void (**_XLockMutex_fn_p)(LockInfoPtr
+void (**_XCreateMutex_fn_p)(LocDE_INFOPtr) = &_XCreateMutex_fn;
+void (**_XFreeMutex_fn_p)(LocDE_INFOPtr) = &_XFreeMutex_fn;
+void (**_XLockMutex_fn_p)(LocDE_INFOPtr
 #if defined(XTHREADS_WARN) || defined(XTHREADS_FILE_LINE)
     , char * /* file */
     , int /* line */
 #endif
         ) = &_XLockMutex_fn;
-void (**_XUnlockMutex_fn_p)(LockInfoPtr
+void (**_XUnlockMutex_fn_p)(LocDE_INFOPtr
 #if defined(XTHREADS_WARN) || defined(XTHREADS_FILE_LINE)
     , char * /* file */
     , int /* line */
 #endif
         ) = &_XUnlockMutex_fn;
-LockInfoPtr *_Xglobal_lock_p = &_Xglobal_lock;
+LocDE_INFOPtr *_Xglobal_lock_p = &_Xglobal_lock;
 #endif

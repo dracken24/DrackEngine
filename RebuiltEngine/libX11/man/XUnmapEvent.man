@@ -78,7 +78,7 @@ structure with the type member set to
 .BR GraphicsExpose .
 The display member is set to a pointer to the display the event was read on.
 The send_event member is set to
-.B True
+.B true
 if the event came from a
 .B SendEvent
 protocol request.
@@ -96,7 +96,7 @@ was selected.
 This is the window used by the X server to report the event.
 The window member is set to the window that was unmapped.
 The from_configure member is set to
-.B True
+.B true
 if the event was generated as a result of a resizing of the window's parent when
 the window itself had a win_gravity of
 .BR UnmapGravity .

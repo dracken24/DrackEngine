@@ -254,7 +254,7 @@ XkbGetDeviceInfo(Display *dpy,
     req->firstBtn = req->nBtns = 0;
     req->ledClass = class;
     req->ledID = id;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
         return NULL;
@@ -269,7 +269,7 @@ XkbGetDeviceInfo(Display *dpy,
         devi->dflt_led_fb = rep.dfltLedFB;
         status = _XkbReadGetDeviceInfoReply(dpy, &rep, devi);
         if (status != Success) {
-            XkbFreeDeviceInfo(devi, XkbXI_AllDeviceFeaturesMask, True);
+            XkbFreeDeviceInfo(devi, XkbXI_AllDeviceFeaturesMask, true);
             devi = NULL;
         }
     }
@@ -301,7 +301,7 @@ XkbGetDeviceInfoChanges(Display *dpy,
         req->xkbReqType = X_kbGetDeviceInfo;
         req->deviceSpec = devi->device_spec;
         req->wanted = changes->changed;
-        req->allBtns = False;
+        req->allBtns = false;
         if (changes->changed & XkbXI_ButtonActionsMask) {
             req->firstBtn = changes->first_btn;
             req->nBtns = changes->num_btns;
@@ -326,7 +326,7 @@ XkbGetDeviceInfoChanges(Display *dpy,
             req->ledClass = XkbDfltXIClass;
             req->ledID = XkbDfltXIId;
         }
-        if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+        if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
             status = BadLength;
             break;
         }
@@ -367,7 +367,7 @@ XkbGetDeviceButtonActions(Display *dpy,
     req->nBtns = num;
     req->ledClass = XkbDfltXIClass;
     req->ledID = XkbDfltXIId;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
         return BadLength;
@@ -406,11 +406,11 @@ XkbGetDeviceLedInfo(Display *dpy,
     req->xkbReqType = X_kbGetDeviceInfo;
     req->deviceSpec = devi->device_spec;
     req->wanted = which;
-    req->allBtns = False;
+    req->allBtns = false;
     req->firstBtn = req->nBtns = 0;
     req->ledClass = ledClass;
     req->ledID = ledId;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
         return BadLength;
@@ -536,12 +536,12 @@ _SizeMatches(SetLedStuff *stuff,
             if (!linfo->used) {
                 *sz_rtrn += _XkbSizeLedInfo(stuff->wanted, devli);
                 *nleds_rtrn += 1;
-                linfo->used = True;
+                linfo->used = true;
                 if ((class != XkbAllXIClasses) && (id != XkbAllXIIds))
-                    return True;
+                    return true;
             }
             nMatch++;
-            linfo->used = True;
+            linfo->used = true;
         }
     }
     return (nMatch > 0);
@@ -684,11 +684,11 @@ XkbSetDeviceInfo(Display *dpy, unsigned which, XkbDeviceInfoPtr devi)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     if ((!devi) || (which & (~XkbXI_AllDeviceFeaturesMask)) ||
         ((which & XkbXI_ButtonActionsMask) && (!XkbXI_DevHasBtnActs(devi))) ||
         ((which & XkbXI_IndicatorsMask) && (!XkbXI_DevHasLeds(devi))))
-        return False;
+        return false;
 
     bzero((char *) &changes, sizeof(XkbDeviceChangesRec));
     changes.changed = which;
@@ -701,7 +701,7 @@ XkbSetDeviceInfo(Display *dpy, unsigned which, XkbDeviceInfoPtr devi)
     _InitLedStuff(&lstuff, changes.changed, devi);
     if (_XkbSetDeviceInfoSize(devi, &changes, &lstuff, &size, &nLeds) !=
         Success)
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbSetDeviceInfo, req);
@@ -740,18 +740,18 @@ XkbChangeDeviceInfo(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     if ((!devi) || (changes->changed & (~XkbXI_AllDeviceFeaturesMask)) ||
         ((changes->changed & XkbXI_ButtonActionsMask) &&
          (!XkbXI_DevHasBtnActs(devi))) ||
         ((changes->changed & XkbXI_IndicatorsMask) &&
          (!XkbXI_DevHasLeds(devi))))
-        return False;
+        return false;
 
     size = nLeds = 0;
     _InitLedStuff(&lstuff, changes->changed, devi);
     if (_XkbSetDeviceInfoSize(devi, changes, &lstuff, &size, &nLeds) != Success)
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbSetDeviceInfo, req);
@@ -784,7 +784,7 @@ XkbSetDeviceLedInfo(Display *dpy,
                     unsigned ledID,
                     unsigned which)
 {
-    return False;
+    return false;
 }
 
 Bool
@@ -802,12 +802,12 @@ XkbSetDeviceButtonActions(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     if ((!devi) || (!XkbXI_DevHasBtnActs(devi)) ||
         (first + nBtns > devi->num_btns))
-        return False;
+        return false;
     if (nBtns == 0)
-        return True;
+        return true;
 
     bzero((char *) &changes, sizeof(XkbDeviceChangesRec));
     changes.changed = XkbXI_ButtonActionsMask;
@@ -818,7 +818,7 @@ XkbSetDeviceButtonActions(Display *dpy,
     changes.leds.defined = 0;
     size = nLeds = 0;
     if (_XkbSetDeviceInfoSize(devi, &changes, NULL, &size, &nLeds) != Success)
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbSetDeviceInfo, req);

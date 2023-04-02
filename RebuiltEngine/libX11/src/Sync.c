@@ -41,7 +41,7 @@ XSync (
 
     LockDisplay(dpy);
     GetEmptyReq(GetInputFocus, req);
-    (void) _XReply (dpy, (xReply *)&rep, 0, xTrue);
+    (void) _XReply (dpy, (xReply *)&rep, 0, xtrue);
 
     if (discard && dpy->head) {
        _XQEvent *qelt;

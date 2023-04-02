@@ -169,7 +169,7 @@ Possible visual types are
 <symbol>GrayScale</symbol>,
 <symbol>StaticColor</symbol>,
 <symbol>PseudoColor</symbol>,
-<symbol>TrueColor</symbol>,
+<symbol>trueColor</symbol>,
 or 
 <symbol>DirectColor</symbol>
 (see <link linkend="Visual_Types">section 3.1</link>).
@@ -897,14 +897,14 @@ For
 <symbol>StaticGray</symbol>,
 <symbol>StaticColor</symbol>,
 and
-<symbol>TrueColor</symbol>,
+<symbol>trueColor</symbol>,
 the entries have defined values,
 but those values are specific to the visual and are not defined by X.
 For
 <symbol>StaticGray</symbol>,
 <symbol>StaticColor</symbol>,
 and
-<symbol>TrueColor</symbol>,
+<symbol>trueColor</symbol>,
 alloc must be
 <symbol>AllocNone</symbol>,
 or a
@@ -2030,7 +2030,7 @@ For
 <symbol>DirectColor</symbol>,
 each has exactly three bits set to 1.
 If contig is 
-<symbol>True</symbol>
+<symbol>true</symbol>
 and if all masks are ORed
 together, a single contiguous set of bits set to 1 will be formed for 
 <symbol>GrayScale</symbol>
@@ -2218,7 +2218,7 @@ If ncolors colors, nreds reds, ngreens greens, and nblues blues are requested,
 ncolors pixels are returned; and the masks have nreds, ngreens, and 
 nblues bits set to 1, respectively.
 If contig is 
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 each mask will have
 a contiguous set of bits set to 1.
 No mask will have any bits set to 1 in common with
@@ -2789,9 +2789,9 @@ structures in the color-specification array.
 Returns an array of Boolean values indicating compression status.
 If a non-NULL pointer is supplied,
 each element of the array is set to
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the corresponding color was compressed and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 Pass NULL if the compression status is not useful.
     </para>
@@ -4255,9 +4255,9 @@ Specifies the target color specification format.
 Returns an array of Boolean values indicating compression status.
 If a non-NULL pointer is supplied,
 each element of the array is set to
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the corresponding color was compressed and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 Pass NULL if the compression status is not useful.
     </para>
@@ -4400,7 +4400,7 @@ Valid values are 0 (for the first element) to ncolors - 1.
 Returns an array of Boolean values for indicating compression status.
 If a non-NULL pointer is supplied
 and a color at a given index is compressed, then
-<symbol>True</symbol>
+<symbol>true</symbol>
 should be stored at the corresponding index in this array;
 otherwise, the array should not be modified.
     </para>
@@ -4745,7 +4745,7 @@ structures in the color-specification array.
 Returns an array of Boolean values for indicating compression status.
 If a non-NULL pointer is supplied
 and a color at a given index is compressed, then
-<symbol>True</symbol>
+<symbol>true</symbol>
 should be stored at the corresponding index in this array;
 otherwise, the array should not be modified.
     </para>
@@ -6936,7 +6936,7 @@ structures in the color-specification array.
 Returns an array of Boolean values for indicating compression status.
 If a non-NULL pointer is supplied
 and a color at a given index is compressed, then
-<symbol>True</symbol>
+<symbol>true</symbol>
 should be stored at the corresponding index in this array;
 otherwise, the array should not be modified.
     </para>

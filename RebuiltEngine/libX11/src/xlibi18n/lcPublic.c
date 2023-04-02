@@ -112,7 +112,7 @@ load_public(
     int num;
 
     if(_XlcCreateLocaleDataBase(lcd) == NULL)
-	return False;
+	return false;
 
     _XlcGetResource(lcd, "XLC_XLOCALE", "mb_cur_max", &values, &num);
     if (num > 0) {
@@ -123,18 +123,18 @@ load_public(
 	pub->mb_cur_max = 1;
 
     _XlcGetResource(lcd, "XLC_XLOCALE", "state_depend_encoding", &values, &num);
-    if (num > 0 && !_XlcCompareISOLatin1(values[0], "True"))
-	pub->is_state_depend = True;
+    if (num > 0 && !_XlcCompareISOLatin1(values[0], "true"))
+	pub->is_state_depend = true;
     else
-	pub->is_state_depend = False;
+	pub->is_state_depend = false;
 
     _XlcGetResource(lcd, "XLC_XLOCALE", "encoding_name", &values, &num);
     str = (num > 0) ? values[0] : "STRING";
     pub->encoding_name = strdup(str);
     if (pub->encoding_name == NULL)
-	return False;
+	return false;
 
-    return True;
+    return true;
 }
 
 static Bool
@@ -191,7 +191,7 @@ initialize_core(
     if (methods->default_string == NULL)
 	methods->default_string = core->default_string;
 
-    return True;
+    return true;
 }
 
 static Bool
@@ -210,8 +210,8 @@ initialize(
 
     _XlcInitCTInfo();
 
-    if (initialize_core(lcd) == False)
-	return False;
+    if (initialize_core(lcd) == false)
+	return false;
 
     name = lcd->core->name;
 #if !defined(X_LOCALE)
@@ -224,7 +224,7 @@ initialize(
     else
         siname = Xmalloc (len + 1);
     if (siname == NULL)
-        return False;
+        return false;
     name = _XlcMapOSLocaleName(name, siname);
 #endif
     /* _XlcResolveLocaleName will lookup the SI's name for the locale */
@@ -232,7 +232,7 @@ initialize(
 #if !defined(X_LOCALE)
 	if (siname != sinamebuf) Xfree (siname);
 #endif
-	return False;
+	return false;
     }
 #if !defined(X_LOCALE)
     if (siname != sinamebuf)

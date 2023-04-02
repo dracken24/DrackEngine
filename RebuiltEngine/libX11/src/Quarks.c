@@ -189,18 +189,18 @@ ExpandQuarkTable(void)
 	if (!stringTable) {
 	    stringTable = Xmalloc(sizeof(XrmString *) * CHUNKPER);
 	    if (!stringTable)
-		return False;
+		return false;
 	    stringTable[0] = (XrmString *)NULL;
 	}
 #ifdef PERMQ
 	if (!permTable)
 	    permTable = Xmalloc(sizeof(Bits *) * CHUNKPER);
 	if (!permTable)
-	    return False;
+	    return false;
 #endif
 	stringTable[0] = (XrmString *)Xpermalloc(QUANTSIZE);
 	if (!stringTable[0])
-	    return False;
+	    return false;
 #ifdef PERMQ
 	permTable[0] = (Bits *)((char *)stringTable[0] + STRQUANTSIZE);
 #endif
@@ -208,7 +208,7 @@ ExpandQuarkTable(void)
     }
     entries = Xcalloc(newmask + 1, sizeof(Entry));
     if (!entries)
-	return False;
+	return false;
     quarkTable = entries;
     quarkMask = newmask;
     quarkRehash = quarkMask - 2;
@@ -232,7 +232,7 @@ ExpandQuarkTable(void)
     }
     if (oldmask)
 	Xfree(oldentries);
-    return True;
+    return true;
 }
 
 XrmQuark
@@ -356,7 +356,7 @@ XrmStringToQuark(
     for (tname = (char *)name; (c = *tname++); )
 	sig = (sig << 1) + c;
 
-    return _XrmInternalStringToQuark(name, tname-(char *)name-1, sig, False);
+    return _XrmInternalStringToQuark(name, tname-(char *)name-1, sig, false);
 }
 
 XrmQuark
@@ -372,7 +372,7 @@ XrmPermStringToQuark(
     for (tname = (char *)name; (c = *tname++); )
 	sig = (sig << 1) + c;
 
-    return _XrmInternalStringToQuark(name, tname-(char *)name-1, sig, True);
+    return _XrmInternalStringToQuark(name, tname-(char *)name-1, sig, true);
 }
 
 XrmQuark XrmUniqueQuark(void)

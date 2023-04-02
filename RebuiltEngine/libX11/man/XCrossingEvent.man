@@ -94,7 +94,7 @@ structure with the type member set to
 .BR GraphicsExpose .
 The display member is set to a pointer to the display the event was read on.
 The send_event member is set to
-.B True
+.B true
 if the event came from a
 .B SendEvent
 protocol request.
@@ -142,27 +142,27 @@ root window's origin at the time of the event.
 .LP
 The same_screen member is set to indicate whether the event window is on the same screen
 as the root window and can be either
-.B True
+.B true
 or
-.BR False .
+.BR false .
 If
-.BR True ,
+.BR true ,
 the event and root windows are on the same screen.
 If
-.BR False ,
+.BR false ,
 the event and root windows are not on the same screen.
 .LP
 The focus member is set to indicate whether the event window is the focus window or an
 inferior of the focus window.
 The X server can set this member to either
-.B True
+.B true
 or
-.BR False .
+.BR false .
 If
-.BR True ,
+.BR true ,
 the event window is the focus window or an inferior of the focus window.
 If
-.BR False ,
+.BR false ,
 the event window is not the focus window or an inferior of the focus window.
 .LP
 The state member is set to indicate the state of the pointer buttons and

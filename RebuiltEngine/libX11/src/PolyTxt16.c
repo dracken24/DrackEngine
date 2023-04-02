@@ -113,7 +113,7 @@ XDrawText16(
 	    int PartialNChars = item->nchars;
 	    int PartialDelta = item->delta;
             register xTextElt *elt = NULL;
-	    int FirstTimeThrough = True;
+	    int FirstTimeThrough = true;
  	    XChar2b *CharacterOffset = item->chars;
 
 	    while((PartialDelta < -128) || (PartialDelta > 127))
@@ -144,7 +144,7 @@ XDrawText16(
 		nbytes = 254 * 2;
 	    	if (FirstTimeThrough)
 		{
-		    FirstTimeThrough = False;
+		    FirstTimeThrough = false;
 		    if (!item->delta)
  		    {
 			nbytes += SIZEOF(xTextElt);
@@ -178,7 +178,7 @@ XDrawText16(
 		nbytes = PartialNChars * 2;
 	    	if (FirstTimeThrough)
 		{
-		    FirstTimeThrough = False;
+		    FirstTimeThrough = false;
 		    if (!item->delta)
  		    {
 			nbytes += SIZEOF(xTextElt);

@@ -374,7 +374,7 @@ or just some of its members, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; free all components and <parameter>xkb</parameter>
+        <symbol>true</symbol> &rArr; free all components and <parameter>xkb</parameter>
       </para>
     </listitem>
   </varlistentry>
@@ -391,7 +391,7 @@ and sets the corresponding values to
 If
 <parameter>free_all</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 <function>XkbFreeKeyboard</function>
 frees every non-
 <symbol>NULL</symbol>

@@ -309,17 +309,17 @@ for planes not set in backing_planes.
 <para>
 <!-- .LP -->
 The save_under member is set to 
-<symbol>True</symbol>
+<symbol>true</symbol>
 or
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 The colormap member is set to the colormap for the specified window and can be
 a colormap ID or 
 <symbol>None</symbol>.
 The map_installed member is set to indicate whether the colormap is 
 currently installed and can be 
-<symbol>True</symbol>
+<symbol>true</symbol>
 or
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 The map_state member is set to indicate the state of the window and can be
 <symbol>IsUnmapped</symbol>,
 <symbol>IsUnviewable</symbol>,
@@ -341,11 +341,11 @@ set of events that should not propagate.
 <!-- .LP -->
 The override_redirect member is set to indicate whether this window overrides
 structure control facilities and can be 
-<symbol>True</symbol>
+<symbol>true</symbol>
 or
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Window manager clients should ignore the window if this member is
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -638,7 +638,7 @@ destination window.
 If
 <xref linkend='XTranslateCoordinates' xrefstyle='select: title'/>
 returns
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 it takes the src_x and src_y coordinates relative
 to the source window's origin and returns these coordinates to 
 dest_x_return and dest_y_return
@@ -646,7 +646,7 @@ relative to the destination window's origin.
 If
 <xref linkend='XTranslateCoordinates' xrefstyle='select: title'/>
 returns 
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 src_w and dest_w are on different screens,
 and dest_x_return and dest_y_return are zero.
 If the coordinates are contained in a mapped child of dest_w,
@@ -789,7 +789,7 @@ coordinates relative to the root window's origin.
 If
 <xref linkend='XQueryPointer' xrefstyle='select: title'/>
 returns 
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the pointer is not on the same screen as the specified window, and
 <xref linkend='XQueryPointer' xrefstyle='select: title'/>
 returns 
@@ -798,7 +798,7 @@ to child_return and zero to win_x_return and win_y_return.
 If 
 <xref linkend='XQueryPointer' xrefstyle='select: title'/>
 returns 
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the pointer coordinates returned to win_x_return and win_y_return
 are relative to the origin of the specified window.
 In this case, 
@@ -1104,7 +1104,7 @@ The
 function returns the atom identifier associated with the specified atom_name
 string.
 If only_if_exists is 
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the atom is created if it does not exist.
 Therefore,
 <xref linkend='XInternAtom' xrefstyle='select: title'/>
@@ -1655,7 +1655,7 @@ do not have to be copied into yet another string before use.
 <para>
 <!-- .LP -->
 If delete is 
-<symbol>True</symbol>
+<symbol>true</symbol>
 and bytes_after_return is zero, 
 <xref linkend='XGetWindowProperty' xrefstyle='select: title'/>
 deletes the property 

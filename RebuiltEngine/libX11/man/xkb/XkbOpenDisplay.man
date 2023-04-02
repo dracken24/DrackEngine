@@ -109,7 +109,7 @@ NULL. When successful, the function returns the display connection.
 The possible values for reason_rtrn are:
 
 .IP \(bu 5
-XkbOD_BadLibraryVersion indicates XkbLibraryVersion returned False.
+XkbOD_BadLibraryVersion indicates XkbLibraryVersion returned false.
 .IP \(bu 5
 XkbOD_ConnectionRefused indicates the display could not be opened.
 .IP \(bu 5

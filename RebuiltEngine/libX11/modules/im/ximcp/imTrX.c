@@ -72,13 +72,13 @@ _XimXRegisterDispatcher(
     XSpecRec		*spec = (XSpecRec *)im->private.proto.spec;
 
     if (!(rec = Xmalloc(sizeof(XIntrCallbackRec))))
-        return False;
+        return false;
 
     rec->func       = callback;
     rec->call_data  = call_data;
     rec->next       = spec->intr_cb;
     spec->intr_cb   = rec;
-    return True;
+    return true;
 }
 
 static void
@@ -105,9 +105,9 @@ _XimXCallDispatcher(Xim im, INT16 len, XPointer data)
 
     for (rec = spec->intr_cb; rec; rec = rec->next) {
 	if ((*rec->func)(im, len, data, rec->call_data))
-	    return True;
+	    return true;
     }
-    return False;
+    return false;
 }
 
 static Bool
@@ -149,9 +149,9 @@ _CheckConnect(
 
     if ((event->type == ClientMessage)
      && (event->xclient.message_type == spec->imconnectid)) {
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 static Bool
@@ -164,7 +164,7 @@ _XimXConnect(Xim im)
 
     if (!(spec->lib_connect_wid = XCreateSimpleWindow(im->core.display,
 		DefaultRootWindow(im->core.display), 0, 0, 1, 1, 1, 0, 0))) {
-	return False;
+	return false;
     }
 
     event.xclient.type         = ClientMessage;
@@ -191,13 +191,13 @@ _XimXConnect(Xim im)
     }
 
     XSendEvent(im->core.display, im->private.proto.im_window,
-		 False, NoEventMask, &event);
+		 false, NoEventMask, &event);
     XFlush(im->core.display);
 
     for (;;) {
 	XIfEvent(im->core.display, &event, _CheckConnect, (XPointer)im);
 	if (event.xclient.type != ClientMessage) {
-	    return False;
+	    return false;
 	}
 	if (event.xclient.message_type == spec->imconnectid)
 	    break;
@@ -222,7 +222,7 @@ _XimXConnect(Xim im)
     _XRegisterFilterByType(im->core.display, spec->lib_connect_wid,
 			ClientMessage, ClientMessage,
 			 _XimXFilterWaitEvent, (XPointer)im);
-    return True;
+    return true;
 }
 
 static Bool
@@ -231,7 +231,7 @@ _XimXShutdown(Xim im)
     XSpecRec	*spec = (XSpecRec *)im->private.proto.spec;
 
     if (!spec)
-	return True;
+	return true;
 
     /* ClientMessage Event Filter */
     _XUnregisterFilter(im->core.display,
@@ -242,7 +242,7 @@ _XimXShutdown(Xim im)
     _XimXFreeIntrCallback(im);
     Xfree(spec);
     im->private.proto.spec = 0;
-    return True;
+    return true;
 }
 
 static char *
@@ -284,7 +284,7 @@ _XimXWrite(Xim im, INT16 len, XPointer data)
     }
     if (len > BoundSize) {
 	event.xclient.message_type = spec->improtocolid;
-	atom = XInternAtom(im->core.display, _NewAtom(atomName), False);
+	atom = XInternAtom(im->core.display, _NewAtom(atomName), false);
 	XChangeProperty(im->core.display, spec->ims_connect_wid,
 			atom, XA_STRING, 8, PropModeAppend,
 			(unsigned char *)data, len);
@@ -293,7 +293,7 @@ _XimXWrite(Xim im, INT16 len, XPointer data)
 	    event.xclient.data.l[0] = (long)len;
 	    event.xclient.data.l[1] = (long)atom;
 	    XSendEvent(im->core.display, spec->ims_connect_wid,
-					False, NoEventMask, &event);
+					false, NoEventMask, &event);
 	}
     } else {
 	int		 length;
@@ -310,11 +310,11 @@ _XimXWrite(Xim im, INT16 len, XPointer data)
 		memcpy((char *)p, (data + length), XIM_CM_DATA_SIZE);
 	    }
 	    XSendEvent(im->core.display, spec->ims_connect_wid,
-					False, NoEventMask, &event);
+					false, NoEventMask, &event);
 	}
     }
 
-    return True;
+    return true;
 }
 
 static Bool
@@ -345,7 +345,7 @@ _XimXGetReadData(
          /* This event has nothing to do with us,
           * FIXME should not have gotten here then...
           */
-         return False;
+         return false;
     } else if ((event->type == ClientMessage) && (event->xclient.format == 8)) {
         data = event->xclient.data.b;
 	if (buf_len >= XIM_CM_DATA_SIZE) {
@@ -366,12 +366,12 @@ _XimXGetReadData(
 	prop   = (Atom)event->xclient.data.l[1];
 	return_code = XGetWindowProperty(im->core.display,
 		spec->lib_connect_wid, prop, 0L,
-		(long)((length + 3)/ 4), True, AnyPropertyType,
+		(long)((length + 3)/ 4), true, AnyPropertyType,
 		&type_ret, &format_ret, &nitems, &bytes_after_ret, &prop_ret);
 	if (return_code != Success || format_ret == 0 || nitems == 0) {
 	    if (return_code == Success)
 		XFree(prop_ret);
-	    return False;
+	    return false;
 	}
 	if (buf_len >= (int)nitems) {
 	    (void)memcpy(buf, prop_ret, (int)nitems);
@@ -381,7 +381,7 @@ _XimXGetReadData(
 		if (XGetWindowProperty(im->core.display,
 				       spec->lib_connect_wid, prop, 0L,
 				       ((length + bytes_after_ret + 3)/ 4),
-				       True, AnyPropertyType,
+				       true, AnyPropertyType,
 				       &type_ret, &format_ret, &nitems,
 				       &bytes_after_ret,
 				       &prop_ret) == Success) {
@@ -389,7 +389,7 @@ _XimXGetReadData(
 				    XA_STRING, 8, PropModePrepend, &prop_ret[length],
 				    (nitems - length));
 		} else {
-		    return False;
+		    return false;
 		}
 	    }
 	} else {
@@ -402,10 +402,10 @@ _XimXGetReadData(
 		if (XGetWindowProperty(im->core.display,
 				       spec->lib_connect_wid, prop, 0L,
 				       ((length + bytes_after_ret + 3)/ 4),
-				       True, AnyPropertyType,
+				       true, AnyPropertyType,
 				       &type_ret, &format_ret, &nitems,
 				       &bytes_after_ret, &prop_ret) != Success) {
-		    return False;
+		    return false;
 		}
 	    }
 	    XChangeProperty(im->core.display, spec->lib_connect_wid, prop,
@@ -419,12 +419,12 @@ _XimXGetReadData(
 	prop = event->xproperty.atom;
 	return_code = XGetWindowProperty(im->core.display,
 		spec->lib_connect_wid, prop, 0L,
-		1000000L, True, AnyPropertyType,
+		1000000L, true, AnyPropertyType,
 		&type_ret, &format_ret, &nitems, &bytes_after_ret, &prop_ret);
 	if (return_code != Success || format_ret == 0 || nitems == 0) {
 	    if (return_code == Success)
 		XFree(prop_ret);
-	    return False;
+	    return false;
 	}
 	if (buf_len >= nitems) {
 	    (void)memcpy(buf, prop_ret, (int)nitems);
@@ -438,7 +438,7 @@ _XimXGetReadData(
 	}
 	XFree(prop_ret);
     }
-    return True;
+    return true;
 }
 
 static Bool
@@ -454,12 +454,12 @@ _CheckCMEvent(
     if ((event->type == ClientMessage)
      &&((event->xclient.message_type == spec->improtocolid) ||
         (event->xclient.message_type == spec->immoredataid)))
-	return True;
+	return true;
     if((major_code == 1 || major_code == 2) &&
        (event->type == PropertyNotify) &&
        (event->xproperty.state == PropertyNewValue))
-	return True;
-    return False;
+	return true;
+    return false;
 }
 
 static Bool
@@ -480,9 +480,9 @@ _XimXRead(Xim im, XPointer recv_buf, int buf_len, int *ret_len)
 	spec->ev = (XPointer)NULL;
     }
     if (!(_XimXGetReadData(im, recv_buf, buf_len, &len, ev)))
-	return False;
+	return false;
     *ret_len = len;
-    return True;
+    return true;
 }
 
 static void
@@ -498,11 +498,11 @@ _XimXConf(Xim im, char *address)
     XSpecRec	*spec;
 
     if (!(spec = Xcalloc(1, sizeof(XSpecRec))))
-	return False;
+	return false;
 
-    spec->improtocolid = XInternAtom(im->core.display, _XIM_PROTOCOL, False);
-    spec->imconnectid  = XInternAtom(im->core.display, _XIM_XCONNECT, False);
-    spec->immoredataid = XInternAtom(im->core.display, _XIM_MOREDATA, False);
+    spec->improtocolid = XInternAtom(im->core.display, _XIM_PROTOCOL, false);
+    spec->imconnectid  = XInternAtom(im->core.display, _XIM_XCONNECT, false);
+    spec->immoredataid = XInternAtom(im->core.display, _XIM_MOREDATA, false);
     spec->major_code = MAJOR_TRANSPORT_VERSION;
     spec->minor_code = MINOR_TRANSPORT_VERSION;
 
@@ -515,5 +515,5 @@ _XimXConf(Xim im, char *address)
     im->private.proto.register_dispatcher  = _XimXRegisterDispatcher;
     im->private.proto.call_dispatcher = _XimXCallDispatcher;
 
-    return True;
+    return true;
 }

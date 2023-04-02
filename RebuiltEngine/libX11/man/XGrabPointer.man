@@ -103,12 +103,12 @@ Further pointer events are reported only to the grabbing client.
 .B XGrabPointer
 overrides any active pointer grab by this client.
 If owner_events is
-.BR False ,
+.BR false ,
 all generated pointer events
 are reported with respect to grab_window and are reported only if
 selected by event_mask.
 If owner_events is
-.B True
+.B true
 and if a generated
 pointer event would normally be reported to this client,
 it is reported as usual.

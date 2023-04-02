@@ -294,12 +294,12 @@ Further pointer events are reported only to the grabbing client.
 <xref linkend='XGrabPointer' xrefstyle='select: title'/>
 overrides any active pointer grab by this client.
 If owner_events is 
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 all generated pointer events
 are reported with respect to grab_window and are reported only if
 selected by event_mask.
 If owner_events is 
-<symbol>True</symbol>
+<symbol>true</symbol>
 and if a generated
 pointer event would normally be reported to this client, 
 it is reported as usual. 
@@ -1047,11 +1047,11 @@ grabbing client.
 <xref linkend='XGrabKeyboard' xrefstyle='select: title'/>
 overrides any active keyboard grab by this client.
 If owner_events is 
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 all generated key events are reported with
 respect to grab_window.  
 If owner_events is 
-<symbol>True</symbol>
+<symbol>true</symbol>
 and if a generated
 key event would normally be reported to this client, it is reported
 normally; otherwise, the event is reported with respect to the
@@ -2936,7 +2936,7 @@ only takes effect if the pointer moves more than threshold pixels at
 once and only applies to the amount beyond the value in the threshold argument.
 Setting a value to -1 restores the default.
 The values of the do_accel and do_threshold arguments must be 
-<symbol>True</symbol>
+<symbol>true</symbol>
 for the pointer values to be set,
 or the parameters are unchanged.
 Negative values (other than -1) generate a

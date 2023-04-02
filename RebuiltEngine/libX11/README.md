@@ -58,7 +58,7 @@ For patch submission instructions, see:
    or mix upper & lower case letters (!144).
  * Delete some unuseful compose sequences meant for Bépo layout (!146).
  * Delete compose sequences using leftcaret & rightcaret keysyms (!163).
- * Remove KOI8-R character set from en_US.UTF-8/XLC_LOCALE (!148).
+ * Remove KOsint8-R character set from en_US.UTF-8/XLC_LOCALE (!148).
  * Map sr locales to sr_RS compose files (!161).
 
 ## Release 1.8.1

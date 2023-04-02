@@ -123,8 +123,8 @@ _XcmsGetProperty(
     Atom atom_ret;
     int xgwp_ret;
 
-    while (True) {
-	xgwp_ret = XGetWindowProperty (pDpy, w, property, 0, len, False,
+    while (true) {
+	xgwp_ret = XGetWindowProperty (pDpy, w, property, 0, len, false,
 				       XA_INTEGER, &atom_ret, &format_ret,
 				       &nitems_ret, &after_ret,
 				       (unsigned char **)&prop_ret);

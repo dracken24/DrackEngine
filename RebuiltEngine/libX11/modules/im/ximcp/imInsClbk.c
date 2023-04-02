@@ -53,7 +53,7 @@ typedef struct _XimInstCallback {
 
 
 static XimInstCallback	callback_list	= NULL;
-static Bool		lock		= False;
+static Bool		lock		= false;
 
 
 static void
@@ -88,26 +88,26 @@ _XimFilterPropertyNotify(
     unsigned long	nitems, bytes_after;
     int			ii;
     XIM			xim;
-    Bool		flag = False;
+    Bool		flag = false;
     XimInstCallback	icb, picb, tmp;
 
-    if( (ims = XInternAtom( display, XIM_SERVERS, True )) == None  ||
+    if( (ims = XInternAtom( display, XIM_SERVERS, true )) == None  ||
 	event->xproperty.atom != ims  ||
 	event->xproperty.state == PropertyDelete )
-	return( False );
+	return( false );
 
     if( XGetWindowProperty( display, RootWindow(display, 0), ims, 0L, 1000000L,
-			    False, XA_ATOM, &actual_type, &actual_format,
+			    false, XA_ATOM, &actual_type, &actual_format,
 			    &nitems, &bytes_after, (unsigned char **)&atoms )
 	    != Success ) {
-	return( False );
+	return( false );
     }
     if( actual_type != XA_ATOM  ||  actual_format != 32 ) {
 	XFree( atoms );
-	return( False );
+	return( false );
     }
 
-    lock = True;
+    lock = true;
     for( ii = 0; ii < nitems; ii++ ) {
 	if(XGetSelectionOwner (display, atoms[ii])) {
 	    for( icb = callback_list; icb; icb = icb->next ) {
@@ -118,8 +118,8 @@ _XimFilterPropertyNotify(
 							 icb->res_class );
 		    if( xim ) {
 			xim->methods->close( (XIM)xim );
-			flag = True;
-			icb->call = True;
+			flag = true;
+			icb->call = true;
 			icb->callback( icb->display, icb->client_data, NULL );
 		    }
 		}
@@ -144,7 +144,7 @@ _XimFilterPropertyNotify(
 	    icb = icb->next;
 	}
     }
-    lock = False;
+    lock = false;
 
     return( flag );
 }
@@ -167,19 +167,19 @@ _XimRegisterIMInstantiateCallback(
     XWindowAttributes	attr;
 
     if( lock )
-	return( False );
+	return( false );
 
     icb = Xmalloc(sizeof(XimInstCallbackRec));
     if( !icb )
-	return( False );
+	return( false );
     if (lcd->core->modifiers) {
 	modifiers = strdup(lcd->core->modifiers);
 	if (!modifiers) {
 	    Xfree(icb);
-	    return( False );
+	    return( false );
 	}
     }
-    icb->call = icb->destroy = False;
+    icb->call = icb->destroy = false;
     icb->display = display;
     icb->lcd = lcd;
     MakeLocale( lcd, icb->name );
@@ -210,17 +210,17 @@ _XimRegisterIMInstantiateCallback(
     }
 
     if( xim ) {
-	lock = True;
+	lock = true;
 	xim->methods->close( (XIM)xim );
 	/* XIMs must be freed manually after being opened; close just
 	   does the protocol to deinitialize the IM.  */
 	XFree( xim );
-	lock = False;
-	icb->call = True;
+	lock = false;
+	icb->call = true;
 	callback( display, client_data, NULL );
     }
 
-    return( True );
+    return( true );
 }
 
 
@@ -238,7 +238,7 @@ _XimUnRegisterIMInstantiateCallback(
     XimInstCallback	icb, picb;
 
     if( !callback_list )
-	return( False );
+	return( false );
 
     MakeLocale( lcd, locale );
 
@@ -258,7 +258,7 @@ _XimUnRegisterIMInstantiateCallback(
 	    (client_data  ==  icb->client_data)  &&		/* XXXXX */
 	    !icb->destroy ) {
 	    if( lock )
-		icb->destroy = True;
+		icb->destroy = true;
 	    else {
 		if( !picb ) {
 		    callback_list = icb->next;
@@ -272,10 +272,10 @@ _XimUnRegisterIMInstantiateCallback(
 		XFree( icb->modifiers );
 		XFree( icb );
 	    }
-	    return( True );
+	    return( true );
 	}
     }
-    return( False );
+    return( false );
 }
 
 
@@ -296,5 +296,5 @@ _XimResetIMInstantiateCallback(Xim xim)
 	    (lcd->core->modifiers == icb->modifiers  ||
 	     (lcd->core->modifiers  &&  icb->modifiers  &&
 	      !strcmp( lcd->core->modifiers, icb->modifiers ))) )
-	    icb->call = False;
+	    icb->call = false;
 }

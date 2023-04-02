@@ -74,12 +74,12 @@ Bool
 _XInitDefaultIM(XLCd lcd)
 {
     if(lcd == (XLCd)NULL)
-	return False;
+	return false;
 
     lcd->methods->open_im = _XDefaultOpenIM;
     lcd->methods->register_callback = NULL;
     lcd->methods->unregister_callback = NULL;
-    return True;
+    return true;
 }
 
 extern XOM _XDefaultOpenOM(
@@ -90,5 +90,5 @@ Bool
 _XInitDefaultOM(XLCd lcd)
 {
     lcd->methods->open_om = _XDefaultOpenOM;
-    return True;
+    return true;
 }

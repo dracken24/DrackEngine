@@ -69,16 +69,16 @@ attributes, backfills
 .I timeout_rtrn 
 and 
 .I interval_rtrn 
-with them, and returns True. If a compatible version of the Xkb extension is not 
+with them, and returns true. If a compatible version of the Xkb extension is not 
 available in the server 
 .I XkbGetAutoRepeatRate 
-returns False.
+returns false.
 .SH "RETURN VALUES"
 .TP 15
-True
-The XkbGetAutoRepeatRate function returns True if a compatible version of the 
+true
+The XkbGetAutoRepeatRate function returns true if a compatible version of the 
 Xkb extension is available in the server.
 .TP 15
-False
-The XkbGetAutoRepeatRate function returns False if a compatible version of the 
+false
+The XkbGetAutoRepeatRate function returns false if a compatible version of the 
 Xkb extension is not available in the server.

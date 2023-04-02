@@ -189,18 +189,18 @@ becomes available for the specified display that matches the current
 locale and modifiers.
 .LP
 The function returns
-.B True
+.B true
 if it succeeds; otherwise, it returns
-.BR False .
+.BR false .
 .LP
 The
 .B XUnregisterIMInstantiateCallback
 function removes an input method instantiation callback previously
 registered.
 The function returns
-.B True
+.B true
 if it succeeds; otherwise, it returns
-.BR False .
+.BR false .
 .SH "SEE ALSO"
 XCreateIC(__libmansuffix__),
 XSetICFocus(__libmansuffix__),

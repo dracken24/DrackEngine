@@ -43,12 +43,12 @@ first outline to be freed
 number of outlines to be freed
 .TP
 .I free_all
-True => all outlines are freed
+true => all outlines are freed
 .SH DESCRIPTION
 .LP
 If 
 .I free_all 
-is True, all outlines are freed regardless of the value of 
+is true, all outlines are freed regardless of the value of 
 .I first 
 or 
 .I count. 

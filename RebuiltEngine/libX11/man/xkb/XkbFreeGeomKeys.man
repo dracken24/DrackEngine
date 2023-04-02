@@ -43,12 +43,12 @@ first key to be freed
 number of keys to be freed
 .TP
 .I free_all
-True => all keys are freed
+true => all keys are freed
 .SH DESCRIPTION
 .LP
 If 
 .I free_all 
-is True, all keys are freed regardless of the value of 
+is true, all keys are freed regardless of the value of 
 .I first 
 or 
 .I count. 

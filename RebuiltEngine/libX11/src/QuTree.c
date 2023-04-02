@@ -44,7 +44,7 @@ Status XQueryTree (
 
     LockDisplay(dpy);
     GetResReq(QueryTree, w, req);
-    if (!_XReply(dpy, (xReply *)&rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *)&rep, 0, xfalse)) {
 	UnlockDisplay(dpy);
 	SyncHandle();
 	return (0);

@@ -167,7 +167,7 @@ _XimLocalCreateIC(
 
     bzero((char *)&ic_values, sizeof(XimDefICValues));
     if(_XimCheckLocalInputStyle(ic, (XPointer)&ic_values, values,
-				 im->core.styles, res, num) == False) {
+				 im->core.styles, res, num) == false) {
 	goto Set_Error;
     }
 
@@ -176,13 +176,13 @@ _XimLocalCreateIC(
     if(_XimSetICValueData(ic, (XPointer)&ic_values,
 			ic->private.local.ic_resources,
 			ic->private.local.ic_num_resources,
-			values, XIM_CREATEIC, True)) {
+			values, XIM_CREATEIC, true)) {
 	goto Set_Error;
     }
     ic_values.filter_events = KeyPressMask | KeyReleaseMask;
     _XimSetCurrentICValues(ic, &ic_values);
     if(_XimSetICDefaults(ic, (XPointer)&ic_values,
-				XIM_SETICDEFAULTS, res, num) == False) {
+				XIM_SETICDEFAULTS, res, num) == false) {
 	goto Set_Error;
     }
     _XimSetCurrentICValues(ic, &ic_values);

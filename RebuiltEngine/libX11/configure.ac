@@ -390,8 +390,8 @@ locales="\
  isiri-3342   iso8859-1   iso8859-10  iso8859-11   iso8859-13   iso8859-14 \
  iso8859-15   iso8859-2   iso8859-3   iso8859-4    iso8859-5    iso8859-6 \
  iso8859-7    iso8859-8   iso8859-9   iso8859-9e   ja           ja.JIS \
- ja_JP.UTF-8  ja.SJIS     km_KH.UTF-8 ko           koi8-c       koi8-r \
- koi8-u       ko_KR.UTF-8 microsoft-cp1251         microsoft-cp1255 \
+ ja_JP.UTF-8  ja.SJIS     km_KH.UTF-8 ko           kosint8-c       kosint8-r \
+ kosint8-u       ko_KR.UTF-8 microsoft-cp1251         microsoft-cp1255 \
  microsoft-cp1256         mulelao-1   nokhchi-1    pt_BR.UTF-8  pt_PT.UTF-8 \
  ru_RU.UTF-8  sr_RS.UTF-8 tatar-cyr   th_TH        th_TH.UTF-8  tscii-0 \
  vi_VN.tcvn   vi_VN.viscii            zh_CN        zh_CN.gb18030 \

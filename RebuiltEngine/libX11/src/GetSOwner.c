@@ -38,7 +38,7 @@ Window XGetSelectionOwner(
     LockDisplay(dpy);
     GetResReq(GetSelectionOwner, selection, req);
 
-    if (_XReply(dpy, (xReply *)&rep, 0, xTrue) == 0) rep.owner = None;
+    if (_XReply(dpy, (xReply *)&rep, 0, xtrue) == 0) rep.owner = None;
     UnlockDisplay(dpy);
     SyncHandle();
     return(rep.owner);

@@ -44,8 +44,8 @@ _XimTriggerCheck(
 {
     register long	 i;
     KeySym	 	 keysym;
-    CARD32	 	 buf32[BUFSIZE/4];
-    char	 	*buf = (char *)buf32;
+    CARD32	 	 bufl32[BUFSIZE/4];
+    char	 	*buf = (char *)bufl32;
     int			 modifier;
     int			 modifier_mask;
     CARD32		 min_len = sizeof(CARD32)   /* sizeof keysym */
@@ -97,10 +97,10 @@ _XimOnKeysCheck(
 	    im->private.proto.im_onkeylist[0]) {
 	if ((idx = _XimTriggerOnCheck(im, ev)) >= 0) {
 	    (void)_XimTriggerNotify(im, ic, 0, (CARD32)idx); /* Trigger on */
-	    return True;
+	    return true;
 	}
     }
-    return False;
+    return false;
 }
 
 static Bool
@@ -116,10 +116,10 @@ _XimOffKeysCheck(
 	    im->private.proto.im_offkeylist[0]) {
 	if ((idx = _XimTriggerOffCheck(im, ev)) >= 0) {
 	    _XimTriggerNotify(im, ic, 1, (CARD32)idx); /* Trigger off */
-	    return True;
+	    return true;
 	}
     }
-    return False;
+    return false;
 }
 
 static void
@@ -368,12 +368,12 @@ _XimFilterServerDestroy(
 #ifdef XIM_CONNECTABLE
 	if (!IS_SERVER_CONNECTED(im) && IS_RECONNECTABLE(im)) {
 	    _XimServerReconectableDestroy();
-	    return True;
+	    return true;
 	}
 #endif /* XIM_CONNECTABLE */
 	_XimServerDestroy(im);
     }
-    return True;
+    return true;
 }
 
 void

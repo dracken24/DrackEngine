@@ -107,7 +107,7 @@ column.
 If the X server does not support a compatible version of Xkb or the Xkb 
 extension has not been properly initialized, 
 .I XkbChangeEnabledControls 
-returns False; otherwise, it sends the request to the X server and returns True.
+returns false; otherwise, it sends the request to the X server and returns true.
 
 Note that the EnabledControls control only enables and disables controls; it 
 does not configure them. Some controls, such as the AudibleBell control, have no 
@@ -123,10 +123,10 @@ bit, but you must use other means, as described in this chapter, to configure
 its behavior in detail.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The X server supports a compatible version of Xkb.
 .TP 15
-False
+false
 The X server does not support a compatible version of Xkb or the Xkb extension has not been properly initialized.
 .SH STRUCTURES
 .LP

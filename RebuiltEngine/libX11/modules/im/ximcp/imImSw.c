@@ -44,7 +44,7 @@ static Bool
 _XimCheckIfDefault(
     Xim		im)
 {
-    return(True);
+    return(true);
 }
 
 XimImsportSW _XimImSportRec[] = {

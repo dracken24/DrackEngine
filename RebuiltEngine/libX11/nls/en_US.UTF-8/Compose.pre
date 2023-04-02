@@ -265,7 +265,7 @@ XCOMM Other symbols
 
 <Multi_key> <colon> <parenright>	: "☺"	U263A # WHITE SMILING FACE
 <Multi_key> <colon> <parenleft>		: "☹"	U2639 # WHITE FROWNING FACE
-<Multi_key> <backslash> <o> <slash>	: "🙌"	U1F64C # PERSON RAISING BOTH HANDS IN CELEBRATION
+<Multi_key> <backslash> <o> <slash>	: "🙌"	U1dbl64C # PERSON RAISING BOTH HANDS IN CELEBRATION
 
 <Multi_key> <p> <o> <o>			: "💩"	U1F4A9 # PILE OF POO
 
@@ -1448,8 +1448,8 @@ XCOMM Spacing Modifier Letters
 <Multi_key> <asciicircum> <underscore> <U0281>		: "ʶ"	U02B6 # MODIFIER LETTER SMALL CAPITAL INVERTED R
 <dead_circumflex> <Multi_key> <underscore> <w>		: "ʷ"	U02B7 # MODIFIER LETTER SMALL W
 <Multi_key> <asciicircum> <underscore> <w>		: "ʷ"	U02B7 # MODIFIER LETTER SMALL W
-<dead_circumflex> <Multi_key> <underscore> <y>		: "ʸ"	U02B8 # MODIFIER LETTER SMALL Y
-<Multi_key> <asciicircum> <underscore> <y>		: "ʸ"	U02B8 # MODIFIER LETTER SMALL Y
+<dead_circumflex> <Multi_key> <underscore> <y>		: "ʸ"	U02bl8 # MODIFIER LETTER SMALL Y
+<Multi_key> <asciicircum> <underscore> <y>		: "ʸ"	U02bl8 # MODIFIER LETTER SMALL Y
 <dead_circumflex> <Multi_key> <underscore> <U0263>	: "ˠ"	U02E0 # MODIFIER LETTER SMALL GAMMA
 <Multi_key> <asciicircum> <underscore> <U0263>		: "ˠ"	U02E0 # MODIFIER LETTER SMALL GAMMA
 <dead_circumflex> <Multi_key> <underscore> <l>		: "ˡ"	U02E1 # MODIFIER LETTER SMALL L
@@ -1882,12 +1882,12 @@ XCOMM Conjoining Jamo for Korean Hangul
 <Multi_key> <U11AB> <U11C2>		: "ᆭ"	U11ad # HANGUL JONGSEONG NIEUN-HIEUH
 <Multi_key> <U11AF> <U11A8>		: "ᆰ"	U11b0 # HANGUL JONGSEONG RIEUL-KIYEOK
 <Multi_key> <U11AF> <U11B7>		: "ᆱ"	U11b1 # HANGUL JONGSEONG RIEUL-MIEUM
-<Multi_key> <U11AF> <U11B8>		: "ᆲ"	U11b2 # HANGUL JONGSEONG RIEUL-PIEUP
+<Multi_key> <U11AF> <U11bl8>		: "ᆲ"	U11b2 # HANGUL JONGSEONG RIEUL-PIEUP
 <Multi_key> <U11AF> <U11BA>		: "ᆳ"	U11b3 # HANGUL JONGSEONG RIEUL-SIOS
 <Multi_key> <U11AF> <U11C0>		: "ᆴ"	U11b4 # HANGUL JONGSEONG RIEUL-THIEUTH
 <Multi_key> <U11AF> <U11C1>		: "ᆵ"	U11b5 # HANGUL JONGSEONG RIEUL-PHIEUPH
 <Multi_key> <U11AF> <U11C2>		: "ᆶ"	U11b6 # HANGUL JONGSEONG RIEUL-HIEUH
-<Multi_key> <U11B8> <U11BA>		: "ᆹ"	U11b9 # HANGUL JONGSEONG PIEUP-SIOS
+<Multi_key> <U11bl8> <U11BA>		: "ᆹ"	U11b9 # HANGUL JONGSEONG PIEUP-SIOS
 <Multi_key> <U11BA> <U11BA>		: "ᆻ"	U11bb # HANGUL JONGSEONG SSANGSIOS
 <Multi_key> <U11A8> <U11AF>		: "ᇃ"	U11c3 # HANGUL JONGSEONG KIYEOK-RIEUL
 <Multi_key> <U11AB> <U11A8>		: "ᇅ"	U11c5 # HANGUL JONGSEONG NIEUN-KIYEOK
@@ -1905,31 +1905,31 @@ XCOMM Conjoining Jamo for Korean Hangul
 <Multi_key> <U11AF> <U11F9>		: "ᇙ"	U11d9 # HANGUL JONGSEONG RIEUL-YEORINHIEUH
 <Multi_key> <U11B7> <U11A8>		: "ᇚ"	U11da # HANGUL JONGSEONG MIEUM-KIYEOK
 <Multi_key> <U11B7> <U11AF>		: "ᇛ"	U11db # HANGUL JONGSEONG MIEUM-RIEUL
-<Multi_key> <U11B7> <U11B8>		: "ᇜ"	U11dc # HANGUL JONGSEONG MIEUM-PIEUP
+<Multi_key> <U11B7> <U11bl8>		: "ᇜ"	U11dc # HANGUL JONGSEONG MIEUM-PIEUP
 <Multi_key> <U11B7> <U11BA>		: "ᇝ"	U11dd # HANGUL JONGSEONG MIEUM-SIOS
 <Multi_key> <U11B7> <U11EB>		: "ᇟ"	U11df # HANGUL JONGSEONG MIEUM-PANSIOS
 <Multi_key> <U11B7> <U11BE>		: "ᇠ"	U11e0 # HANGUL JONGSEONG MIEUM-CHIEUCH
 <Multi_key> <U11B7> <U11C2>		: "ᇡ"	U11e1 # HANGUL JONGSEONG MIEUM-HIEUH
 <Multi_key> <U11B7> <U11BC>		: "ᇢ"	U11e2 # HANGUL JONGSEONG KAPYEOUNMIEUM
-<Multi_key> <U11B8> <U11AF>		: "ᇣ"	U11e3 # HANGUL JONGSEONG PIEUP-RIEUL
-<Multi_key> <U11B8> <U11C1>		: "ᇤ"	U11e4 # HANGUL JONGSEONG PIEUP-PHIEUPH
-<Multi_key> <U11B8> <U11C2>		: "ᇥ"	U11e5 # HANGUL JONGSEONG PIEUP-HIEUH
-<Multi_key> <U11B8> <U11BC>		: "ᇦ"	U11e6 # HANGUL JONGSEONG KAPYEOUNPIEUP
+<Multi_key> <U11bl8> <U11AF>		: "ᇣ"	U11e3 # HANGUL JONGSEONG PIEUP-RIEUL
+<Multi_key> <U11bl8> <U11C1>		: "ᇤ"	U11e4 # HANGUL JONGSEONG PIEUP-PHIEUPH
+<Multi_key> <U11bl8> <U11C2>		: "ᇥ"	U11e5 # HANGUL JONGSEONG PIEUP-HIEUH
+<Multi_key> <U11bl8> <U11BC>		: "ᇦ"	U11e6 # HANGUL JONGSEONG KAPYEOUNPIEUP
 <Multi_key> <U11BA> <U11A8>		: "ᇧ"	U11e7 # HANGUL JONGSEONG SIOS-KIYEOK
 <Multi_key> <U11BA> <U11AE>		: "ᇨ"	U11e8 # HANGUL JONGSEONG SIOS-TIKEUT
 <Multi_key> <U11BA> <U11AF>		: "ᇩ"	U11e9 # HANGUL JONGSEONG SIOS-RIEUL
-<Multi_key> <U11BA> <U11B8>		: "ᇪ"	U11ea # HANGUL JONGSEONG SIOS-PIEUP
+<Multi_key> <U11BA> <U11bl8>		: "ᇪ"	U11ea # HANGUL JONGSEONG SIOS-PIEUP
 <Multi_key> <U11BC> <U11A8>		: "ᇬ"	U11ec # HANGUL JONGSEONG IEUNG-KIYEOK
 <Multi_key> <U11BC> <U11BC>		: "ᇮ"	U11ee # HANGUL JONGSEONG SSANGIEUNG
 <Multi_key> <U11BC> <U11BF>		: "ᇯ"	U11ef # HANGUL JONGSEONG IEUNG-KHIEUKH
 <Multi_key> <U11F0> <U11BA>		: "ᇱ"	U11f1 # HANGUL JONGSEONG YESIEUNG-SIOS
 <Multi_key> <U11F0> <U11EB>		: "ᇲ"	U11f2 # HANGUL JONGSEONG YESIEUNG-PANSIOS
-<Multi_key> <U11C1> <U11B8>		: "ᇳ"	U11f3 # HANGUL JONGSEONG PHIEUPH-PIEUP
+<Multi_key> <U11C1> <U11bl8>		: "ᇳ"	U11f3 # HANGUL JONGSEONG PHIEUPH-PIEUP
 <Multi_key> <U11C1> <U11BC>		: "ᇴ"	U11f4 # HANGUL JONGSEONG KAPYEOUNPHIEUPH
 <Multi_key> <U11C2> <U11AB>		: "ᇵ"	U11f5 # HANGUL JONGSEONG HIEUH-NIEUN
 <Multi_key> <U11C2> <U11AF>		: "ᇶ"	U11f6 # HANGUL JONGSEONG HIEUH-RIEUL
 <Multi_key> <U11C2> <U11B7>		: "ᇷ"	U11f7 # HANGUL JONGSEONG HIEUH-MIEUM
-<Multi_key> <U11C2> <U11B8>		: "ᇸ"	U11f8 # HANGUL JONGSEONG HIEUH-PIEUP
+<Multi_key> <U11C2> <U11bl8>		: "ᇸ"	U11f8 # HANGUL JONGSEONG HIEUH-PIEUP
 <Multi_key> <U1121> <U1100>		: "ᄢ"	U1122 # HANGUL CHOSEONG PIEUP-SIOS-KIYEOK
 <Multi_key> <U1121> <U1103>		: "ᄣ"	U1123 # HANGUL CHOSEONG PIEUP-SIOS-TIKEUT
 <Multi_key> <U1121> <U1107>		: "ᄤ"	U1124 # HANGUL CHOSEONG PIEUP-SIOS-PIEUP
@@ -2654,8 +2654,8 @@ XCOMM Latin Extended Additional
 <Multi_key> <b> <dead_belowdot> <a>		: "ặ"	U1EB7 # LATIN SMALL LETTER A WITH BREVE AND DOT BELOW
 <Multi_key> <b> <exclam> <a>			: "ặ"	U1EB7 # LATIN SMALL LETTER A WITH BREVE AND DOT BELOW
 <dead_belowdot> <abreve>			: "ặ"	U1EB7 # LATIN SMALL LETTER A WITH BREVE AND DOT BELOW
-<dead_belowdot> <E>				: "Ẹ"	U1EB8 # LATIN CAPITAL LETTER E WITH DOT BELOW
-<Multi_key> <exclam> <E>			: "Ẹ"	U1EB8 # LATIN CAPITAL LETTER E WITH DOT BELOW
+<dead_belowdot> <E>				: "Ẹ"	U1Ebl8 # LATIN CAPITAL LETTER E WITH DOT BELOW
+<Multi_key> <exclam> <E>			: "Ẹ"	U1Ebl8 # LATIN CAPITAL LETTER E WITH DOT BELOW
 <dead_belowdot> <e>				: "ẹ"	U1EB9 # LATIN SMALL LETTER E WITH DOT BELOW
 <Multi_key> <exclam> <e>			: "ẹ"	U1EB9 # LATIN SMALL LETTER E WITH DOT BELOW
 <dead_hook> <E>					: "Ẻ"	U1EBA # LATIN CAPITAL LETTER E WITH HOOK ABOVE
@@ -2720,8 +2720,8 @@ XCOMM Latin Extended Additional
 <dead_tilde> <Multi_key> <asciicircum> <e>	: "ễ"	U1EC5 # LATIN SMALL LETTER E WITH CIRCUMFLEX AND TILDE
 <Multi_key> <asciitilde> <dead_circumflex> <e>	: "ễ"	U1EC5 # LATIN SMALL LETTER E WITH CIRCUMFLEX AND TILDE
 <Multi_key> <asciitilde> <asciicircum> <e>	: "ễ"	U1EC5 # LATIN SMALL LETTER E WITH CIRCUMFLEX AND TILDE
-<dead_circumflex> <U1EB8>			: "Ệ"	U1EC6 # LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND DOT BELOW
-<Multi_key> <asciicircum> <U1EB8>		: "Ệ"	U1EC6 # LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND DOT BELOW
+<dead_circumflex> <U1Ebl8>			: "Ệ"	U1EC6 # LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND DOT BELOW
+<Multi_key> <asciicircum> <U1Ebl8>		: "Ệ"	U1EC6 # LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND DOT BELOW
 <dead_circumflex> <dead_belowdot> <E>		: "Ệ"	U1EC6 # LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND DOT BELOW
 <dead_circumflex> <Multi_key> <exclam> <E>	: "Ệ"	U1EC6 # LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND DOT BELOW
 <Multi_key> <asciicircum> <dead_belowdot> <E>	: "Ệ"	U1EC6 # LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND DOT BELOW
@@ -3156,10 +3156,10 @@ XCOMM Greek Extended
 <Multi_key> <parenright> <Greek_iota>	: "ἰ"	U1F30 # GREEK SMALL LETTER IOTA WITH PSILI
 <dead_dasia> <Greek_iota>		: "ἱ"	U1F31 # GREEK SMALL LETTER IOTA WITH DASIA
 <Multi_key> <parenleft> <Greek_iota>	: "ἱ"	U1F31 # GREEK SMALL LETTER IOTA WITH DASIA
-<dead_grave> <dead_psili> <Greek_iota>	: "ἲ"	U1F32 # GREEK SMALL LETTER IOTA WITH PSILI AND VARIA
-<dead_grave> <Multi_key> <parenright> <Greek_iota>	: "ἲ"	U1F32 # GREEK SMALL LETTER IOTA WITH PSILI AND VARIA
-<Multi_key> <grave> <dead_psili> <Greek_iota>	: "ἲ"	U1F32 # GREEK SMALL LETTER IOTA WITH PSILI AND VARIA
-<Multi_key> <grave> <parenright> <Greek_iota>	: "ἲ"	U1F32 # GREEK SMALL LETTER IOTA WITH PSILI AND VARIA
+<dead_grave> <dead_psili> <Greek_iota>	: "ἲ"	U1fl32 # GREEK SMALL LETTER IOTA WITH PSILI AND VARIA
+<dead_grave> <Multi_key> <parenright> <Greek_iota>	: "ἲ"	U1fl32 # GREEK SMALL LETTER IOTA WITH PSILI AND VARIA
+<Multi_key> <grave> <dead_psili> <Greek_iota>	: "ἲ"	U1fl32 # GREEK SMALL LETTER IOTA WITH PSILI AND VARIA
+<Multi_key> <grave> <parenright> <Greek_iota>	: "ἲ"	U1fl32 # GREEK SMALL LETTER IOTA WITH PSILI AND VARIA
 <dead_grave> <dead_dasia> <Greek_iota>	: "ἳ"	U1F33 # GREEK SMALL LETTER IOTA WITH DASIA AND VARIA
 <dead_grave> <Multi_key> <parenleft> <Greek_iota>	: "ἳ"	U1F33 # GREEK SMALL LETTER IOTA WITH DASIA AND VARIA
 <Multi_key> <grave> <dead_dasia> <Greek_iota>	: "ἳ"	U1F33 # GREEK SMALL LETTER IOTA WITH DASIA AND VARIA
@@ -3324,12 +3324,12 @@ XCOMM Greek Extended
 <dead_grave> <Multi_key> <parenleft> <Greek_omega>	: "ὣ"	U1F63 # GREEK SMALL LETTER OMEGA WITH DASIA AND VARIA
 <Multi_key> <grave> <dead_dasia> <Greek_omega>	: "ὣ"	U1F63 # GREEK SMALL LETTER OMEGA WITH DASIA AND VARIA
 <Multi_key> <grave> <parenleft> <Greek_omega>	: "ὣ"	U1F63 # GREEK SMALL LETTER OMEGA WITH DASIA AND VARIA
-<dead_acute> <dead_psili> <Greek_omega>	: "ὤ"	U1F64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
-<dead_acute> <Multi_key> <parenright> <Greek_omega>	: "ὤ"	U1F64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
-<Multi_key> <acute> <dead_psili> <Greek_omega>	: "ὤ"	U1F64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
-<Multi_key> <acute> <parenright> <Greek_omega>	: "ὤ"	U1F64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
-<Multi_key> <apostrophe> <dead_psili> <Greek_omega>	: "ὤ"	U1F64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
-<Multi_key> <apostrophe> <parenright> <Greek_omega>	: "ὤ"	U1F64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
+<dead_acute> <dead_psili> <Greek_omega>	: "ὤ"	U1dbl64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
+<dead_acute> <Multi_key> <parenright> <Greek_omega>	: "ὤ"	U1dbl64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
+<Multi_key> <acute> <dead_psili> <Greek_omega>	: "ὤ"	U1dbl64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
+<Multi_key> <acute> <parenright> <Greek_omega>	: "ὤ"	U1dbl64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
+<Multi_key> <apostrophe> <dead_psili> <Greek_omega>	: "ὤ"	U1dbl64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
+<Multi_key> <apostrophe> <parenright> <Greek_omega>	: "ὤ"	U1dbl64 # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
 <dead_acute> <dead_dasia> <Greek_omega>	: "ὥ"	U1F65 # GREEK SMALL LETTER OMEGA WITH DASIA AND OXIA
 <dead_acute> <Multi_key> <parenleft> <Greek_omega>	: "ὥ"	U1F65 # GREEK SMALL LETTER OMEGA WITH DASIA AND OXIA
 <Multi_key> <acute> <dead_dasia> <Greek_omega>	: "ὥ"	U1F65 # GREEK SMALL LETTER OMEGA WITH DASIA AND OXIA
@@ -3798,9 +3798,9 @@ XCOMM Greek Extended
 <dead_iota> <Multi_key> <asciitilde> <Greek_alpha>	: "ᾷ"	U1FB7 # GREEK SMALL LETTER ALPHA WITH PERISPOMENI AND YPOGEGRAMMENI
 <Multi_key> <Greek_iota> <dead_tilde> <Greek_alpha>	: "ᾷ"	U1FB7 # GREEK SMALL LETTER ALPHA WITH PERISPOMENI AND YPOGEGRAMMENI
 <Multi_key> <Greek_iota> <asciitilde> <Greek_alpha>	: "ᾷ"	U1FB7 # GREEK SMALL LETTER ALPHA WITH PERISPOMENI AND YPOGEGRAMMENI
-<dead_breve> <Greek_ALPHA>		: "Ᾰ"	U1FB8 # GREEK CAPITAL LETTER ALPHA WITH VRACHY
-<Multi_key> <U> <Greek_ALPHA>		: "Ᾰ"	U1FB8 # GREEK CAPITAL LETTER ALPHA WITH VRACHY
-<Multi_key> <b> <Greek_ALPHA>		: "Ᾰ"	U1FB8 # GREEK CAPITAL LETTER ALPHA WITH VRACHY
+<dead_breve> <Greek_ALPHA>		: "Ᾰ"	U1Fbl8 # GREEK CAPITAL LETTER ALPHA WITH VRACHY
+<Multi_key> <U> <Greek_ALPHA>		: "Ᾰ"	U1Fbl8 # GREEK CAPITAL LETTER ALPHA WITH VRACHY
+<Multi_key> <b> <Greek_ALPHA>		: "Ᾰ"	U1Fbl8 # GREEK CAPITAL LETTER ALPHA WITH VRACHY
 <dead_macron> <Greek_ALPHA>		: "Ᾱ"	U1FB9 # GREEK CAPITAL LETTER ALPHA WITH MACRON
 <Multi_key> <macron> <Greek_ALPHA>	: "Ᾱ"	U1FB9 # GREEK CAPITAL LETTER ALPHA WITH MACRON
 <Multi_key> <underscore> <Greek_ALPHA>	: "Ᾱ"	U1FB9 # GREEK CAPITAL LETTER ALPHA WITH MACRON
@@ -4098,7 +4098,7 @@ XCOMM Mathematical Operators
 <Multi_key> <U2286> <U0338>		: "⊈"	U2288 # NEITHER A SUBSET OF NOR EQUAL TO
 <Multi_key> <U2287> <U0338>		: "⊉"	U2289 # NEITHER A SUPERSET OF NOR EQUAL TO
 <Multi_key> <righttack> <U0338>		: "⊬"	U22AC # DOES NOT PROVE
-<Multi_key> <U22A8> <U0338>		: "⊭"	U22AD # NOT TRUE
+<Multi_key> <U22A8> <U0338>		: "⊭"	U22AD # NOT true
 <Multi_key> <U22A9> <U0338>		: "⊮"	U22AE # DOES NOT FORCE
 <Multi_key> <U22AB> <U0338>		: "⊯"	U22AF # NEGATED DOUBLE VERTICAL BAR DOUBLE RIGHT TURNSTILE
 <Multi_key> <U227C> <U0338>		: "⋠"	U22E0 # DOES NOT PRECEDE OR EQUAL
@@ -4155,7 +4155,7 @@ XCOMM Enclosed Alphanumerics
 <Multi_key> <parenleft> <KP_2> <KP_0> <parenright>	: "⑳"	U2473 # CIRCLED NUMBER TWENTY
 <Multi_key> <parenleft> <A> <parenright>	: "Ⓐ"	U24B6 # CIRCLED LATIN CAPITAL LETTER A
 <Multi_key> <parenleft> <B> <parenright>	: "Ⓑ"	U24B7 # CIRCLED LATIN CAPITAL LETTER B
-<Multi_key> <parenleft> <C> <parenright>	: "Ⓒ"	U24B8 # CIRCLED LATIN CAPITAL LETTER C
+<Multi_key> <parenleft> <C> <parenright>	: "Ⓒ"	U24bl8 # CIRCLED LATIN CAPITAL LETTER C
 <Multi_key> <parenleft> <D> <parenright>	: "Ⓓ"	U24B9 # CIRCLED LATIN CAPITAL LETTER D
 <Multi_key> <parenleft> <E> <parenright>	: "Ⓔ"	U24BA # CIRCLED LATIN CAPITAL LETTER E
 <Multi_key> <parenleft> <F> <parenright>	: "Ⓕ"	U24BB # CIRCLED LATIN CAPITAL LETTER F
@@ -4254,7 +4254,7 @@ XCOMM Katakana
 <dead_voiced_sound> <kana_KE>		: "ゲ"	U30B2 # KATAKANA LETTER GE
 <dead_voiced_sound> <kana_KO>		: "ゴ"	U30B4 # KATAKANA LETTER GO
 <dead_voiced_sound> <kana_SA>		: "ザ"	U30B6 # KATAKANA LETTER ZA
-<dead_voiced_sound> <kana_SHI>		: "ジ"	U30B8 # KATAKANA LETTER ZI
+<dead_voiced_sound> <kana_SHI>		: "ジ"	U30bl8 # KATAKANA LETTER ZI
 <dead_voiced_sound> <kana_SU>		: "ズ"	U30BA # KATAKANA LETTER ZU
 <dead_voiced_sound> <kana_SE>		: "ゼ"	U30BC # KATAKANA LETTER ZE
 <dead_voiced_sound> <kana_SO>		: "ゾ"	U30BE # KATAKANA LETTER ZO
@@ -4311,190 +4311,190 @@ XCOMM Kanbun
 <Multi_key> <asciicircum> <U4EBA>	: "㆟"	U319F # IDEOGRAPHIC ANNOTATION MAN MARK
 
 XCOMM Enclosed CJK Letters and Months
-<Multi_key> <parenleft> <2> <1> <parenright>		: "㉑"	U3251 # CIRCLED NUMBER TWENTY ONE
-<Multi_key> <parenleft> <KP_2> <KP_1> <parenright>	: "㉑"	U3251 # CIRCLED NUMBER TWENTY ONE
-<Multi_key> <parenleft> <2> <2> <parenright>		: "㉒"	U3252 # CIRCLED NUMBER TWENTY TWO
-<Multi_key> <parenleft> <KP_2> <KP_2> <parenright>	: "㉒"	U3252 # CIRCLED NUMBER TWENTY TWO
-<Multi_key> <parenleft> <2> <3> <parenright>		: "㉓"	U3253 # CIRCLED NUMBER TWENTY THREE
-<Multi_key> <parenleft> <KP_2> <KP_3> <parenright>	: "㉓"	U3253 # CIRCLED NUMBER TWENTY THREE
-<Multi_key> <parenleft> <2> <4> <parenright>		: "㉔"	U3254 # CIRCLED NUMBER TWENTY FOUR
-<Multi_key> <parenleft> <KP_2> <KP_4> <parenright>	: "㉔"	U3254 # CIRCLED NUMBER TWENTY FOUR
-<Multi_key> <parenleft> <2> <5> <parenright>		: "㉕"	U3255 # CIRCLED NUMBER TWENTY FIVE
-<Multi_key> <parenleft> <KP_2> <KP_5> <parenright>	: "㉕"	U3255 # CIRCLED NUMBER TWENTY FIVE
-<Multi_key> <parenleft> <2> <6> <parenright>		: "㉖"	U3256 # CIRCLED NUMBER TWENTY SIX
-<Multi_key> <parenleft> <KP_2> <KP_6> <parenright>	: "㉖"	U3256 # CIRCLED NUMBER TWENTY SIX
-<Multi_key> <parenleft> <2> <7> <parenright>		: "㉗"	U3257 # CIRCLED NUMBER TWENTY SEVEN
-<Multi_key> <parenleft> <KP_2> <KP_7> <parenright>	: "㉗"	U3257 # CIRCLED NUMBER TWENTY SEVEN
-<Multi_key> <parenleft> <2> <8> <parenright>		: "㉘"	U3258 # CIRCLED NUMBER TWENTY EIGHT
-<Multi_key> <parenleft> <KP_2> <KP_8> <parenright>	: "㉘"	U3258 # CIRCLED NUMBER TWENTY EIGHT
-<Multi_key> <parenleft> <2> <9> <parenright>		: "㉙"	U3259 # CIRCLED NUMBER TWENTY NINE
-<Multi_key> <parenleft> <KP_2> <KP_9> <parenright>	: "㉙"	U3259 # CIRCLED NUMBER TWENTY NINE
-<Multi_key> <parenleft> <3> <0> <parenright>		: "㉚"	U325A # CIRCLED NUMBER THIRTY
-<Multi_key> <parenleft> <KP_3> <KP_0> <parenright>	: "㉚"	U325A # CIRCLED NUMBER THIRTY
-<Multi_key> <parenleft> <3> <1> <parenright>		: "㉛"	U325B # CIRCLED NUMBER THIRTY ONE
-<Multi_key> <parenleft> <KP_3> <KP_1> <parenright>	: "㉛"	U325B # CIRCLED NUMBER THIRTY ONE
-<Multi_key> <parenleft> <3> <2> <parenright>		: "㉜"	U325C # CIRCLED NUMBER THIRTY TWO
-<Multi_key> <parenleft> <KP_3> <KP_2> <parenright>	: "㉜"	U325C # CIRCLED NUMBER THIRTY TWO
-<Multi_key> <parenleft> <3> <3> <parenright>		: "㉝"	U325D # CIRCLED NUMBER THIRTY THREE
-<Multi_key> <parenleft> <KP_3> <KP_3> <parenright>	: "㉝"	U325D # CIRCLED NUMBER THIRTY THREE
-<Multi_key> <parenleft> <3> <4> <parenright>		: "㉞"	U325E # CIRCLED NUMBER THIRTY FOUR
-<Multi_key> <parenleft> <KP_3> <KP_4> <parenright>	: "㉞"	U325E # CIRCLED NUMBER THIRTY FOUR
-<Multi_key> <parenleft> <3> <5> <parenright>		: "㉟"	U325F # CIRCLED NUMBER THIRTY FIVE
-<Multi_key> <parenleft> <KP_3> <KP_5> <parenright>	: "㉟"	U325F # CIRCLED NUMBER THIRTY FIVE
-<Multi_key> <parenleft> <U1100> <parenright>		: "㉠"	U3260 # CIRCLED HANGUL KIYEOK
-<Multi_key> <parenleft> <U1102> <parenright>		: "㉡"	U3261 # CIRCLED HANGUL NIEUN
-<Multi_key> <parenleft> <U1103> <parenright>		: "㉢"	U3262 # CIRCLED HANGUL TIKEUT
-<Multi_key> <parenleft> <U1105> <parenright>		: "㉣"	U3263 # CIRCLED HANGUL RIEUL
-<Multi_key> <parenleft> <U1106> <parenright>		: "㉤"	U3264 # CIRCLED HANGUL MIEUM
-<Multi_key> <parenleft> <U1107> <parenright>		: "㉥"	U3265 # CIRCLED HANGUL PIEUP
-<Multi_key> <parenleft> <U1109> <parenright>		: "㉦"	U3266 # CIRCLED HANGUL SIOS
-<Multi_key> <parenleft> <U110B> <parenright>		: "㉧"	U3267 # CIRCLED HANGUL IEUNG
-<Multi_key> <parenleft> <U110C> <parenright>		: "㉨"	U3268 # CIRCLED HANGUL CIEUC
-<Multi_key> <parenleft> <U110E> <parenright>		: "㉩"	U3269 # CIRCLED HANGUL CHIEUCH
-<Multi_key> <parenleft> <U110F> <parenright>		: "㉪"	U326A # CIRCLED HANGUL KHIEUKH
-<Multi_key> <parenleft> <U1110> <parenright>		: "㉫"	U326B # CIRCLED HANGUL THIEUTH
-<Multi_key> <parenleft> <U1111> <parenright>		: "㉬"	U326C # CIRCLED HANGUL PHIEUPH
-<Multi_key> <parenleft> <U1112> <parenright>		: "㉭"	U326D # CIRCLED HANGUL HIEUH
-<Multi_key> <parenleft> <U1100> <U1161> <parenright>	: "㉮"	U326E # CIRCLED HANGUL KIYEOK A
-<Multi_key> <parenleft> <U1102> <U1161> <parenright>	: "㉯"	U326F # CIRCLED HANGUL NIEUN A
-<Multi_key> <parenleft> <U1103> <U1161> <parenright>	: "㉰"	U3270 # CIRCLED HANGUL TIKEUT A
-<Multi_key> <parenleft> <U1105> <U1161> <parenright>	: "㉱"	U3271 # CIRCLED HANGUL RIEUL A
-<Multi_key> <parenleft> <U1106> <U1161> <parenright>	: "㉲"	U3272 # CIRCLED HANGUL MIEUM A
-<Multi_key> <parenleft> <U1107> <U1161> <parenright>	: "㉳"	U3273 # CIRCLED HANGUL PIEUP A
-<Multi_key> <parenleft> <U1109> <U1161> <parenright>	: "㉴"	U3274 # CIRCLED HANGUL SIOS A
-<Multi_key> <parenleft> <U110B> <U1161> <parenright>	: "㉵"	U3275 # CIRCLED HANGUL IEUNG A
-<Multi_key> <parenleft> <U110C> <U1161> <parenright>	: "㉶"	U3276 # CIRCLED HANGUL CIEUC A
-<Multi_key> <parenleft> <U110E> <U1161> <parenright>	: "㉷"	U3277 # CIRCLED HANGUL CHIEUCH A
-<Multi_key> <parenleft> <U110F> <U1161> <parenright>	: "㉸"	U3278 # CIRCLED HANGUL KHIEUKH A
-<Multi_key> <parenleft> <U1110> <U1161> <parenright>	: "㉹"	U3279 # CIRCLED HANGUL THIEUTH A
-<Multi_key> <parenleft> <U1111> <U1161> <parenright>	: "㉺"	U327A # CIRCLED HANGUL PHIEUPH A
-<Multi_key> <parenleft> <U1112> <U1161> <parenright>	: "㉻"	U327B # CIRCLED HANGUL HIEUH A
-<Multi_key> <parenleft> <U4E00> <parenright>	: "㊀"	U3280 # CIRCLED IDEOGRAPH ONE
-<Multi_key> <parenleft> <U4E8C> <parenright>	: "㊁"	U3281 # CIRCLED IDEOGRAPH TWO
-<Multi_key> <parenleft> <U4E09> <parenright>	: "㊂"	U3282 # CIRCLED IDEOGRAPH THREE
-<Multi_key> <parenleft> <U56DB> <parenright>	: "㊃"	U3283 # CIRCLED IDEOGRAPH FOUR
-<Multi_key> <parenleft> <U4E94> <parenright>	: "㊄"	U3284 # CIRCLED IDEOGRAPH FIVE
-<Multi_key> <parenleft> <U516D> <parenright>	: "㊅"	U3285 # CIRCLED IDEOGRAPH SIX
-<Multi_key> <parenleft> <U4E03> <parenright>	: "㊆"	U3286 # CIRCLED IDEOGRAPH SEVEN
-<Multi_key> <parenleft> <U516B> <parenright>	: "㊇"	U3287 # CIRCLED IDEOGRAPH EIGHT
-<Multi_key> <parenleft> <U4E5D> <parenright>	: "㊈"	U3288 # CIRCLED IDEOGRAPH NINE
-<Multi_key> <parenleft> <U5341> <parenright>	: "㊉"	U3289 # CIRCLED IDEOGRAPH TEN
-<Multi_key> <parenleft> <U6708> <parenright>	: "㊊"	U328A # CIRCLED IDEOGRAPH MOON
-<Multi_key> <parenleft> <U706B> <parenright>	: "㊋"	U328B # CIRCLED IDEOGRAPH FIRE
-<Multi_key> <parenleft> <U6C34> <parenright>	: "㊌"	U328C # CIRCLED IDEOGRAPH WATER
-<Multi_key> <parenleft> <U6728> <parenright>	: "㊍"	U328D # CIRCLED IDEOGRAPH WOOD
-<Multi_key> <parenleft> <U91D1> <parenright>	: "㊎"	U328E # CIRCLED IDEOGRAPH METAL
-<Multi_key> <parenleft> <U571F> <parenright>	: "㊏"	U328F # CIRCLED IDEOGRAPH EARTH
-<Multi_key> <parenleft> <U65E5> <parenright>	: "㊐"	U3290 # CIRCLED IDEOGRAPH SUN
-<Multi_key> <parenleft> <U682A> <parenright>	: "㊑"	U3291 # CIRCLED IDEOGRAPH STOCK
-<Multi_key> <parenleft> <U6709> <parenright>	: "㊒"	U3292 # CIRCLED IDEOGRAPH HAVE
-<Multi_key> <parenleft> <U793E> <parenright>	: "㊓"	U3293 # CIRCLED IDEOGRAPH SOCIETY
-<Multi_key> <parenleft> <U540D> <parenright>	: "㊔"	U3294 # CIRCLED IDEOGRAPH NAME
-<Multi_key> <parenleft> <U7279> <parenright>	: "㊕"	U3295 # CIRCLED IDEOGRAPH SPECIAL
-<Multi_key> <parenleft> <U8CA1> <parenright>	: "㊖"	U3296 # CIRCLED IDEOGRAPH FINANCIAL
-<Multi_key> <parenleft> <U795D> <parenright>	: "㊗"	U3297 # CIRCLED IDEOGRAPH CONGRATULATION
-<Multi_key> <parenleft> <U52B4> <parenright>	: "㊘"	U3298 # CIRCLED IDEOGRAPH LABOR
-<Multi_key> <parenleft> <U79D8> <parenright>	: "㊙"	U3299 # CIRCLED IDEOGRAPH SECRET
-<Multi_key> <parenleft> <U7537> <parenright>	: "㊚"	U329A # CIRCLED IDEOGRAPH MALE
-<Multi_key> <parenleft> <U5973> <parenright>	: "㊛"	U329B # CIRCLED IDEOGRAPH FEMALE
-<Multi_key> <parenleft> <U9069> <parenright>	: "㊜"	U329C # CIRCLED IDEOGRAPH SUITABLE
-<Multi_key> <parenleft> <U512A> <parenright>	: "㊝"	U329D # CIRCLED IDEOGRAPH EXCELLENT
-<Multi_key> <parenleft> <U5370> <parenright>	: "㊞"	U329E # CIRCLED IDEOGRAPH PRINT
-<Multi_key> <parenleft> <U6CE8> <parenright>	: "㊟"	U329F # CIRCLED IDEOGRAPH ATTENTION
-<Multi_key> <parenleft> <U9805> <parenright>	: "㊠"	U32A0 # CIRCLED IDEOGRAPH ITEM
-<Multi_key> <parenleft> <U4F11> <parenright>	: "㊡"	U32A1 # CIRCLED IDEOGRAPH REST
-<Multi_key> <parenleft> <U5199> <parenright>	: "㊢"	U32A2 # CIRCLED IDEOGRAPH COPY
-<Multi_key> <parenleft> <U6B63> <parenright>	: "㊣"	U32A3 # CIRCLED IDEOGRAPH CORRECT
-<Multi_key> <parenleft> <U4E0A> <parenright>	: "㊤"	U32A4 # CIRCLED IDEOGRAPH HIGH
-<Multi_key> <parenleft> <U4E2D> <parenright>	: "㊥"	U32A5 # CIRCLED IDEOGRAPH CENTRE
-<Multi_key> <parenleft> <U4E0B> <parenright>	: "㊦"	U32A6 # CIRCLED IDEOGRAPH LOW
-<Multi_key> <parenleft> <U5DE6> <parenright>	: "㊧"	U32A7 # CIRCLED IDEOGRAPH LEFT
-<Multi_key> <parenleft> <U53F3> <parenright>	: "㊨"	U32A8 # CIRCLED IDEOGRAPH RIGHT
-<Multi_key> <parenleft> <U533B> <parenright>	: "㊩"	U32A9 # CIRCLED IDEOGRAPH MEDICINE
-<Multi_key> <parenleft> <U5B97> <parenright>	: "㊪"	U32AA # CIRCLED IDEOGRAPH RELIGION
-<Multi_key> <parenleft> <U5B66> <parenright>	: "㊫"	U32AB # CIRCLED IDEOGRAPH STUDY
-<Multi_key> <parenleft> <U76E3> <parenright>	: "㊬"	U32AC # CIRCLED IDEOGRAPH SUPERVISE
-<Multi_key> <parenleft> <U4F01> <parenright>	: "㊭"	U32AD # CIRCLED IDEOGRAPH ENTERPRISE
-<Multi_key> <parenleft> <U8CC7> <parenright>	: "㊮"	U32AE # CIRCLED IDEOGRAPH RESOURCE
-<Multi_key> <parenleft> <U5354> <parenright>	: "㊯"	U32AF # CIRCLED IDEOGRAPH ALLIANCE
-<Multi_key> <parenleft> <U591C> <parenright>	: "㊰"	U32B0 # CIRCLED IDEOGRAPH NIGHT
-<Multi_key> <parenleft> <3> <6> <parenright>		: "㊱"	U32B1 # CIRCLED NUMBER THIRTY SIX
-<Multi_key> <parenleft> <KP_3> <KP_6> <parenright>	: "㊱"	U32B1 # CIRCLED NUMBER THIRTY SIX
-<Multi_key> <parenleft> <3> <7> <parenright>		: "㊲"	U32B2 # CIRCLED NUMBER THIRTY SEVEN
-<Multi_key> <parenleft> <KP_3> <KP_7> <parenright>	: "㊲"	U32B2 # CIRCLED NUMBER THIRTY SEVEN
-<Multi_key> <parenleft> <3> <8> <parenright>		: "㊳"	U32B3 # CIRCLED NUMBER THIRTY EIGHT
-<Multi_key> <parenleft> <KP_3> <KP_8> <parenright>	: "㊳"	U32B3 # CIRCLED NUMBER THIRTY EIGHT
-<Multi_key> <parenleft> <3> <9> <parenright>		: "㊴"	U32B4 # CIRCLED NUMBER THIRTY NINE
-<Multi_key> <parenleft> <KP_3> <KP_9> <parenright>	: "㊴"	U32B4 # CIRCLED NUMBER THIRTY NINE
-<Multi_key> <parenleft> <4> <0> <parenright>		: "㊵"	U32B5 # CIRCLED NUMBER FORTY
-<Multi_key> <parenleft> <KP_4> <KP_0> <parenright>	: "㊵"	U32B5 # CIRCLED NUMBER FORTY
-<Multi_key> <parenleft> <4> <1> <parenright>		: "㊶"	U32B6 # CIRCLED NUMBER FORTY ONE
-<Multi_key> <parenleft> <KP_4> <KP_1> <parenright>	: "㊶"	U32B6 # CIRCLED NUMBER FORTY ONE
-<Multi_key> <parenleft> <4> <2> <parenright>		: "㊷"	U32B7 # CIRCLED NUMBER FORTY TWO
-<Multi_key> <parenleft> <KP_4> <KP_2> <parenright>	: "㊷"	U32B7 # CIRCLED NUMBER FORTY TWO
-<Multi_key> <parenleft> <4> <3> <parenright>		: "㊸"	U32B8 # CIRCLED NUMBER FORTY THREE
-<Multi_key> <parenleft> <KP_4> <KP_3> <parenright>	: "㊸"	U32B8 # CIRCLED NUMBER FORTY THREE
-<Multi_key> <parenleft> <4> <4> <parenright>		: "㊹"	U32B9 # CIRCLED NUMBER FORTY FOUR
-<Multi_key> <parenleft> <KP_4> <KP_4> <parenright>	: "㊹"	U32B9 # CIRCLED NUMBER FORTY FOUR
-<Multi_key> <parenleft> <4> <5> <parenright>		: "㊺"	U32BA # CIRCLED NUMBER FORTY FIVE
-<Multi_key> <parenleft> <KP_4> <KP_5> <parenright>	: "㊺"	U32BA # CIRCLED NUMBER FORTY FIVE
-<Multi_key> <parenleft> <4> <6> <parenright>		: "㊻"	U32BB # CIRCLED NUMBER FORTY SIX
-<Multi_key> <parenleft> <KP_4> <KP_6> <parenright>	: "㊻"	U32BB # CIRCLED NUMBER FORTY SIX
-<Multi_key> <parenleft> <4> <7> <parenright>		: "㊼"	U32BC # CIRCLED NUMBER FORTY SEVEN
-<Multi_key> <parenleft> <KP_4> <KP_7> <parenright>	: "㊼"	U32BC # CIRCLED NUMBER FORTY SEVEN
-<Multi_key> <parenleft> <4> <8> <parenright>		: "㊽"	U32BD # CIRCLED NUMBER FORTY EIGHT
-<Multi_key> <parenleft> <KP_4> <KP_8> <parenright>	: "㊽"	U32BD # CIRCLED NUMBER FORTY EIGHT
-<Multi_key> <parenleft> <4> <9> <parenright>		: "㊾"	U32BE # CIRCLED NUMBER FORTY NINE
-<Multi_key> <parenleft> <KP_4> <KP_9> <parenright>	: "㊾"	U32BE # CIRCLED NUMBER FORTY NINE
-<Multi_key> <parenleft> <5> <0> <parenright>		: "㊿"	U32BF # CIRCLED NUMBER FIFTY
-<Multi_key> <parenleft> <KP_5> <KP_0> <parenright>	: "㊿"	U32BF # CIRCLED NUMBER FIFTY
-<Multi_key> <parenleft> <kana_A> <parenright>	: "㋐"	U32D0 # CIRCLED KATAKANA A
-<Multi_key> <parenleft> <kana_I> <parenright>	: "㋑"	U32D1 # CIRCLED KATAKANA I
-<Multi_key> <parenleft> <kana_U> <parenright>	: "㋒"	U32D2 # CIRCLED KATAKANA U
-<Multi_key> <parenleft> <kana_E> <parenright>	: "㋓"	U32D3 # CIRCLED KATAKANA E
-<Multi_key> <parenleft> <kana_O> <parenright>	: "㋔"	U32D4 # CIRCLED KATAKANA O
-<Multi_key> <parenleft> <kana_KA> <parenright>	: "㋕"	U32D5 # CIRCLED KATAKANA KA
-<Multi_key> <parenleft> <kana_KI> <parenright>	: "㋖"	U32D6 # CIRCLED KATAKANA KI
-<Multi_key> <parenleft> <kana_KU> <parenright>	: "㋗"	U32D7 # CIRCLED KATAKANA KU
-<Multi_key> <parenleft> <kana_KE> <parenright>	: "㋘"	U32D8 # CIRCLED KATAKANA KE
-<Multi_key> <parenleft> <kana_KO> <parenright>	: "㋙"	U32D9 # CIRCLED KATAKANA KO
-<Multi_key> <parenleft> <kana_SA> <parenright>	: "㋚"	U32DA # CIRCLED KATAKANA SA
-<Multi_key> <parenleft> <kana_SHI> <parenright>	: "㋛"	U32DB # CIRCLED KATAKANA SI
-<Multi_key> <parenleft> <kana_SU> <parenright>	: "㋜"	U32DC # CIRCLED KATAKANA SU
-<Multi_key> <parenleft> <kana_SE> <parenright>	: "㋝"	U32DD # CIRCLED KATAKANA SE
-<Multi_key> <parenleft> <kana_SO> <parenright>	: "㋞"	U32DE # CIRCLED KATAKANA SO
-<Multi_key> <parenleft> <kana_TA> <parenright>	: "㋟"	U32DF # CIRCLED KATAKANA TA
-<Multi_key> <parenleft> <kana_CHI> <parenright>	: "㋠"	U32E0 # CIRCLED KATAKANA TI
-<Multi_key> <parenleft> <kana_TSU> <parenright>	: "㋡"	U32E1 # CIRCLED KATAKANA TU
-<Multi_key> <parenleft> <kana_TE> <parenright>	: "㋢"	U32E2 # CIRCLED KATAKANA TE
-<Multi_key> <parenleft> <kana_TO> <parenright>	: "㋣"	U32E3 # CIRCLED KATAKANA TO
-<Multi_key> <parenleft> <kana_NA> <parenright>	: "㋤"	U32E4 # CIRCLED KATAKANA NA
-<Multi_key> <parenleft> <kana_NI> <parenright>	: "㋥"	U32E5 # CIRCLED KATAKANA NI
-<Multi_key> <parenleft> <kana_NU> <parenright>	: "㋦"	U32E6 # CIRCLED KATAKANA NU
-<Multi_key> <parenleft> <kana_NE> <parenright>	: "㋧"	U32E7 # CIRCLED KATAKANA NE
-<Multi_key> <parenleft> <kana_NO> <parenright>	: "㋨"	U32E8 # CIRCLED KATAKANA NO
-<Multi_key> <parenleft> <kana_HA> <parenright>	: "㋩"	U32E9 # CIRCLED KATAKANA HA
-<Multi_key> <parenleft> <kana_HI> <parenright>	: "㋪"	U32EA # CIRCLED KATAKANA HI
-<Multi_key> <parenleft> <kana_FU> <parenright>	: "㋫"	U32EB # CIRCLED KATAKANA HU
-<Multi_key> <parenleft> <kana_HE> <parenright>	: "㋬"	U32EC # CIRCLED KATAKANA HE
-<Multi_key> <parenleft> <kana_HO> <parenright>	: "㋭"	U32ED # CIRCLED KATAKANA HO
-<Multi_key> <parenleft> <kana_MA> <parenright>	: "㋮"	U32EE # CIRCLED KATAKANA MA
-<Multi_key> <parenleft> <kana_MI> <parenright>	: "㋯"	U32EF # CIRCLED KATAKANA MI
-<Multi_key> <parenleft> <kana_MU> <parenright>	: "㋰"	U32F0 # CIRCLED KATAKANA MU
-<Multi_key> <parenleft> <kana_ME> <parenright>	: "㋱"	U32F1 # CIRCLED KATAKANA ME
-<Multi_key> <parenleft> <kana_MO> <parenright>	: "㋲"	U32F2 # CIRCLED KATAKANA MO
-<Multi_key> <parenleft> <kana_YA> <parenright>	: "㋳"	U32F3 # CIRCLED KATAKANA YA
-<Multi_key> <parenleft> <kana_YU> <parenright>	: "㋴"	U32F4 # CIRCLED KATAKANA YU
-<Multi_key> <parenleft> <kana_YO> <parenright>	: "㋵"	U32F5 # CIRCLED KATAKANA YO
-<Multi_key> <parenleft> <kana_RA> <parenright>	: "㋶"	U32F6 # CIRCLED KATAKANA RA
-<Multi_key> <parenleft> <kana_RI> <parenright>	: "㋷"	U32F7 # CIRCLED KATAKANA RI
-<Multi_key> <parenleft> <kana_RU> <parenright>	: "㋸"	U32F8 # CIRCLED KATAKANA RU
-<Multi_key> <parenleft> <kana_RE> <parenright>	: "㋹"	U32F9 # CIRCLED KATAKANA RE
-<Multi_key> <parenleft> <kana_RO> <parenright>	: "㋺"	U32FA # CIRCLED KATAKANA RO
-<Multi_key> <parenleft> <kana_WA> <parenright>	: "㋻"	U32FB # CIRCLED KATAKANA WA
-<Multi_key> <parenleft> <U30F0> <parenright>	: "㋼"	U32FC # CIRCLED KATAKANA WI
-<Multi_key> <parenleft> <U30F1> <parenright>	: "㋽"	U32FD # CIRCLED KATAKANA WE
-<Multi_key> <parenleft> <kana_WO> <parenright>	: "㋾"	U32FE # CIRCLED KATAKANA WO
+<Multi_key> <parenleft> <2> <1> <parenright>		: "㉑"	uint3251 # CIRCLED NUMBER TWENTY ONE
+<Multi_key> <parenleft> <KP_2> <KP_1> <parenright>	: "㉑"	uint3251 # CIRCLED NUMBER TWENTY ONE
+<Multi_key> <parenleft> <2> <2> <parenright>		: "㉒"	uint3252 # CIRCLED NUMBER TWENTY TWO
+<Multi_key> <parenleft> <KP_2> <KP_2> <parenright>	: "㉒"	uint3252 # CIRCLED NUMBER TWENTY TWO
+<Multi_key> <parenleft> <2> <3> <parenright>		: "㉓"	uint3253 # CIRCLED NUMBER TWENTY THREE
+<Multi_key> <parenleft> <KP_2> <KP_3> <parenright>	: "㉓"	uint3253 # CIRCLED NUMBER TWENTY THREE
+<Multi_key> <parenleft> <2> <4> <parenright>		: "㉔"	uint3254 # CIRCLED NUMBER TWENTY FOUR
+<Multi_key> <parenleft> <KP_2> <KP_4> <parenright>	: "㉔"	uint3254 # CIRCLED NUMBER TWENTY FOUR
+<Multi_key> <parenleft> <2> <5> <parenright>		: "㉕"	uint3255 # CIRCLED NUMBER TWENTY FIVE
+<Multi_key> <parenleft> <KP_2> <KP_5> <parenright>	: "㉕"	uint3255 # CIRCLED NUMBER TWENTY FIVE
+<Multi_key> <parenleft> <2> <6> <parenright>		: "㉖"	uint3256 # CIRCLED NUMBER TWENTY SIX
+<Multi_key> <parenleft> <KP_2> <KP_6> <parenright>	: "㉖"	uint3256 # CIRCLED NUMBER TWENTY SIX
+<Multi_key> <parenleft> <2> <7> <parenright>		: "㉗"	uint3257 # CIRCLED NUMBER TWENTY SEVEN
+<Multi_key> <parenleft> <KP_2> <KP_7> <parenright>	: "㉗"	uint3257 # CIRCLED NUMBER TWENTY SEVEN
+<Multi_key> <parenleft> <2> <8> <parenright>		: "㉘"	uint3258 # CIRCLED NUMBER TWENTY EIGHT
+<Multi_key> <parenleft> <KP_2> <KP_8> <parenright>	: "㉘"	uint3258 # CIRCLED NUMBER TWENTY EIGHT
+<Multi_key> <parenleft> <2> <9> <parenright>		: "㉙"	uint3259 # CIRCLED NUMBER TWENTY NINE
+<Multi_key> <parenleft> <KP_2> <KP_9> <parenright>	: "㉙"	uint3259 # CIRCLED NUMBER TWENTY NINE
+<Multi_key> <parenleft> <3> <0> <parenright>		: "㉚"	uint325A # CIRCLED NUMBER THIRTY
+<Multi_key> <parenleft> <KP_3> <KP_0> <parenright>	: "㉚"	uint325A # CIRCLED NUMBER THIRTY
+<Multi_key> <parenleft> <3> <1> <parenright>		: "㉛"	uint325B # CIRCLED NUMBER THIRTY ONE
+<Multi_key> <parenleft> <KP_3> <KP_1> <parenright>	: "㉛"	uint325B # CIRCLED NUMBER THIRTY ONE
+<Multi_key> <parenleft> <3> <2> <parenright>		: "㉜"	uint325C # CIRCLED NUMBER THIRTY TWO
+<Multi_key> <parenleft> <KP_3> <KP_2> <parenright>	: "㉜"	uint325C # CIRCLED NUMBER THIRTY TWO
+<Multi_key> <parenleft> <3> <3> <parenright>		: "㉝"	uint325D # CIRCLED NUMBER THIRTY THREE
+<Multi_key> <parenleft> <KP_3> <KP_3> <parenright>	: "㉝"	uint325D # CIRCLED NUMBER THIRTY THREE
+<Multi_key> <parenleft> <3> <4> <parenright>		: "㉞"	uint325E # CIRCLED NUMBER THIRTY FOUR
+<Multi_key> <parenleft> <KP_3> <KP_4> <parenright>	: "㉞"	uint325E # CIRCLED NUMBER THIRTY FOUR
+<Multi_key> <parenleft> <3> <5> <parenright>		: "㉟"	uint325F # CIRCLED NUMBER THIRTY FIVE
+<Multi_key> <parenleft> <KP_3> <KP_5> <parenright>	: "㉟"	uint325F # CIRCLED NUMBER THIRTY FIVE
+<Multi_key> <parenleft> <U1100> <parenright>		: "㉠"	uint3260 # CIRCLED HANGUL KIYEOK
+<Multi_key> <parenleft> <U1102> <parenright>		: "㉡"	uint3261 # CIRCLED HANGUL NIEUN
+<Multi_key> <parenleft> <U1103> <parenright>		: "㉢"	uint3262 # CIRCLED HANGUL TIKEUT
+<Multi_key> <parenleft> <U1105> <parenright>		: "㉣"	uint3263 # CIRCLED HANGUL RIEUL
+<Multi_key> <parenleft> <U1106> <parenright>		: "㉤"	uint3264 # CIRCLED HANGUL MIEUM
+<Multi_key> <parenleft> <U1107> <parenright>		: "㉥"	uint3265 # CIRCLED HANGUL PIEUP
+<Multi_key> <parenleft> <U1109> <parenright>		: "㉦"	uint3266 # CIRCLED HANGUL SIOS
+<Multi_key> <parenleft> <U110B> <parenright>		: "㉧"	uint3267 # CIRCLED HANGUL IEUNG
+<Multi_key> <parenleft> <U110C> <parenright>		: "㉨"	uint3268 # CIRCLED HANGUL CIEUC
+<Multi_key> <parenleft> <U110E> <parenright>		: "㉩"	uint3269 # CIRCLED HANGUL CHIEUCH
+<Multi_key> <parenleft> <U110F> <parenright>		: "㉪"	uint326A # CIRCLED HANGUL KHIEUKH
+<Multi_key> <parenleft> <U1110> <parenright>		: "㉫"	uint326B # CIRCLED HANGUL THIEUTH
+<Multi_key> <parenleft> <U1111> <parenright>		: "㉬"	uint326C # CIRCLED HANGUL PHIEUPH
+<Multi_key> <parenleft> <U1112> <parenright>		: "㉭"	uint326D # CIRCLED HANGUL HIEUH
+<Multi_key> <parenleft> <U1100> <U1161> <parenright>	: "㉮"	uint326E # CIRCLED HANGUL KIYEOK A
+<Multi_key> <parenleft> <U1102> <U1161> <parenright>	: "㉯"	uint326F # CIRCLED HANGUL NIEUN A
+<Multi_key> <parenleft> <U1103> <U1161> <parenright>	: "㉰"	uint3270 # CIRCLED HANGUL TIKEUT A
+<Multi_key> <parenleft> <U1105> <U1161> <parenright>	: "㉱"	uint3271 # CIRCLED HANGUL RIEUL A
+<Multi_key> <parenleft> <U1106> <U1161> <parenright>	: "㉲"	uint3272 # CIRCLED HANGUL MIEUM A
+<Multi_key> <parenleft> <U1107> <U1161> <parenright>	: "㉳"	uint3273 # CIRCLED HANGUL PIEUP A
+<Multi_key> <parenleft> <U1109> <U1161> <parenright>	: "㉴"	uint3274 # CIRCLED HANGUL SIOS A
+<Multi_key> <parenleft> <U110B> <U1161> <parenright>	: "㉵"	uint3275 # CIRCLED HANGUL IEUNG A
+<Multi_key> <parenleft> <U110C> <U1161> <parenright>	: "㉶"	uint3276 # CIRCLED HANGUL CIEUC A
+<Multi_key> <parenleft> <U110E> <U1161> <parenright>	: "㉷"	uint3277 # CIRCLED HANGUL CHIEUCH A
+<Multi_key> <parenleft> <U110F> <U1161> <parenright>	: "㉸"	uint3278 # CIRCLED HANGUL KHIEUKH A
+<Multi_key> <parenleft> <U1110> <U1161> <parenright>	: "㉹"	uint3279 # CIRCLED HANGUL THIEUTH A
+<Multi_key> <parenleft> <U1111> <U1161> <parenright>	: "㉺"	uint327A # CIRCLED HANGUL PHIEUPH A
+<Multi_key> <parenleft> <U1112> <U1161> <parenright>	: "㉻"	uint327B # CIRCLED HANGUL HIEUH A
+<Multi_key> <parenleft> <U4E00> <parenright>	: "㊀"	uint3280 # CIRCLED IDEOGRAPH ONE
+<Multi_key> <parenleft> <U4E8C> <parenright>	: "㊁"	uint3281 # CIRCLED IDEOGRAPH TWO
+<Multi_key> <parenleft> <U4E09> <parenright>	: "㊂"	uint3282 # CIRCLED IDEOGRAPH THREE
+<Multi_key> <parenleft> <U56DB> <parenright>	: "㊃"	uint3283 # CIRCLED IDEOGRAPH FOUR
+<Multi_key> <parenleft> <U4E94> <parenright>	: "㊄"	uint3284 # CIRCLED IDEOGRAPH FIVE
+<Multi_key> <parenleft> <U516D> <parenright>	: "㊅"	uint3285 # CIRCLED IDEOGRAPH SIX
+<Multi_key> <parenleft> <U4E03> <parenright>	: "㊆"	uint3286 # CIRCLED IDEOGRAPH SEVEN
+<Multi_key> <parenleft> <U516B> <parenright>	: "㊇"	uint3287 # CIRCLED IDEOGRAPH EIGHT
+<Multi_key> <parenleft> <U4E5D> <parenright>	: "㊈"	uint3288 # CIRCLED IDEOGRAPH NINE
+<Multi_key> <parenleft> <U5341> <parenright>	: "㊉"	uint3289 # CIRCLED IDEOGRAPH TEN
+<Multi_key> <parenleft> <U6708> <parenright>	: "㊊"	uint328A # CIRCLED IDEOGRAPH MOON
+<Multi_key> <parenleft> <U706B> <parenright>	: "㊋"	uint328B # CIRCLED IDEOGRAPH FIRE
+<Multi_key> <parenleft> <U6C34> <parenright>	: "㊌"	uint328C # CIRCLED IDEOGRAPH WATER
+<Multi_key> <parenleft> <U6728> <parenright>	: "㊍"	uint328D # CIRCLED IDEOGRAPH WOOD
+<Multi_key> <parenleft> <U91D1> <parenright>	: "㊎"	uint328E # CIRCLED IDEOGRAPH METAL
+<Multi_key> <parenleft> <U571F> <parenright>	: "㊏"	uint328F # CIRCLED IDEOGRAPH EARTH
+<Multi_key> <parenleft> <U65E5> <parenright>	: "㊐"	uint3290 # CIRCLED IDEOGRAPH SUN
+<Multi_key> <parenleft> <U682A> <parenright>	: "㊑"	uint3291 # CIRCLED IDEOGRAPH STOCK
+<Multi_key> <parenleft> <U6709> <parenright>	: "㊒"	uint3292 # CIRCLED IDEOGRAPH HAVE
+<Multi_key> <parenleft> <U793E> <parenright>	: "㊓"	uint3293 # CIRCLED IDEOGRAPH SOCIETY
+<Multi_key> <parenleft> <U540D> <parenright>	: "㊔"	uint3294 # CIRCLED IDEOGRAPH NAME
+<Multi_key> <parenleft> <U7279> <parenright>	: "㊕"	uint3295 # CIRCLED IDEOGRAPH SPECIAL
+<Multi_key> <parenleft> <uint8CA1> <parenright>	: "㊖"	uint3296 # CIRCLED IDEOGRAPH FINANCIAL
+<Multi_key> <parenleft> <U795D> <parenright>	: "㊗"	uint3297 # CIRCLED IDEOGRAPH CONGRATULATION
+<Multi_key> <parenleft> <U52B4> <parenright>	: "㊘"	uint3298 # CIRCLED IDEOGRAPH LABOR
+<Multi_key> <parenleft> <U79D8> <parenright>	: "㊙"	uint3299 # CIRCLED IDEOGRAPH SECRET
+<Multi_key> <parenleft> <U7537> <parenright>	: "㊚"	uint329A # CIRCLED IDEOGRAPH MALE
+<Multi_key> <parenleft> <U5973> <parenright>	: "㊛"	uint329B # CIRCLED IDEOGRAPH FEMALE
+<Multi_key> <parenleft> <U9069> <parenright>	: "㊜"	uint329C # CIRCLED IDEOGRAPH SUITABLE
+<Multi_key> <parenleft> <U512A> <parenright>	: "㊝"	uint329D # CIRCLED IDEOGRAPH EXCELLENT
+<Multi_key> <parenleft> <U5370> <parenright>	: "㊞"	uint329E # CIRCLED IDEOGRAPH PRINT
+<Multi_key> <parenleft> <U6CE8> <parenright>	: "㊟"	uint329F # CIRCLED IDEOGRAPH ATTENTION
+<Multi_key> <parenleft> <U9805> <parenright>	: "㊠"	uint32A0 # CIRCLED IDEOGRAPH ITEM
+<Multi_key> <parenleft> <U4F11> <parenright>	: "㊡"	uint32A1 # CIRCLED IDEOGRAPH REST
+<Multi_key> <parenleft> <U5199> <parenright>	: "㊢"	uint32A2 # CIRCLED IDEOGRAPH COPY
+<Multi_key> <parenleft> <U6B63> <parenright>	: "㊣"	uint32A3 # CIRCLED IDEOGRAPH CORRECT
+<Multi_key> <parenleft> <U4E0A> <parenright>	: "㊤"	uint32A4 # CIRCLED IDEOGRAPH HIGH
+<Multi_key> <parenleft> <U4E2D> <parenright>	: "㊥"	uint32A5 # CIRCLED IDEOGRAPH CENTRE
+<Multi_key> <parenleft> <U4E0B> <parenright>	: "㊦"	uint32A6 # CIRCLED IDEOGRAPH LOW
+<Multi_key> <parenleft> <U5DE6> <parenright>	: "㊧"	uint32A7 # CIRCLED IDEOGRAPH LEFT
+<Multi_key> <parenleft> <U53F3> <parenright>	: "㊨"	uint32A8 # CIRCLED IDEOGRAPH RIGHT
+<Multi_key> <parenleft> <U533B> <parenright>	: "㊩"	uint32A9 # CIRCLED IDEOGRAPH MEDICINE
+<Multi_key> <parenleft> <U5B97> <parenright>	: "㊪"	uint32AA # CIRCLED IDEOGRAPH RELIGION
+<Multi_key> <parenleft> <U5B66> <parenright>	: "㊫"	uint32AB # CIRCLED IDEOGRAPH STUDY
+<Multi_key> <parenleft> <U76E3> <parenright>	: "㊬"	uint32AC # CIRCLED IDEOGRAPH SUPERVISE
+<Multi_key> <parenleft> <U4F01> <parenright>	: "㊭"	uint32AD # CIRCLED IDEOGRAPH ENTERPRISE
+<Multi_key> <parenleft> <uint8CC7> <parenright>	: "㊮"	uint32AE # CIRCLED IDEOGRAPH RESOURCE
+<Multi_key> <parenleft> <U5354> <parenright>	: "㊯"	uint32AF # CIRCLED IDEOGRAPH ALLIANCE
+<Multi_key> <parenleft> <U591C> <parenright>	: "㊰"	uint32B0 # CIRCLED IDEOGRAPH NIGHT
+<Multi_key> <parenleft> <3> <6> <parenright>		: "㊱"	uint32B1 # CIRCLED NUMBER THIRTY SIX
+<Multi_key> <parenleft> <KP_3> <KP_6> <parenright>	: "㊱"	uint32B1 # CIRCLED NUMBER THIRTY SIX
+<Multi_key> <parenleft> <3> <7> <parenright>		: "㊲"	uint32B2 # CIRCLED NUMBER THIRTY SEVEN
+<Multi_key> <parenleft> <KP_3> <KP_7> <parenright>	: "㊲"	uint32B2 # CIRCLED NUMBER THIRTY SEVEN
+<Multi_key> <parenleft> <3> <8> <parenright>		: "㊳"	uint32B3 # CIRCLED NUMBER THIRTY EIGHT
+<Multi_key> <parenleft> <KP_3> <KP_8> <parenright>	: "㊳"	uint32B3 # CIRCLED NUMBER THIRTY EIGHT
+<Multi_key> <parenleft> <3> <9> <parenright>		: "㊴"	uint32B4 # CIRCLED NUMBER THIRTY NINE
+<Multi_key> <parenleft> <KP_3> <KP_9> <parenright>	: "㊴"	uint32B4 # CIRCLED NUMBER THIRTY NINE
+<Multi_key> <parenleft> <4> <0> <parenright>		: "㊵"	uint32B5 # CIRCLED NUMBER FORTY
+<Multi_key> <parenleft> <KP_4> <KP_0> <parenright>	: "㊵"	uint32B5 # CIRCLED NUMBER FORTY
+<Multi_key> <parenleft> <4> <1> <parenright>		: "㊶"	uint32B6 # CIRCLED NUMBER FORTY ONE
+<Multi_key> <parenleft> <KP_4> <KP_1> <parenright>	: "㊶"	uint32B6 # CIRCLED NUMBER FORTY ONE
+<Multi_key> <parenleft> <4> <2> <parenright>		: "㊷"	uint32B7 # CIRCLED NUMBER FORTY TWO
+<Multi_key> <parenleft> <KP_4> <KP_2> <parenright>	: "㊷"	uint32B7 # CIRCLED NUMBER FORTY TWO
+<Multi_key> <parenleft> <4> <3> <parenright>		: "㊸"	uint32bl8 # CIRCLED NUMBER FORTY THREE
+<Multi_key> <parenleft> <KP_4> <KP_3> <parenright>	: "㊸"	uint32bl8 # CIRCLED NUMBER FORTY THREE
+<Multi_key> <parenleft> <4> <4> <parenright>		: "㊹"	uint32B9 # CIRCLED NUMBER FORTY FOUR
+<Multi_key> <parenleft> <KP_4> <KP_4> <parenright>	: "㊹"	uint32B9 # CIRCLED NUMBER FORTY FOUR
+<Multi_key> <parenleft> <4> <5> <parenright>		: "㊺"	uint32BA # CIRCLED NUMBER FORTY FIVE
+<Multi_key> <parenleft> <KP_4> <KP_5> <parenright>	: "㊺"	uint32BA # CIRCLED NUMBER FORTY FIVE
+<Multi_key> <parenleft> <4> <6> <parenright>		: "㊻"	uint32BB # CIRCLED NUMBER FORTY SIX
+<Multi_key> <parenleft> <KP_4> <KP_6> <parenright>	: "㊻"	uint32BB # CIRCLED NUMBER FORTY SIX
+<Multi_key> <parenleft> <4> <7> <parenright>		: "㊼"	uint32BC # CIRCLED NUMBER FORTY SEVEN
+<Multi_key> <parenleft> <KP_4> <KP_7> <parenright>	: "㊼"	uint32BC # CIRCLED NUMBER FORTY SEVEN
+<Multi_key> <parenleft> <4> <8> <parenright>		: "㊽"	uint32BD # CIRCLED NUMBER FORTY EIGHT
+<Multi_key> <parenleft> <KP_4> <KP_8> <parenright>	: "㊽"	uint32BD # CIRCLED NUMBER FORTY EIGHT
+<Multi_key> <parenleft> <4> <9> <parenright>		: "㊾"	uint32BE # CIRCLED NUMBER FORTY NINE
+<Multi_key> <parenleft> <KP_4> <KP_9> <parenright>	: "㊾"	uint32BE # CIRCLED NUMBER FORTY NINE
+<Multi_key> <parenleft> <5> <0> <parenright>		: "㊿"	uint32BF # CIRCLED NUMBER FIFTY
+<Multi_key> <parenleft> <KP_5> <KP_0> <parenright>	: "㊿"	uint32BF # CIRCLED NUMBER FIFTY
+<Multi_key> <parenleft> <kana_A> <parenright>	: "㋐"	uint32D0 # CIRCLED KATAKANA A
+<Multi_key> <parenleft> <kana_I> <parenright>	: "㋑"	uint32D1 # CIRCLED KATAKANA I
+<Multi_key> <parenleft> <kana_U> <parenright>	: "㋒"	uint32D2 # CIRCLED KATAKANA U
+<Multi_key> <parenleft> <kana_E> <parenright>	: "㋓"	uint32D3 # CIRCLED KATAKANA E
+<Multi_key> <parenleft> <kana_O> <parenright>	: "㋔"	uint32D4 # CIRCLED KATAKANA O
+<Multi_key> <parenleft> <kana_KA> <parenright>	: "㋕"	uint32D5 # CIRCLED KATAKANA KA
+<Multi_key> <parenleft> <kana_KI> <parenright>	: "㋖"	uint32D6 # CIRCLED KATAKANA KI
+<Multi_key> <parenleft> <kana_KU> <parenright>	: "㋗"	uint32D7 # CIRCLED KATAKANA KU
+<Multi_key> <parenleft> <kana_KE> <parenright>	: "㋘"	uint32D8 # CIRCLED KATAKANA KE
+<Multi_key> <parenleft> <kana_KO> <parenright>	: "㋙"	uint32D9 # CIRCLED KATAKANA KO
+<Multi_key> <parenleft> <kana_SA> <parenright>	: "㋚"	uint32DA # CIRCLED KATAKANA SA
+<Multi_key> <parenleft> <kana_SHI> <parenright>	: "㋛"	uint32DB # CIRCLED KATAKANA SI
+<Multi_key> <parenleft> <kana_SU> <parenright>	: "㋜"	uint32DC # CIRCLED KATAKANA SU
+<Multi_key> <parenleft> <kana_SE> <parenright>	: "㋝"	uint32DD # CIRCLED KATAKANA SE
+<Multi_key> <parenleft> <kana_SO> <parenright>	: "㋞"	uint32DE # CIRCLED KATAKANA SO
+<Multi_key> <parenleft> <kana_TA> <parenright>	: "㋟"	uint32DF # CIRCLED KATAKANA TA
+<Multi_key> <parenleft> <kana_CHI> <parenright>	: "㋠"	uint32E0 # CIRCLED KATAKANA TI
+<Multi_key> <parenleft> <kana_TSU> <parenright>	: "㋡"	uint32E1 # CIRCLED KATAKANA TU
+<Multi_key> <parenleft> <kana_TE> <parenright>	: "㋢"	uint32E2 # CIRCLED KATAKANA TE
+<Multi_key> <parenleft> <kana_TO> <parenright>	: "㋣"	uint32E3 # CIRCLED KATAKANA TO
+<Multi_key> <parenleft> <kana_NA> <parenright>	: "㋤"	uint32E4 # CIRCLED KATAKANA NA
+<Multi_key> <parenleft> <kana_NI> <parenright>	: "㋥"	uint32E5 # CIRCLED KATAKANA NI
+<Multi_key> <parenleft> <kana_NU> <parenright>	: "㋦"	uint32E6 # CIRCLED KATAKANA NU
+<Multi_key> <parenleft> <kana_NE> <parenright>	: "㋧"	uint32E7 # CIRCLED KATAKANA NE
+<Multi_key> <parenleft> <kana_NO> <parenright>	: "㋨"	uint32E8 # CIRCLED KATAKANA NO
+<Multi_key> <parenleft> <kana_HA> <parenright>	: "㋩"	uint32E9 # CIRCLED KATAKANA HA
+<Multi_key> <parenleft> <kana_HI> <parenright>	: "㋪"	uint32EA # CIRCLED KATAKANA HI
+<Multi_key> <parenleft> <kana_FU> <parenright>	: "㋫"	uint32EB # CIRCLED KATAKANA HU
+<Multi_key> <parenleft> <kana_HE> <parenright>	: "㋬"	uint32EC # CIRCLED KATAKANA HE
+<Multi_key> <parenleft> <kana_HO> <parenright>	: "㋭"	uint32ED # CIRCLED KATAKANA HO
+<Multi_key> <parenleft> <kana_MA> <parenright>	: "㋮"	uint32EE # CIRCLED KATAKANA MA
+<Multi_key> <parenleft> <kana_MI> <parenright>	: "㋯"	uint32EF # CIRCLED KATAKANA MI
+<Multi_key> <parenleft> <kana_MU> <parenright>	: "㋰"	uint32F0 # CIRCLED KATAKANA MU
+<Multi_key> <parenleft> <kana_ME> <parenright>	: "㋱"	uint32F1 # CIRCLED KATAKANA ME
+<Multi_key> <parenleft> <kana_MO> <parenright>	: "㋲"	uint32F2 # CIRCLED KATAKANA MO
+<Multi_key> <parenleft> <kana_YA> <parenright>	: "㋳"	uint32F3 # CIRCLED KATAKANA YA
+<Multi_key> <parenleft> <kana_YU> <parenright>	: "㋴"	uint32F4 # CIRCLED KATAKANA YU
+<Multi_key> <parenleft> <kana_YO> <parenright>	: "㋵"	uint32F5 # CIRCLED KATAKANA YO
+<Multi_key> <parenleft> <kana_RA> <parenright>	: "㋶"	uint32F6 # CIRCLED KATAKANA RA
+<Multi_key> <parenleft> <kana_RI> <parenright>	: "㋷"	uint32F7 # CIRCLED KATAKANA RI
+<Multi_key> <parenleft> <kana_RU> <parenright>	: "㋸"	uint32F8 # CIRCLED KATAKANA RU
+<Multi_key> <parenleft> <kana_RE> <parenright>	: "㋹"	uint32F9 # CIRCLED KATAKANA RE
+<Multi_key> <parenleft> <kana_RO> <parenright>	: "㋺"	uint32FA # CIRCLED KATAKANA RO
+<Multi_key> <parenleft> <kana_WA> <parenright>	: "㋻"	uint32FB # CIRCLED KATAKANA WA
+<Multi_key> <parenleft> <U30F0> <parenright>	: "㋼"	uint32FC # CIRCLED KATAKANA WI
+<Multi_key> <parenleft> <U30F1> <parenright>	: "㋽"	uint32FD # CIRCLED KATAKANA WE
+<Multi_key> <parenleft> <kana_WO> <parenright>	: "㋾"	uint32FE # CIRCLED KATAKANA WO
 
 XCOMM Hebrew letters with accents
 <Multi_key> <U05B4> <hebrew_yod>	: "יִ"	UFB1D # HEBREW LETTER YOD WITH HIRIQ
@@ -4506,10 +4506,10 @@ XCOMM Hebrew letters with accents
 <Multi_key> <U05C2> <UFB49>		: "שּׂ"	UFB2D # HEBREW LETTER SHIN WITH DAGESH AND SIN DOT
 <Multi_key> <U05C2> <U05BC><hebrew_shin>: "שּׂ"	UFB2D # HEBREW LETTER SHIN WITH DAGESH AND SIN DOT
 <Multi_key> <U05B7> <hebrew_aleph>	: "אַ"	UFB2E # HEBREW LETTER ALEF WITH PATAH
-<Multi_key> <U05B8> <hebrew_aleph>	: "אָ"	UFB2F # HEBREW LETTER ALEF WITH QAMATS
+<Multi_key> <U05bl8> <hebrew_aleph>	: "אָ"	UFB2F # HEBREW LETTER ALEF WITH QAMATS
 <Multi_key> <U05BC> <hebrew_aleph>	: "אּ"	UFB30 # HEBREW LETTER ALEF WITH MAPIQ
 <Multi_key> <U05BC> <hebrew_bet>	: "בּ"	UFB31 # HEBREW LETTER BET WITH DAGESH
-<Multi_key> <U05BC> <hebrew_gimel>	: "גּ"	UFB32 # HEBREW LETTER GIMEL WITH DAGESH
+<Multi_key> <U05BC> <hebrew_gimel>	: "גּ"	UFbl32 # HEBREW LETTER GIMEL WITH DAGESH
 <Multi_key> <U05BC> <hebrew_dalet>	: "דּ"	UFB33 # HEBREW LETTER DALET WITH DAGESH
 <Multi_key> <U05BC> <hebrew_he>		: "הּ"	UFB34 # HEBREW LETTER HE WITH MAPIQ
 <Multi_key> <U05BC> <hebrew_waw>	: "וּ"	UFB35 # HEBREW LETTER VAV WITH DAGESH
@@ -4699,7 +4699,7 @@ XCOMM French-Dvorak Bépo compositions
 <dead_greek> <I>			: "Ι"	U0399 # GREEK CAPITAL LETTER IOTA
 <dead_greek> <i>			: "ι"	U03B9 # GREEK SMALL LETTER IOTA
 <dead_greek> <J>			: "Θ"	U0398 # GREEK CAPITAL LETTER THETA
-<dead_greek> <j>			: "θ"	U03B8 # GREEK SMALL LETTER THETA
+<dead_greek> <j>			: "θ"	U03bl8 # GREEK SMALL LETTER THETA
 <dead_greek> <K>			: "Κ"	U039A # GREEK CAPITAL LETTER KAPPA
 <dead_greek> <k>			: "κ"	U03BA # GREEK SMALL LETTER KAPPA
 <dead_greek> <L>			: "Λ"	U039B # GREEK CAPITAL LETTER LAMDA

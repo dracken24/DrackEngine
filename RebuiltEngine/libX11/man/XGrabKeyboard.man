@@ -92,11 +92,11 @@ grabbing client.
 .B XGrabKeyboard
 overrides any active keyboard grab by this client.
 If owner_events is
-.BR False ,
+.BR false ,
 all generated key events are reported with
 respect to grab_window.
 If owner_events is
-.B True
+.B true
 and if a generated
 key event would normally be reported to this client, it is reported
 normally; otherwise, the event is reported with respect to the

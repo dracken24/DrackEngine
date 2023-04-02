@@ -47,7 +47,7 @@ _XomGenericTextExtents(
     int direction, logical_ascent, logical_descent, tmp_ascent, tmp_descent;
     XCharStruct overall, tmp_overall;
     int buf_len, left;
-    Bool first = True;
+    Bool first = true;
 
     conv = _XomInitConverter(oc, type);
     if (conv == NULL)
@@ -79,7 +79,7 @@ _XomGenericTextExtents(
 	    overall = tmp_overall;
 	    logical_ascent = tmp_ascent;
 	    logical_descent = tmp_descent;
-	    first = False;
+	    first = false;
 	} else {
 	    overall.lbearing = min(overall.lbearing,
 				   overall.width + tmp_overall.lbearing);

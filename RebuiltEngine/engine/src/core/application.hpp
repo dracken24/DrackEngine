@@ -11,68 +11,27 @@
 /*****************************************************************************/
 
 #ifndef APPLICATION_HPP
-# define APPLICATION_HPP
+#define APPLICATION_HPP
 
-# if _WIN32
-#  define GLFW_EXPOSE_NATIVE_WIN32
-#  define VK_USE_PLATFORM_WIN32_KHR
-# endif
-# if __APPLE__
-#  define GLFW_EXPOSE_NATIVE_COCOA
-# endif
-# if __linux__
-#  define GLFW_EXPOSE_NATIVE_X11
-# endif
+#include "defines.hpp"
 
-# include "logger.hpp"
-# include "defines.hpp"
-# include "event.hpp"
+# include <string>
 
-# include <iostream>
-
-struct Game;
+struct game;
 
 // Application configuration.
-typedef struct appConfig
+typedef struct	appConfig
 {
-	sint16		x;		// Window starting x position, if applicable.
-	sint16		y;		// Window starting y position, if applicable.
-	sint16		width;	// Window starting width, if applicable.
-	sint16		height;	// Window starting height, if applicable.
+	sint16 x;	   // Window starting x position, if applicable.
+	sint16 y;	   // Window starting y position, if applicable.
+	sint16 width;  // Window starting width, if applicable.
+	sint16 height; // Window starting height, if applicable.
 
-    std::string	name;	// The application name used in windowing, if applicable.
+	std::string name; // The application name used in windowing, if applicable.
 }	appConfig;
 
-// Core = Engine and Application Layer
-class Core
-{
-	//****************************************************************************//
-	//**       						Constructors                            	**//
-	//****************************************************************************//
+DE_API bl8 application_create(struct game* game_inst);
 
-	public:
-		Core();
-		~Core();
+DE_API bl8 application_run();
 
-	//****************************************************************************//
-	//**       						PUBLIC METHODS                          	**//
-	//****************************************************************************//
-
-	public:
-	// Global Methods for the Engine
-		DE_API bl8	ApplicationStart(struct Game *gameInstance);
-		DE_API bl8	ApplicationRun();
-		DE_API void	ApplicationShutdown();
-
-	//****************************************************************************//
-	//**       						Private Variables                          	**//
-	//****************************************************************************//
-
-	public:
-		// Platform	platform;
-	
-	private:
-		
-};
-
-#endif
+#endif // APPLICATION_HPP

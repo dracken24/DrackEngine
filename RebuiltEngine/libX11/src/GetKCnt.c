@@ -39,7 +39,7 @@ XGetKeyboardControl (
     LockDisplay(dpy);
     GetEmptyReq (GetKeyboardControl, req);
     (void) _XReply (dpy, (xReply *) &rep,
-	(SIZEOF(xGetKeyboardControlReply) - SIZEOF(xReply)) >> 2, xTrue);
+	(SIZEOF(xGetKeyboardControlReply) - SIZEOF(xReply)) >> 2, xtrue);
 
     state->key_click_percent = rep.keyClickPercent;
     state->bell_percent = rep.bellPercent;

@@ -43,7 +43,7 @@ connection to X server
 structure to update with results
 .TP
 .I all_buttons
-True => get information for all buttons
+true => get information for all buttons
 .TP
 .I first_button
 number of first button for which info is desired
@@ -75,9 +75,9 @@ and
 .I num_buttons 
 specify the device buttons for which actions should be returned. Setting
 .I all_buttons 
-to True requests actions for all device buttons; if 
+to true requests actions for all device buttons; if 
 .I all_buttons 
-is False, 
+is false, 
 .I first_button 
 and 
 .I num_buttons 

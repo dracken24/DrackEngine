@@ -70,10 +70,10 @@ Bool MBtoWCdef(
     wchar_t wc_encoding;
     CodeSet codeset = (*ch & GR) ? state->GR_codeset : state->GL_codeset;
     if (!codeset)
-	return False;
+	return false;
     wc_encoding = codeset->wc_encoding;
     *wc = ((wchar_t) *ch & state->wc_mask) | wc_encoding;
-    return True;
+    return true;
 }
 
 #ifdef STDCVT
@@ -99,14 +99,14 @@ Bool WCtoMBdef(
     codeset = state->GL_codeset;
     if (codeset && (wc_encoding == codeset->wc_encoding)) {
 	*ch = wc & state->wc_mask;
-	return True;
+	return true;
     }
     codeset = state->GR_codeset;
     if (codeset && (wc_encoding == codeset->wc_encoding)) {
 	*ch = (wc & state->wc_mask) | GR;
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 #ifdef STDCVT
@@ -350,7 +350,7 @@ wcstocs(
     State state = (State) conv->state;
     char cur_side = 0, ch[MB_LEN_MAX];
     int unconv = 0;
-    Bool found = False;
+    Bool found = false;
 
     if (from == NULL || *from == NULL)
 	return 0;
@@ -416,7 +416,7 @@ cstombs(
     State state = (State) conv->state;
     unsigned char cur_side = 0;
     int i;
-    Bool found = False;
+    Bool found = false;
 
     if (from == NULL || *from == NULL)
 	return 0;
@@ -436,7 +436,7 @@ cstombs(
 	if (codeset) {
 	    for (i = 0; i < codeset->num_charsets; i++)
 		if (charset == codeset->charset_list[i]) {
-		    found = True;
+		    found = true;
 		    cur_side = 0;
 		    break;
 		}
@@ -447,7 +447,7 @@ cstombs(
 	if (codeset) {
 	    for (i = 0; i < codeset->num_charsets; i++)
 		if (charset == codeset->charset_list[i]) {
-		    found = True;
+		    found = true;
 		    cur_side = GR;
 		    break;
 		}
@@ -485,7 +485,7 @@ cstowcs(
     CodeSet codeset;
     XlcCharSet charset;
     State state = (State) conv->state;
-    Bool found = False;
+    Bool found = false;
     int i, unconv = 0;
     unsigned char cur_side = 0;
 
@@ -507,7 +507,7 @@ cstowcs(
 	if (codeset) {
 	    for (i = 0; i < codeset->num_charsets; i++)
 		if (charset == codeset->charset_list[i]) {
-		    found = True;
+		    found = true;
 		    cur_side = 0;
 		    break;
 		}
@@ -518,7 +518,7 @@ cstowcs(
 	if (codeset) {
 	    for (i = 0; i < codeset->num_charsets; i++)
 		if (charset == codeset->charset_list[i]) {
-		    found = True;
+		    found = true;
 		    cur_side = GR;
 		    break;
 		}
@@ -607,14 +607,14 @@ create_conv(
     state->wc_encode_mask = XLC_GENERIC(lcd, wc_encode_mask);
 
 #ifdef STDCVT
-    if (XLC_GENERIC(lcd, use_stdc_env) == True)
+    if (XLC_GENERIC(lcd, use_stdc_env) == true)
 	state->MBtoWC = &MBtoWCstd;
     else
 #endif
 	state->MBtoWC = &MBtoWCdef;
 
 #ifdef STDCVT
-    if (XLC_GENERIC(lcd, use_stdc_env) == True)
+    if (XLC_GENERIC(lcd, use_stdc_env) == true)
 	state->WCtoMB = &WCtoMBstd;
     else
 #endif

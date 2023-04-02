@@ -84,7 +84,7 @@ XHostAddress *XListHosts (
     LockDisplay(dpy);
     GetReq (ListHosts, req);
 
-    if (!_XReply (dpy, (xReply *) &reply, 0, xFalse)) {
+    if (!_XReply (dpy, (xReply *) &reply, 0, xfalse)) {
        UnlockDisplay(dpy);
        SyncHandle();
        return (XHostAddress *) NULL;

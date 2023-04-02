@@ -89,14 +89,14 @@ _XimSetEventMaskCallback(
     if (imid == im->private.proto.imid) {
 	if (icid) {
 	    if (!(ic = _XimICOfXICID(im, icid)))
-		return False;
+		return false;
 	    _XimProcICSetEventMask(ic, (XPointer)&buf_s[2]);
 	} else {
 	    _XimProcIMSetEventMask(im, (XPointer)&buf_s[2]);
 	}
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 static Bool
@@ -117,15 +117,15 @@ _XimSyncCheck(
      && (minor_opcode == 0)
      && (imid == im->private.proto.imid)
      && (icid == ic->private.proto.icid))
-	return True;
+	return true;
     if ((major_opcode == XIM_ERROR)
      && (minor_opcode == 0)
      && (buf_s[2] & XIM_IMID_VALID)
      && (imid == im->private.proto.imid)
      && (buf_s[2] & XIM_ICID_VALID)
      && (icid == ic->private.proto.icid))
-	return True;
-    return False;
+	return true;
+    return false;
 }
 
 Bool
@@ -133,8 +133,8 @@ _XimSync(
     Xim		 im,
     Xic		 ic)
 {
-    CARD32	 buf32[BUFSIZE/4];
-    CARD8	*buf = (CARD8 *)buf32;
+    CARD32	 bufl32[BUFSIZE/4];
+    CARD8	*buf = (CARD8 *)bufl32;
     CARD16	*buf_s = (CARD16 *)&buf[XIM_HEADER_SIZE];
     INT16	 len;
     CARD32	 reply32[BUFSIZE/4];
@@ -151,12 +151,12 @@ _XimSync(
 
     _XimSetHeader((XPointer)buf, XIM_SYNC, 0, &len);
     if (!(_XimWrite(im, len, (XPointer)buf)))
-	return False;
+	return false;
     _XimFlush(im);
     buf_size = BUFSIZE;
     ret_code = _XimRead(im, &len, (XPointer)reply, buf_size,
 					_XimSyncCheck, (XPointer)ic);
-    if(ret_code == XIM_TRUE) {
+    if(ret_code == XIM_true) {
 	preply = reply;
     } else if(ret_code == XIM_OVERFLOW) {
 	if(len <= 0) {
@@ -166,24 +166,24 @@ _XimSync(
 	    preply = Xmalloc(len);
 	    ret_code = _XimRead(im, &len, preply, buf_size,
 					_XimSyncCheck, (XPointer)ic);
-	    if(ret_code != XIM_TRUE) {
+	    if(ret_code != XIM_true) {
 		Xfree(preply);
-		return False;
+		return false;
 	    }
 	}
     } else {
-	return False;
+	return false;
     }
     buf_s = (CARD16 *)((char *)preply + XIM_HEADER_SIZE);
     if (*((CARD8 *)preply) == XIM_ERROR) {
 	_XimProcError(im, 0, (XPointer)&buf_s[3]);
 	if(reply != preply)
 	    Xfree(preply);
-	return False;
+	return false;
     }
     if(reply != preply)
 	Xfree(preply);
-    return True;
+    return true;
 }
 
 Bool
@@ -191,8 +191,8 @@ _XimProcSyncReply(
     Xim		 im,
     Xic		 ic)
 {
-    CARD32	 buf32[BUFSIZE/4];
-    CARD8	*buf = (CARD8 *)buf32;
+    CARD32	 bufl32[BUFSIZE/4];
+    CARD8	*buf = (CARD8 *)bufl32;
     CARD16	*buf_s = (CARD16 *)&buf[XIM_HEADER_SIZE];
     INT16	 len;
 
@@ -204,9 +204,9 @@ _XimProcSyncReply(
 
     _XimSetHeader((XPointer)buf, XIM_SYNC_REPLY, 0, &len);
     if (!(_XimWrite(im, len, (XPointer)buf)))
-	return False;
+	return false;
     _XimFlush(im);
-    return True;
+    return true;
 }
 
 Bool
@@ -217,7 +217,7 @@ _XimRespSyncReply(
     if (mode & XimSYNCHRONUS) /* SYNC Request */
 	MARK_NEED_SYNC_REPLY(ic->core.im);
 
-    return True;
+    return true;
 }
 
 Bool
@@ -236,9 +236,9 @@ _XimSyncCallback(
     if ((imid == im->private.proto.imid)
      && (ic = _XimICOfXICID(im, icid))) {
 	(void)_XimProcSyncReply(im, ic);
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 static INT16
@@ -246,7 +246,7 @@ _XimSetEventToWire(
     XEvent	*ev,
     xEvent	*event)
 {
-    if (!(_XimProtoEventToWire(ev, event, False)))
+    if (!(_XimProtoEventToWire(ev, event, false)))
 	return 0;
     event->u.u.sequenceNumber =
 		((XAnyEvent *)ev)->serial & (unsigned long)0xffff;
@@ -260,8 +260,8 @@ _XimForwardEventCore(
     Bool	 sync)
 {
     Xim		 im = (Xim)ic->core.im;
-    CARD32	 buf32[BUFSIZE/4];
-    CARD8	*buf = (CARD8 *)buf32;
+    CARD32	 bufl32[BUFSIZE/4];
+    CARD8	*buf = (CARD8 *)bufl32;
     CARD16	*buf_s = (CARD16 *)&buf[XIM_HEADER_SIZE];
     CARD32	 reply32[BUFSIZE/4];
     char	*reply = (char *)reply32;
@@ -270,10 +270,10 @@ _XimForwardEventCore(
     int		 ret_code;
     INT16	 len;
 
-    bzero(buf32, sizeof(buf32)); /* valgrind noticed uninitialized memory use! */
+    bzero(bufl32, sizeof(bufl32)); /* valgrind noticed uninitialized memory use! */
 
     if (!(len = _XimSetEventToWire(ev, (xEvent *)&buf_s[4])))
-	return False;				/* X event */
+	return false;				/* X event */
 
     buf_s[0] = im->private.proto.imid;		/* imid */
     buf_s[1] = ic->private.proto.icid;		/* icid */
@@ -289,14 +289,14 @@ _XimForwardEventCore(
 
     _XimSetHeader((XPointer)buf, XIM_FORWARD_EVENT, 0, &len);
     if (!(_XimWrite(im, len, (XPointer)buf)))
-	return False;
+	return false;
     _XimFlush(im);
 
     if (sync) {
 	buf_size = BUFSIZE;
 	ret_code = _XimRead(im, &len, (XPointer)reply, buf_size,
 					_XimSyncCheck, (XPointer)ic);
-	if(ret_code == XIM_TRUE) {
+	if(ret_code == XIM_true) {
 	    preply = reply;
 	} else if(ret_code == XIM_OVERFLOW) {
 	    if(len <= 0) {
@@ -306,25 +306,25 @@ _XimForwardEventCore(
 		preply = Xmalloc(len);
 		ret_code = _XimRead(im, &len, preply, buf_size,
 					_XimSyncCheck, (XPointer)ic);
-		if(ret_code != XIM_TRUE) {
+		if(ret_code != XIM_true) {
 		    Xfree(preply);
-		    return False;
+		    return false;
 		}
 	    }
 	} else {
-	    return False;
+	    return false;
 	}
 	buf_s = (CARD16 *)((char *)preply + XIM_HEADER_SIZE);
 	if (*((CARD8 *)preply) == XIM_ERROR) {
 	    _XimProcError(im, 0, (XPointer)&buf_s[3]);
 	    if(reply != preply)
 		Xfree(preply);
-	    return False;
+	    return false;
 	}
 	if(reply != preply)
 	    Xfree(preply);
     }
-    return True;
+    return true;
 }
 
 Bool
@@ -336,7 +336,7 @@ _XimForwardEvent(
 #ifdef EXT_FORWARD
     if (((ev->type == KeyPress) || (ev->type == KeyRelease)))
 	if (_XimExtForwardKeyEvent(ic, (XKeyEvent *)ev, sync))
-	    return True;
+	    return true;
 #endif
     return _XimForwardEventCore(ic, ev, sync);
 }
@@ -351,9 +351,9 @@ _XimProcEvent(
     INT16	 serial = buf[0];
     xEvent	*xev = (xEvent *)&buf[1];
 
-    _XimProtoWireToEvent(ev, xev, False);
+    _XimProtoWireToEvent(ev, xev, false);
     ev->xany.serial |= serial << 16;
-    ev->xany.send_event = False;
+    ev->xany.send_event = false;
     ev->xany.display = d;
     MARK_FABRICATED(ic->core.im);
     return;
@@ -375,7 +375,7 @@ _XimForwardEventRecv(
 
     XPutBackEvent(d, &ev);
 
-    return True;
+    return true;
 }
 
 Bool
@@ -394,9 +394,9 @@ _XimForwardEventCallback(
     if ((imid == im->private.proto.imid)
      && (ic = _XimICOfXICID(im, icid))) {
 	(void)_XimForwardEventRecv(im, ic, (XPointer)&buf_s[2]);
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 static Bool
@@ -409,7 +409,7 @@ _XimRegisterTriggerkey(
     CARD32 		*key;
 
     if (IS_DYNAMIC_EVENT_FLOW(im))	/* already Dynamic event flow mode */
-	return True;
+	return true;
 
     /*
      *  register onkeylist
@@ -420,7 +420,7 @@ _XimRegisterTriggerkey(
 
     if (!(key = Xmalloc(len))) {
 	_XimError(im, 0, XIM_BadAlloc, (INT16)0, (CARD16)0, (char *)NULL);
-	return False;
+	return false;
     }
     memcpy((char *)key, (char *)buf_l, len);
     im->private.proto.im_onkeylist = key;
@@ -437,13 +437,13 @@ _XimRegisterTriggerkey(
 
     if (!(key = Xmalloc(len))) {
 	_XimError(im, 0, XIM_BadAlloc, (INT16)0, (CARD16)0, (char *)NULL);
-	return False;
+	return false;
     }
 
     memcpy((char *)key, (char *)buf_l, len);
     im->private.proto.im_offkeylist = key;
 
-    return True;
+    return true;
 }
 
 Bool
@@ -457,7 +457,7 @@ _XimRegisterTriggerKeysCallback(
     Xim		 im = (Xim)call_data;
 
     (void )_XimRegisterTriggerkey(im, (XPointer)&buf_s[2]);
-    return True;
+    return true;
 }
 
 EVENTMASK
@@ -491,15 +491,15 @@ _XimTriggerNotifyCheck(
      && (minor_opcode == 0)
      && (imid == im->private.proto.imid)
      && (icid == ic->private.proto.icid))
-	return True;
+	return true;
     if ((major_opcode == XIM_ERROR)
      && (minor_opcode == 0)
      && (buf_s[2] & XIM_IMID_VALID)
      && (imid == im->private.proto.imid)
      && (buf_s[2] & XIM_ICID_VALID)
      && (icid == ic->private.proto.icid))
-	return True;
-    return False;
+	return true;
+    return false;
 }
 
 Bool
@@ -509,8 +509,8 @@ _XimTriggerNotify(
     int		 mode,
     CARD32	 idx)
 {
-    CARD32	 buf32[BUFSIZE/4];
-    CARD8	*buf = (CARD8 *)buf32;
+    CARD32	 bufl32[BUFSIZE/4];
+    CARD8	*buf = (CARD8 *)bufl32;
     CARD16	*buf_s = (CARD16 *)&buf[XIM_HEADER_SIZE];
     CARD32	*buf_l = (CARD32 *)&buf[XIM_HEADER_SIZE];
     CARD32	 reply32[BUFSIZE/4];
@@ -535,12 +535,12 @@ _XimTriggerNotify(
 
     _XimSetHeader((XPointer)buf, XIM_TRIGGER_NOTIFY, 0, &len);
     if (!(_XimWrite(im, len, (XPointer)buf)))
-	return False;
+	return false;
     _XimFlush(im);
     buf_size = BUFSIZE;
     ret_code = _XimRead(im, &len, (XPointer)reply, buf_size,
 				_XimTriggerNotifyCheck, (XPointer)ic);
-    if(ret_code == XIM_TRUE) {
+    if(ret_code == XIM_true) {
 	preply = reply;
     } else if(ret_code == XIM_OVERFLOW) {
 	if(len <= 0) {
@@ -550,24 +550,24 @@ _XimTriggerNotify(
 	    preply = Xmalloc(len);
 	    ret_code = _XimRead(im, &len, (XPointer)reply, buf_size,
 				_XimTriggerNotifyCheck, (XPointer)ic);
-	    if(ret_code != XIM_TRUE) {
+	    if(ret_code != XIM_true) {
 		Xfree(preply);
-		return False;
+		return false;
 	    }
 	}
     } else {
-	return False;
+	return false;
     }
     buf_s = (CARD16 *)((char *)preply + XIM_HEADER_SIZE);
     if (*((CARD8 *)preply) == XIM_ERROR) {
 	_XimProcError(im, 0, (XPointer)&buf_s[3]);
 	if(reply != preply)
 	    Xfree(preply);
-	return False;
+	return false;
     }
     if(reply != preply)
 	Xfree(preply);
-    return True;
+    return true;
 }
 
 static Bool
@@ -581,14 +581,14 @@ _XimRegCommitInfo(
     XimCommitInfo	info;
 
     if (!(info = Xmalloc(sizeof(XimCommitInfoRec))))
-	return False;
+	return false;
     info->string	= string;
     info->string_len	= string_len;
     info->keysym	= keysym;
     info->keysym_len	= keysym_len;
     info->next = ic->private.proto.commit_info;
     ic->private.proto.commit_info = info;
-    return True;
+    return true;
 }
 
 static void
@@ -628,13 +628,13 @@ _XimProcKeySym(
 
     if (!(*xim_keysym = Xmalloc(sizeof(KeySym)))) {
 	_XimError(im, ic, XIM_BadAlloc, (INT16)0, (CARD16)0, (char *)NULL);
-	return False;
+	return false;
     }
 
     **xim_keysym = (KeySym)sym;
     *xim_keysym_len = 1;
 
-    return True;
+    return true;
 }
 
 static Bool
@@ -650,7 +650,7 @@ _XimProcCommit(
 
     if (!(string = Xmalloc(len + 1))) {
 	_XimError(im, ic, XIM_BadAlloc, (INT16)0, (CARD16)0, (char *)NULL);
-	return False;
+	return false;
     }
 
     (void)memcpy(string, (char *)buf, len);
@@ -658,7 +658,7 @@ _XimProcCommit(
 
     *xim_string = string;
     *xim_string_len = len;
-    return True;
+    return true;
 }
 
 static Bool
@@ -678,20 +678,20 @@ _XimCommitRecv(
     if ((flag & XimLookupBoth) == XimLookupChars) {
 	if (!(_XimProcCommit(ic, (BYTE *)&buf_s[2],
 			 		(int)buf_s[1], &string, &string_len)))
-	    return False;
+	    return false;
 
     } else if ((flag & XimLookupBoth) == XimLookupKeySym) {
 	if (!(_XimProcKeySym(ic, *(CARD32 *)&buf_s[2], &keysym, &keysym_len)))
-	    return False;
+	    return false;
 
     } else if ((flag & XimLookupBoth) == XimLookupBoth) {
 	if (!(_XimProcKeySym(ic, *(CARD32 *)&buf_s[2], &keysym, &keysym_len)))
-	    return False;
+	    return false;
 
 	if (!(_XimProcCommit(ic, (BYTE *)&buf_s[5],
 					(int)buf_s[4], &string, &string_len))) {
 	    Xfree(keysym);
-	    return False;
+	    return false;
 	}
     }
 
@@ -699,7 +699,7 @@ _XimCommitRecv(
        Xfree(string);
 	Xfree(keysym);
 	_XimError(im, ic, XIM_BadAlloc, (INT16)0, (CARD16)0, (char *)NULL);
-	return False;
+	return false;
     }
 
     (void)_XimRespSyncReply(ic, flag);
@@ -711,7 +711,7 @@ _XimCommitRecv(
     bzero(&ev, sizeof(ev));	/* uninitialized : found when running kterm under valgrind */
 
     ev.type = KeyPress;
-    ev.send_event = False;
+    ev.send_event = false;
     ev.display = im->core.display;
     ev.window = ic->core.focus_window;
     ev.keycode = 0;
@@ -728,7 +728,7 @@ _XimCommitRecv(
 
     XPutBackEvent(im->core.display, (XEvent *)&ev);
 
-    return True;
+    return true;
 }
 
 Bool
@@ -747,9 +747,9 @@ _XimCommitCallback(
     if ((imid == im->private.proto.imid)
      && (ic = _XimICOfXICID(im, icid))) {
 	(void)_XimCommitRecv(im, ic, (XPointer)&buf_s[2]);
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 void
@@ -778,16 +778,16 @@ _XimErrorCallback(
     if (flag & XIM_IMID_VALID) {
 	imid = buf_s[0];
 	if (imid != im->private.proto.imid)
-	    return False;
+	    return false;
     }
     if (flag & XIM_ICID_VALID) {
 	icid = buf_s[1];
 	if (!(ic = _XimICOfXICID(im, icid)))
-	    return False;
+	    return false;
     }
     _XimProcError(im, ic, (XPointer)&buf_s[3]);
 
-    return True;
+    return true;
 }
 
 Bool
@@ -799,8 +799,8 @@ _XimError(
     CARD16	 type,
     char	*detail)
 {
-    CARD32	 buf32[BUFSIZE/4];
-    CARD8	*buf = (CARD8 *)buf32;
+    CARD32	 bufl32[BUFSIZE/4];
+    CARD8	*buf = (CARD8 *)bufl32;
     CARD16	*buf_s = (CARD16 *)&buf[XIM_HEADER_SIZE];
     INT16	 len = 0;
 
@@ -829,9 +829,9 @@ _XimError(
 
     _XimSetHeader((XPointer)buf, XIM_ERROR, 0, &len);
     if (!(_XimWrite(im, len, (XPointer)buf)))
-	return False;
+	return false;
     _XimFlush(im);
-    return True;
+    return true;
 }
 
 static int

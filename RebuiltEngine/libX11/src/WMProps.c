@@ -140,7 +140,7 @@ void XSetWMProperties (
 
     locale = setlocale(LC_CTYPE, (char *)NULL);
     if (locale)
-        XChangeProperty (dpy, w, XInternAtom(dpy, "WM_LOCALE_NAME", False),
+        XChangeProperty (dpy, w, XInternAtom(dpy, "WM_LOCALE_NAME", false),
         XA_STRING, 8, PropModeReplace,
         (unsigned char *)locale, (int) strlen(locale));
 }

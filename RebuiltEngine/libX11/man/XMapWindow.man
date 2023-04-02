@@ -76,7 +76,7 @@ and will be visible on the screen if it is not obscured by another window.
 This function has no effect if the window is already mapped.
 .LP
 If the override-redirect of the window is
-.B False
+.B false
 and if some other client has selected
 .B SubstructureRedirectMask
 on the parent window, then the X server generates a

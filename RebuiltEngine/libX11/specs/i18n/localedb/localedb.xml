@@ -7,7 +7,7 @@
 
 <book id="localedb">
 
-<bookinfo>
+<booDE_INFO>
    <title>X Locale Database Specification</title>
    <releaseinfo>X Version 11, Release &fullrelvers;</releaseinfo>
    <authorgroup>
@@ -73,7 +73,7 @@ this Software without prior written authorization from the X Consortium.
 <para>X Window System is a trademark of The Open Group.</para>
 
 </legalnotice>
-</bookinfo>
+</booDE_INFO>
 
 <chapter id='LocaleDB'>
 <title>LocaleDB</title>
@@ -546,7 +546,7 @@ It is corresponding to MB_CUR_MAX of "ISO/IEC 9899:1990 C Language Standard".
     <listitem>
       <para>
 Indicates a current locale is state dependent. The value should be
-specified "True" or "False".
+specified "true" or "false".
       </para>
     </listitem>
   </varlistentry>
@@ -721,7 +721,7 @@ XLC_XLOCALE
 
 encoding_name             ja.euc
 mb_cur_max                3
-state_depend_encoding     False
+state_depend_encoding     false
 
 wc_encoding_mask          \x00008080
 wc_shift_bits             8

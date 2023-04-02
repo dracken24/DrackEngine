@@ -86,23 +86,23 @@ are backfilled with the options to modify and the values for
 .I ax_options,
 which is a field in the XkbControlsRec structure.
 .I XkbGetAccessXTimeout
-returns True if successful; if a compatible version of the Xkb extension is not
+returns true if successful; if a compatible version of the Xkb extension is not
 available in the server,
 .I XkbGetAccessXTimeout
-returns False.
+returns false.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The
 .I XkbGetAccessXTimeout
-returns True when it successfully sends a request to the X server to obtain the
+returns true when it successfully sends a request to the X server to obtain the
 current values for the AccessXTimeout attributes, waits for a reply, and
 backfills the values into the appropriate arguments.
 .TP 15
-False
+false
 The
 .I XkbGetAccessXTimeout
-function returns False if a compatible version of the Xkb extension is not
+function returns false if a compatible version of the Xkb extension is not
 available in the
 server.
 .SH STRUCTURES

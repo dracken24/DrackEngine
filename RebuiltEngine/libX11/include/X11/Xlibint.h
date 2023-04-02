@@ -63,8 +63,8 @@ struct _XGC
 {
     XExtData *ext_data;	/* hook for extension to hang data */
     GContext gid;	/* protocol ID for graphics context */
-    Bool rects;		/* boolean: TRUE if clipmask is list of rectangles */
-    Bool dashes;	/* boolean: TRUE if dash-list is really a list */
+    Bool rects;		/* boolean: true if clipmask is list of rectangles */
+    Bool dashes;	/* boolean: true if dash-list is really a list */
     unsigned long dirty;/* cache dirty bits */
     XGCValues values;	/* shadow structure of values */
 };
@@ -141,7 +141,7 @@ struct _XDisplay
 		xEvent *	/* event */
 		);
 	KeySym lock_meaning;	   /* for XLookupString */
-	struct _XLockInfo *lock;   /* multi-thread state, display lock */
+	struct _XLocDE_INFO *lock;   /* multi-thread state, display lock */
 	struct _XInternalAsync *async_handlers; /* for internal async */
 	unsigned long bigreq_size; /* max size of big requests */
 	struct _XLockPtrs *lock_fns; /* pointers to threads functions */
@@ -370,7 +370,7 @@ _XFUNCPROTOBEGIN
  * declarations for C Threads locking
  */
 
-typedef struct _LockInfoRec *LockInfoPtr;
+typedef struct _LocDE_INFORec *LocDE_INFOPtr;
 
 /* interfaces for locking.c */
 struct _XLockPtrs {
@@ -401,27 +401,27 @@ struct _XLockPtrs {
 
 /* in XlibInt.c */
 extern void (*_XCreateMutex_fn)(
-    LockInfoPtr /* lock */
+    LocDE_INFOPtr /* lock */
 );
 extern void (*_XFreeMutex_fn)(
-    LockInfoPtr /* lock */
+    LocDE_INFOPtr /* lock */
 );
 extern void (*_XLockMutex_fn)(
-    LockInfoPtr	/* lock */
+    LocDE_INFOPtr	/* lock */
 #if defined(XTHREADS_WARN) || defined(XTHREADS_FILE_LINE)
     , char * /* file */
     , int /* line */
 #endif
 );
 extern void (*_XUnlockMutex_fn)(
-    LockInfoPtr	/* lock */
+    LocDE_INFOPtr	/* lock */
 #if defined(XTHREADS_WARN) || defined(XTHREADS_FILE_LINE)
     , char * /* file */
     , int /* line */
 #endif
 );
 
-extern LockInfoPtr _Xglobal_lock;
+extern LocDE_INFOPtr _Xglobal_lock;
 
 #if defined(XTHREADS_WARN) || defined(XTHREADS_FILE_LINE)
 #define LockDisplay(d)	     if ((d)->lock_fns) (*(d)->lock_fns->lock_display)((d),__FILE__,__LINE__)
@@ -779,7 +779,7 @@ typedef struct _XInternalAsync {
      * buf and len are opaque values that must be passed to
      * _XGetAsyncReply or _XGetAsyncData.
      * data is the closure stored in this struct.
-     * The handler returns True iff it handled this reply.
+     * The handler returns true iff it handled this reply.
      */
     Bool (*handler)(
 		    Display*	/* dpy */,

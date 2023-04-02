@@ -41,7 +41,7 @@ XClearWindow(
     req->window = w;
     req->x = req->y = req->width = req->height = 0;
         /* these values mean "clear the entire window" */
-    req->exposures = xFalse;
+    req->exposures = xfalse;
     UnlockDisplay(dpy);
     SyncHandle();
     return 1;

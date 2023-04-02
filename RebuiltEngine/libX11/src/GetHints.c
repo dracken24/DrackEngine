@@ -69,7 +69,7 @@ Status XGetSizeHints (
         unsigned long nitems;
 	if (XGetWindowProperty(dpy, w, property, 0L,
 			       (long) OldNumPropSizeElements,
-	    False, XA_WM_SIZE_HINTS, &actual_type, &actual_format,
+	    false, XA_WM_SIZE_HINTS, &actual_type, &actual_format,
             &nitems, &leftover, (unsigned char **)&prop)
             != Success) return (0);
 
@@ -115,7 +115,7 @@ XWMHints *XGetWMHints (
         unsigned long nitems;
 	if (XGetWindowProperty(dpy, w, XA_WM_HINTS,
 	    0L, (long)NumPropWMHintsElements,
-	    False, XA_WM_HINTS, &actual_type, &actual_format,
+	    false, XA_WM_HINTS, &actual_type, &actual_format,
             &nitems, &leftover, (unsigned char **)&prop)
             != Success) return (NULL);
 
@@ -130,7 +130,7 @@ XWMHints *XGetWMHints (
 	/* static copies not allowed in library, due to reentrancy constraint*/
 	if ((hints = Xcalloc (1, sizeof(XWMHints)))) {
 	    hints->flags = prop->flags;
-	    hints->input = (prop->input ? True : False);
+	    hints->input = (prop->input ? true : false);
 	    hints->initial_state = cvtINT32toInt (prop->initialState);
 	    hints->icon_pixmap = prop->iconPixmap;
 	    hints->icon_window = prop->iconWindow;
@@ -186,7 +186,7 @@ Status XGetIconSizes (
 	register int i;
 
 	if (XGetWindowProperty(dpy, w, XA_WM_ICON_SIZE, 0L, 60L,
-	    False, XA_WM_ICON_SIZE, &actual_type, &actual_format,
+	    false, XA_WM_ICON_SIZE, &actual_type, &actual_format,
             &nitems, &leftover, (unsigned char **)&prop)
             != Success) return (0);
 
@@ -276,7 +276,7 @@ XGetTransientForHint(
     unsigned long nitems;
     unsigned long leftover;
     Window *data = NULL;
-    if (XGetWindowProperty(dpy, w, XA_WM_TRANSIENT_FOR, 0L, 1L, False,
+    if (XGetWindowProperty(dpy, w, XA_WM_TRANSIENT_FOR, 0L, 1L, false,
         XA_WINDOW,
 	&actual_type,
 	&actual_format, &nitems, &leftover, (unsigned char **) &data)
@@ -308,7 +308,7 @@ XGetClassHint(
     unsigned long nitems;
     unsigned long leftover;
     unsigned char *data = NULL;
-    if (XGetWindowProperty(dpy, w, XA_WM_CLASS, 0L, (long)BUFSIZ, False,
+    if (XGetWindowProperty(dpy, w, XA_WM_CLASS, 0L, (long)BUFSIZ, false,
         XA_STRING,
 	&actual_type,
 	&actual_format, &nitems, &leftover, &data) != Success)

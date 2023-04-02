@@ -47,11 +47,11 @@ _XimLocalFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
     unsigned    currstate;
     DefTree	*b = ic->private.local.base.tree;
     DTIndex	 t;
-    Bool	 anymodifier = False;
+    Bool	 anymodifier = false;
     unsigned char braillePattern = 0;
 
     if(ev->xkey.keycode == 0)
-	return (False);
+	return (false);
 
     XLookupString((XKeyEvent *)ev, buf, sizeof(buf), &keysym, NULL);
 
@@ -59,7 +59,7 @@ _XimLocalFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
 	if(ev->type == KeyPress) {
 	    ic->private.local.brl_pressed |=
 		1<<(keysym-XK_braille_dot_1);
-	    return(True);
+	    return(true);
 	} else {
 	    if(!ic->private.local.brl_committing
 		    || ev->xkey.time - ic->private.local.brl_release_start > 300) {
@@ -74,7 +74,7 @@ _XimLocalFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
 		braillePattern = ic->private.local.brl_committing;
 		ic->private.local.brl_committing = 0;
 	    } else {
-	        return(True);
+	        return(true);
 	    }
 	}
     }
@@ -88,11 +88,11 @@ _XimLocalFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
 	prevstate = currstate;
 
 	if(IsModifierKey(keysym))
-	    return(False);
+	    return(false);
 	prevcode = 0;
     } else {
 	if(prevcode != ev->xkey.keycode)
-	    return False;
+	    return false;
 
 	/* For lookup, we use the state at the time when the key was pressed, */
 	/* because this state was not affected by the modifier that is mapped */
@@ -103,7 +103,7 @@ _XimLocalFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
 
     for(t = ic->private.local.context; t; t = b[t].next) {
 	if(IsModifierKey(b[t].keysym))
-	    anymodifier = True;
+	    anymodifier = true;
 	if(((ev->xkey.state & b[t].modifier_mask) == b[t].modifier) &&
 	   (keysym == b[t].keysym))
 	    break;
@@ -153,7 +153,7 @@ emit_braille:
 	ic->private.local.composed = 0;
 	ev->xkey.keycode = 0;
 	_XPutBackEvent(d, ev);
-	return(True);
+	return(true);
     }
-    return(False);
+    return(false);
 }

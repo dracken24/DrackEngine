@@ -83,19 +83,19 @@ or the coordinates of the upper-left corner of the rectangle.
 The
 .B XEmptyRegion
 function returns
-.B True
+.B true
 if the region is empty.
 .LP
 The
 .B XEqualRegion
 function returns
-.B True
+.B true
 if the two regions have the same offset, size, and shape.
 .LP
 The
 .B XPointInRegion
 function returns
-.B True
+.B true
 if the point (x, y) is contained in the region r.
 .LP
 The

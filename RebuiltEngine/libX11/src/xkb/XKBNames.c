@@ -262,7 +262,7 @@ XkbGetNames(Display *dpy, unsigned which, XkbDescPtr xkb)
     req->xkbReqType = X_kbGetNames;
     req->deviceSpec = xkb->device_spec;
     req->which = which;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
         return BadImplementation;
@@ -336,9 +336,9 @@ XkbSetNames(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     if ((!xkb) || (!xkb->names))
-        return False;
+        return false;
     firstLvlType = firstType;
     nLvlTypes = nTypes;
     if (nTypes < 1)
@@ -360,7 +360,7 @@ XkbSetNames(Display *dpy,
         if ((xkb->map == NULL) || (xkb->map->types == NULL) || (nTypes == 0) ||
             (firstType + nTypes > xkb->map->num_types) ||
             (firstLvlType + nLvlTypes > xkb->map->num_types))
-            return False;
+            return false;
         if (which & XkbKTLevelNamesMask) {
             type = &xkb->map->types[firstLvlType];
             for (i = nLvlNames = 0; i < nLvlTypes; i++, type++) {
@@ -526,7 +526,7 @@ XkbSetNames(Display *dpy,
     }
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -544,9 +544,9 @@ XkbChangeNames(Display *dpy, XkbDescPtr xkb, XkbNameChangesPtr changes)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     if ((!xkb) || (!xkb->names) || (!changes))
-        return False;
+        return false;
     which = changes->changed;
     firstType = changes->first_type;
     nTypes = changes->num_types;
@@ -582,7 +582,7 @@ XkbChangeNames(Display *dpy, XkbDescPtr xkb, XkbNameChangesPtr changes)
         if ((xkb->map == NULL) || (xkb->map->types == NULL) || (nTypes == 0) ||
             (firstType + nTypes > xkb->map->num_types) ||
             (firstLvlType + nLvlTypes > xkb->map->num_types))
-            return False;
+            return false;
         if (which & XkbKTLevelNamesMask) {
             XkbKeyTypePtr type = &xkb->map->types[firstLvlType];
 
@@ -599,7 +599,7 @@ XkbChangeNames(Display *dpy, XkbDescPtr xkb, XkbNameChangesPtr changes)
         changes->first_key = changes->num_keys = 0;
     else if ((changes->first_key < xkb->min_key_code) ||
              (changes->first_key + changes->num_keys > xkb->max_key_code)) {
-        return False;
+        return false;
     }
 
     if ((which & XkbVirtualModNamesMask) == 0)
@@ -769,7 +769,7 @@ XkbChangeNames(Display *dpy, XkbDescPtr xkb, XkbNameChangesPtr changes)
     }
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 void

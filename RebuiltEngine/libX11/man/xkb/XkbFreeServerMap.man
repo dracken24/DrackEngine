@@ -41,7 +41,7 @@ keyboard description containing server map to free
 mask identifying components of map to free
 .TP
 .I free_all
-True => free all server map components and server itself
+true => free all server map components and server itself
 .SH DESCRIPTION
 .LP
 The 
@@ -54,7 +54,7 @@ parameter and sets the corresponding structure component values to NULL. The
 bitwise inclusive OR 
 of the masks listed in Table 1. If 
 .I free_all 
-is True, 
+is true, 
 .I which 
 is ignored and 
 .I XkbFreeServerMap 

@@ -306,7 +306,7 @@ _XlcParseCT(
 /*
  * Fills into a freshly created XlcCharSet the fields that can be inferred
  * from the ESC sequence. These are side, char_size, set_size.
- * Returns True if the charset can be used with Compound Text.
+ * Returns true if the charset can be used with Compound Text.
  *
  * Used by _XlcCreateDefaultCharSet.
  */
@@ -321,7 +321,7 @@ _XlcParseCharSet(
     int char_size;
 
     if (*ptr == '\0')
-    	return False;
+    	return false;
 
     length = (int) strlen(ptr);
 
@@ -342,13 +342,13 @@ _XlcParseCharSet(
         case XctExtSeg:
             char_size = final_byte - '0';
             if (!(char_size >= 0 && char_size <= 4))
-                return False;
+                return false;
             break;
         case XctOtherCoding:
             char_size = 0;
             break;
         default:
-            return False;
+            return false;
     }
 
     charset->char_size = char_size;
@@ -375,7 +375,7 @@ _XlcParseCharSet(
             charset->set_size = 0;
             break;
     }
-    return True;
+    return true;
 }
 
 
@@ -1299,5 +1299,5 @@ _XlcInitCTInfo(void)
                          open_cstostr);
     }
 
-    return True;
+    return true;
 }

@@ -137,7 +137,7 @@ XkbGetKeyboardByName(Display *dpy,
         memcpy(str, names->geometry, (size_t) geomLen);
         str += geomLen;
     }
-    if ((!_XReply(dpy, (xReply *) &rep, 0, xFalse)) || (!rep.reported))
+    if ((!_XReply(dpy, (xReply *) &rep, 0, xfalse)) || (!rep.reported))
         goto BAILOUT;
     extraLen = (int) rep.length * 4;
 
@@ -211,7 +211,7 @@ XkbGetKeyboardByName(Display *dpy,
     return xkb;
  BAILOUT:
     if (xkb != NULL)
-        XkbFreeKeyboard(xkb, XkbAllComponentsMask, xTrue);
+        XkbFreeKeyboard(xkb, XkbAllComponentsMask, xtrue);
     if (extraLen > 0)
         _XEatData(dpy, extraLen);
     UnlockDisplay(dpy);
@@ -222,5 +222,5 @@ XkbGetKeyboardByName(Display *dpy,
 XkbDescPtr
 XkbGetKeyboard(Display *dpy, unsigned which, unsigned deviceSpec)
 {
-    return XkbGetKeyboardByName(dpy, deviceSpec, NULL, which, which, False);
+    return XkbGetKeyboardByName(dpy, deviceSpec, NULL, which, which, false);
 }

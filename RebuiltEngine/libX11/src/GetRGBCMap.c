@@ -50,22 +50,22 @@ Status XGetRGBColormaps (
     unsigned long leftover;		/* how much was left over */
     unsigned long nitems;		/* number of 32bits read */
     int ncmaps;				/* number of structs this makes */
-    Bool old_style = False;		/* if was too short */
+    Bool old_style = false;		/* if was too short */
     VisualID def_visual = None;		/* visual to use if prop too short */
     XStandardColormap *cmaps;		/* return value */
 
 
-    if (XGetWindowProperty (dpy, w, property, 0L, 1000000L, False,
+    if (XGetWindowProperty (dpy, w, property, 0L, 1000000L, false,
 			    XA_RGB_COLOR_MAP, &actual_type, &actual_format,
 			    &nitems, &leftover, (unsigned char **)&data)
 	!= Success)
-      return False;
+      return false;
 
     /* if wrong type or format, or too small for us, then punt */
     if ((actual_type != XA_RGB_COLOR_MAP) || (actual_format != 32) ||
 	(nitems < OldNumPropStandardColormapElements)) {
 	Xfree (data);
-	return False;
+	return false;
     }
 
     /*
@@ -74,13 +74,13 @@ Status XGetRGBColormaps (
      */
     if (nitems < NumPropStandardColormapElements) {
 	ncmaps = 1;
-	old_style = True;
+	old_style = true;
 	if (nitems < (NumPropStandardColormapElements - 1)) {
 	    Screen *sp = _XScreenOfWindow (dpy, w);
 
 	    if (!sp) {
 		Xfree (data);
-		return False;
+		return false;
 	    }
 	    def_visual = sp->root_visual->visualid;
 	}
@@ -92,7 +92,7 @@ Status XGetRGBColormaps (
 	if ((((unsigned long) ncmaps) * NumPropStandardColormapElements) !=
 	    nitems) {
 	    Xfree (data);
-	    return False;
+	    return false;
 	}
     }
 
@@ -103,7 +103,7 @@ Status XGetRGBColormaps (
     cmaps = Xmallocarray (ncmaps, sizeof (XStandardColormap));
     if (!cmaps) {
 	Xfree (data);
-	return False;
+	return false;
     }
 
 
@@ -130,6 +130,6 @@ Status XGetRGBColormaps (
     Xfree (data);
     *stdcmap = cmaps;
     *count = ncmaps;
-    return True;
+    return true;
 }
 

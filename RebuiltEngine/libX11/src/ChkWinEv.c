@@ -69,7 +69,7 @@ Bool XCheckWindowEvent (
 		    *event = qelt->event;
 		    _XDeq(dpy, prev, qelt);
 		    UnlockDisplay(dpy);
-		    return True;
+		    return true;
 		}
 	    }
 	    if (prev)
@@ -87,5 +87,5 @@ Bool XCheckWindowEvent (
 		prev = NULL;
 	}
 	UnlockDisplay(dpy);
-	return False;
+	return false;
 }

@@ -223,30 +223,30 @@ Applications that expect input but never explicitly set focus to any
 of their subwindows (that is, use the push model of focus management),
 such as X Version 10 style applications that use real-estate
 driven focus, should set this member to
-.BR True .
+.BR true .
 Similarly, applications
 that set input focus to their subwindows only when it is given to their
 top-level window by a window manager should also set this member to
-.BR True .
+.BR true .
 Applications that manage their own input focus by explicitly setting
 focus to one of their subwindows whenever they want keyboard input
 (that is, use the pull model of focus management) should set this member to
-.BR False .
+.BR false .
 Applications that never expect any keyboard input also should set this member
 to
-.BR False .
+.BR false .
 .LP
 Pull model window managers should make it possible for push model
 applications to get input by setting input focus to the top-level windows of
 applications whose input member is
-.BR True .
+.BR true .
 Push model window managers should
 make sure that pull model applications do not break them
 by resetting input focus to
 .B PointerRoot
 when it is appropriate (for example, whenever an application whose
 input member is
-.B False
+.B false
 sets input focus to one of its subwindows).
 .LP
 The definitions for the initial_state flag are:

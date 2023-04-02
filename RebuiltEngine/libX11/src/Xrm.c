@@ -186,7 +186,7 @@ typedef struct _XrmHashBucketRec {
     XPointer mbstate;
     XrmMethods methods;
 #ifdef XTHREADS
-    LockInfoRec linfo;
+    LocDE_INFORec linfo;
 #endif
 } XrmHashBucketRec;
 
@@ -375,7 +375,7 @@ XrmStringToQuarkList(
 		if (i) {
 		    /* Found a complete name */
 		    *quarks++ = _XrmInternalStringToQuark(name,tname - name,
-							  sig, False);
+							  sig, false);
 		    i = 0;
 		    sig = 0;
 		}
@@ -386,7 +386,7 @@ XrmStringToQuarkList(
 		i++;
 	    }
 	}
-	*quarks++ = _XrmInternalStringToQuark(name, tname - name, sig, False);
+	*quarks++ = _XrmInternalStringToQuark(name, tname - name, sig, false);
     }
     *quarks = NULLQUARK;
 }
@@ -412,7 +412,7 @@ XrmStringToBindingQuarkList(
 		    /* Found a complete name */
 		    *bindings++ = binding;
 		    *quarks++ = _XrmInternalStringToQuark(name, tname - name,
-							  sig, False);
+							  sig, false);
 
 		    i = 0;
 		    sig = 0;
@@ -429,7 +429,7 @@ XrmStringToBindingQuarkList(
 	    }
 	}
 	*bindings = binding;
-	*quarks++ = _XrmInternalStringToQuark(name, tname - name, sig, False);
+	*quarks++ = _XrmInternalStringToQuark(name, tname - name, sig, false);
     }
     *quarks = NULLQUARK;
 }
@@ -442,11 +442,11 @@ static void PrintQuarkList(
 {
     Bool	    firstNameSeen;
 
-    for (firstNameSeen = False; *quarks; quarks++) {
+    for (firstNameSeen = false; *quarks; quarks++) {
 	if (firstNameSeen) {
 	    (void) fprintf(stream, ".");
 	}
-	firstNameSeen = True;
+	firstNameSeen = true;
 	(void) fputs(XrmQuarkToString(*quarks), stream);
     }
 } /* PrintQuarkList */
@@ -809,7 +809,7 @@ void XrmCombineDatabase(
 void XrmMergeDatabases(
     XrmDatabase	from, XrmDatabase *into)
 {
-    XrmCombineDatabase(from, into, True);
+    XrmCombineDatabase(from, into, true);
 }
 
 /* store a value in the database, overriding any existing entry */
@@ -1147,7 +1147,7 @@ static void GetDatabase(
 
     (*db->methods->mbinit)(db->mbstate);
     str--;
-    dolines = True;
+    dolines = true;
     while (!is_EOF(bits) && dolines) {
 	dolines = doall;
 
@@ -1182,7 +1182,7 @@ static void GetDatabase(
 
 	if (c == '#') { /* Directive */
 	    /* remove extra whitespace */
-	    only_pcs = True;
+	    only_pcs = true;
 	    while (is_space(bits = next_char(c, str))) {};
 	    /* only "include" directive is currently defined */
 	    if (!strncmp(str, "include", 7)) {
@@ -1197,7 +1197,7 @@ static void GetDatabase(
 			if (only_pcs) {
 			    bits = next_char(c, str);
 			    if (is_nonpcs(bits))
-				only_pcs = False;
+				only_pcs = false;
 			}
 			if (!only_pcs)
 			    bits = next_mbchar(c, len, str);
@@ -1241,7 +1241,7 @@ static void GetDatabase(
 		}
 
 		quarks[num_quarks++] =
-			_XrmInternalStringToQuark(lhs, ptr - lhs, sig, False);
+			_XrmInternalStringToQuark(lhs, ptr - lhs, sig, false);
 
 		if (num_quarks > QLIST_SIZE) {
 		    Xfree(rhs);
@@ -1355,7 +1355,7 @@ static void GetDatabase(
 
 	ptr = rhs;
 	ptr_max = ptr + alloc_chars - 4;
-	only_pcs = True;
+	only_pcs = true;
 	len = 1;
 
 	for(;;) {
@@ -1373,7 +1373,7 @@ static void GetDatabase(
 		if (is_EOL(bits))
 		    break;
 		if (is_nonpcs(bits)) {
-		    only_pcs = False;
+		    only_pcs = false;
 		    bits = next_mbchar(c, len, str);
 		}
 	    }
@@ -1397,12 +1397,12 @@ static void GetDatabase(
 		/*
 		 * We need to do some magic after a backslash.
 		 */
-		Bool read_next = True;
+		Bool read_next = true;
 
 		if (only_pcs) {
 		    bits = next_char(c, str);
 		    if (is_nonpcs(bits))
-			only_pcs = False;
+			only_pcs = false;
 		}
 		if (!only_pcs)
 		    bits = next_mbchar(c, len, str);
@@ -1431,7 +1431,7 @@ static void GetDatabase(
 			if (only_pcs) {
 			    bits = next_char(c, str);
 			    if (is_nonpcs(bits))
-				only_pcs = False;
+				only_pcs = false;
 			}
 			if (!only_pcs)
 			    bits = next_mbchar(c, len, str);
@@ -1461,13 +1461,13 @@ static void GetDatabase(
 						      the correct order */
 			}
 		    }
-		    read_next = False;
+		    read_next = false;
 		}
 		if (read_next) {
 		    if (only_pcs) {
 			bits = next_char(c, str);
 			if (is_nonpcs(bits))
-			    only_pcs = False;
+			    only_pcs = false;
 		    }
 		    if (!only_pcs)
 			bits = next_mbchar(c, len, str);
@@ -1546,7 +1546,7 @@ XrmPutLineResource(
 {
     if (!*pdb) *pdb = NewDatabase();
     _XLockMutex(&(*pdb)->linfo);
-    GetDatabase(*pdb, line, (char *)NULL, False, 0);
+    GetDatabase(*pdb, line, (char *)NULL, false, 0);
     _XUnlockMutex(&(*pdb)->linfo);
 }
 
@@ -1558,7 +1558,7 @@ XrmGetStringDatabase(
 
     db = NewDatabase();
     _XLockMutex(&db->linfo);
-    GetDatabase(db, data, (char *)NULL, True, 0);
+    GetDatabase(db, data, (char *)NULL, true, 0);
     _XUnlockMutex(&db->linfo);
     return db;
 }
@@ -1661,7 +1661,7 @@ GetIncludeFile(
     }
     if (!(str = ReadInFile(realfname)))
 	return;
-    GetDatabase(db, str, realfname, True, depth + 1);
+    GetDatabase(db, str, realfname, true, depth + 1);
     Xfree(str);
 }
 
@@ -1677,7 +1677,7 @@ XrmGetFileDatabase(
 
     db = NewDatabase();
     _XLockMutex(&db->linfo);
-    GetDatabase(db, str, filename, True, 0);
+    GetDatabase(db, str, filename, true, 0);
     _XUnlockMutex(&db->linfo);
     Xfree(str);
     return db;
@@ -1701,16 +1701,16 @@ XrmCombineFileDatabase(
     } else
 	db = NewDatabase();
     _XLockMutex(&db->linfo);
-    GetDatabase(db, str, filename, True, 0);
+    GetDatabase(db, str, filename, true, 0);
     _XUnlockMutex(&db->linfo);
     Xfree(str);
     if (!override)
-	XrmCombineDatabase(db, target, False);
+	XrmCombineDatabase(db, target, false);
     return 1;
 }
 
 /* call the user proc for every value in the table, arbitrary order.
- * stop if user proc returns True.  level is current depth in database.
+ * stop if user proc returns true.  level is current depth in database.
  */
 /*ARGSUSED*/
 static Bool EnumLTable(
@@ -1753,10 +1753,10 @@ static Bool EnumLTable(
 	    if ((*closure->proc)(&closure->db, closure->bindings+1,
 				 closure->quarks+1, &type, &value,
 				 closure->closure))
-		return True;
+		return true;
 	}
     }
-    return False;
+    return false;
 }
 
 static Bool EnumAllNTable(
@@ -1770,28 +1770,28 @@ static Bool EnumAllNTable(
     XrmQuark empty = NULLQUARK;
 
     if (level >= MAXDBDEPTH)
-	return False;
+	return false;
     for (i = table->mask, bucket = NodeBuckets(table);
 	 i >= 0;
 	 i--, bucket++) {
 	for (entry = *bucket; entry; entry = entry->next) {
 	    if (entry->leaf) {
 		if (EnumLTable((LTable)entry, &empty, &empty, level, closure))
-		    return True;
+		    return true;
 	    } else {
 		closure->bindings[level] = (entry->tight ?
 					    XrmBindTightly : XrmBindLoosely);
 		closure->quarks[level] = entry->name;
 		if (EnumAllNTable(entry, level+1, closure))
-		    return True;
+		    return true;
 	    }
 	}
     }
-    return False;
+    return false;
 }
 
 /* recurse on every table in the table, arbitrary order.
- * stop if user proc returns True.  level is current depth in database.
+ * stop if user proc returns true.  level is current depth in database.
  */
 static Bool EnumNTable(
     NTable		table,
@@ -1821,21 +1821,21 @@ static Bool EnumNTable(
 		(bilevel || entry->next->hasloose) && \
 		EnumLTable((LTable)entry->next, names+1, classes+1, \
 			   level, closure)) \
-		return True; \
+		return true; \
 	    if ((*get)(entry, names+1, classes+1, level, closure)) \
-		return True; \
+		return true; \
 	    if (entry->tight && (entry = entry->next) && \
 		entry->name == q && leaf == entry->leaf && \
 		(*get)(entry, names+1, classes+1, level, closure)) \
-		return True; \
+		return true; \
 	} else if (entry->leaf) { \
 	    if ((bilevel || entry->hasloose) && \
 		EnumLTable((LTable)entry, names+1, classes+1, level, closure))\
-		return True; \
+		return true; \
 	    if (entry->tight && (entry = entry->next) && \
 		entry->name == q && (bilevel || entry->hasloose) && \
 		EnumLTable((LTable)entry, names+1, classes+1, level, closure))\
-		return True; \
+		return true; \
 	} \
     }
 
@@ -1847,22 +1847,22 @@ static Bool EnumNTable(
     if (entry) { \
 	if (leaf == entry->leaf) { \
 	    if ((*get)(entry, names+1, classes+1, level, closure)) \
-		return True; \
+		return true; \
 	} else if (entry->leaf && (bilevel || entry->hasloose)) { \
 	    if (EnumLTable((LTable)entry, names+1, classes+1, level, closure))\
-		return True; \
+		return true; \
 	} \
     }
 
     if (level >= MAXDBDEPTH)
-	return False;
+	return false;
     closure->bindings[level] = (table->tight ?
 				XrmBindTightly : XrmBindLoosely);
     closure->quarks[level] = table->name;
     level++;
     if (!*names) {
 	if (EnumAllNTable(table, level, closure))
-	    return True;
+	    return true;
     } else {
 	if (names[1] || closure->mode == XrmEnumAllLevels) {
 	    get = EnumNTable; /* recurse */
@@ -1871,7 +1871,7 @@ static Bool EnumNTable(
 	} else {
 	    get = (getNTableEProcp)EnumLTable; /* bottom of recursion */
 	    leaf = 1;
-	    bilevel = False;
+	    bilevel = false;
 	}
 	if (table->hasloose && closure->mode == XrmEnumAllLevels) {
 	    NTable *bucket;
@@ -1889,11 +1889,11 @@ static Bool EnumNTable(
 			if (entry->leaf) {
 			    if (EnumLTable((LTable)entry, &empty, &empty,
 					   level, closure))
-				return True;
+				return true;
 			} else {
 			    if (EnumNTable(entry, &empty, &empty,
 					   level, closure))
-				return True;
+				return true;
 			}
 		    }
 		}
@@ -1928,33 +1928,33 @@ static Bool EnumNTable(
     /* now look for matching leaf nodes */
     entry = table->next;
     if (!entry)
-	return False;
+	return false;
     if (entry->leaf) {
 	if (entry->tight && !table->tight)
 	    entry = entry->next;
     } else {
 	entry = entry->next;
 	if (!entry || !entry->tight)
-	    return False;
+	    return false;
     }
     if (!entry || entry->name != table->name)
-	return False;
+	return false;
     /* found one */
     level--;
     if ((!*names || entry->hasloose) &&
 	EnumLTable((LTable)entry, names, classes, level, closure))
-	return True;
+	return true;
     if (entry->tight && entry == table->next && (entry = entry->next) &&
 	entry->name == table->name && (!*names || entry->hasloose))
 	return EnumLTable((LTable)entry, names, classes, level, closure);
-    return False;
+    return false;
 
 #undef ITIGHTLOOSE
 #undef ILOOSE
 }
 
 /* call the proc for every value in the database, arbitrary order.
- * stop if the proc returns True.
+ * stop if the proc returns true.
  */
 Bool XrmEnumerateDatabase(
     XrmDatabase		db,
@@ -1968,10 +1968,10 @@ Bool XrmEnumerateDatabase(
     XrmQuark	quarks[MAXDBDEPTH+2];
     register NTable table;
     EClosureRec	eclosure;
-    Bool retval = False;
+    Bool retval = false;
 
     if (!db)
-	return False;
+	return false;
     _XLockMutex(&db->linfo);
     eclosure.db = db;
     eclosure.proc = proc;
@@ -1999,13 +1999,13 @@ static void PrintBindingQuarkList(
 {
     Bool	firstNameSeen;
 
-    for (firstNameSeen = False; *quarks; bindings++, quarks++) {
+    for (firstNameSeen = false; *quarks; bindings++, quarks++) {
 	if (*bindings == XrmBindLoosely) {
 	    (void) fprintf(stream, "*");
 	} else if (firstNameSeen) {
 	    (void) fprintf(stream, ".");
 	}
-	firstNameSeen = True;
+	firstNameSeen = true;
 	(void) fputs(XrmQuarkToString(*quarks), stream);
     }
 }
@@ -2110,21 +2110,21 @@ XrmPutFileDatabase(
 		entry->next->name == q && entry->next->tight && \
 		entry->next->hasloose && \
 		looseleaf((LTable)entry->next, names+1, classes+1, closure)) \
-		return True; \
+		return true; \
 	    if ((*get)(entry, names+1, classes+1, closure)) \
-		return True; \
+		return true; \
 	    if (entry->tight && (entry = entry->next) && \
 		entry->name == q && leaf == entry->leaf && \
 		(*get)(entry, names+1, classes+1, closure)) \
-		return True; \
+		return true; \
 	} else if (entry->leaf) { \
 	    if (entry->hasloose && \
 		looseleaf((LTable)entry, names+1, classes+1, closure)) \
-		return True; \
+		return true; \
 	    if (entry->tight && (entry = entry->next) && \
 		entry->name == q && entry->hasloose && \
 		looseleaf((LTable)entry, names+1, classes+1, closure)) \
-		return True; \
+		return true; \
 	} \
     }
 
@@ -2136,14 +2136,14 @@ XrmPutFileDatabase(
     if (entry) { \
 	if (leaf == entry->leaf) { \
 	    if ((*get)(entry, names+1, classes+1, closure)) \
-		return True; \
+		return true; \
 	} else if (entry->leaf && entry->hasloose) { \
 	    if (looseleaf((LTable)entry, names+1, classes+1, closure)) \
-		return True; \
+		return true; \
 	} \
     }
 
-/* add tight/loose entry to the search list, return True if list is full */
+/* add tight/loose entry to the search list, return true if list is full */
 /*ARGSUSED*/
 static Bool AppendLEntry(
     LTable		table,
@@ -2153,16 +2153,16 @@ static Bool AppendLEntry(
 {
     /* check for duplicate */
     if (closure->idx >= 0 && closure->list[closure->idx] == table)
-	return False;
+	return false;
     if (closure->idx == closure->limit)
-	return True;
+	return true;
     /* append it */
     closure->idx++;
     closure->list[closure->idx] = table;
-    return False;
+    return false;
 }
 
-/* add loose entry to the search list, return True if list is full */
+/* add loose entry to the search list, return true if list is full */
 /*ARGSUSED*/
 static Bool AppendLooseLEntry(
     LTable		table,
@@ -2172,15 +2172,15 @@ static Bool AppendLooseLEntry(
 {
     /* check for duplicate */
     if (closure->idx >= 0 && closure->list[closure->idx] == table)
-	return False;
+	return false;
     if (closure->idx >= closure->limit - 1)
-	return True;
+	return true;
     /* append it */
     closure->idx++;
     closure->list[closure->idx] = LOOSESEARCH;
     closure->idx++;
     closure->list[closure->idx] = table;
-    return False;
+    return false;
 }
 
 /* search for a leaf table */
@@ -2231,25 +2231,25 @@ static Bool SearchNEntry(
     /* now look for matching leaf nodes */
     entry = table->next;
     if (!entry)
-	return False;
+	return false;
     if (entry->leaf) {
 	if (entry->tight && !table->tight)
 	    entry = entry->next;
     } else {
 	entry = entry->next;
 	if (!entry || !entry->tight)
-	    return False;
+	    return false;
     }
     if (!entry || entry->name != table->name)
-	return False;
+	return false;
     /* found one */
     if (entry->hasloose &&
 	AppendLooseLEntry((LTable)entry, names, classes, closure))
-	return True;
+	return true;
     if (entry->tight && entry == table->next && (entry = entry->next) &&
 	entry->name == table->name && entry->hasloose)
 	return AppendLooseLEntry((LTable)entry, names, classes, closure);
-    return False;
+    return false;
 }
 
 Bool XrmQGetSearchList(
@@ -2263,7 +2263,7 @@ Bool XrmQGetSearchList(
     SClosureRec		closure;
 
     if (listLength <= 0)
-	return False;
+	return false;
     closure.list = (LTable *)searchList;
     closure.idx = -1;
     closure.limit = listLength - 2;
@@ -2274,13 +2274,13 @@ Bool XrmQGetSearchList(
 	    if (table && !table->leaf) {
 		if (SearchNEntry(table, names, classes, &closure)) {
 		    _XUnlockMutex(&db->linfo);
-		    return False;
+		    return false;
 		}
 	    } else if (table && table->hasloose &&
 		       AppendLooseLEntry((LTable)table, names, classes,
 					 &closure)) {
 		_XUnlockMutex(&db->linfo);
-		return False;
+		return false;
 	    }
 	} else {
 	    if (table && !table->leaf)
@@ -2288,13 +2288,13 @@ Bool XrmQGetSearchList(
 	    if (table &&
 		AppendLEntry((LTable)table, names, classes, &closure)) {
 		_XUnlockMutex(&db->linfo);
-		return False;
+		return false;
 	    }
 	}
 	_XUnlockMutex(&db->linfo);
     }
     closure.list[closure.idx + 1] = (LTable)NULL;
-    return True;
+    return true;
 }
 
 Bool XrmQGetSearchResource(
@@ -2374,12 +2374,12 @@ Bool XrmQGetSearchResource(
 	    pValue->addr = DataValue(entry);
 	}
 	pValue->size = entry->size;
-	return True;
+	return true;
     }
     *pType = NULLQUARK;
     pValue->addr = (XPointer)NULL;
     pValue->size = 0;
-    return False;
+    return false;
 
 #undef VTIGHTLOOSE
 #undef VLOOSE
@@ -2407,7 +2407,7 @@ static Bool GetVEntry(
 	while (entry && entry->name != q)
 	    entry = entry->next;
 	if (!entry)
-	    return False;
+	    return false;
     }
     if (entry->string) {
 	*closure->type = XrmQString;
@@ -2417,7 +2417,7 @@ static Bool GetVEntry(
 	closure->value->addr = DataValue(entry);
     }
     closure->value->size = entry->size;
-    return True;
+    return true;
 }
 
 /* look for a loose value */
@@ -2447,7 +2447,7 @@ static Bool GetLooseVEntry(
     if (!entry) {
 	VLOOSE(*classes); /* do class, loose only */
 	if (!entry)
-	    return False;
+	    return false;
     }
     if (entry->string) {
 	*closure->type = XrmQString;
@@ -2457,7 +2457,7 @@ static Bool GetLooseVEntry(
 	closure->value->addr = DataValue(entry);
     }
     closure->value->size = entry->size;
-    return True;
+    return true;
 
 #undef VLOOSE
 }
@@ -2512,27 +2512,27 @@ static Bool GetNEntry(
     otable = table;
     table = table->next;
     if (!table)
-	return False;
+	return false;
     if (table->leaf) {
 	if (table->tight && !otable->tight)
 	    table = table->next;
     } else {
 	table = table->next;
 	if (!table || !table->tight)
-	    return False;
+	    return false;
     }
     if (!table || table->name != otable->name)
-	return False;
+	return false;
     /* found one */
     if (table->hasloose &&
 	GetLooseVEntry((LTable)table, names, classes, closure))
-	return True;
+	return true;
     if (table->tight && table == otable->next) {
 	table = table->next;
 	if (table && table->name == otable->name && table->hasloose)
 	    return GetLooseVEntry((LTable)table, names, classes, closure);
     }
-    return False;
+    return false;
 }
 
 Bool XrmQGetResource(
@@ -2554,19 +2554,19 @@ Bool XrmQGetResource(
 	    if (table && !table->leaf) {
 		if (GetNEntry(table, names, classes, &closure)) {
 		    _XUnlockMutex(&db->linfo);
-		    return True;
+		    return true;
 		}
 	    } else if (table && table->hasloose &&
 		    GetLooseVEntry((LTable)table, names, classes, &closure)) {
 		_XUnlockMutex (&db->linfo);
-		return True;
+		return true;
 	    }
 	} else {
 	    if (table && !table->leaf)
 		table = table->next;
 	    if (table && GetVEntry((LTable)table, names, classes, &closure)) {
 		_XUnlockMutex(&db->linfo);
-		return True;
+		return true;
 	    }
 	}
 	_XUnlockMutex(&db->linfo);
@@ -2574,7 +2574,7 @@ Bool XrmQGetResource(
     *pType = NULLQUARK;
     pValue->addr = (XPointer)NULL;
     pValue->size = 0;
-    return False;
+    return false;
 }
 
 Bool

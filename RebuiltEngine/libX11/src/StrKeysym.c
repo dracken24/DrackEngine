@@ -65,7 +65,7 @@ _XInitKeysymDB(void)
 	keysymdb = XrmGetFileDatabase(dbname);
 	if (keysymdb)
 	    Qkeysym[0] = XrmStringToQuark("Keysym");
-	initialized = True;
+	initialized = true;
     }
     return keysymdb;
 }
@@ -118,7 +118,7 @@ XStringToKeysym(_Xconst char *s)
 	char d;
 	XrmQuark names[2];
 
-	names[0] = _XrmInternalStringToQuark(s, p - s - 1, sig, False);
+	names[0] = _XrmInternalStringToQuark(s, p - s - 1, sig, false);
 	names[1] = NULLQUARK;
 	(void)XrmQGetResource(keysymdb, names, Qkeysym, &from_type, &result);
 	if (result.addr && (result.size > 1))

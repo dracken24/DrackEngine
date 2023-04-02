@@ -50,7 +50,7 @@ _XQueryColors(
       Data32 (dpy, (long *)&defs[i].pixel, 4L);
        /* XXX this isn't very efficient */
 
-    if (_XReply(dpy, (xReply *) &rep, 0, xFalse) != 0) {
+    if (_XReply(dpy, (xReply *) &rep, 0, xfalse) != 0) {
 	xrgb *color = Xmallocarray((size_t) ncolors, sizeof(xrgb));
 	if (color != NULL) {
             unsigned long nbytes = (size_t) ncolors * SIZEOF(xrgb);

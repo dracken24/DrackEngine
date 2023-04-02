@@ -54,7 +54,7 @@ desired structures in returned record
 mandatory structures in returned record
 .TP
 .I load
-True => load into 
+true => load into 
 .I device_spec
 .SH DESCRIPTION
 .LP
@@ -177,7 +177,7 @@ expression "%", resulting in the component values being taken from
 .I device_spec. 
 In addition, if 
 .I load 
-is True, the server modifies 
+is true, the server modifies 
 .I names 
 if necessary (again using a "%" entry) to ensure all of the following fields are 
 non-NULL: 
@@ -228,9 +228,9 @@ have no effect in the context of
 
 If 
 .I load 
-is True, the server updates its keyboard description for 
+is true, the server updates its keyboard description for 
 .I device_spec 
-to match the result of the keyboard description just built. If load is False, 
+to match the result of the keyboard description just built. If load is false, 
 the 
 server's description for device 
 .I device_spec 

@@ -220,7 +220,7 @@ _XkbGetConverters(const char *encoding_name, XkbConverters * cvt_rtrn)
 static char *_XkbKnownLanguages =
     "c=ascii:da,de,en,es,fr,is,it,nl,no,pt,sv=iso8859-1:hu,pl,cs=iso8859-2:"
     "eo=iso8859-3:sp=iso8859-5:ar,ara=iso8859-6:el=iso8859-7:he=iso8859-8:"
-    "tr=iso8859-9:lt,lv=iso8859-13:et,fi=iso8859-15:ru=koi8-r:uk=koi8-u:"
+    "tr=iso8859-9:lt,lv=iso8859-13:et,fi=iso8859-15:ru=kosint8-r:uk=kosint8-u:"
     "th,th_TH,th_TH.iso8859-11=iso8859-11:th_TH.TIS620=tis620:hy=armscii-8:"
     "vi=tcvn-5712:ka=georgian-academy:be,bg=microsoft-cp1251";
 

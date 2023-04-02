@@ -179,7 +179,7 @@ XInternAtom (
     }
     if (dpy->atoms && dpy->atoms->table[idx] == RESERVED)
 	dpy->atoms->table[idx] = NULL; /* unreserve slot */
-    if (_XReply (dpy, (xReply *)&rep, 0, xTrue)) {
+    if (_XReply (dpy, (xReply *)&rep, 0, xtrue)) {
 	if ((atom = rep.atom))
 	    _XUpdateAtomCache(dpy, name, atom, sig, idx, n);
     }
@@ -215,7 +215,7 @@ Bool _XIntAtomHandler(
 
     if (last_request_read < state->start_seq ||
 	last_request_read > state->stop_seq)
-	return False;
+	return false;
     for (i = 0; i < state->count; i++) {
 	if (state->atoms[i] & 0x80000000) {
 	    idx = ~state->atoms[i];
@@ -224,19 +224,19 @@ Bool _XIntAtomHandler(
 	}
     }
     if (i >= state->count)
-	return False;
+	return false;
     if (rep->generic.type == X_Error) {
 	state->status = 0;
-	return False;
+	return false;
     }
     repl = (xInternAtomReply *)
 	_XGetAsyncReply(dpy, (char *)&replbuf, rep, buf, len,
 			(SIZEOF(xInternAtomReply) - SIZEOF(xReply)) >> 2,
-			True);
+			true);
     if ((state->atoms[i] = repl->atom))
 	_XUpdateAtomCache(dpy, state->names[i], (Atom) repl->atom,
 			  (unsigned long)0, idx, 0);
-    return True;
+    return true;
 }
 
 Status
@@ -283,7 +283,7 @@ XInternAtoms (
 		}
 	    }
         }
-	if (_XReply (dpy, (xReply *)&rep, 0, xTrue)) {
+	if (_XReply (dpy, (xReply *)&rep, 0, xtrue)) {
 	    if ((atoms_return[missed] = rep.atom))
 		_XUpdateAtomCache(dpy, names[missed], (Atom) rep.atom,
 				  sig, idx, n);

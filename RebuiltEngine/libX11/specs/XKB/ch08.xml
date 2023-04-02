@@ -1162,7 +1162,7 @@ on a specific device.
     </term>
     <listitem>
       <para>
-        backfilled with <symbol>True</symbol>
+        backfilled with <symbol>true</symbol>
          if the named indicator is real (physical)
       </para>
     </listitem>
@@ -1178,12 +1178,12 @@ has an indicator named
 <parameter>name</parameter>,
 <function>XkbGetNamedDeviceIndicator</function>
 returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 and populates the rest of the parameters with information about the indicator.
 Otherwise,
 <function>XkbGetNamedDeviceIndicator</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -1197,16 +1197,16 @@ bits, as well as the indicator’s index into the
 array of indicator maps.
 <parameter>state_rtrn</parameter>
 returns the current state of the named indicator
-(<symbol>True</symbol>
+(<symbol>true</symbol>
 = on,
-<symbol>False</symbol>
+<symbol>false</symbol>
 = off).
 <parameter>map_rtrn</parameter>
 returns the indicator map for the named indicator. In addition, if the
 indicator is mapped to a physical LED, the
 <parameter>real_rtrn</parameter>
 parameter is set to
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 
@@ -1302,7 +1302,7 @@ indicators with the default class and identifier on the default device:
     </term>
     <listitem>
       <para>
-        backfilled with <symbol>True</symbol>
+        backfilled with <symbol>true</symbol>
          if the named indicator is real (physical)
       </para>
     </listitem>
@@ -1682,12 +1682,12 @@ Set the indicator map for the indicator
 If a compatible version of the Xkb extension is not available in the server,
 <function>XkbSetNamedDeviceIndicator</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise, it sends a request to the X server to change the indicator
 specified by
 <parameter>name</parameter>
 and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 
@@ -1695,7 +1695,7 @@ and returns
 If
 <parameter>change_state</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 <function>XkbSetNamedDeviceIndicator</function>
 tells the server to change the state of the named indicator to the value
 specified by
@@ -1703,7 +1703,7 @@ specified by
 If
 <parameter>change_state</parameter>
 is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 <parameter>state</parameter>
 is not used.
 </para>
@@ -1717,7 +1717,7 @@ does not already exist, the
 parameter tells the server whether it should create a new named indicator. If
 <parameter>create_new</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the server finds the first indicator that doesn’t have a name and gives it
 the name specified by
 <parameter>name</parameter>.
@@ -2050,7 +2050,7 @@ Both types of indicator events use the same structure:
 typedef struct _XkbIndicatorNotify {
     int            type;        /* Xkb extension base event code */
     unsigned long  serial;      /* X server serial number for event */
-    Bool           send_event;  /* <symbol>True</symbol> &rArr; synthetically generated */
+    Bool           send_event;  /* <symbol>true</symbol> &rArr; synthetically generated */
     Display *      display;     /* server connection where event generated */
     Time           time;        /* server time when event generated */
     int            xkb_type;    /* specifies state or map notify */

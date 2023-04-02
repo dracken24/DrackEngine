@@ -473,11 +473,11 @@ and related data structures.
 If a compatible keyboard extension is not present in the X server,
 <function>XkbDeviceBell</function>
 immediately returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise,
 <function>XkbDeviceBell</function>
 rings the bell as specified for the display and keyboard device and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 If you have disabled the audible bell, the server does not ring the system
 bell, although it does generate a
 <symbol>XkbBellNotify</symbol>
@@ -563,7 +563,7 @@ with the specified
 and
 <parameter>percent</parameter>,
 and returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise,
 <function>XkbBell</function>
 calls
@@ -587,7 +587,7 @@ and a
 of
 <symbol>XkbDfltXIId</symbol>,
 and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 <para>
@@ -722,13 +722,13 @@ without ringing the corresponding bell, use
 If a compatible keyboard extension isn’t present in the X server,
 <function>XkbDeviceBellEvent</function>
 immediately returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise,
 <function>XkbDeviceBellEvent</function>
 causes an
 <symbol>XkbBellNotify</symbol>
 event to be sent to all interested clients and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 Set
 <parameter>percent</parameter>
 to be the volume relative to the base volume for the keyboard as described for
@@ -817,7 +817,7 @@ the keyboard without ringing the bell:
 If a compatible keyboard extension isn’t present in the X server,
 <function>XkbBellEvent</function>
 immediately returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise,
 <function>XkbBellEvent</function>
 calls
@@ -950,11 +950,11 @@ audible bells, use <function>XkbForceDeviceBell</function>.
 If a compatible keyboard extension isn’t present in the X server,
 <function>XkbForceDeviceBell</function>
 immediately returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise,
 <function>XkbForceDeviceBell</function>
 rings the bell as specified for the display and keyboard device and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 Set
 <parameter>percent</parameter>
 to be the volume relative to the base volume for the keyboard as described for
@@ -1024,7 +1024,7 @@ with the specified
 and
 <parameter>percent</parameter>
 and returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise,
 <function>XkbForceBell</function>
 calls
@@ -1119,7 +1119,7 @@ event type contains:
 typedef struct _XkbBellNotify {
     int             type;        /* Xkb extension base event code */
     unsigned long   serial;      /* X server serial number for event */
-    Bool            send_event;  /* <symbol>True</symbol> &rArr; synthetically generated */
+    Bool            send_event;  /* <symbol>true</symbol> &rArr; synthetically generated */
     Display *       display;     /* server connection where event generated */
     Time            time;        /* server time when event generated */
     int             xkb_type;    /* <symbol>XkbBellNotify</symbol> */
@@ -1131,7 +1131,7 @@ typedef struct _XkbBellNotify {
     unsigned int    bell_id;     /* X input extension feedback ID */
     Atom            name;        /* "name" of requested bell */
     Window          window;      /* window associated with event */
-    Bool            event_only;  /* <symbol>False</symbol> &rarr; the server did not produce a beep */
+    Bool            event_only;  /* <symbol>false</symbol> &rarr; the server did not produce a beep */
 } <structname>XkbBellNotifyEvent</structname>;
 </programlisting></para>
 

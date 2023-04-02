@@ -115,8 +115,8 @@ discussion of virtual modifier masks to use in
 .I affect_virtual 
 and 
 .I virtual_values. XkbSetServerInternalMods 
-does not wait for a reply from the server. It returns True if the request was 
-sent and False otherwise.
+does not wait for a reply from the server. It returns true if the request was 
+sent and false otherwise.
 
 Virtual modifiers are named by converting their string name to an X Atom and 
 storing the Atom in the 

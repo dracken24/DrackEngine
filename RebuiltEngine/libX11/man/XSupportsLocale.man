@@ -61,10 +61,10 @@ Specifies the modifiers.
 The
 .B XSupportsLocale
 function returns
-.B True
+.B true
 if Xlib functions are capable of operating under the current locale.
 If it returns
-.BR False ,
+.BR false ,
 Xlib locale-dependent functions for which the
 .B XLocaleNotSupported
 return status is defined will return

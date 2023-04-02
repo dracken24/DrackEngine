@@ -115,7 +115,7 @@ string_to_encoding(
 
     *encoding = '\0';
 
-    return True;
+    return true;
 }
 
 static Bool
@@ -141,11 +141,11 @@ string_to_ulong(
 	       base = 10;
 	       break;
 	  default:
-	       return(False);
+	       return(false);
 	  }
      }
      *value = (unsigned long) strtol(tmp1, NULL, base);
-     return(True);
+     return(true);
 }
 
 
@@ -164,13 +164,13 @@ add_charset(
         new_list = Xmalloc(sizeof(XlcCharSet));
 
     if (new_list == NULL)
-	return False;
+	return false;
 
     new_list[num] = charset;
     codeset->charset_list = new_list;
     codeset->num_charsets = num + 1;
 
-    return True;
+    return true;
 }
 
 static CodeSet
@@ -219,7 +219,7 @@ add_parse_list(
 
     str = strdup(encoding);
     if (str == NULL)
-        return False;
+        return false;
 
     new = Xcalloc(1, sizeof(ParseInfoRec));
     if (new == NULL)
@@ -257,14 +257,14 @@ add_parse_list(
     if (codeset->parse_info == NULL)
         codeset->parse_info = new;
 
-    return True;
+    return true;
 
 err:
     Xfree(str);
 
     Xfree(new);
 
-    return False;
+    return false;
 }
 
 static void
@@ -494,10 +494,10 @@ read_charset_define(
         _XlcGetResource(lcd, "XLC_CHARSET_DEFINE", name, &value, &num);
         if (num > 0) {
             _XlcDbg_printValue(name,value,num);
-            if (!strcmp("False",value[0])) {
-                charsetd->string_encoding = False;
+            if (!strcmp("false",value[0])) {
+                charsetd->string_encoding = false;
             } else {
-                charsetd->string_encoding = True;
+                charsetd->string_encoding = true;
             }
         }
         /* sequence */
@@ -711,7 +711,7 @@ load_generic(
     /***** wc_encoding_mask *****/
     _XlcGetResource(lcd, "XLC_XLOCALE", "wc_encoding_mask", &value, &num);
     if (num > 0) {
-	if (string_to_ulong(value[0], &l) == False)
+	if (string_to_ulong(value[0], &l) == false)
 	    goto err;
 	gen->wc_encode_mask = l;
     }
@@ -723,16 +723,16 @@ load_generic(
 	gen->wc_shift_bits = 8;
     /***** use_stdc_env *****/
     _XlcGetResource(lcd, "XLC_XLOCALE", "use_stdc_env", &value, &num);
-    if (num > 0 && !_XlcCompareISOLatin1(value[0], "True"))
-	gen->use_stdc_env = True;
+    if (num > 0 && !_XlcCompareISOLatin1(value[0], "true"))
+	gen->use_stdc_env = true;
     else
-	gen->use_stdc_env = False;
+	gen->use_stdc_env = false;
     /***** force_convert_to_mb *****/
     _XlcGetResource(lcd, "XLC_XLOCALE", "force_convert_to_mb", &value, &num);
-    if (num > 0 && !_XlcCompareISOLatin1(value[0], "True"))
-	gen->force_convert_to_mb = True;
+    if (num > 0 && !_XlcCompareISOLatin1(value[0], "true"))
+	gen->force_convert_to_mb = true;
     else
-	gen->force_convert_to_mb = False;
+	gen->force_convert_to_mb = false;
 
     for (i = 0; ; i++) {
 	CodeSetRec *codeset = NULL;
@@ -809,7 +809,7 @@ load_generic(
 		    }
 		}
 		if (strlen (tmp) > sizeof encoding ||
-		    string_to_encoding(tmp, encoding) == False)
+		    string_to_encoding(tmp, encoding) == false)
 			goto err;
 		add_parse_list(gen, type, encoding, codeset);
 	    }
@@ -821,7 +821,7 @@ load_generic(
 	if (num > 0) {
 	    if (codeset == NULL && (codeset = add_codeset(gen)) == NULL)
 		goto err;
-	    if (string_to_ulong(value[0], &l) == False)
+	    if (string_to_ulong(value[0], &l) == false)
 		goto err;
 	    codeset->wc_encoding = l;
 	}
@@ -854,7 +854,7 @@ load_generic(
 		    }
 		}
 		if (charset) {
-		    if (add_charset(codeset, charset) == False)
+		    if (add_charset(codeset, charset) == false)
 			goto err;
 		}
 	    }
@@ -971,17 +971,17 @@ load_generic(
        for (ii = 0; ii < codeset->num_charsets; ii++) {
           charset = codeset->charset_list[ii];
           if (! strcmp(charset->encoding_name, "ISO8859-1"))
-              charset->string_encoding = True;
+              charset->string_encoding = true;
           if ( charset->string_encoding )
-              codeset->string_encoding = True;
+              codeset->string_encoding = true;
        }
     }
-    return True;
+    return true;
 
 err:
     free_charset(lcd);
 
-    return False;
+    return false;
 }
 
 #ifdef USE_DYNAMIC_LC
@@ -996,7 +996,7 @@ initialize_core(
 
     _XInitDynamicIM(lcd);
 
-    return True;
+    return true;
 }
 #endif
 
@@ -1008,19 +1008,19 @@ initialize(XLCd lcd)
     XLC_PUBLIC_METHODS(lcd)->superclass = superclass;
 
     if (superclass->pub.initialize) {
-	if ((*superclass->pub.initialize)(lcd) == False)
-	    return False;
+	if ((*superclass->pub.initialize)(lcd) == false)
+	    return false;
     }
 
 #ifdef USE_DYNAMIC_LC
-    if (initialize_core(lcd) == False)
-	return False;
+    if (initialize_core(lcd) == false)
+	return false;
 #endif
 
-    if (load_generic(lcd) == False)
-	return False;
+    if (load_generic(lcd) == false)
+	return false;
 
-    return True;
+    return true;
 }
 
 /* VW/UDC start 95.01.08 */

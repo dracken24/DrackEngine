@@ -172,7 +172,7 @@ typedef struct {
     char *          name;          /* name for device */
     Atom            type;          /* name for class of devices */
     unsigned short  device_spec;   /* device of interest */
-    Bool            has_own_state; /* <symbol>True</symbol> &rArr; this device has
+    Bool            has_own_state; /* <symbol>true</symbol> &rArr; this device has
                                       its own state */
     unsigned short  supported;     /* bits indicating supported capabilities */
     unsigned short  unsupported;   /* bits indicating unsupported capabilities */
@@ -208,11 +208,11 @@ field is a registered symbolic name for a class of devices (for example,
 it has its own state, and
 <structfield>has_own_state</structfield>
 is
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 If
 <structfield>has_own_state</structfield>
 is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the state of the core keyboard is used. The
 <structfield>supported</structfield>
 and
@@ -661,7 +661,7 @@ XkbGetDeviceButtonActions.
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; get information for all buttons
+        <symbol>true</symbol> &rArr; get information for all buttons
       </para>
     </listitem>
   </varlistentry>
@@ -719,11 +719,11 @@ and
 specify the device buttons for which actions should be returned. Setting
 <parameter>all_buttons</parameter>
 to
-<symbol>True</symbol>
+<symbol>true</symbol>
 requests actions for all device buttons; if
 <parameter>all_buttons</parameter>
 is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 <parameter>first_button</parameter>
 and
 <parameter>num_buttons</parameter>
@@ -1287,7 +1287,7 @@ structure, use XkbFreeDeviceInfo.
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; free everything, including device_info
+        <symbol>true</symbol> &rArr; free everything, including device_info
       </para>
     </listitem>
   </varlistentry>
@@ -1295,7 +1295,7 @@ structure, use XkbFreeDeviceInfo.
 
 <para>
 If free_all is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the
 <function>XkbFreeDeviceInfo</function>
 frees all components of
@@ -1305,7 +1305,7 @@ and the
 structure pointed to by
 <parameter>device_info</parameter>
 itself. If free_all is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the value of which determines which subcomponents are freed.
 <parameter>which</parameter>
 is an inclusive OR of one or more of the values from
@@ -1468,11 +1468,11 @@ and take their values from the relevant fields in
 (see <link linkend="table21.1">Table 21.1</link>).
 <function>XkbSetDeviceInfo</function>
 returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the request was successfully sent to the server. If the X server
 implementation does not allow interaction between the X input extension and the
 Xkb Extension, the function does nothing and returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -1518,7 +1518,7 @@ specified in
 If the number of buttons requested to be updated is not valid for the device,
 <function>XkbSetDeviceInfo</function>
 returns
-<symbol>False</symbol>
+<symbol>false</symbol>
 and a
 <errorname>BadValue</errorname>
 protocol error results.
@@ -1560,7 +1560,7 @@ modify; if they have invalid values, a
 protocol error results and
 <function>XkbSetDeviceInfo</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 If they have legal values but do not specify a keyboard or indicator class
 feedback for the device in question, a
 <errorname>BadMatch</errorname>
@@ -1664,7 +1664,7 @@ If the server does not support assignment of Xkb actions to extension device
 buttons,
 <function>XkbSetDeviceButtonActions</function>
 has no effect and returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 If the device has no buttons or if
 <parameter>first_button</parameter>
 or
@@ -1672,12 +1672,12 @@ or
 specify buttons outside of the valid range as determined by
 <parameter>device_info</parameter>-&gt;<structfield>num_btns</structfield>,
 the function has no effect and returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise,
 <function>XkbSetDeviceButtonActions</function>
 sends a request to the server to change the actions for the specified buttons
 and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 
@@ -1768,7 +1768,7 @@ events is:
 typedef struct {
     int            type;           /* Xkb extension base event code */
     unsigned long  serial;         /* X server serial number for event */
-    Bool           send_event;     /* <symbol>True</symbol> &rArr; synthetically generated */
+    Bool           send_event;     /* <symbol>true</symbol> &rArr; synthetically generated */
     Display *      display;        /* server connection where event generated */
     Time           time;           /* server time when event generated */
     int            xkb_type;       /* <structname>XkbExtensionDeviceNotifyEvent</structname> */

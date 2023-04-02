@@ -287,19 +287,19 @@ XkbFreeKeyboard(XkbDescPtr xkb, unsigned which, Bool freeAll)
     if (freeAll)
         which = XkbAllComponentsMask;
     if (which & XkbClientMapMask)
-        XkbFreeClientMap(xkb, XkbAllClientInfoMask, True);
+        XkbFreeClientMap(xkb, XkbAllClientInfoMask, true);
     if (which & XkbServerMapMask)
-        XkbFreeServerMap(xkb, XkbAllServerInfoMask, True);
+        XkbFreeServerMap(xkb, XkbAllServerInfoMask, true);
     if (which & XkbCompatMapMask)
-        XkbFreeCompatMap(xkb, XkbAllCompatMask, True);
+        XkbFreeCompatMap(xkb, XkbAllCompatMask, true);
     if (which & XkbIndicatorMapMask)
         XkbFreeIndicatorMaps(xkb);
     if (which & XkbNamesMask)
-        XkbFreeNames(xkb, XkbAllNamesMask, True);
+        XkbFreeNames(xkb, XkbAllNamesMask, true);
     if ((which & XkbGeometryMask) && (xkb->geom != NULL))
-        XkbFreeGeometry(xkb->geom, XkbGeomAllMask, True);
+        XkbFreeGeometry(xkb->geom, XkbGeomAllMask, true);
     if (which & XkbControlsMask)
-        XkbFreeControls(xkb, XkbAllControlsMask, True);
+        XkbFreeControls(xkb, XkbAllControlsMask, true);
     if (freeAll)
         _XkbFree(xkb);
     return;
@@ -383,7 +383,7 @@ XkbAllocDeviceInfo(unsigned deviceSpec, unsigned nButtons, unsigned szLeds)
     devi = _XkbTypedCalloc(1, XkbDeviceInfoRec);
     if (devi != NULL) {
         devi->device_spec = deviceSpec;
-        devi->has_own_state = False;
+        devi->has_own_state = false;
         devi->num_btns = 0;
         devi->btn_acts = NULL;
         if (nButtons > 0) {

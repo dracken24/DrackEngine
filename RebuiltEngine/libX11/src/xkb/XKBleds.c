@@ -49,7 +49,7 @@ XkbGetIndicatorState(Display *dpy, unsigned deviceSpec, unsigned *pStateRtrn)
     req->reqType = xkbi->codes->major_opcode;
     req->xkbReqType = X_kbGetIndicatorState;
     req->deviceSpec = deviceSpec;
-    ok = _XReply(dpy, (xReply *) &rep, 0, xFalse);
+    ok = _XReply(dpy, (xReply *) &rep, 0, xfalse);
     if (ok && (pStateRtrn != NULL))
         *pStateRtrn = rep.state;
     UnlockDisplay(dpy);
@@ -140,7 +140,7 @@ XkbGetIndicatorMap(Display *dpy, unsigned long which, XkbDescPtr xkb)
     req->xkbReqType = X_kbGetIndicatorMap;
     req->deviceSpec = xkb->device_spec;
     req->which = (CARD32) which;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
         return BadValue;
@@ -162,9 +162,9 @@ XkbSetIndicatorMap(Display *dpy, unsigned long which, XkbDescPtr xkb)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     if ((!xkb) || (!which) || (!xkb->indicators))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbSetIndicatorMap, req);
@@ -193,7 +193,7 @@ XkbSetIndicatorMap(Display *dpy, unsigned long which, XkbDescPtr xkb)
     }
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -213,7 +213,7 @@ XkbGetNamedDeviceIndicator(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) || (name == None) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbGetNamedIndicator, req);
@@ -223,15 +223,15 @@ XkbGetNamedDeviceIndicator(Display *dpy,
     req->ledClass = class;
     req->ledID = id;
     req->indicator = (CARD32) name;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
-        return False;
+        return false;
     }
     UnlockDisplay(dpy);
     SyncHandle();
     if ((!rep.found) || (!rep.supported))
-        return False;
+        return false;
     if (pNdxRtrn != NULL)
         *pNdxRtrn = rep.ndx;
     if (pStateRtrn != NULL)
@@ -248,7 +248,7 @@ XkbGetNamedDeviceIndicator(Display *dpy,
     }
     if (pRealRtrn != NULL)
         *pRealRtrn = rep.realIndicator;
-    return True;
+    return true;
 }
 
 Bool
@@ -281,7 +281,7 @@ XkbSetNamedDeviceIndicator(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) || (name == None) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbSetNamedIndicator, req);
@@ -295,9 +295,9 @@ XkbSetNamedDeviceIndicator(Display *dpy,
     if (req->setState)
         req->on = state;
     else
-        req->on = False;
+        req->on = false;
     if (pMap != NULL) {
-        req->setMap = True;
+        req->setMap = true;
         req->createMap = createNewMap;
         req->flags = pMap->flags;
         req->whichGroups = pMap->which_groups;
@@ -308,8 +308,8 @@ XkbSetNamedDeviceIndicator(Display *dpy,
         req->ctrls = pMap->ctrls;
     }
     else {
-        req->setMap = False;
-        req->createMap = False;
+        req->setMap = false;
+        req->createMap = false;
         req->flags = 0;
         req->whichGroups = 0;
         req->groups = 0;
@@ -320,7 +320,7 @@ XkbSetNamedDeviceIndicator(Display *dpy,
     }
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool

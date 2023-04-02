@@ -220,9 +220,9 @@ and related data structures.
 
 If a compatible keyboard extension is not present in the X server, 
 .I XkbDeviceBell 
-immediately returns False. Otherwise, 
+immediately returns false. Otherwise, 
 .I XkbDeviceBell 
-rings the bell as specified for the display and keyboard device and returns True. If you have disabled the audible bell, the server does not ring the system bell, although it does generate a 
+rings the bell as specified for the display and keyboard device and returns true. If you have disabled the audible bell, the server does not ring the system bell, although it does generate a 
 .I XkbBellNotify 
 event.
 
@@ -260,7 +260,7 @@ The structure for the XkbBellNotify event type contains:
    typedef struct _XkbBellNotify {
        int            type;        /\&* Xkb extension base event code */
        unsigned long  serial;      /\&* X server serial number for event */
-       Bool           send_event;  /\&* True => synthetically generated */
+       Bool           send_event;  /\&* true => synthetically generated */
        Display *      display;     /\&* server connection where event generated */
        Time           time;        /\&* server time when event generated */
        int            xkb_type;    /\&* XkbBellNotify */
@@ -272,7 +272,7 @@ The structure for the XkbBellNotify event type contains:
        unsigned int   bell_id;     /\&* X input extension feedback ID */
        Atom           name;        /\&* "name" of requested bell */
        Window         window;      /\&* window associated with event */
-       Bool           event_only;  /\&* False -> the server did not produce a beep */
+       Bool           event_only;  /\&* false -> the server did not produce a beep */
    } XkbBellNotifyEvent;
    
 .fi   

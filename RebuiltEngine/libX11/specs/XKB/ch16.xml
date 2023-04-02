@@ -207,11 +207,11 @@ to key actions:
 <para>
 <function>XkbKeyHasActions</function>
 returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the key corresponding to
 <parameter>keycode</parameter>
 has any actions associated with it; otherwise, it returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -3059,16 +3059,16 @@ event is defined as follows:
 typedef struct _XkbActionMessage {
     int            type;             /* Xkb extension base event code */
     unsigned long  serial;           /* X server serial number for event */
-    Bool           send_event;       /* <symbol>True</symbol> &rArr; synthetically generated */
+    Bool           send_event;       /* <symbol>true</symbol> &rArr; synthetically generated */
     Display *      display;          /* server connection where event generated */
     Time           time;             /* server time when event generated */
     int            xkb_type;         /* <symbol>XkbActionMessage</symbol> */
     int            device;           /* Xkb device ID,
                                         will not be <symbol>XkbUseCoreKbd</symbol> */
     KeyCode        keycode;          /* keycode of key triggering event */
-    Bool           press;            /* <symbol>True</symbol> &rArr; key press,
-                                        <symbol>False</symbol> &rArr; release */
-    Bool           key_event_follows;/* <symbol>True</symbol> &rArr; KeyPress/KeyRelease follows */
+    Bool           press;            /* <symbol>true</symbol> &rArr; key press,
+                                        <symbol>false</symbol> &rArr; release */
+    Bool           key_event_follows;/* <symbol>true</symbol> &rArr; KeyPress/KeyRelease follows */
     char           message[XkbActionMessageLength+1];  /* message text */
 } <structname>XkbActionMessageEvent</structname>;
 </programlisting></para>
@@ -3091,13 +3091,13 @@ specifies whether a
 (if
 <structfield>press</structfield>
 is
-<symbol>True</symbol>)
+<symbol>true</symbol>)
 or
 <symbol>KeyRelease</symbol>
 (if
 <structfield>press</structfield>
 is
-<symbol>False</symbol>)
+<symbol>false</symbol>)
 event is also sent to the client. As with all other Xkb events,
 <structname>XkbActionMessageEvent</structname>s
 are delivered to all clients requesting them, regardless of the current
@@ -3110,7 +3110,7 @@ event that conditionally follows an
 is sent only to the client selected by the current keyboard focus.
 <structfield>key_event_follows</structfield>
 is
-<symbol>True</symbol>
+<symbol>true</symbol>
 only for the client that is actually sent the following
 <symbol>KeyPress</symbol>
 or

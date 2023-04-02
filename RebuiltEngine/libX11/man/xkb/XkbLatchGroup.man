@@ -48,7 +48,7 @@ index of the keysym group to latch
 sends a request to the server to latch the specified 
 .I group
 and 
-does not wait for a reply. It returns True if the request was sent and False 
+does not wait for a reply. It returns true if the request was sent and false 
 otherwise.
 
 Reference the keysym group indices with these symbolic constants:
@@ -68,16 +68,16 @@ XkbGroup4Index	3
 .TE
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbLatchGroup 
-function returns True if a request was sent to the server to latch the specified 
+function returns true if a request was sent to the server to latch the specified 
 .I group.
 .TP 15
-False
+false
 The 
 .I XkbLatchGroup 
-function returns False if the request was not sent.
+function returns false if the request was not sent.
 
 
 

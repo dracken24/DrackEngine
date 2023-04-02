@@ -43,7 +43,7 @@ Colormap *XListInstalledColormaps(
     LockDisplay(dpy);
     GetResReq(ListInstalledColormaps, win, req);
 
-    if(_XReply(dpy, (xReply *) &rep, 0, xFalse) == 0) {
+    if(_XReply(dpy, (xReply *) &rep, 0, xfalse) == 0) {
 	    UnlockDisplay(dpy);
 	    SyncHandle();
 	    *n = 0;

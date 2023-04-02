@@ -41,7 +41,7 @@ XGetPointerControl(
     _X_UNUSED xReq *req;
     LockDisplay(dpy);
     GetEmptyReq(GetPointerControl, req);
-    (void) _XReply (dpy, (xReply *)&rep, 0, xTrue);
+    (void) _XReply (dpy, (xReply *)&rep, 0, xtrue);
     *accel_numer = rep.accelNumerator;
     *accel_denom = rep.accelDenominator;
     *threshold = rep.threshold;

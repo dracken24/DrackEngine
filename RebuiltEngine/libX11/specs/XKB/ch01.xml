@@ -395,7 +395,7 @@ generated.
   </row>
   <row>
     <entry>Bool</entry>
-    <entry><symbol>False</symbol></entry>
+    <entry><symbol>false</symbol></entry>
   </row>
   <row>
     <entry>Status</entry>

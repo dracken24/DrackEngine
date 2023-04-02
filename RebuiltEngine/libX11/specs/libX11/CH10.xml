@@ -214,7 +214,7 @@ structure with the type member set to
 <symbol>GraphicsExpose</symbol>.
 The display member is set to a pointer to the display the event was read on.
 The send_event member is set to
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the event came from a
 <systemitem>SendEvent</systemitem>
 protocol request.
@@ -337,7 +337,7 @@ return to a client application.
 Unless the client has specifically asked for them,
 most events are not reported to clients when they are generated. 
 Unless the client suppresses them by setting graphics-exposures in the GC to
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 <symbol>GraphicsExpose</symbol>
 and 
 <symbol>NoExpose</symbol>
@@ -484,7 +484,7 @@ event mask:
     </row>
     <row>
       <entry><symbol>OwnerGrabButtonMask</symbol></entry>
-      <entry>Automatic grabs should activate with owner_events set to True</entry>
+      <entry>Automatic grabs should activate with owner_events set to true</entry>
     </row>
   </tbody>
   </tgroup>
@@ -923,12 +923,12 @@ with these client passed arguments:
     </row>
     <row>
       <entry><emphasis remap='I'>owner_events</emphasis></entry>
-      <entry><symbol>True</symbol>,
+      <entry><symbol>true</symbol>,
       if the client has selected
       <symbol>OwnerGrabButtonMask</symbol>
       on the event window,
       otherwise
-      <symbol>False</symbol></entry>
+      <symbol>false</symbol></entry>
     </row>
     <row>
       <entry><emphasis remap='I'>confine_to</emphasis></entry>
@@ -1201,14 +1201,14 @@ relative to the root window's origin at the time of the event.
 The same_screen member is set to indicate whether the event 
 window is on the same screen
 as the root window and can be either
-<symbol>True</symbol>
+<symbol>true</symbol>
 or
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 If
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the event and root windows are on the same screen.
 If
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the event and root windows are not on the same screen.
 </para>
 <para>
@@ -1558,14 +1558,14 @@ root window's origin at the time of the event.
 <!-- .LP -->
 The same_screen member is set to indicate whether the event window is on the same screen
 as the root window and can be either
-<symbol>True</symbol>
+<symbol>true</symbol>
 or
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 If
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the event and root windows are on the same screen.
 If
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the event and root windows are not on the same screen.
 </para>
 <para>
@@ -1573,14 +1573,14 @@ the event and root windows are not on the same screen.
 The focus member is set to indicate whether the event window is the focus window or an
 inferior of the focus window.
 The X server can set this member to either
-<symbol>True</symbol>
+<symbol>true</symbol>
 or
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 If
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the event window is the focus window or an inferior of the focus window.
 If
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the event window is not the focus window or an inferior of the focus window.
 </para>
 <para>
@@ -2852,7 +2852,7 @@ or
 <symbol>NoExpose</symbol>
 events, you must first set the graphics-exposure 
 attribute of the graphics context to
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 You also can set the graphics-expose attribute when creating a graphics
 context using
 <xref linkend='XCreateGC' xrefstyle='select: title'/>
@@ -3244,7 +3244,7 @@ window.
 Window manager clients normally should ignore this window if the 
 override_redirect member
 is
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 </sect2>
 <sect2 id="CreateNotify_Events">
@@ -3314,7 +3314,7 @@ The override_redirect member is set to the override-redirect attribute of the
 window.
 Window manager clients normally should ignore this window 
 if the override_redirect member is
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 </sect2>
 <sect2 id="DestroyNotify_Events">
@@ -3527,7 +3527,7 @@ The override_redirect member is set to the override-redirect attribute
 of the window.
 Window manager clients normally should ignore this window 
 if the override-redirect attribute is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 because these events usually are generated from pop-ups,
 which override structure control.
 </para>
@@ -3694,7 +3694,7 @@ The override_redirect member is set to the override-redirect attribute of the
 window specified by the window member.
 Window manager clients normally should ignore this window 
 if the override_redirect member is
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 </sect2>
 <sect2 id="UnmapNotify_Events">
@@ -3757,7 +3757,7 @@ was selected.
 This is the window used by the X server to report the event.
 The window member is set to the window that was unmapped.
 The from_configure member is set to
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the event was generated as a result of a resizing of the window's parent when
 the window itself had a win_gravity of
 <symbol>UnmapGravity</symbol>.
@@ -4051,7 +4051,7 @@ If you had selected
 <symbol>SubstructureRedirectMask</symbol>
 on the parent window and if the override-redirect attribute 
 of the window is set to
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the X server reports a
 <symbol>ConfigureRequest</symbol>
 event to you and does not lower the specified window.
@@ -4119,7 +4119,7 @@ A window is considered mapped when a map window request completes.
 The X server generates this event whenever a different client initiates 
 a map window request on an unmapped window whose override_redirect member 
 is set to
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Clients initiate map window requests by calling
 <xref linkend='XMapWindow' xrefstyle='select: title'/>,
 <xref linkend='XMapRaised' xrefstyle='select: title'/>,
@@ -4144,7 +4144,7 @@ If you (usually a window manager) had selected
 <symbol>SubstructureRedirectMask</symbol>
 on the parent window and if the override-redirect attribute 
 of the window is set to
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the X server reports a
 <symbol>MapRequest</symbol>
 event to you 
@@ -4322,14 +4322,14 @@ the colormap member is set to
 The new member is set to indicate whether the colormap 
 for the specified window was changed or installed or uninstalled
 and can be 
-<symbol>True</symbol>
+<symbol>true</symbol>
 or
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 If it is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the colormap was changed.
 If it is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the colormap was installed or uninstalled.
 The state member is always set to indicate whether the colormap is installed or
 uninstalled and can be 
@@ -4510,7 +4510,7 @@ The state member is set to
 when a property of the window is deleted using
 <xref linkend='XDeleteProperty' xrefstyle='select: title'/>
 or, if the delete argument is 
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 <xref linkend='XGetWindowProperty' xrefstyle='select: title'/>.
 </para>
 </sect2>

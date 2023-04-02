@@ -499,9 +499,9 @@ _XimProtoWireToEvent(
 			ev->state	= sw16(event->u.enterLeave.state, sw);
 			ev->mode	= event->u.enterLeave.mode;
 			ev->same_screen = (event->u.enterLeave.flags &
-				ELFlagSameScreen) && True;
+				ELFlagSameScreen) && true;
 			ev->focus	= (event->u.enterLeave.flags &
-			  	ELFlagFocus) && True;
+			  	ELFlagFocus) && true;
 			ev->detail	= event->u.u.detail;
 		}
 		  break;
@@ -782,7 +782,7 @@ _XimProtoWireToEvent(
 		}
 		break;
 	      default:
-		return(False);
+		return(false);
 	}
-	return(True);
+	return(true);
 }

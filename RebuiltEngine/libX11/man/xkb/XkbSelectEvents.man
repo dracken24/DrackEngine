@@ -152,19 +152,19 @@ another call to
 .I XkbSelectEvents.
 
 .I XkbSelectEvents
-returns False if the Xkb extension has not been initialized and True
+returns false if the Xkb extension has not been initialized and true
 otherwise.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The
 .I XkbSelectEvents
-function returns True if the Xkb extension has been initialized.
+function returns true if the Xkb extension has been initialized.
 .TP 15
-False
+false
 The
 .I XkbSelectEvents
-function returns False if the Xkb extension has not been initialized.
+function returns false if the Xkb extension has not been initialized.
 .SH "SEE ALSO"
 .BR XkbSelectEventDetails (__libmansuffix__),
 .BR XkbUseCoreKbd (__libmansuffix__)

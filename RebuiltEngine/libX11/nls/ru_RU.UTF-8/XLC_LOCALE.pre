@@ -8,7 +8,7 @@ XCOMM 	XLC_FONTSET category
 XCOMM
 XLC_FONTSET
 
-on_demand_loading	True
+on_demand_loading	true
 
 object_name		generic
 
@@ -31,13 +31,13 @@ fs1	{
 		primary	ISO8859-1:GR
 	}
 }
-XCOMM	fs2 class (KOI8-R)
+XCOMM	fs2 class (KOsint8-R)
 fs2	{
 	charset	{
-		name	KOI8-R:GR
+		name	KOsint8-R:GR
 	}
 	font	{
-		primary	KOI8-R:GR
+		primary	KOsint8-R:GR
 	}
 }
 XCOMM	fs3 class (MICROSOFT-CP1251)
@@ -114,7 +114,7 @@ XLC_XLOCALE
 
 encoding_name		UTF-8
 mb_cur_max		6
-state_depend_encoding	False
+state_depend_encoding	false
 
 XCOMM	cs0 class
 cs0	{

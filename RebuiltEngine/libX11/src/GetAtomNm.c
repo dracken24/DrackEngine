@@ -64,7 +64,7 @@ char *XGetAtomName(
 	UnlockDisplay(dpy);
 	return name;
     }
-    if (_XReply(dpy, (xReply *)&rep, 0, xFalse) == 0) {
+    if (_XReply(dpy, (xReply *)&rep, 0, xfalse) == 0) {
 	UnlockDisplay(dpy);
 	SyncHandle();
 	return(NULL);
@@ -108,19 +108,19 @@ Bool _XGetAtomNameHandler(
     state = (_XGetAtomNameState *)data;
     if (last_request_read < state->start_seq ||
 	last_request_read > state->stop_seq)
-	return False;
+	return false;
     while (state->idx < state->count && state->names[state->idx])
 	state->idx++;
     if (state->idx >= state->count)
-	return False;
+	return false;
     if (rep->generic.type == X_Error) {
 	state->status = 0;
-	return False;
+	return false;
     }
     repl = (xGetAtomNameReply *)
 	_XGetAsyncReply(dpy, (char *)&replbuf, rep, buf, len,
 			(SIZEOF(xGetAtomNameReply) - SIZEOF(xReply)) >> 2,
-			False);
+			false);
     state->names[state->idx] = Xmalloc(repl->nameLength + 1);
     _XGetAsyncData(dpy, state->names[state->idx], buf, len,
 		   SIZEOF(xGetAtomNameReply), repl->nameLength,
@@ -132,7 +132,7 @@ Bool _XGetAtomNameHandler(
     } else {
 	state->status = 0;
     }
-    return True;
+    return true;
 }
 
 Status
@@ -166,7 +166,7 @@ XGetAtomNames (
 	}
     }
     if (missed >= 0) {
-	if (_XReply(dpy, (xReply *)&rep, 0, xFalse)) {
+	if (_XReply(dpy, (xReply *)&rep, 0, xfalse)) {
 	    if ((names_return[missed] = Xmalloc(rep.nameLength + 1))) {
 		_XReadPad(dpy, names_return[missed], (long)rep.nameLength);
 		names_return[missed][rep.nameLength] = '\0';

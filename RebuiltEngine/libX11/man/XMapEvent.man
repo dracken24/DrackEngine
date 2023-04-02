@@ -78,7 +78,7 @@ structure with the type member set to
 .BR GraphicsExpose .
 The display member is set to a pointer to the display the event was read on.
 The send_event member is set to
-.B True
+.B true
 if the event came from a
 .B SendEvent
 protocol request.
@@ -98,7 +98,7 @@ The override_redirect member is set to the override-redirect attribute
 of the window.
 Window manager clients normally should ignore this window
 if the override-redirect attribute is
-.BR True ,
+.BR true ,
 because these events usually are generated from pop-ups,
 which override structure control.
 .LP
@@ -133,7 +133,7 @@ structure with the type member set to
 .BR GraphicsExpose .
 The display member is set to a pointer to the display the event was read on.
 The send_event member is set to
-.B True
+.B true
 if the event came from a
 .B SendEvent
 protocol request.

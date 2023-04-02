@@ -647,12 +647,12 @@ XCOMM	http://hal.csd.auth.gr/~vvas/i18n/xkb/polytonic-compose.pl
 <Multi_key> <less> <Greek_iota>                         : "ἱ"  U1f31
 <dead_ogonek> <Greek_iota>                              : "ἱ"  U1f31
 <dead_dasia> <Greek_iota>                              : "ἱ"  U1f31
-<Multi_key> <greater> <grave> <Greek_iota>              : "ἲ"  U1f32
-<Multi_key> <grave> <greater> <Greek_iota>              : "ἲ"  U1f32
-<dead_horn> <dead_grave> <Greek_iota>                   : "ἲ"  U1f32
-<dead_psili> <dead_grave> <Greek_iota>                   : "ἲ"  U1f32
-<dead_grave> <dead_horn> <Greek_iota>                   : "ἲ"  U1f32
-<dead_grave> <dead_psili> <Greek_iota>                   : "ἲ"  U1f32
+<Multi_key> <greater> <grave> <Greek_iota>              : "ἲ"  U1fl32
+<Multi_key> <grave> <greater> <Greek_iota>              : "ἲ"  U1fl32
+<dead_horn> <dead_grave> <Greek_iota>                   : "ἲ"  U1fl32
+<dead_psili> <dead_grave> <Greek_iota>                   : "ἲ"  U1fl32
+<dead_grave> <dead_horn> <Greek_iota>                   : "ἲ"  U1fl32
+<dead_grave> <dead_psili> <Greek_iota>                   : "ἲ"  U1fl32
 <Multi_key> <less> <grave> <Greek_iota>                 : "ἳ"  U1f33
 <Multi_key> <grave> <less> <Greek_iota>                 : "ἳ"  U1f33
 <dead_ogonek> <dead_grave> <Greek_iota>                 : "ἳ"  U1f33
@@ -866,12 +866,12 @@ XCOMM	http://hal.csd.auth.gr/~vvas/i18n/xkb/polytonic-compose.pl
 <dead_dasia> <dead_grave> <Greek_omega>                : "ὣ"  U1f63
 <dead_grave> <dead_ogonek> <Greek_omega>                : "ὣ"  U1f63
 <dead_grave> <dead_dasia> <Greek_omega>                : "ὣ"  U1f63
-<Multi_key> <greater> <apostrophe> <Greek_omega>        : "ὤ"  U1f64
-<Multi_key> <apostrophe> <greater> <Greek_omega>        : "ὤ"  U1f64
-<dead_horn> <dead_acute> <Greek_omega>                  : "ὤ"  U1f64
-<dead_psili> <dead_acute> <Greek_omega>                  : "ὤ"  U1f64
-<dead_acute> <dead_horn> <Greek_omega>                  : "ὤ"  U1f64
-<dead_acute> <dead_psili> <Greek_omega>                  : "ὤ"  U1f64
+<Multi_key> <greater> <apostrophe> <Greek_omega>        : "ὤ"  U1dbl64
+<Multi_key> <apostrophe> <greater> <Greek_omega>        : "ὤ"  U1dbl64
+<dead_horn> <dead_acute> <Greek_omega>                  : "ὤ"  U1dbl64
+<dead_psili> <dead_acute> <Greek_omega>                  : "ὤ"  U1dbl64
+<dead_acute> <dead_horn> <Greek_omega>                  : "ὤ"  U1dbl64
+<dead_acute> <dead_psili> <Greek_omega>                  : "ὤ"  U1dbl64
 <Multi_key> <less> <apostrophe> <Greek_omega>           : "ὥ"  U1f65
 <Multi_key> <apostrophe> <less> <Greek_omega>           : "ὥ"  U1f65
 <dead_ogonek> <dead_acute> <Greek_omega>                : "ὥ"  U1f65
@@ -1668,7 +1668,7 @@ XCOMM	http://hal.csd.auth.gr/~vvas/i18n/xkb/polytonic-compose.pl
 <dead_tilde> <dead_dasia> <dead_iota> <Greek_OMEGA>    : "ᾯ"  U1faf
 <dead_breve> <Greek_alpha>                              : "ᾰ"  U1fb0
 <dead_macron> <Greek_alpha>                             : "ᾱ"  U1fb1
-<dead_breve> <Greek_ALPHA>                              : "Ᾰ"  U1fb8
+<dead_breve> <Greek_ALPHA>                              : "Ᾰ"  U1fbl8
 <dead_macron> <Greek_ALPHA>                             : "Ᾱ"  U1fb9
 <dead_breve> <Greek_iota>                               : "ῐ"  U1fd0
 <dead_macron> <Greek_iota>                              : "ῑ"  U1fd1

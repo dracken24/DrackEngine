@@ -48,7 +48,7 @@ _XimLocalSetICValues(XIC xic, XIMArg *values)
     name = _XimSetICValueData(ic, (XPointer)&ic_values,
 				ic->private.local.ic_resources,
 				ic->private.local.ic_num_resources,
-				values, XIM_SETICVALUES, True);
+				values, XIM_SETICVALUES, true);
     _XimSetCurrentICValues(ic, &ic_values);
     return(name);
 }

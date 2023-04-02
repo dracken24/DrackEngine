@@ -131,12 +131,12 @@ If it finds a match,
 removes that event, copies it into the specified
 .B XEvent
 structure, and returns
-.BR True .
+.BR true .
 The other events stored in the queue are not discarded.
 If the event you requested is not available,
 .B XCheckWindowEvent
 returns
-.BR False ,
+.BR false ,
 and the output buffer will have been flushed.
 .LP
 The
@@ -162,12 +162,12 @@ If it finds a match,
 removes that event, copies it into the specified
 .B XEvent
 structure, and returns
-.BR True .
+.BR true .
 The other events stored in the queue are not discarded.
 If the event you requested is not available,
 .B XCheckMaskEvent
 returns
-.BR False ,
+.BR false ,
 and the output buffer will have been flushed.
 .LP
 The
@@ -179,12 +179,12 @@ If it finds a match,
 removes that event, copies it into the specified
 .B XEvent
 structure, and returns
-.BR True .
+.BR true .
 The other events in the queue are not discarded.
 If the event is not available,
 .B XCheckTypedEvent
 returns
-.BR False ,
+.BR false ,
 and the output buffer will have been flushed.
 .LP
 The
@@ -197,12 +197,12 @@ If it finds a match,
 removes the event from the queue, copies it into the specified
 .B XEvent
 structure, and returns
-.BR True .
+.BR true .
 The other events in the queue are not discarded.
 If the event is not available,
 .B XCheckTypedWindowEvent
 returns
-.BR False ,
+.BR false ,
 and the output buffer will have been flushed.
 .SH "SEE ALSO"
 XAnyEvent(__libmansuffix__),

@@ -47,7 +47,7 @@ XTimeCoord *XGetMotionEvents(
 /* XXX is this right for all machines? */
     req->start = start;
     req->stop  = stop;
-    if (!_XReply (dpy, (xReply *)&rep, 0, xFalse)) {
+    if (!_XReply (dpy, (xReply *)&rep, 0, xfalse)) {
 	UnlockDisplay(dpy);
         SyncHandle();
 	return (NULL);

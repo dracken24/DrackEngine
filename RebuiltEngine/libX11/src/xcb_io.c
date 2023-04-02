@@ -72,13 +72,13 @@ static Bool require_socket(Display *dpy)
 		if(!xcb_take_socket(dpy->xcb->connection, return_socket, dpy,
 		                    flags, &sent)) {
 			_XIOError(dpy);
-			return False;
+			return false;
 		}
 		dpy->xcb->last_flushed = sent;
 		X_DPY_SET_REQUEST(dpy, sent);
 		dpy->bufmax = dpy->xcb->real_bufmax;
 	}
-	return True;
+	return true;
 }
 
 /* Call internal connection callbacks for any fds that are currently
@@ -107,7 +107,7 @@ static Bool check_internal_connections(Display *dpy)
 	int highest_fd = -1;
 
 	if(dpy->flags & XlibDisplayProcConni || !dpy->im_fd_info)
-		return True;
+		return true;
 
 	FD_ZERO(&r_mask);
 	for(ilist = dpy->im_fd_info; ilist; ilist = ilist->next)
@@ -127,10 +127,10 @@ static Bool check_internal_connections(Display *dpy)
 	{
 		if(errno != EINTR) {
 			_XIOError(dpy);
-			return False;
+			return false;
 		}
 
-		return True;
+		return true;
 	}
 
 	for(ilist = dpy->im_fd_info; result && ilist; ilist = ilist->next)
@@ -140,7 +140,7 @@ static Bool check_internal_connections(Display *dpy)
 			--result;
 		}
 
-	return True;
+	return true;
 }
 
 static PendingRequest *append_pending_request(Display *dpy, uint64_t sequence)
@@ -350,7 +350,7 @@ static xcb_generic_reply_t *poll_for_response(Display *dpy)
 						 &response, &error)) {
 				/* if there is no reply/error, xcb_poll_for_reply64
 				 * may have read events. Return that. */
-				response = poll_for_event(dpy, True);
+				response = poll_for_event(dpy, true);
 				break;
 			}
 
@@ -358,7 +358,7 @@ static xcb_generic_reply_t *poll_for_response(Display *dpy)
 			 * events that happened before that response. Return those
 			 * first and save our reply/error for the next invocation.
 			 */
-			event = poll_for_event(dpy, True);
+			event = poll_for_event(dpy, true);
 			if(event)
 			{
 				dpy->xcb->next_response = error ? error : response;
@@ -439,7 +439,7 @@ int _XEventsQueued(Display *dpy, int mode)
 	if(!dpy->xcb->event_waiter)
 	{
 		while((response = poll_for_response(dpy)))
-			handle_response(dpy, response, False);
+			handle_response(dpy, response, false);
 		if(xcb_connection_has_error(dpy->xcb->connection)) {
 			_XIOError(dpy);
 			return 0;
@@ -507,7 +507,7 @@ void _XReadEvents(Display *dpy)
 
 		response = poll_for_response(dpy);
 		if(response)
-			handle_response(dpy, response, False);
+			handle_response(dpy, response, false);
 		else if(dpy->xcb->pending_requests->reply_waiter)
 		{ /* need braces around ConditionWait */
 			ConditionWait(dpy, dpy->xcb->reply_notify);
@@ -525,7 +525,7 @@ void _XReadEvents(Display *dpy)
 	 * the event_waiter while we slept unlocked. */
 	if(!dpy->xcb->event_waiter)
 		while((response = poll_for_response(dpy)))
-			handle_response(dpy, response, False);
+			handle_response(dpy, response, false);
 	if(xcb_connection_has_error(dpy->xcb->connection))
 		_XIOError(dpy);
 }
@@ -719,7 +719,7 @@ Status _XReply(Display *dpy, xReply *rep, int extra, Bool discard)
 			if(!dpy->xcb->event_waiter)
 			{
 				while((event = poll_for_response(dpy)))
-					handle_response(dpy, event, True);
+					handle_response(dpy, event, true);
                         }
 		}
 
@@ -742,9 +742,9 @@ Status _XReply(Display *dpy, xReply *rep, int extra, Bool discard)
 		}
 
 		if(error)
-			handle_response(dpy, (xcb_generic_reply_t *) error, True);
+			handle_response(dpy, (xcb_generic_reply_t *) error, true);
 		else if(response)
-			handle_response(dpy, response, True);
+			handle_response(dpy, response, true);
 	}
 	if (!check_internal_connections(dpy))
 		return 0;
@@ -795,7 +795,7 @@ Status _XReply(Display *dpy, xReply *rep, int extra, Bool discard)
 				return 0;
 		}
 
-		ret_code = handle_error(dpy, (xError *) error, True);
+		ret_code = handle_error(dpy, (xError *) error, true);
 		free(error);
 		return ret_code;
 	}
@@ -834,7 +834,7 @@ int _XRead(Display *dpy, char *data, long size)
 		                         xcb_xlib_too_much_data_requested);
 	memcpy(data, dpy->xcb->reply_data + dpy->xcb->reply_consumed, size);
 	dpy->xcb->reply_consumed += size;
-	_XFreeReplyData(dpy, False);
+	_XFreeReplyData(dpy, false);
 	return 0;
 }
 
@@ -847,14 +847,14 @@ void _XReadPad(Display *dpy, char *data, long size)
 {
 	_XRead(dpy, data, size);
 	dpy->xcb->reply_consumed += -size & 3;
-	_XFreeReplyData(dpy, False);
+	_XFreeReplyData(dpy, false);
 }
 
 /* Read and discard "n" 8-bit bytes of data */
 void _XEatData(Display *dpy, unsigned long n)
 {
 	dpy->xcb->reply_consumed += n;
-	_XFreeReplyData(dpy, False);
+	_XFreeReplyData(dpy, false);
 }
 
 /*
@@ -870,7 +870,7 @@ void _XEatDataWords(Display *dpy, unsigned long n)
 	else
 		/* Overflow would happen, so just eat the rest of the reply */
 		dpy->xcb->reply_consumed = dpy->xcb->reply_length;
-	_XFreeReplyData(dpy, False);
+	_XFreeReplyData(dpy, false);
 }
 
 unsigned long

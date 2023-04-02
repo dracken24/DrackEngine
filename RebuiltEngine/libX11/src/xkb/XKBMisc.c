@@ -40,12 +40,12 @@ THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 #define	mapSize(m)	(sizeof(m)/sizeof(XkbKTMapEntryRec))
 static XkbKTMapEntryRec map2Level[] = {
-    { True, ShiftMask, {1, ShiftMask, 0} }
+    { true, ShiftMask, {1, ShiftMask, 0} }
 };
 
 static XkbKTMapEntryRec mapAlpha[] = {
-    { True, ShiftMask, {1, ShiftMask, 0} },
-    { True, LockMask, {0, LockMask, 0} }
+    { true, ShiftMask, {1, ShiftMask, 0} },
+    { true, LockMask, {0, LockMask, 0} }
 };
 
 static XkbModsRec preAlpha[] = {
@@ -55,8 +55,8 @@ static XkbModsRec preAlpha[] = {
 
 #define	NL_VMOD_MASK	0
 static XkbKTMapEntryRec mapKeypad[] = {
-    { True, ShiftMask, { 1, ShiftMask,            0 } },
-    { False,        0, { 1,         0, NL_VMOD_MASK } }
+    { true, ShiftMask, { 1, ShiftMask,            0 } },
+    { false,        0, { 1,         0, NL_VMOD_MASK } }
 };
 
 static XkbKeyTypeRec canonicalTypes[XkbNumRequiredTypes] = {
@@ -119,12 +119,12 @@ XkbInitCanonicalKeyTypes(XkbDescPtr xkb, unsigned which, int keypadVMod)
         if ((keypadVMod >= 0) && (keypadVMod < XkbNumVirtualMods) &&
             (rtrn == Success)) {
             type->mods.vmods = (1 << keypadVMod);
-            type->map[0].active = True;
+            type->map[0].active = true;
             type->map[0].mods.mask = ShiftMask;
             type->map[0].mods.real_mods = ShiftMask;
             type->map[0].mods.vmods = 0;
             type->map[0].level = 1;
-            type->map[1].active = False;
+            type->map[1].active = false;
             type->map[1].mods.mask = 0;
             type->map[1].mods.real_mods = 0;
             type->map[1].mods.vmods = (1 << keypadVMod);
@@ -244,7 +244,7 @@ XkbKeyTypesForCoreSymbols(XkbDescPtr xkb,
             register int n;
             Bool found;
 
-            for (n = 1, found = False; (!found) && (n < nSyms[i]); n++) {
+            for (n = 1, found = false; (!found) && (n < nSyms[i]); n++) {
                 found = (syms[n] != NoSymbol);
             }
             if (!found)
@@ -284,7 +284,7 @@ XkbKeyTypesForCoreSymbols(XkbDescPtr xkb,
         Bool sameType, allOneLevel;
 
         allOneLevel = (xkb->map->types[types_inout[0]].num_levels == 1);
-        for (i = 1, sameType = True; (allOneLevel || sameType) && (i < nGroups);
+        for (i = 1, sameType = true; (allOneLevel || sameType) && (i < nGroups);
              i++) {
             sameType = (sameType &&
                         (types_inout[i] == types_inout[XkbGroup1Index]));
@@ -297,13 +297,13 @@ XkbKeyTypesForCoreSymbols(XkbDescPtr xkb,
             register int s;
             Bool identical;
 
-            for (i = 1, identical = True; identical && (i < nGroups); i++) {
+            for (i = 1, identical = true; identical && (i < nGroups); i++) {
                 KeySym *syms;
 
                 syms = &xkb_syms_rtrn[XKB_OFFSET(i, 0)];
                 for (s = 0; identical && (s < nSyms[i]); s++) {
                     if (syms[s] != xkb_syms_rtrn[s])
-                        identical = False;
+                        identical = false;
                 }
             }
             if (identical)
@@ -435,16 +435,16 @@ XkbApplyCompatMapToKey(XkbDescPtr xkb, KeyCode key, XkbChangesPtr changes)
     if ((!xkb) || (!xkb->map) || (!xkb->map->key_sym_map) ||
         (!xkb->compat) || (!xkb->compat->sym_interpret) ||
         (key < xkb->min_key_code) || (key > xkb->max_key_code)) {
-        return False;
+        return false;
     }
     if (((!xkb->server) || (!xkb->server->key_acts)) &&
         (XkbAllocServerMap(xkb, XkbAllServerInfoMask, 0) != Success)) {
-        return False;
+        return false;
     }
     changed = 0;                /* keeps track of what has changed in _this_ call */
     explicit = xkb->server->explicit[key];
     if (explicit & XkbExplicitInterpretMask)    /* nothing to do */
-        return True;
+        return true;
     mods = (xkb->map->modmap ? xkb->map->modmap[key] : 0);
     nSyms = XkbKeyNumSyms(xkb, key);
     syms = XkbKeySymsPtr(xkb, key);
@@ -487,7 +487,7 @@ XkbApplyCompatMapToKey(XkbDescPtr xkb, KeyCode key, XkbChangesPtr changes)
         if (!pActs) {
             if (nSyms > IBUF_SIZE)
                 Xfree(interps);
-            return False;
+            return false;
         }
         new_vmodmask = 0;
         for (n = 0; n < nSyms; n++) {
@@ -582,7 +582,7 @@ XkbApplyCompatMapToKey(XkbDescPtr xkb, KeyCode key, XkbChangesPtr changes)
     }
     if (interps != ibuf)
         _XkbFree(interps);
-    return True;
+    return true;
 }
 
 Bool
@@ -666,7 +666,7 @@ XkbUpdateMapFromCore(XkbDescPtr xkb,
     }
     if (changes && (changes->map.changed & XkbVirtualModsMask))
         XkbApplyVirtualModChanges(xkb, changes->map.vmods, changes);
-    return True;
+    return true;
 }
 
 Status
@@ -805,19 +805,19 @@ XkbVirtualModsToReal(XkbDescPtr xkb, unsigned virtual_mask, unsigned *mask_rtrn)
     register unsigned mask;
 
     if (xkb == NULL)
-        return False;
+        return false;
     if (virtual_mask == 0) {
         *mask_rtrn = 0;
-        return True;
+        return true;
     }
     if (xkb->server == NULL)
-        return False;
+        return false;
     for (i = mask = 0, bit = 1; i < XkbNumVirtualMods; i++, bit <<= 1) {
         if (virtual_mask & bit)
             mask |= xkb->server->vmods[i];
     }
     *mask_rtrn = mask;
-    return True;
+    return true;
 }
 
 /***====================================================================***/
@@ -835,7 +835,7 @@ XkbUpdateActionVirtualMods(XkbDescPtr xkb, XkbAction *act, unsigned changed)
             XkbVirtualModsToReal(xkb, tmp, &tmp);
             act->mods.mask = act->mods.real_mods;
             act->mods.mask |= tmp;
-            return True;
+            return true;
         }
         break;
     case XkbSA_ISOLock:
@@ -843,11 +843,11 @@ XkbUpdateActionVirtualMods(XkbDescPtr xkb, XkbAction *act, unsigned changed)
             XkbVirtualModsToReal(xkb, tmp, &tmp);
             act->iso.mask = act->iso.real_mods;
             act->iso.mask |= tmp;
-            return True;
+            return true;
         }
         break;
     }
-    return False;
+    return false;
 }
 
 void
@@ -912,7 +912,7 @@ XkbApplyVirtualModChanges(XkbDescPtr xkb,
     unsigned int checkState = 0;
 
     if ((!xkb) || (!xkb->map) || (changed == 0))
-        return False;
+        return false;
     for (i = 0; i < xkb->map->num_types; i++) {
         if (xkb->map->types[i].mods.vmods & changed)
             XkbUpdateKeyTypeVirtualMods(xkb, &xkb->map->types[i], changed,
@@ -927,7 +927,7 @@ XkbApplyVirtualModChanges(XkbDescPtr xkb,
             xkb->ctrls->internal.mask = newMask;
             if (changes) {
                 changes->ctrls.changed_ctrls |= XkbInternalModsMask;
-                checkState = True;
+                checkState = true;
             }
         }
     }
@@ -940,7 +940,7 @@ XkbApplyVirtualModChanges(XkbDescPtr xkb,
             xkb->ctrls->ignore_lock.mask = newMask;
             if (changes) {
                 changes->ctrls.changed_ctrls |= XkbIgnoreLockModsMask;
-                checkState = True;
+                checkState = true;
             }
         }
     }
@@ -958,7 +958,7 @@ XkbApplyVirtualModChanges(XkbDescPtr xkb,
                     map->mods.mask = newMask;
                     if (changes) {
                         changes->indicators.map_changes |= (1 << i);
-                        checkState = True;
+                        checkState = true;
                     }
                 }
             }
@@ -977,7 +977,7 @@ XkbApplyVirtualModChanges(XkbDescPtr xkb,
                 compat->groups[i].mask = newMask;
                 if (changes) {
                     changes->compat.changed_groups |= (1 << i);
-                    checkState = True;
+                    checkState = true;
                 }
             }
         }

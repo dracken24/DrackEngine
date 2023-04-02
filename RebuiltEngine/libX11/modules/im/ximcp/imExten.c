@@ -56,16 +56,16 @@ typedef struct	_XIM_QueryExtRec {
 } XIM_QueryExtRec;
 
 static XIM_QueryExtRec	extensions[] = {
-	{False, "XIM_EXT_SET_EVENT_MASK", 0, 0, 0,
+	{false, "XIM_EXT_SET_EVENT_MASK", 0, 0, 0,
 					XIM_EXT_SET_EVENT_MASK_IDX},
 #ifdef EXT_FORWARD
-	{False, "XIM_EXT_FORWARD_KEYEVENT", 0, 0, 0,
+	{false, "XIM_EXT_FORWARD_KEYEVENT", 0, 0, 0,
 					XIM_EXT_FORWARD_KEYEVENT_IDX},
 #endif
 #ifdef EXT_MOVE
-	{False, "XIM_EXT_MOVE", 0, 0, 0, XIM_EXT_MOVE_IDX},
+	{false, "XIM_EXT_MOVE", 0, 0, 0, XIM_EXT_MOVE_IDX},
 #endif
-	{False, NULL, 0, 0, 0, 0}		/* dummy */
+	{false, NULL, 0, 0, 0, 0}		/* dummy */
 };
 
 static int
@@ -109,8 +109,8 @@ _XimProcExtSetEventMask(
     _XimReregisterFilter(ic);
 
     if (!(_XimProcSyncReply(im, ic)))
-	return False;
-    return True;
+	return false;
+    return true;
 }
 
 static Bool
@@ -129,9 +129,9 @@ _XimExtSetEventMaskCallback(
     if ((imid == im->private.proto.imid)
      && (ic = _XimICOfXICID(im, icid))) {
 	(void)_XimProcExtSetEventMask(im, ic, (XPointer)&buf_s[2]);
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 #ifdef EXT_FORWARD
@@ -148,7 +148,7 @@ _XimProcExtForwardKeyEvent(
     XKeyEvent	*kev = (XKeyEvent *)&ev;
 
     bzero(&ev, sizeof(XEvent));
-    kev->send_event	= False;
+    kev->send_event	= false;
     kev->display	= im->core.display;
     kev->serial		= buf_s[1];		/* sequence number */
     kev->type		= buf_b[4] & 0x7f;	/* xEvent.u.u.type */
@@ -161,7 +161,7 @@ _XimProcExtForwardKeyEvent(
     _XimRespSyncReply(ic, buf_s[0]);
     MARK_FABRICATED(im);
 
-    return True;
+    return true;
 }
 
 static Bool
@@ -180,9 +180,9 @@ _XimExtForwardKeyEventCallback(
     if ((imid == im->private.proto.imid)
      && (ic = _XimICOfXICID(im, icid))) {
 	(void)_XimProcExtForwardKeyEvent(im, ic, (XPointer)&buf_s[2]);
-	return True;
+	return true;
     }
-    return False;
+    return false;
 }
 
 static Bool
@@ -209,8 +209,8 @@ _XimExtForwardKeyEventCheck(
      && (imid == im->private.proto.imid)
      && (buf_s[2] & XIM_ICID_VALID)
      && (icid == ic->private.proto.icid))
-	return True;
-    return False;
+	return true;
+    return false;
 }
 
 Bool
@@ -220,8 +220,8 @@ _XimExtForwardKeyEvent(
     Bool	 sync)
 {
     Xim		 im = (Xim) ic->core.im;
-    CARD32	 buf32[BUFSIZE/4];
-    CARD8	*buf = (CARD8 *)buf32;
+    CARD32	 bufl32[BUFSIZE/4];
+    CARD8	*buf = (CARD8 *)bufl32;
     CARD8	*buf_b = &buf[XIM_HEADER_SIZE];
     CARD16	*buf_s = (CARD16 *)buf_b;
     CARD32	*buf_l = (CARD32 *)buf_b;
@@ -234,7 +234,7 @@ _XimExtForwardKeyEvent(
     int		idx;
 
     if ((idx = _XimIsSupportExt(XIM_EXT_FORWARD_KEYEVENT_IDX)) < 0)
-	return False;
+	return false;
 
     buf_s[0] = im->private.proto.imid;		/* imid */
     buf_s[1] = ic->private.proto.icid;		/* icid */
@@ -258,13 +258,13 @@ _XimExtForwardKeyEvent(
 		extensions[idx].major_opcode,
 		extensions[idx].minor_opcode, &len);
     if (!(_XimWrite(im, len, (XPointer)buf)))
-	return False;
+	return false;
     _XimFlush(im);
     if (sync) {
     	buf_size = BUFSIZE;
     	ret_code = _XimRead(im, &len, (XPointer)reply, buf_size,
     				_XimExtForwardKeyEventCheck, (XPointer)ic);
-    	if(ret_code == XIM_TRUE) {
+    	if(ret_code == XIM_true) {
     	    preply = reply;
     	} else if(ret_code == XIM_OVERFLOW) {
     	    if(len <= 0) {
@@ -274,24 +274,24 @@ _XimExtForwardKeyEvent(
 		preply = Xmalloc(buf_size);
     		ret_code = _XimRead(im, &len, preply, buf_size,
     				_XimExtForwardKeyEventCheck, (XPointer)ic);
-    		if(ret_code != XIM_TRUE) {
+    		if(ret_code != XIM_true) {
 		    Xfree(preply);
-    		    return False;
+    		    return false;
 		}
     	    }
     	} else
-	    return False;
+	    return false;
     	buf_s = (CARD16 *)((char *)preply + XIM_HEADER_SIZE);
     	if (*((CARD8 *)preply) == XIM_ERROR) {
 	    _XimProcError(im, 0, (XPointer)&buf_s[3]);
     	    if(reply != preply)
     		Xfree(preply);
-	    return False;
+	    return false;
 	}
     	if(reply != preply)
     	    Xfree(preply);
     }
-    return True;
+    return true;
 }
 #endif /* EXT_FORWARD */
 
@@ -365,7 +365,7 @@ _XimParseExtensionList(
     INT16		 len;
 
     if (!(n = _XimCountNumberOfExtension(data[0], (CARD8 *)&data[1])))
-	return True;
+	return true;
 
     buf = (CARD8 *)&data[1];
     for (i = 0; i < n; i++) {
@@ -374,7 +374,7 @@ _XimParseExtensionList(
 	    if (!(strncmp(extensions[j].name, (char *)&buf[4], len))) {
 		extensions[j].major_opcode = buf[0];
 		extensions[j].minor_opcode = buf[1];
-		extensions[j].is_support   = True;
+		extensions[j].is_support   = true;
 		break;
 	    }
 	}
@@ -385,7 +385,7 @@ _XimParseExtensionList(
 	buf += len;
     }
 
-    return True;
+    return true;
 }
 
 static Bool
@@ -403,13 +403,13 @@ _XimQueryExtensionCheck(
     if ((major_opcode == XIM_QUERY_EXTENSION_REPLY)
      && (minor_opcode == 0)
      && (imid == im->private.proto.imid))
-	return True;
+	return true;
     if ((major_opcode == XIM_ERROR)
      && (minor_opcode == 0)
      && (buf_s[2] & XIM_IMID_VALID)
      && (imid == im->private.proto.imid))
-	return True;
-    return False;
+	return true;
+    return false;
 }
 
 Bool
@@ -428,7 +428,7 @@ _XimExtension(
     int		 idx;
 
     if (!(len = _XimCheckExtensionListSize()))
-	return True;
+	return true;
 
     buf_len = XIM_HEADER_SIZE
 	    + sizeof(CARD16)
@@ -437,7 +437,7 @@ _XimExtension(
 	    + XIM_PAD(len);
 
     if (!(buf = Xmalloc(buf_len)))
-	return False;
+	return false;
     buf_s = (CARD16 *)&buf[XIM_HEADER_SIZE];
 
     buf_s[0] = im->private.proto.imid;	/* imid */
@@ -451,14 +451,14 @@ _XimExtension(
     _XimSetHeader((XPointer)buf, XIM_QUERY_EXTENSION, 0, &len);
     if (!(_XimWrite(im, len, (XPointer)buf))) {
         XFree(buf);
-	return False;
+	return false;
     }
     XFree(buf);
     _XimFlush(im);
     buf_size = BUFSIZE;
     ret_code = _XimRead(im, &len, (XPointer)reply, buf_size,
     					_XimQueryExtensionCheck, 0);
-    if(ret_code == XIM_TRUE) {
+    if(ret_code == XIM_true) {
     	preply = reply;
     } else if(ret_code == XIM_OVERFLOW) {
     	if(len <= 0) {
@@ -468,25 +468,25 @@ _XimExtension(
 	    preply = Xmalloc(buf_size);
     	    ret_code = _XimRead(im, &len, reply, buf_size,
     					_XimQueryExtensionCheck, 0);
-    	    if(ret_code != XIM_TRUE) {
+    	    if(ret_code != XIM_true) {
 		Xfree(preply);
-    		return False;
+    		return false;
 	    }
     	}
     } else
-	return False;
+	return false;
     buf_s = (CARD16 *)((char *)preply + XIM_HEADER_SIZE);
     if (*((CARD8 *)preply) == XIM_ERROR) {
 	_XimProcError(im, 0, (XPointer)&buf_s[3]);
     	if(reply != preply)
     	    Xfree(preply);
-	return False;
+	return false;
     }
 
     if (!(_XimParseExtensionList(im, &buf_s[1]))) {
     	if(reply != preply)
     	    Xfree(preply);
-	return False;
+	return false;
     }
     if(reply != preply)
     	Xfree(preply);
@@ -504,7 +504,7 @@ _XimExtension(
 		_XimExtForwardKeyEventCallback, (XPointer)im);
 #endif
 
-    return True;
+    return true;
 }
 
 #ifdef EXT_MOVE
@@ -525,14 +525,14 @@ _XimExtMove(
     CARD16	 x,
     CARD16	 y)
 {
-    CARD32	 buf32[BUFSIZE/4];
-    CARD8	*buf = (CARD8 *)buf32;
+    CARD32	 bufl32[BUFSIZE/4];
+    CARD8	*buf = (CARD8 *)bufl32;
     CARD16	*buf_s = (CARD16 *)&buf[XIM_HEADER_SIZE];
     INT16	 len;
     int		idx;
 
     if ((idx = _XimIsSupportExt(XIM_EXT_MOVE_IDX)) < 0)
-	return False;
+	return false;
 
     buf_s[0] = im->private.proto.imid;	/* imid */
     buf_s[1] = ic->private.proto.icid;	/* icid */
@@ -546,9 +546,9 @@ _XimExtMove(
     _XimSetHeader((XPointer)buf, extensions[idx].major_opcode,
 			extensions[idx].minor_opcode, &len);
     if (!(_XimWrite(im, len, (XPointer)buf)))
-	return False;
+	return false;
     _XimFlush(im);
-    return True;
+    return true;
 }
 
 BITMASK32
@@ -571,6 +571,6 @@ _XimExtenMove(
 {
     if ((IS_EXT_XNSPOTLOCATION(flag)) && (length == XIM_Xpoint_length))
 	return _XimExtMove(im, ic, buf[4], buf[5]);
-    return False;
+    return false;
 }
 #endif /* EXT_MOVE */

@@ -213,9 +213,9 @@ are. The valid controls bits are defined in
 <para>
 <function>XkbSetDebuggingFlags</function>
 returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if successful and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise. The only protocol error it may generate is
 <errorname>BadAlloc</errorname>,
 if for some reason it is unable to allocate storage.

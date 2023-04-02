@@ -475,7 +475,7 @@ XkbSetMap(Display *dpy, unsigned which, XkbDescPtr xkb)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)) || (!xkb))
-        return False;
+        return false;
     map = xkb->map;
     srv = xkb->server;
 
@@ -488,7 +488,7 @@ XkbSetMap(Display *dpy, unsigned which, XkbDescPtr xkb)
         ((which & XkbExplicitComponentsMask) && ((!srv) || (!srv->explicit))) ||
         ((which & XkbModifierMapMask) && ((!map) || (!map->modmap))) ||
         ((which & XkbVirtualModMapMask) && ((!srv) || (!srv->vmodmap))))
-        return False;
+        return false;
 
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
@@ -534,7 +534,7 @@ XkbSetMap(Display *dpy, unsigned which, XkbDescPtr xkb)
     SendSetMap(dpy, xkb, req);
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -548,7 +548,7 @@ XkbChangeMap(Display *dpy, XkbDescPtr xkb, XkbMapChangesPtr changes)
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)) ||
         (!xkb) || (!changes))
-        return False;
+        return false;
     srv = xkb->server;
     map = xkb->map;
 
@@ -564,7 +564,7 @@ XkbChangeMap(Display *dpy, XkbDescPtr xkb, XkbMapChangesPtr changes)
         ((changes->changed & XkbModifierMapMask) && ((!map) || (!map->modmap)))
         || ((changes->changed & XkbVirtualModMapMask) &&
             ((!srv) || (!srv->vmodmap))))
-        return False;
+        return false;
 
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
@@ -594,5 +594,5 @@ XkbChangeMap(Display *dpy, XkbDescPtr xkb, XkbMapChangesPtr changes)
     SendSetMap(dpy, xkb, req);
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }

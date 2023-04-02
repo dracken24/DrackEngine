@@ -59,10 +59,10 @@ void XSetRGBColormaps (
     if ((count > 1) &&
         ((data = (Xmallocarray(count,
                                sizeof(xPropStandardColormap)))) != NULL)) {
-	alloced_scratch_space = True;
+	alloced_scratch_space = true;
     } else {
 	data = &tmpdata;
-	alloced_scratch_space = False;
+	alloced_scratch_space = false;
     }
 
 

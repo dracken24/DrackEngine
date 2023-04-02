@@ -69,9 +69,9 @@ Status XIconifyWindow (
 {
     Atom prop;
 
-    prop = XInternAtom (dpy, "WM_CHANGE_STATE", False);
+    prop = XInternAtom (dpy, "WM_CHANGE_STATE", false);
     if (prop == None)
-        return False;
+        return false;
     else {
         XClientMessageEvent ev = {
             .type = ClientMessage,
@@ -82,7 +82,7 @@ Status XIconifyWindow (
         };
         Window root = RootWindow (dpy, screen);
 
-        return (XSendEvent (dpy, root, False,
+        return (XSendEvent (dpy, root, false,
                             SubstructureRedirectMask|SubstructureNotifyMask,
                             (XEvent *)&ev));
     }

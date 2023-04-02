@@ -69,22 +69,22 @@ backfills
 and 
 .I auto_values 
 with the AutoReset control attributes for this particular client. It returns 
-True if successful, and False otherwise.
+true if successful, and false otherwise.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbGetAutoResetControls 
-function returns True when it successfully backfills 
+function returns true when it successfully backfills 
 .I auto_ctrls 
 and 
 .I auto_values 
 with the AutoReset control attributes for this particular client.
 .TP 15
-False
+false
 The 
 .I XkbGetAutoResetControls 
-function returns False when it does not successfully backfill
+function returns false when it does not successfully backfill
 .I auto_ctrls 
 and 
 .I auto_values 

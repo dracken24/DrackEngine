@@ -110,7 +110,7 @@ XrmParseCommand(
 
     table_is_sorted = (myargc > 2) ? Check : DontCare;
     for (--myargc; myargc > 0; --myargc, ++argv) {
-	foundOption = False;
+	foundOption = false;
 	matches = 0;
 	for (i=0; i < num_options; ++i) {
 	    /* checking the sort order first insures we don't have to

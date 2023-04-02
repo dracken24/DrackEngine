@@ -41,7 +41,7 @@ XGetModifierMapping(register Display *dpy)
 
     LockDisplay(dpy);
     GetEmptyReq(GetModifierMapping, req);
-    (void) _XReply (dpy, (xReply *)&rep, 0, xFalse);
+    (void) _XReply (dpy, (xReply *)&rep, 0, xfalse);
 
     if (rep.length < (INT_MAX >> 2) &&
 	(rep.length >> 1) == rep.numKeyPerModifier) {
@@ -88,7 +88,7 @@ XSetModifierMapping(
     Data(dpy, (const char *)modifier_map->modifiermap, mapSize);
 
     (void) _XReply(dpy, (xReply *) & rep,
-	(SIZEOF(xSetModifierMappingReply) - SIZEOF(xReply)) >> 2, xTrue);
+	(SIZEOF(xSetModifierMappingReply) - SIZEOF(xReply)) >> 2, xtrue);
     UnlockDisplay(dpy);
     SyncHandle();
     return (rep.success);

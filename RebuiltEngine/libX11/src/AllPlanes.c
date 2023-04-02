@@ -56,7 +56,7 @@ Status XAllocColorPlanes(
     req->blue = nblues;
     req->contiguous = contig;
 
-    status = _XReply(dpy, (xReply *)&rep, 0, xFalse);
+    status = _XReply(dpy, (xReply *)&rep, 0, xfalse);
 
 
     if (status) {

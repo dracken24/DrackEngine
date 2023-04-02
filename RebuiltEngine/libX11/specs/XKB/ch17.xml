@@ -1361,7 +1361,7 @@ structures) are also allocated using this same function.
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; apply to server’s keyboard map
+        <symbol>true</symbol> &rArr; apply to server’s keyboard map
       </para>
     </listitem>
   </varlistentry>
@@ -1389,13 +1389,13 @@ of the bits shown in <link linkend="table17.2">Table 17.2</link>.
 After updating its compatibility map for the specified device, if
 <parameter>update_actions</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the server applies the new compatibility map to its entire keyboard for the
 device to generate a new set of key semantics, compatibility state, and a new
 core keyboard map. If
 <parameter>update_actions</parameter>
 is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the new compatibility map is not used to generate any modifications to the
 current device semantics, state, or core keyboard map. One reason for not
 applying the compatibility map immediately would be if one server was being
@@ -1407,16 +1407,16 @@ specifying
 as zero and
 <parameter>update_actions</parameter>
 as
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 
 <para>
 <function>XkbSetCompatMap</function>
 returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if successful and
-<symbol>False</symbol>
+<symbol>false</symbol>
 if unsuccessful. The server may report problems it encounters when processing
 the request subsequently via protocol errors.
 </para>
@@ -1471,7 +1471,7 @@ use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol>&rArr;apply compatibility map to keys
+        <symbol>true</symbol>&rArr;apply compatibility map to keys
       </para>
     </listitem>
   </varlistentry>
@@ -1496,7 +1496,7 @@ to the list of symbol interpretations in
 If
 <parameter>updateMap</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 it (re)applies the compatibility map to all of the keys on the keyboard. If
 <parameter>changes</parameter>
 is non-
@@ -1504,7 +1504,7 @@ is non-
 it reports the parts of the keyboard that were affected (unless
 <parameter>updateMap</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 not much changes).
 <function>XkbAddSymInterpret</function>
 returns a pointer to the actual new symbol interpretation in the list or
@@ -1585,7 +1585,7 @@ is:
 typedef struct {
     int            type;           /* Xkb extension base event code */
     unsigned long  serial;         /* X server serial number for event */
-    Bool           send_event;     /* <symbol>True</symbol> &rArr;
+    Bool           send_event;     /* <symbol>true</symbol> &rArr;
                                       synthetically generated */
     Display *      display;        /* server connection where event generated */
     Time           time;           /* server time when event generated */
@@ -1804,7 +1804,7 @@ To free an entire compatibility map or selected portions of one, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; free <structname>XkbCompatMapRec</structname>
+        <symbol>true</symbol> &rArr; free <structname>XkbCompatMapRec</structname>
          structure itself
       </para>
     </listitem>
@@ -1829,7 +1829,7 @@ indicates whether the
 structure itself should be freed. If
 <parameter>free_map</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 <parameter>which</parameter>
 is ignored, all non-
 <symbol>NULL</symbol>

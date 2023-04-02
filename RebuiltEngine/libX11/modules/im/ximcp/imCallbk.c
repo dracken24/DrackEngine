@@ -197,7 +197,7 @@ _XimCbDispatch(Xim xim,
     /* check validity of im/ic
      */
     if ((imid != im->private.proto.imid) || !ic) {
-	return False; /* status = XimCbBadContextID; */
+	return false; /* status = XimCbBadContextID; */
     }
 
     /* process pending callbacks
@@ -207,10 +207,10 @@ _XimCbDispatch(Xim xim,
     /* check if the protocol should be processed here
      */
     if (major_opcode > 82) {
-	return False; /* status = XimCbBadOpcode; */
+	return false; /* status = XimCbBadOpcode; */
     }
     if (!callback_table[major_opcode]) {
-	return False; /* status = XimCbBadOpcode; */
+	return false; /* status = XimCbBadOpcode; */
     }
 
     /* move the pointer ahead by the IM Protocol packet header size
@@ -254,7 +254,7 @@ _XimCbDispatch(Xim xim,
 	 */
 	(void) (*callback_table[major_opcode])(im, ic, proto, proto_len);
     }
-    return True;
+    return true;
 }
 
 static XimCbStatus
@@ -392,8 +392,8 @@ _XimPreeditStartCallback(Xim im,
     /* send a reply
      */
     {
-	CARD32 buf32[(sz_ximPacketHeader + sz_ximPreeditStartReply) / 4];
-	CARD8 *buf = (CARD8 *)buf32;
+	CARD32 bufl32[(sz_ximPacketHeader + sz_ximPreeditStartReply) / 4];
+	CARD8 *buf = (CARD8 *)bufl32;
 	INT16 buf_len = sz_XIMID + sz_XICID + sz_ximPreeditStartReply;
 	int p;
 
@@ -466,7 +466,7 @@ _read_text_from_packet(Xim im,
 	    memcpy(tmp_buf, buf, tmp_len);
 	    tmp_buf[tmp_len] = '\0';
 
-	    text->encoding_is_wchar = False;
+	    text->encoding_is_wchar = false;
 	    text->length = im->methods->ctstombs((XIM)im,
 					tmp_buf, tmp_len,
 					NULL, 0, &s); /* CT? HM */

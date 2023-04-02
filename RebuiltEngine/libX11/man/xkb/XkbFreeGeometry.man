@@ -39,7 +39,7 @@ geometry to be freed
 mask of geometry components to be freed 
 .TP
 .I free_all
-True => the entire geometry is freed
+true => the entire geometry is freed
 .SH DESCRIPTION
 .LP
 Xkb provides a number of functions to allocate and free subcomponents of a 
@@ -77,7 +77,7 @@ are:
 .fi    
 If 
 .I free_all 
-is True, the entire geometry is freed regardless of the value of 
+is true, the entire geometry is freed regardless of the value of 
 .I which. 
 Otherwise, the portions of the geometry specified by 
 .I which 

@@ -73,7 +73,7 @@ The
 .B XIfEvent
 function completes only when the specified predicate
 procedure returns
-.B True
+.B true
 for an event,
 which indicates an event in the queue matches.
 .B XIfEvent
@@ -89,12 +89,12 @@ When the predicate procedure finds a match,
 copies the matched event into the client-supplied
 .B XEvent
 structure and returns
-.BR True .
+.BR true .
 (This event is removed from the queue.)
 If the predicate procedure finds no match,
 .B XCheckIfEvent
 returns
-.BR False ,
+.BR false ,
 and the output buffer will have been flushed.
 All earlier events stored in the queue are not discarded.
 .LP
@@ -102,7 +102,7 @@ The
 .B XPeekIfEvent
 function returns only when the specified predicate
 procedure returns
-.B True
+.B true
 for an event.
 After the predicate procedure finds a match,
 .B XPeekIfEvent
@@ -144,9 +144,9 @@ function.
 The predicate procedure is called once for each
 event in the queue until it finds a match.
 After finding a match, the predicate procedure must return
-.BR True .
+.BR true .
 If it did not find a match, it must return
-.BR False .
+.BR false .
 .LP
 Note that the predicate procedure is called with the
 display locked, and thus is not allowed to call any function

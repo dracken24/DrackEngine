@@ -889,7 +889,7 @@ extern void _XlcInitLoader (void);
 extern void _XlcDeInitLoader (void);
 
 /* documented in i18n/Framework.PS */
-/* Returns True on success, False on failure. */
+/* Returns true on success, false on failure. */
 extern Bool _XlcAddLoader(
     XLCdLoadProc	proc,
     XlcPosition		position

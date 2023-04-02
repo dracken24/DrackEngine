@@ -112,10 +112,10 @@ To determine if the current locale is supported by X, use
 The 
 <function>XSupportsLocale</function>
 function returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if Xlib functions are capable of operating under the current locale.
 If it returns 
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 Xlib locale-dependent functions for which the 
 <symbol>XLocaleNotSupported</symbol>
 return status is defined will return 
@@ -1237,11 +1237,11 @@ The
 argument indicates whether the text rendering functions
 implement implicit handling of directional text.  If this value
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the output method has knowledge of directional
 dependencies and reorders text as necessary when
 rendering text.  If this value is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the output method does not implement any directional text
 handling, and all character directions are assumed to be left-to-right.
 </para>
@@ -1269,7 +1269,7 @@ The
 <symbol>XNContextualDrawing</symbol>
 argument indicates whether the text rendering functions
 implement implicit context-dependent drawing.  If this value is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the output method has knowledge of context dependencies and
 performs character shape editing, combining glyphs to present
 a single character as necessary.  The actual shape editing is
@@ -2112,7 +2112,7 @@ This
 has an OM value
 <symbol>XNOMAutomatic</symbol>
 automatically set to
-<symbol>True</symbol>
+<symbol>true</symbol>
 so that the output context self indicates whether it was created by
 <xref linkend='XCreateOC' xrefstyle='select: title'/>
 or
@@ -2803,10 +2803,10 @@ Specifies the font set.
 The
 <xref linkend='XDirectionalDependentDrawing' xrefstyle='select: title'/>
 function returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the drawing functions implement implicit text directionality;
 otherwise, it returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -2841,10 +2841,10 @@ Specifies the font set.
 The
 <xref linkend='XContextualDrawing' xrefstyle='select: title'/>
 function returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if text drawn with the font set might include context-dependent drawing;
 otherwise, it returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -2879,11 +2879,11 @@ Specifies the font set.
 The
 <xref linkend='XContextDependentDrawing' xrefstyle='select: title'/>
 function returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the drawing functions implement implicit text directionality or
 if text drawn with the font_set might include context-dependent drawing;
 otherwise, it returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -5589,9 +5589,9 @@ locale and modifiers.
 <para>
 <!-- .LP -->
 The function returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
  if it succeeds; otherwise, it returns 
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -5730,9 +5730,9 @@ The
 function removes an input method instantiation callback previously
 registered.
 The function returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if it succeeds; otherwise, it returns 
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 </sect2>
 <sect2 id="Input_Method_Values">
@@ -6209,7 +6209,7 @@ The argument value must be a pointer to a location where the returned
 value will be stored.  The returned value is of type
 <type>Bool</type>.
 If the returned value is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the input method uses the visible position masks of
 <type>XIMFeedback</type>
 in
@@ -6276,15 +6276,15 @@ The value is of type
 When querying for
 <symbol>XNR6PreeditCallback</symbol>,
 if the returned value is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the input method uses the Release 6 behavior;
 otherwise, it uses the Release 5 behavior.
 The default value is
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 In order to use Release 6 semantics, the value of
 <symbol>XNR6PreeditCallback</symbol>
 must be set to
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 <para>
 <!-- .LP -->
@@ -9930,13 +9930,13 @@ has been redirected.
 If
 <xref linkend='XFilterEvent' xrefstyle='select: title'/>
 returns
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 then some input method has filtered the event,
 and the client should discard the event.
 If
 <xref linkend='XFilterEvent' xrefstyle='select: title'/>
 returns
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 then the client should continue processing the event.
 </para>
 <para>
@@ -9944,7 +9944,7 @@ then the client should continue processing the event.
 If a grab has occurred in the client and
 <xref linkend='XFilterEvent' xrefstyle='select: title'/>
 returns
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the client should ungrab the keyboard.
 </para>
 </sect2>

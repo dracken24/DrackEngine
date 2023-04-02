@@ -184,8 +184,8 @@ XVisualInfo *XGetVisualInfo(
  *	multiple visuals may exist that match the specified depth and
  *	class, which visual chosen is undefined.
  *
- *	If a visual is found, True is returned as the function value,
- *	otherwise False is returned.
+ *	If a visual is found, true is returned as the function value,
+ *	otherwise false is returned.
  */
 
 Status XMatchVisualInfo(
@@ -202,7 +202,7 @@ Status XMatchVisualInfo(
   int ii,jj;
 
   if (screen < 0 || screen >= dpy->nscreens)
-      return False;
+      return false;
 
   LockDisplay(dpy);
 
@@ -237,7 +237,7 @@ Status XMatchVisualInfo(
 		visual_info->colormap_size = vp->map_entries;
 		visual_info->bits_per_rgb = vp->bits_per_rgb;
                 UnlockDisplay(dpy);
-                return True;
+                return true;
               }
             vp++;
           }
@@ -249,6 +249,6 @@ Status XMatchVisualInfo(
 
   UnlockDisplay(dpy);
 
-  return False;
+  return false;
 
 }

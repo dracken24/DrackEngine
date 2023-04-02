@@ -57,7 +57,7 @@ XkbSetAutoRepeatRate(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     req = _XkbGetSetControlsReq(dpy, dpy->xkb_info, deviceSpec);
     req->changeCtrls = XkbRepeatKeysMask;
@@ -65,7 +65,7 @@ XkbSetAutoRepeatRate(Display *dpy,
     req->repeatInterval = interval;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -80,7 +80,7 @@ XkbGetAutoRepeatRate(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbGetControls, req);
@@ -88,16 +88,16 @@ XkbGetAutoRepeatRate(Display *dpy,
     req->xkbReqType = X_kbGetControls;
     req->deviceSpec = deviceSpec;
     if (!_XReply(dpy, (xReply *) &rep,
-                 (SIZEOF(xkbGetControlsReply) - SIZEOF(xReply)) >> 2, xFalse)) {
+                 (SIZEOF(xkbGetControlsReply) - SIZEOF(xReply)) >> 2, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
-        return False;
+        return false;
     }
     UnlockDisplay(dpy);
     SyncHandle();
     *timeoutp = rep.repeatDelay;
     *intervalp = rep.repeatInterval;
-    return True;
+    return true;
 }
 
 Bool
@@ -112,7 +112,7 @@ XkbSetServerInternalMods(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     req = _XkbGetSetControlsReq(dpy, dpy->xkb_info, deviceSpec);
     req->affectInternalMods = affectReal;
@@ -122,7 +122,7 @@ XkbSetServerInternalMods(Display *dpy,
     req->changeCtrls = XkbInternalModsMask;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -137,7 +137,7 @@ XkbSetIgnoreLockMods(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     req = _XkbGetSetControlsReq(dpy, dpy->xkb_info, deviceSpec);
     req->affectIgnoreLockMods = affectReal;
@@ -147,7 +147,7 @@ XkbSetIgnoreLockMods(Display *dpy,
     req->changeCtrls = XkbIgnoreLockModsMask;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -160,7 +160,7 @@ XkbChangeEnabledControls(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     req = _XkbGetSetControlsReq(dpy, dpy->xkb_info, deviceSpec);
     req->affectEnabledCtrls = affect;
@@ -168,7 +168,7 @@ XkbChangeEnabledControls(Display *dpy,
     req->changeCtrls = XkbControlsEnabledMask;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Status
@@ -200,7 +200,7 @@ XkbGetControls(Display *dpy, unsigned long which, XkbDescPtr xkb)
     req->xkbReqType = X_kbGetControls;
     req->deviceSpec = xkb->device_spec;
     if (!_XReply(dpy, (xReply *) &rep,
-                 (SIZEOF(xkbGetControlsReply) - SIZEOF(xReply)) >> 2, xFalse)) {
+                 (SIZEOF(xkbGetControlsReply) - SIZEOF(xReply)) >> 2, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
         return BadImplementation;
@@ -274,9 +274,9 @@ XkbSetControls(Display *dpy, unsigned long which, XkbDescPtr xkb)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     if ((!xkb) || (!xkb->ctrls))
-        return False;
+        return false;
 
     ctrls = xkb->ctrls;
     LockDisplay(dpy);
@@ -333,7 +333,7 @@ XkbSetControls(Display *dpy, unsigned long which, XkbDescPtr xkb)
     }
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 /***====================================================================***/

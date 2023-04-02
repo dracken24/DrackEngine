@@ -65,23 +65,23 @@ Status XGetWMColormapWindows (
     int actual_format;
     unsigned long leftover, nitems;
 
-    prop =  XInternAtom(dpy, "WM_COLORMAP_WINDOWS", False);
-    if (prop == None) return False;
+    prop =  XInternAtom(dpy, "WM_COLORMAP_WINDOWS", false);
+    if (prop == None) return false;
 
     /* get the property */
     if (XGetWindowProperty (dpy, w, prop,
-    			    0L, 1000000L, False,
+    			    0L, 1000000L, false,
 			    XA_WINDOW, &actual_type, &actual_format,
 			    &nitems, &leftover, (unsigned char **) &data)
 	!= Success)
-      return False;
+      return false;
 
     if (actual_type != XA_WINDOW || actual_format != 32) {
         Xfree (data);
-	return False;
+	return false;
     }
 
     *colormapWindows = (Window *) data;
     *countReturn = (int) nitems;
-    return True;
+    return true;
 }

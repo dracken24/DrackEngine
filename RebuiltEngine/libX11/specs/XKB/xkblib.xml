@@ -8,7 +8,7 @@
 
 <book id="xkblib">
 
-<bookinfo>
+<booDE_INFO>
    <title>The X Keyboard Extension:</title>
    <subtitle>Library Specification</subtitle>
    <releaseinfo>X Version 11, Release &fullrelvers;</releaseinfo>
@@ -79,7 +79,7 @@ other dealings in this Software without prior written authorization.
 </para>
 </legalnotice>
 
-</bookinfo>
+</booDE_INFO>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="acknowledgement.xml"/>
 <!-- Document font conventions pg goes here -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="ch01.xml"/>

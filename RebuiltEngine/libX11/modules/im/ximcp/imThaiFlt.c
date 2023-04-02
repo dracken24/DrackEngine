@@ -273,7 +273,7 @@ THAI_chlevel (unsigned char	ch)
 }
 
 
-/* return True if char is non-spacing */
+/* return true if char is non-spacing */
 static Bool
 THAI_isdead (unsigned char	ch)
 {
@@ -286,7 +286,7 @@ THAI_isdead (unsigned char	ch)
 }
 
 
-/* return True if char is consonant */
+/* return true if char is consonant */
 static Bool
 THAI_iscons (unsigned char	ch)
 {
@@ -294,7 +294,7 @@ THAI_iscons (unsigned char	ch)
 }
 
 
-/* return True if char is vowel */
+/* return true if char is vowel */
 static Bool
 THAI_isvowel (unsigned char	ch)
 {
@@ -306,7 +306,7 @@ THAI_isvowel (unsigned char	ch)
 }
 
 
-/* return True if char is tonemark */
+/* return true if char is tonemark */
 static Bool
 THAI_istone (unsigned char	ch)
 {
@@ -347,7 +347,7 @@ THAI_isaccepted (
        (thaicat_isc_lookup[THAI_chtype(lead_ch)][THAI_chtype(follow_ch)] != RJ);
             break;
         default:
-            iskeyvalid = True;
+            iskeyvalid = true;
             break;
     }
 
@@ -445,7 +445,7 @@ THAI_apply_scm(
     scan = instr;
     outch = outstr;
     dead_count = found_count = 0;
-    isconsecutive = False;
+    isconsecutive = false;
     while (*scan != '\0') {
         if (THAI_isdead(*scan))
             dead_count++;       /* count number of non-spacing char */
@@ -694,7 +694,7 @@ typedef KeySym (*StateProc)(
 	(( ks==XK_Alt_L && 	\
 	   IsControl((event)->state) &&	\
 	   !IsShift((event)->state))	\
-	 ? True : False)
+	 ? true : false)
 
 
 /*
@@ -755,11 +755,11 @@ ThaiComposeConvert(
 	    *outsym = table_entry->to;
 	    *lower = *outsym;
 	    *upper = *outsym;
-	    return True;
+	    return true;
 	}
 	table_entry++;
     }
-    return False;
+    return false;
 }
 
 static int
@@ -1137,9 +1137,9 @@ int IsCancelComposeKey(
     if (*symbol==XK_Delete && !IsControl(event->state) &&
 						!IsMod1(event->state)) {
 	*symbol=NoSymbol;  /* cancel compose sequence, and ignore key */
-	return True;
+	return true;
     }
-    if (IsComposeKey(*symbol, event)) return False;
+    if (IsComposeKey(*symbol, event)) return false;
     return (
 	IsControl (event->state) ||
 	IsMod1(event->state) ||
@@ -1152,7 +1152,7 @@ int IsCancelComposeKey(
 	IsPFKey (*symbol) ||
 	IsCursorKey (*symbol) ||
 	(*symbol >= XK_Tab && *symbol < XK_Multi_key)
-		? True : False);	/* cancel compose sequence and pass */
+		? true : false);	/* cancel compose sequence and pass */
 					/* cancelling key through	    */
 }
 
@@ -1223,28 +1223,28 @@ ThaiFltAcceptInput(Xic ic, unsigned char new_char, KeySym symbol)
     else
         b->tree[ic->private.local.composed].keysym = NoSymbol;
 
-    return True;
+    return true;
 }
 
 static Bool
 ThaiFltReorderInput(Xic ic, unsigned char previous_char, unsigned char new_char)
 {
     DefTreeBase *b = &ic->private.local.base;
-    if (!IC_DeletePreviousChar(ic)) return False;
+    if (!IC_DeletePreviousChar(ic)) return false;
     b->wc[b->tree[ic->private.local.composed].wc+0] = tis2ucs(new_char);
     b->wc[b->tree[ic->private.local.composed].wc+1] = tis2ucs(previous_char);
     b->wc[b->tree[ic->private.local.composed].wc+2] = '\0';
 
     b->tree[ic->private.local.composed].keysym = NoSymbol;
 
-    return True;
+    return true;
 }
 
 static Bool
 ThaiFltReplaceInput(Xic ic, unsigned char new_char, KeySym symbol)
 {
     DefTreeBase *b = &ic->private.local.base;
-    if (!IC_DeletePreviousChar(ic)) return False;
+    if (!IC_DeletePreviousChar(ic)) return false;
     b->wc[b->tree[ic->private.local.composed].wc+0] = tis2ucs(new_char);
     b->wc[b->tree[ic->private.local.composed].wc+1] = '\0';
 
@@ -1253,7 +1253,7 @@ ThaiFltReplaceInput(Xic ic, unsigned char new_char, KeySym symbol)
     else
         b->tree[ic->private.local.composed].keysym = NoSymbol;
 
-    return True;
+    return true;
 }
 
 static unsigned
@@ -1303,7 +1303,7 @@ _XimThaiFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
 
     if ((ev->type != KeyPress)
         || (ev->xkey.keycode == 0))
-        return False;
+        return false;
 
     if (!IC_IscMode(ic)) InitIscMode(ic);
 
@@ -1325,7 +1325,7 @@ _XimThaiFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
            IsFunctionKey(symbol))))
         {
             IC_ClearPreviousChar(ic);
-            return False;
+            return false;
         }
     if (((symbol >> 8 == 0xFF) &&
          IsModifierKey(symbol)) ||
@@ -1335,12 +1335,12 @@ _XimThaiFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
 #endif
         (symbol == NoSymbol))
     {
-        return False;
+        return false;
     }
 #ifdef UNUSED
     if (! XThaiTranslateKey(ev->xkey.display, ev->xkey.keycode, ev->xkey.state,
 	 		&modifiers, &symbol, &lsym, &usym))
-	return False;
+	return false;
 
     /*
      *  Hex input method processing
@@ -1360,11 +1360,11 @@ _XimThaiFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
 				usym, ev->xkey.state, buf, 10);
 
     if (!symbol && !count)
-	return True;
+	return true;
 
     /* Return symbol if cannot convert to character */
     if (!count)
-	return False;
+	return false;
 #endif
 
     /*
@@ -1373,10 +1373,10 @@ _XimThaiFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
     isc_mode = IC_IscMode(ic);
     if (!(previous_char = IC_GetPreviousChar(ic))) previous_char = ' ';
     new_char = ucs2tis(wbuf[0]);
-    isReject = True;
+    isReject = true;
     if (THAI_isaccepted(new_char, previous_char, isc_mode)) {
         ThaiFltAcceptInput(ic, new_char, symbol);
-        isReject = False;
+        isReject = false;
     } else {
         unsigned char context_char;
 
@@ -1399,7 +1399,7 @@ _XimThaiFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
     if (isReject) {
         /* reject character */
         XBell(ev->xkey.display, BellVolume);
-        return True;
+        return true;
     }
 
     _Xlcwcstombs(ic->core.im->core.lcd, &b->mb[b->tree[ic->private.local.composed].mb],
@@ -1415,5 +1415,5 @@ _XimThaiFilter(Display *d, Window w, XEvent *ev, XPointer client_data)
 
     ev->xkey.keycode = 0;
     XPutBackEvent(d, ev);
-    return True;
+    return true;
 }

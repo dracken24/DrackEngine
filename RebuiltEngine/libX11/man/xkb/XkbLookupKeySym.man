@@ -65,7 +65,7 @@ The
 .I state 
 parameter is the state from a KeyPress or KeyRelease event. 
 .I XkbLookupKeySym 
-returns True if it succeeds.
+returns true if it succeeds.
 .SH "SEE ALSO"
 .BR XLookupKeySym (__libmansuffix__)
 

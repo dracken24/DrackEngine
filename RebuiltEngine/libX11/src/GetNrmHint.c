@@ -75,16 +75,16 @@ Status XGetWMSizeHints (
 
     if (XGetWindowProperty (dpy, w, property, 0L,
 			    (long)NumPropSizeElements,
-			    False, XA_WM_SIZE_HINTS, &actual_type,
+			    false, XA_WM_SIZE_HINTS, &actual_type,
 			    &actual_format, &nitems, &leftover,
 			    (unsigned char **)&prop)
 	!= Success)
-      return False;
+      return false;
 
     if ((actual_type != XA_WM_SIZE_HINTS) ||
 	(nitems < OldNumPropSizeElements) || (actual_format != 32)) {
 	Xfree (prop);
-	return False;
+	return false;
     }
 
     hints->flags	  = prop->flags;
@@ -113,7 +113,7 @@ Status XGetWMSizeHints (
     }
     hints->flags &= (*supplied);	/* get rid of unwanted bits */
     Xfree(prop);
-    return True;
+    return true;
 }
 
 

@@ -92,7 +92,7 @@ only takes effect if the pointer moves more than threshold pixels at
 once and only applies to the amount beyond the value in the threshold argument.
 Setting a value to \-1 restores the default.
 The values of the do_accel and do_threshold arguments must be
-.B True
+.B true
 for the pointer values to be set,
 or the parameters are unchanged.
 Negative values (other than \-1) generate a

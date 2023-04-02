@@ -56,8 +56,8 @@ typedef struct {
     short x, y, width, height;
 }RECTANGLE, RectangleRec, *RectanglePtr;
 
-#define TRUE 1
-#define FALSE 0
+#define true 1
+#define false 0
 #define MAXSHORT 32767
 #define MINSHORT -MAXSHORT
 #ifndef MAX

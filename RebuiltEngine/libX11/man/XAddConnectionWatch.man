@@ -87,11 +87,11 @@ display, the specified client_data, the file descriptor for the connection,
 a Boolean indicating whether the connection is being opened or closed, and a
 pointer to a location for private watch data.
 If opening is
-.BR True ,
+.BR true ,
 the procedure can store a pointer to private data in the location pointed
 to by watch_data;
 when the procedure is later called for this same connection and opening is
-.BR False ,
+.BR false ,
 the location pointed to by watch_data will hold this same private data pointer.
 .LP
 This function can be called at any time after a display is opened.

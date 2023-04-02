@@ -506,14 +506,14 @@ The following symbols are defined by Xlib and used throughout the manual:
   <listitem>
     <para>
 <indexterm significance="preferred"><primary>Bool</primary></indexterm>
-<indexterm significance="preferred"><primary>True</primary></indexterm>
-<indexterm significance="preferred"><primary>False</primary></indexterm>
+<indexterm significance="preferred"><primary>true</primary></indexterm>
+<indexterm significance="preferred"><primary>false</primary></indexterm>
 Xlib defines the type
 <type>Bool</type>
 and the Boolean values
-<symbol>True</symbol>
+<symbol>true</symbol>
 and
-<symbol>False</symbol>.
+<symbol>false</symbol>.
     </para>
   </listitem>
   <listitem>

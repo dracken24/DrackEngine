@@ -89,22 +89,22 @@ bytes, the server has to sift through all of the actions and swap any nonbyte fi
 they consist of nothing but bytes, it can just copy them out.
 
 .I XkbKeyHasActions 
-returns True if the key corresponding to 
+returns true if the key corresponding to 
 .I keycode 
-has any actions associated with it; otherwise, it returns False.
+has any actions associated with it; otherwise, it returns false.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbKeyHasActions 
-function will return True if the key corresponding to 
+function will return true if the key corresponding to 
 .I keycode 
 has any actions associated with it.
 .TP 15
-False
+false
 The 
 .I XkbKeyHasActions 
-function will return False if the key corresponding to 
+function will return false if the key corresponding to 
 .I keycode 
 does not have any actions associated with it.
 .SH STRUCTURES

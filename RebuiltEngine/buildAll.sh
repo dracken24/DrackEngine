@@ -21,7 +21,6 @@ alias popd='cd ..'
 
 pushd engine
 ./build.sh
-echo $PWD
 popd
 
 ERRORLEVEL=$?

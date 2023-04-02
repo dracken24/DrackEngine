@@ -66,7 +66,7 @@ run time in
 If the versions of the compile time and run time libraries are 
 compatible, 
 .I XkbLibraryVersion 
-returns True, otherwise, it returns False.
+returns true, otherwise, it returns false.
 
 In addition, in order to use the Xkb extension, you must ensure that the 
 extension is present in the server and that the server supports the version of 
@@ -75,16 +75,16 @@ the extension expected by the client. Use
 to do this, as described in the next section.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbLibraryVersion 
-returns True if the versions of the compile time and run time libraries are 
+returns true if the versions of the compile time and run time libraries are 
 compatible.
 .TP 15
-False
+false
 The 
 .I XkbLibraryVersion 
-returns False if the versions of the compile time and run time libraries are not 
+returns false if the versions of the compile time and run time libraries are not 
 compatible.
 .SH "SEE ALSO"
 .BR XkbMajorVersion (__libmansuffix__),

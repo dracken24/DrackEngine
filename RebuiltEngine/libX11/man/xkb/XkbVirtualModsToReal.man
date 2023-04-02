@@ -99,21 +99,21 @@ in
 .I xkb 
 does not include virtual modifier bindings, 
 .I XkbVirtualModsToReal 
-returns False; otherwise, it returns True.
+returns false; otherwise, it returns true.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbVirtualModsToReal 
-function returns True if the keyboard description 
+function returns true if the keyboard description 
 in 
 .I xkb 
 does include virtual modifier bindings.
 .TP 15
-False
+false
 The 
 .I XkbVirtualModsToReal 
-function returns False if the keyboard description 
+function returns false if the keyboard description 
 in 
 .I xkb 
 does not include virtual modifier bindings.

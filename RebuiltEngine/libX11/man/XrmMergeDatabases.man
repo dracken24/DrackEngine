@@ -76,7 +76,7 @@ Calling the
 function is equivalent to calling the
 .B XrmCombineDatabase
 function with an override argument of
-.BR True .
+.BR true .
 .LP
 The
 .B XrmCombineDatabase
@@ -84,7 +84,7 @@ function merges the contents of one database into another.
 If the same specifier is used for an entry in both databases,
 the entry in the source_db will replace the entry in the target_db
 if override is
-.BR True ;
+.BR true ;
 otherwise, the entry in source_db is discarded.
 If target_db contains NULL,
 .B XrmCombineDatabase
@@ -102,7 +102,7 @@ If the same specifier is used for an entry in both the file and
 the database,
 the entry in the file will replace the entry in the database
 if override is
-.BR True ;
+.BR true ;
 otherwise, the entry in the file is discarded.
 The file is parsed in the current locale.
 If the file cannot be read,

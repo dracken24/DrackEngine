@@ -44,7 +44,7 @@ XkbQueryExtension(Display *dpy,
                   int *minorReturn)
 {
     if (!XkbUseExtension(dpy, majorReturn, minorReturn))
-        return False;
+        return false;
     if (opcodeReturn)
         *opcodeReturn = dpy->xkb_info->codes->major_opcode;
     if (eventBaseReturn)
@@ -55,7 +55,7 @@ XkbQueryExtension(Display *dpy,
         *majorReturn = dpy->xkb_info->srv_major;
     if (minorReturn)
         *minorReturn = dpy->xkb_info->srv_minor;
-    return True;
+    return true;
 }
 
 Bool
@@ -67,12 +67,12 @@ XkbLibraryVersion(int *libMajorRtrn, int *libMinorRtrn)
         /* version 0.65 is (almost) compatible with 1.00 */
         if ((XkbMajorVersion == 1) &&
             (((*libMajorRtrn) == 0) && ((*libMinorRtrn) == 65)))
-            supported = True;
+            supported = true;
         else
-            supported = False;
+            supported = false;
     }
     else {
-        supported = True;
+        supported = true;
     }
 
     *libMajorRtrn = XkbMajorVersion;
@@ -91,7 +91,7 @@ XkbSelectEvents(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     xkbi->selected_events &= ~affect;
@@ -130,7 +130,7 @@ XkbSelectEvents(Display *dpy,
     }
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -152,7 +152,7 @@ XkbSelectEventDetails(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     if (affect & details)
@@ -222,7 +222,7 @@ XkbSelectEventDetails(Display *dpy,
     }
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -236,7 +236,7 @@ XkbLockModifiers(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbLatchLockState, req);
@@ -245,15 +245,15 @@ XkbLockModifiers(Display *dpy,
     req->deviceSpec = deviceSpec;
     req->affectModLocks = affect;
     req->modLocks = values;
-    req->lockGroup = False;
+    req->lockGroup = false;
     req->groupLock = 0;
 
     req->affectModLatches = req->modLatches = 0;
-    req->latchGroup = False;
+    req->latchGroup = false;
     req->groupLatch = 0;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -267,7 +267,7 @@ XkbLatchModifiers(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbLatchLockState, req);
@@ -277,16 +277,16 @@ XkbLatchModifiers(Display *dpy,
 
     req->affectModLatches = affect;
     req->modLatches = values;
-    req->latchGroup = False;
+    req->latchGroup = false;
     req->groupLatch = 0;
 
     req->affectModLocks = req->modLocks = 0;
-    req->lockGroup = False;
+    req->lockGroup = false;
     req->groupLock = 0;
 
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -297,7 +297,7 @@ XkbLockGroup(Display *dpy, unsigned int deviceSpec, unsigned int group)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbLatchLockState, req);
@@ -306,15 +306,15 @@ XkbLockGroup(Display *dpy, unsigned int deviceSpec, unsigned int group)
     req->deviceSpec = deviceSpec;
     req->affectModLocks = 0;
     req->modLocks = 0;
-    req->lockGroup = True;
+    req->lockGroup = true;
     req->groupLock = group;
 
     req->affectModLatches = req->modLatches = 0;
-    req->latchGroup = False;
+    req->latchGroup = false;
     req->groupLatch = 0;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -325,7 +325,7 @@ XkbLatchGroup(Display *dpy, unsigned int deviceSpec, unsigned int group)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbLatchLockState, req);
@@ -335,16 +335,16 @@ XkbLatchGroup(Display *dpy, unsigned int deviceSpec, unsigned int group)
 
     req->affectModLatches = 0;
     req->modLatches = 0;
-    req->latchGroup = True;
+    req->latchGroup = true;
     req->groupLatch = group;
 
     req->affectModLocks = req->modLocks = 0;
-    req->lockGroup = False;
+    req->lockGroup = false;
     req->groupLock = 0;
 
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 unsigned
@@ -396,7 +396,7 @@ XkbSetDebuggingFlags(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbSetDebuggingFlags, req);
@@ -417,10 +417,10 @@ XkbSetDebuggingFlags(Display *dpy,
     }
     else
         req->msgLength = 0;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
-        return False;
+        return false;
     }
     if (rtrn_flags)
         *rtrn_flags = rep.currentFlags;
@@ -428,7 +428,7 @@ XkbSetDebuggingFlags(Display *dpy,
         *rtrn_ctrls = rep.currentCtrls;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -441,11 +441,11 @@ XkbComputeEffectiveMap(XkbDescPtr xkb,
     XkbKTMapEntryPtr entry = NULL;
 
     if ((!xkb) || (!type) || (!xkb->server))
-        return False;
+        return false;
 
     if (type->mods.vmods != 0) {
         if (!XkbVirtualModsToReal(xkb, type->mods.vmods, &tmp))
-            return False;
+            return false;
 
         type->mods.mask = tmp | type->mods.real_mods;
         entry = type->map;
@@ -453,13 +453,13 @@ XkbComputeEffectiveMap(XkbDescPtr xkb,
             tmp = 0;
             if (entry->mods.vmods != 0) {
                 if (!XkbVirtualModsToReal(xkb, entry->mods.vmods, &tmp))
-                    return False;
+                    return false;
                 if (tmp == 0) {
-                    entry->active = False;
+                    entry->active = false;
                     continue;
                 }
             }
-            entry->active = True;
+            entry->active = true;
             entry->mods.mask = (entry->mods.real_mods | tmp) & type->mods.mask;
         }
     }
@@ -474,7 +474,7 @@ XkbComputeEffectiveMap(XkbDescPtr xkb,
             }
         }
     }
-    return True;
+    return true;
 }
 
 Status
@@ -493,7 +493,7 @@ XkbGetState(Display *dpy, unsigned deviceSpec, XkbStatePtr rtrn)
     req->reqType = xkbi->codes->major_opcode;
     req->xkbReqType = X_kbGetState;
     req->deviceSpec = deviceSpec;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
         return BadImplementation;
@@ -526,7 +526,7 @@ XkbSetDetectableAutoRepeat(Display *dpy, Bool detectable, Bool *supported)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbPerClientFlags, req);
@@ -539,10 +539,10 @@ XkbSetDetectableAutoRepeat(Display *dpy, Bool detectable, Bool *supported)
     else
         req->value = 0;
     req->ctrlsToChange = req->autoCtrls = req->autoCtrlValues = 0;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
-        return False;
+        return false;
     }
     UnlockDisplay(dpy);
     SyncHandle();
@@ -560,7 +560,7 @@ XkbGetDetectableAutoRepeat(Display *dpy, Bool *supported)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbPerClientFlags, req);
@@ -570,10 +570,10 @@ XkbGetDetectableAutoRepeat(Display *dpy, Bool *supported)
     req->change = 0;
     req->value = 0;
     req->ctrlsToChange = req->autoCtrls = req->autoCtrlValues = 0;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
-        return False;
+        return false;
     }
     UnlockDisplay(dpy);
     SyncHandle();
@@ -594,7 +594,7 @@ XkbSetAutoResetControls(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbPerClientFlags, req);
@@ -606,10 +606,10 @@ XkbSetAutoResetControls(Display *dpy,
     req->ctrlsToChange = changes;
     req->autoCtrls = *auto_ctrls;
     req->autoCtrlValues = *auto_values;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
-        return False;
+        return false;
     }
     UnlockDisplay(dpy);
     SyncHandle();
@@ -629,7 +629,7 @@ XkbGetAutoResetControls(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbPerClientFlags, req);
@@ -639,10 +639,10 @@ XkbGetAutoResetControls(Display *dpy,
     req->change = 0;
     req->value = 0;
     req->ctrlsToChange = req->autoCtrls = req->autoCtrlValues = 0;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
-        return False;
+        return false;
     }
     UnlockDisplay(dpy);
     SyncHandle();
@@ -666,7 +666,7 @@ XkbSetPerClientControls(Display *dpy, unsigned change, unsigned *values)
         (change & ~(XkbPCF_GrabsUseXKBStateMask |
                     XkbPCF_LookupStateWhenGrabbed |
                     XkbPCF_SendEventUsesXKBState)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbPerClientFlags, req);
@@ -676,10 +676,10 @@ XkbSetPerClientControls(Display *dpy, unsigned change, unsigned *values)
     req->deviceSpec = XkbUseCoreKbd;
     req->value = *values;
     req->ctrlsToChange = req->autoCtrls = req->autoCtrlValues = 0;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
-        return False;
+        return false;
     }
     UnlockDisplay(dpy);
     SyncHandle();
@@ -697,7 +697,7 @@ XkbGetPerClientControls(Display *dpy, unsigned *ctrls)
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)) ||
         (ctrls == NULL))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbPerClientFlags, req);
@@ -707,17 +707,17 @@ XkbGetPerClientControls(Display *dpy, unsigned *ctrls)
     req->change = 0;
     req->value = 0;
     req->ctrlsToChange = req->autoCtrls = req->autoCtrlValues = 0;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse)) {
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse)) {
         UnlockDisplay(dpy);
         SyncHandle();
-        return False;
+        return false;
     }
     UnlockDisplay(dpy);
     SyncHandle();
     *ctrls = (rep.value & (XkbPCF_GrabsUseXKBStateMask |
                            XkbPCF_LookupStateWhenGrabbed |
                            XkbPCF_SendEventUsesXKBState));
-    return (True);
+    return (true);
 }
 
 Display *

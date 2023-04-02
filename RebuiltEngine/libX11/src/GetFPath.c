@@ -47,7 +47,7 @@ char **XGetFontPath(
 
 	LockDisplay(dpy);
 	GetEmptyReq (GetFontPath, req);
-	(void) _XReply (dpy, (xReply *) &rep, 0, xFalse);
+	(void) _XReply (dpy, (xReply *) &rep, 0, xfalse);
 
 	if (rep.nPaths) {
 	    flist = Xmallocarray(rep.nPaths, sizeof (char *));

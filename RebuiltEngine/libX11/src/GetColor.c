@@ -93,7 +93,7 @@ XColor *exact_def) /* RETURN */
     _XSend(dpy, colorname, nbytes);
        /* _XSend is more efficient that Data, since _XReply follows */
 
-    if (!_XReply (dpy, (xReply *) &rep, 0, xTrue)) {
+    if (!_XReply (dpy, (xReply *) &rep, 0, xtrue)) {
 	UnlockDisplay(dpy);
         SyncHandle();
         return (0);

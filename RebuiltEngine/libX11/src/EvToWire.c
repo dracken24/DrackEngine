@@ -39,8 +39,8 @@ from The Open Group.
 
 /*
  * Reformat an XEvent structure to a wire event of the right type.
- * Return True on success.  If the type is unrecognized, return what
- * _XUnknownNativeEvent returns (i.e., False).
+ * Return true on success.  If the type is unrecognized, return what
+ * _XUnknownNativeEvent returns (i.e., false).
  */
 Status
 _XEventToWire(

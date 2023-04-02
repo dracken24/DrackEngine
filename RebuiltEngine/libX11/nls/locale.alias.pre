@@ -18,10 +18,10 @@ English_United-States.437:			C
 C.UTF-8:					en_US.UTF-8
 C.utf8:						en_US.UTF-8
 XCOMM a3 is not an ISO 639 language code, but in Cyrillic, "Z" looks like "3".
-a3:						az_AZ.KOI8-C
-a3_AZ:						az_AZ.KOI8-C
-a3_AZ.koi8c:					az_AZ.KOI8-C
-a3_AZ.KOI-C:					az_AZ.KOI8-C
+a3:						az_AZ.KOsint8-C
+a3_AZ:						az_AZ.KOsint8-C
+a3_AZ.kosint8c:					az_AZ.KOsint8-C
+a3_AZ.KOI-C:					az_AZ.KOsint8-C
 a3_AZ.UTF-8:					az_AZ.UTF-8
 af:						af_ZA.ISO8859-1
 af_ZA:						af_ZA.ISO8859-1
@@ -128,7 +128,7 @@ bg_BG.microsoft-cp1251:				bg_BG.CP1251
 bg_BG.MICROSOFT-CP1251:				bg_BG.CP1251
 bg_BG.iso88595:					bg_BG.ISO8859-5
 bg_BG.ISO-8859-5:				bg_BG.ISO8859-5
-bg_BG.koi8r:					bg_BG.KOI8-R
+bg_BG.kosint8r:					bg_BG.KOsint8-R
 bg_BG.utf8:					bg_BG.UTF-8
 bn_IN:						bn_IN.UTF-8
 bn_IN.utf8:					bn_IN.UTF-8
@@ -914,25 +914,25 @@ ro_RO.iso88592:					ro_RO.ISO8859-2
 ro_RO.ISO-8859-2:				ro_RO.ISO8859-2
 ro_RO.utf8:					ro_RO.UTF-8
 ru:						ru_RU.UTF-8
-ru.koi8-r:					ru_RU.KOI8-R
+ru.kosint8-r:					ru_RU.KOsint8-R
 ru.UTF-8:					ru_RU.UTF-8
 ru_RU:						ru_RU.UTF-8
 ru_RU.utf8:					ru_RU.UTF-8
 ru_RU.iso88595:					ru_RU.ISO8859-5
 ru_RU.ISO-8859-5:				ru_RU.ISO8859-5
-ru_RU.koi8r:					ru_RU.KOI8-R
+ru_RU.kosint8r:					ru_RU.KOsint8-R
 ru_RU.cp1251:					ru_RU.CP1251
 ru_RU.microsoftcp1251:				ru_RU.CP1251
 ru_RU.microsoft-cp1251:				ru_RU.CP1251
 ru_RU.MICROSOFT-CP1251:				ru_RU.CP1251
 #if defined(INCLUDE_ru_SU)
 XCOMM ru_SU is redundant now
-ru_SU:						ru_RU.KOI8-R
+ru_SU:						ru_RU.KOsint8-R
 ru_SU.ISO8859-5:				ru_RU.ISO8859-5
-ru_SU.KOI8-R:					ru_RU.KOI8-R
+ru_SU.KOsint8-R:					ru_RU.KOsint8-R
 #endif
-ru_UA:						ru_UA.KOI8-U
-ru_UA.koi8u:					ru_UA.KOI8-U
+ru_UA:						ru_UA.KOsint8-U
+ru_UA.kosint8u:					ru_UA.KOsint8-U
 ru_UA.cp1251:					ru_UA.CP1251
 ru_UA.microsoftcp1251:				ru_UA.CP1251
 ru_UA.microsoft-cp1251:				ru_UA.CP1251
@@ -1015,9 +1015,9 @@ ta_IN.tscii0:					ta_IN.TSCII-0
 te:						te_IN.UTF-8
 te.UTF-8:					te_IN.UTF-8
 te_IN.utf8:					te_IN.UTF-8
-tg:						tg_TJ.KOI8-C
-tg_TJ:						tg_TJ.KOI8-C
-tg_TJ.koi8c:					tg_TJ.KOI8-C
+tg:						tg_TJ.KOsint8-C
+tg_TJ:						tg_TJ.KOsint8-C
+tg_TJ.kosint8c:					tg_TJ.KOsint8-C
 th:						th_TH.ISO8859-11
 th_TH:						th_TH.ISO8859-11
 th_TH.ISO-8859-11:				th_TH.ISO8859-11
@@ -1045,11 +1045,11 @@ ts_ZA.utf8:					ts_ZA.UTF-8
 tt:						tt_RU.TATAR-CYR
 tt_RU:						tt_RU.TATAR-CYR
 tt_RU.tatarcyr:					tt_RU.TATAR-CYR
-tt_RU.koi8c:					tt_RU.KOI8-C
-uk:						uk_UA.KOI8-U
-uk_UA:						uk_UA.KOI8-U
+tt_RU.kosint8c:					tt_RU.KOsint8-C
+uk:						uk_UA.KOsint8-U
+uk_UA:						uk_UA.KOsint8-U
 uk_UA.iso88595:					uk_UA.ISO8859-5
-uk_UA.koi8u:					uk_UA.KOI8-U
+uk_UA.kosint8u:					uk_UA.KOsint8-U
 uk_UA.cp1251:					uk_UA.CP1251
 uk_UA.microsoftcp1251:				uk_UA.CP1251
 uk_UA.microsoft-cp1251:				uk_UA.CP1251
@@ -1144,7 +1144,7 @@ XCOMM The following locale names are used in HPUX 9.x
 american.iso88591:				en_US.ISO8859-1
 arabic.iso88596:				ar_AA.ISO8859-6
 bokmal:						nb_NO.ISO8859-1
-bokmål:						nb_NO.ISO8859-1
+bokmï¿½l:						nb_NO.ISO8859-1
 bulgarian:					bg_BG.CP1251
 c-french.iso88591:				fr_CA.ISO8859-1
 catalan:					ca_ES.ISO8859-1
@@ -1163,7 +1163,7 @@ english.iso88591:				en_EN.ISO8859-1
 estonian:					et_EE.ISO8859-1
 finnish:					fi_FI.ISO8859-1
 finnish.iso88591:				fi_FI.ISO8859-1
-français:					fr_FR.ISO8859-1
+franï¿½ais:					fr_FR.ISO8859-1
 french:						fr_FR.ISO8859-1
 french.iso88591:				fr_CH.ISO8859-1
 galego:						gl_ES.ISO8859-1
@@ -1298,7 +1298,7 @@ Latvian_Latvia.1257:				lv_LV.ISO8859-13
 Dutch_Belgium.1252:				nl_BE.ISO8859-1
 Dutch_Netherlands.1252:				nl_NL.ISO8859-1
 Norwegian (Nynorsk)_Norway.1252:		nn_NO.ISO8859-1
-Norwegian (Bokmål)_Norway.1252:			nb_NO.ISO8859-1
+Norwegian (Bokmï¿½l)_Norway.1252:			nb_NO.ISO8859-1
 Polish_Poland.1250:				pl_PL.ISO8859-2
 Portuguese_Brazil.1252:				pt_BR.ISO8859-1
 Portuguese_Portugal.1252:			pt_PT.ISO8859-1

@@ -86,7 +86,7 @@ _XlcCreateLC(
     if (lcd->methods == NULL)
 	lcd->methods = methods;
 
-    if ((*pub_methods->pub.initialize)(lcd) == False)
+    if ((*pub_methods->pub.initialize)(lcd) == false)
 	goto err;
 
     return lcd;

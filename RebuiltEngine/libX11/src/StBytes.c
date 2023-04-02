@@ -66,7 +66,7 @@ char *XFetchBuffer (
     if ((buffer < 0) || (buffer > 7)) return (NULL);
 /* XXX should be (sizeof (maxint) - 1)/4 */
     if (XGetWindowProperty(dpy, RootWindow(dpy, 0), n_to_atom[buffer],
-	0L, 10000000L, False, XA_STRING,
+	0L, 10000000L, false, XA_STRING,
 	&actual_type, &actual_format, &nitems, &leftover, &data) != Success) {
 	return (NULL);
 	}

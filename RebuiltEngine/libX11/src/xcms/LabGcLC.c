@@ -118,7 +118,7 @@ XcmsCIELabClipLab (
 	_XcmsDIConvertColors(ccc, pColor, ScreenWhitePointOfCCC(ccc),
 		1, XcmsCIEXYZFormat);
 	if (pCompressed) {
-	    *(pCompressed + i) = True;
+	    *(pCompressed + i) = true;
 	}
 	return(XcmsSuccess);
     }
@@ -216,7 +216,7 @@ XcmsCIELabClipLab (
 		           ScreenWhitePointOfCCC(&myCCC), 1, XcmsCIEXYZFormat);
 
 	if (retval != XcmsFailure && pCompressed != NULL) {
-	    *(pCompressed + i) = True;
+	    *(pCompressed + i) = true;
 	}
     }
     return(retval);

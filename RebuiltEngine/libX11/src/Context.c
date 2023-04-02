@@ -85,7 +85,7 @@ typedef struct _XContextDB {	/* Stores hash table for one display. */
     int mask;			/* Current size of hash table minus 1. */
     int numentries;		/* Number of entries currently in table. */
 #ifdef XTHREADS
-    LockInfoRec linfo;
+    LocDE_INFORec linfo;
 #endif
 } DBRec, *DB;
 

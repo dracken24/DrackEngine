@@ -78,21 +78,21 @@ new map for the indicator
 .LP
 If a compatible version of the Xkb extension is not available in the server, 
 .I XkbSetNamedDeviceIndicator
-returns False. Otherwise, it sends a request to the X server to change the 
+returns false. Otherwise, it sends a request to the X server to change the 
 indicator specified by 
 .I name 
-and returns True.
+and returns true.
  
 If 
 .I change_state 
-is True, 
+is true, 
 .I XkbSetNamedDeviceIndicator
 tells the server to change the state of the named indicator to the value 
 specified by 
 .IR state .
 If
 .I change_state
-is False, then
+is false, then
 .I state
 is not used.
 
@@ -102,7 +102,7 @@ does not already exist, the
 .I create_new 
 parameter tells the server whether it should create a new named indicator. If 
 .I create_new 
-is True, the server finds the first indicator that doesn't have a name and gives 
+is true, the server finds the first indicator that doesn't have a name and gives 
 it the name specified by 
 .IR name .
 If the optional parameter, 
@@ -134,15 +134,15 @@ It returns the return value from
 .IR XkbSetNamedDeviceIndicator .
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .IR XkbSetNamedIndicator " and " XkbSetNamedDeviceIndicator
-functions return True if a compatible version of the Xkb extension is available in the server.
+functions return true if a compatible version of the Xkb extension is available in the server.
 .TP 15
-False
+false
 The 
 .IR XkbSetNamedIndicator " and " XkbSetNamedDeviceIndicator
-functions return False if a compatible version of the Xkb extension is not available in the server.
+functions return false if a compatible version of the Xkb extension is not available in the server.
 .SH DIAGNOSTICS
 .TP 15
 .B BadAtom

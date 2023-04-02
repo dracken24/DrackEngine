@@ -327,9 +327,9 @@ description in
 does not include virtual modifier bindings,
 <function>XkbVirtualModsToReal</function>
 returns
-<symbol>False</symbol>;
+<symbol>false</symbol>;
 otherwise, it returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 <note><para>It is possible for a local (client-side) keyboard description (the

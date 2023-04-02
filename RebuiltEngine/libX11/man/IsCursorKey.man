@@ -69,43 +69,43 @@ Specifies the KeySym that is to be tested.
 The
 .B IsCursorKey
 macro returns
-.B True
+.B true
 if the specified KeySym is a cursor key.
 .LP
 The
 .B IsFunctionKey
 macro returns
-.B True
+.B true
 if the KeySym is a function key.
 .LP
 The
 .B IsKeypadKey
 macro returns
-.B True
+.B true
 if the specified KeySym is a keypad key.
 .LP
 The
 .B IsMiscFunctionKey
 macro returns
-.B True
+.B true
 if the specified KeySym is a miscellaneous function key.
 .LP
 The
 .B IsModifierKey
 macro returns
-.B True
+.B true
 if the specified KeySym is a modifier key.
 .LP
 The
 .B IsPFKey
 macro returns
-.B True
+.B true
 if the specified KeySym is a PF key.
 .LP
 The
 .B IsPrivateKeypadKey
 macro returns
-.B True
+.B true
 if the specified KeySym is a vendor-private keypad key.
 .SH "SEE ALSO"
 XkbKeyTypesForCoreSymbols(__libmansuffix__),

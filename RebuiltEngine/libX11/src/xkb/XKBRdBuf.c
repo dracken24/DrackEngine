@@ -93,7 +93,7 @@ _XkbReadBufferCopyKeySyms(XkbReadBufferPtr from, KeySym * to, int num_words)
         return 0;
     _XkbReadCopyKeySyms((int *) from->data, to, num_words);
     from->data += (4 * num_words);
-    return True;
+    return true;
 }
 
 int
@@ -102,7 +102,7 @@ _XkbWriteCopyKeySyms(register KeySym * from, CARD32 *to, int len)
     while (len-- > 0) {
         *to++ = (CARD32) *from++;
     }
-    return True;
+    return true;
 }
 #endif
 
@@ -123,7 +123,7 @@ _XkbReadBufferCopy32(XkbReadBufferPtr from, long *to, int num_words)
         return 0;
     _XkbReadCopyData32((int *) from->data, to, num_words);
     from->data += (4 * num_words);
-    return True;
+    return true;
 }
 
 int
@@ -132,7 +132,7 @@ _XkbWriteCopyData32(register unsigned long *from, CARD32 *to, int len)
     while (len-- > 0) {
         *to++ = (CARD32) *from++;
     }
-    return True;
+    return true;
 }
 #endif                          /* LONG64 */
 
@@ -185,12 +185,12 @@ _XkbGetReadBufferCountedString(XkbReadBufferPtr buf, char **rtrn)
 
     if ((buf == NULL) || (buf->error) ||
         ((left = (int) _XkbReadBufferDataLeft(buf)) < 4))
-        return False;
+        return false;
     pLen = (CARD16 *) buf->data;
     len = *pLen;
     if (len > 0) {
         if (XkbPaddedSize(len + 2) > left)
-            return False;
+            return false;
         str = _XkbAlloc(len + 1);
         if (str) {
             memcpy(str, &buf->data[2], len);
@@ -199,5 +199,5 @@ _XkbGetReadBufferCountedString(XkbReadBufferPtr buf, char **rtrn)
     }
     buf->data += XkbPaddedSize(len + 2);
     *rtrn = str;
-    return True;
+    return true;
 }

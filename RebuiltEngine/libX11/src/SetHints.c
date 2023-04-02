@@ -115,7 +115,7 @@ XSetWMHints (
 	memset(&prop, 0, sizeof(prop));
 	prop.flags = wmhints->flags;
 	if (wmhints->flags & InputHint)
-	    prop.input = (wmhints->input == True ? 1 : 0);
+	    prop.input = (wmhints->input == true ? 1 : 0);
 	if (wmhints->flags & StateHint)
 	    prop.initialState = wmhints->initial_state;
 	if (wmhints->flags & IconPixmapHint)

@@ -302,7 +302,7 @@ typedef struct _XicProtoPrivateRec {
  * macro for the synchronous_event_mask of XICPrivateRec
  */
 #define	IS_SYNCHRONOUS_EVENT(ic, mask) \
-   ((((Xic)ic)->private.proto.synchronous_event_mask & (mask)) ? True: False)
+   ((((Xic)ic)->private.proto.synchronous_event_mask & (mask)) ? true: false)
 
 #define XIM_MAXIMNAMELEN 64
 #define XIM_MAXLCNAMELEN 64

@@ -104,13 +104,13 @@ _XimTransConnect(
     }
 
     if (spec->trans_conn == NULL)
-	return False;
+	return false;
 
     spec->fd = _XimXTransGetConnectionNumber (spec->trans_conn);
 
     if (!(window = XCreateSimpleWindow(im->core.display,
 		DefaultRootWindow(im->core.display), 0, 0, 1, 1, 1, 0, 0)))
-	return False;
+	return false;
     spec->window = window;
 
     _XRegisterFilterByType(im->core.display, window, KeyPress, KeyPress,
@@ -137,7 +137,7 @@ _XimTransShutdown(
     XDestroyWindow(im->core.display, spec->window);
     Xfree(spec->address);
     Xfree(spec);
-    return True;
+    return true;
 }
 
 
@@ -154,13 +154,13 @@ _XimTransRegisterDispatcher(
     TransIntrCallbackPtr	 rec;
 
     if (!(rec = Xmalloc(sizeof(TransIntrCallbackRec))))
-        return False;
+        return false;
 
     rec->func       = callback;
     rec->call_data  = call_data;
     rec->next       = spec->intr_cb;
     spec->intr_cb   = rec;
-    return True;
+    return true;
 }
 
 
@@ -189,9 +189,9 @@ _XimTransCallDispatcher(Xim im, INT16 len, XPointer data)
 
     for (rec = spec->intr_cb; rec; rec = rec->next) {
 	if ((*rec->func)(im, len, data, rec->call_data))
-	    return True;
+	    return true;
     }
-    return False;
+    return false;
 }
 
 
@@ -205,7 +205,7 @@ _XimTransFilterWaitEvent(
     Xim			 im = (Xim)arg;
     TransSpecRec	*spec = (TransSpecRec *)im->private.proto.spec;
 
-    spec->is_putback  = False;
+    spec->is_putback  = false;
     return _XimFilterWaitEvent(im);
 }
 
@@ -227,7 +227,7 @@ _XimTransInternalConnection(
     bzero(&ev, sizeof(ev));	/* FIXME: other fields may be accessed, too. */
     kev = (XKeyEvent *)&ev;
     kev->type = KeyPress;
-    kev->send_event = False;
+    kev->send_event = false;
     kev->display = im->core.display;
     kev->window = spec->window;
     kev->keycode = 0;
@@ -239,7 +239,7 @@ _XimTransInternalConnection(
 
     XPutBackEvent(im->core.display, &ev);
     XFlush(im->core.display);
-    spec->is_putback = True;
+    spec->is_putback = true;
     return;
 }
 
@@ -253,11 +253,11 @@ _XimTransWrite(Xim im, INT16 len, XPointer data)
 
     while (len > 0) {
 	if ((nbyte = _XimXTransWrite(spec->trans_conn, buf, len)) <= 0)
-	    return False;
+	    return false;
 	len -= nbyte;
 	buf += nbyte;
     }
-    return True;
+    return true;
 }
 
 
@@ -273,12 +273,12 @@ _XimTransRead(
 
     if (buf_len == 0) {
 	*ret_len = 0;
-	return True;
+	return true;
     }
     if ((len = _XimXTransRead(spec->trans_conn, recv_buf, buf_len)) <= 0)
-	return False;
+	return false;
     *ret_len = len;
-    return True;
+    return true;
 }
 
 
@@ -300,11 +300,11 @@ _XimTransConf(
     TransSpecRec	*spec;
 
     if (!(paddr = strdup(address)))
-	return False;
+	return false;
 
     if (!(spec = Xcalloc(1, sizeof(TransSpecRec)))) {
 	Xfree(paddr);
-	return False;
+	return false;
     }
 
     spec->address   = paddr;
@@ -318,5 +318,5 @@ _XimTransConf(
     im->private.proto.register_dispatcher = _XimTransRegisterDispatcher;
     im->private.proto.call_dispatcher = _XimTransCallDispatcher;
 
-    return True;
+    return true;
 }

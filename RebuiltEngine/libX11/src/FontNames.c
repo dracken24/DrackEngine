@@ -62,7 +62,7 @@ int *actualCount)	/* RETURN */
     _XSend (dpy, pattern, nbytes);
     /* use _XSend instead of Data, since following _XReply will flush buffer */
 
-    if (!_XReply (dpy, (xReply *)&rep, 0, xFalse)) {
+    if (!_XReply (dpy, (xReply *)&rep, 0, xfalse)) {
 	*actualCount = 0;
 	UnlockDisplay(dpy);
 	SyncHandle();

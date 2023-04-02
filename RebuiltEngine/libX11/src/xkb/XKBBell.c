@@ -47,7 +47,7 @@ XkbDeviceBell(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbBell, req);
@@ -58,8 +58,8 @@ XkbDeviceBell(Display *dpy,
     req->bellClass = (CARD16) bellClass;
     req->bellID = (CARD16) bellID;
     req->percent = percent;
-    req->forceSound = False;
-    req->eventOnly = False;
+    req->forceSound = false;
+    req->eventOnly = false;
     req->pitch = 0;
     req->duration = 0;
     req->name = (CARD32) name;
@@ -67,7 +67,7 @@ XkbDeviceBell(Display *dpy,
     req->pad2 = 0;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -82,7 +82,7 @@ XkbForceDeviceBell(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbBell, req);
@@ -93,8 +93,8 @@ XkbForceDeviceBell(Display *dpy,
     req->bellClass = (CARD16) bellClass;
     req->bellID = (CARD16) bellID;
     req->percent = percent;
-    req->forceSound = True;
-    req->eventOnly = False;
+    req->forceSound = true;
+    req->eventOnly = false;
     req->pitch = 0;
     req->duration = 0;
     req->name = None;
@@ -102,7 +102,7 @@ XkbForceDeviceBell(Display *dpy,
     req->pad2 = 0;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -119,7 +119,7 @@ XkbDeviceBellEvent(Display *dpy,
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     LockDisplay(dpy);
     xkbi = dpy->xkb_info;
     GetReq(kbBell, req);
@@ -130,8 +130,8 @@ XkbDeviceBellEvent(Display *dpy,
     req->bellClass = (CARD16) bellClass;
     req->bellID = (CARD16) bellID;
     req->percent = percent;
-    req->forceSound = False;
-    req->eventOnly = True;
+    req->forceSound = false;
+    req->eventOnly = true;
     req->pitch = 0;
     req->duration = 0;
     req->name = (CARD32) name;
@@ -139,7 +139,7 @@ XkbDeviceBellEvent(Display *dpy,
     req->pad2 = 0;
     UnlockDisplay(dpy);
     SyncHandle();
-    return True;
+    return true;
 }
 
 Bool
@@ -148,7 +148,7 @@ XkbBell(Display *dpy, Window window, int percent, Atom name)
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL))) {
         XBell(dpy, percent);
-        return False;
+        return false;
     }
     return XkbDeviceBell(dpy, window, XkbUseCoreKbd,
                          XkbDfltXIClass, XkbDfltXIId, percent, name);
@@ -160,7 +160,7 @@ XkbForceBell(Display *dpy, int percent)
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL))) {
         XBell(dpy, percent);
-        return False;
+        return false;
     }
     return XkbForceDeviceBell(dpy, XkbUseCoreKbd, XkbDfltXIClass, XkbDfltXIId,
                               percent);
@@ -171,7 +171,7 @@ XkbBellEvent(Display *dpy, Window window, int percent, Atom name)
 {
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL))) {
-        return False;
+        return false;
     }
     /* class 0 = KbdFeedbackClass (X Input Extension) */
     return XkbDeviceBellEvent(dpy, window, XkbUseCoreKbd,

@@ -332,9 +332,9 @@ If the X server does not support a compatible version of Xkb or the Xkb
 extension has not been properly initialized,
 <function>XkbChangeEnabledControls</function>
 returns
-<symbol>False</symbol>;
+<symbol>false</symbol>;
 otherwise, it sends the request to the X server and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 
@@ -462,9 +462,9 @@ and
 with the
 <emphasis>AutoReset</emphasis>
 control attributes for this particular client. It returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if successful, and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -789,11 +789,11 @@ control attributes, backfills
 and
 <parameter>interval_rtrn</parameter>
 with them, and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 If a compatible version of the Xkb extension is not available in the server
 <function>XkbGetAutoRepeatRate</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -874,7 +874,7 @@ and
 <para>
 <function>XkbSetAutoRepeatRate</function>
 does not wait for a reply; it normally returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 Specifying a zero value for either
 <parameter>timeout</parameter>
 or
@@ -885,7 +885,7 @@ protocol error. If a compatible version of the Xkb extension is not available
 in the server,
 <function>XkbSetAutoRepeatRate</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -1000,7 +1000,7 @@ use
     </term>
     <listitem>
       <para>
-        backfilled <symbol>True</symbol> if
+        backfilled <symbol>true</symbol> if
 <emphasis>DetectableAutorepeat</emphasis>
          supported
       </para>
@@ -1017,21 +1017,21 @@ and waits for a reply. If
 is not
 <symbol>NULL</symbol>,
 it backfills supported_rtrn with
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the server supports
 <emphasis>DetectableAutorepeat</emphasis>,
 and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 <function>XkbGetDetectableAutorepeat</function>
 returns the current state of
 <emphasis>DetectableAutorepeat</emphasis>
 for the requesting client:
-<symbol>True</symbol>
+<symbol>true</symbol>
 if
 <emphasis>DetectableAutorepeat</emphasis>
 is set, and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -1077,7 +1077,7 @@ they have requested otherwise.
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; set
+        <symbol>true</symbol> &rArr; set
 <emphasis>DetectableAutorepeat</emphasis>
       </para>
     </listitem>
@@ -1088,7 +1088,7 @@ they have requested otherwise.
     </term>
     <listitem>
       <para>
-        backfilled <symbol>True</symbol> if
+        backfilled <symbol>true</symbol> if
 <emphasis>DetectableAutorepeat</emphasis>
          supported
       </para>
@@ -1103,11 +1103,11 @@ sends a request to the server to set
 on for the current client if
 <parameter>detectable</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 and off it
 <parameter>detectable</parameter>
 is
-<symbol>False</symbol>;
+<symbol>false</symbol>;
 it then waits for a reply. If
 <parameter>supported_rtrn</parameter>
 is not
@@ -1116,21 +1116,21 @@ is not
 backfills
 <parameter>supported_rtrn</parameter>
 with
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the server supports
 <emphasis>DetectableAutorepeat</emphasis>,
 and
-<symbol>False</symbol>
+<symbol>false</symbol>
 if it does not.
 <function>XkbSetDetectableAutorepeat</function>
 returns the current state of
 <emphasis>DetectableAutorepeat</emphasis>
 for the requesting client:
-<symbol>True</symbol>
+<symbol>true</symbol>
 if
 <emphasis>DetectableAutorepeat</emphasis>
 is set, and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -1738,12 +1738,12 @@ which is a field in the
 structure (see <link linkend="The_XkbControlsRec_Structure">section 10.8</link>).
 <function>XkbGetAccessXTimeout</function>
 returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if successful; if a compatible version of the Xkb extension is not available
 in the server,
 <function>XkbGetAccessXTimeout</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -1879,11 +1879,11 @@ sends a request to configure the
 <emphasis>AccessXTimeout</emphasis>
 control to the server.
 It does not wait for a reply, and normally returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 If a compatible version of the Xkb extension is not available in the server,
 <function>XkbSetAccessXTimeout</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -2048,7 +2048,7 @@ event type is as follows:
 typedef struct {
     int             type;            /* Xkb extension base event code */
     unsigned long   serial;          /* X server serial number for event */
-    Bool            send_event;      /* <symbol>True</symbol> &rArr; synthetically generated */
+    Bool            send_event;      /* <symbol>true</symbol> &rArr; synthetically generated */
     Display *       display;         /* server connection where event generated */
     Time            time;            /* server time when event generated */
     int             xkb_type;        /* <symbol>XkbAccessXNotify</symbol> */
@@ -2107,7 +2107,7 @@ expired).</entry>
 expired).</entry>
 </row>
 <row>
-    <entry><symbol>XkbAXN_AXKWarning</symbol></entry>
+    <entry><symbol>XkbAXN_AXDE_WARNINGing</symbol></entry>
     <entry>AccessXKeys is about to turn on/off StickyKeys or BounceKeys.</entry>
   </row>
 </tbody>
@@ -2212,7 +2212,7 @@ using mask bits from <link linkend="table10.5">Table 10.5</link>.
     <entry>Bounce key reject notification wanted</entry>
   </row>
   <row>
-    <entry><symbol>XkbAXN_AXKWarningMask</symbol></entry>
+    <entry><symbol>XkbAXN_AXDE_WARNINGingMask</symbol></entry>
     <entry>(1&lt;&lt;6)</entry>
     <entry>AccessX warning notification wanted</entry>
   </row>
@@ -2350,12 +2350,12 @@ with the
 delay attribute.
 <function>XkbGetSlowKeysDelay</function>
 returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if successful; if a compatible version of the Xkb extension is not available
 in the server,
 <function>XkbGetSlowKeysDelay</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -2421,7 +2421,7 @@ sends a request to configure the
 <emphasis>SlowKeys</emphasis>
 control to the server.
 It does not wait for a reply, and normally returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 Specifying a value of
 <literal>0</literal>
 for the
@@ -2434,7 +2434,7 @@ protocol error. If a compatible version of the Xkb extension is not available
 in the server
 <function>XkbSetSlowKeysDelay</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -2532,12 +2532,12 @@ with the
 delay attribute.
 <function>XkbGetBounceKeysDelay</function>
 returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if successful; if a compatible version of the Xkb extension is not available
 in the server
 <function>XkbGetSlowKeysDelay</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -2603,7 +2603,7 @@ sends a request to configure the
 <emphasis>BounceKeys</emphasis>
 control to the server.
 It does not wait for a reply and normally returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 Specifying a value of
 <emphasis>zero</emphasis>
 for the
@@ -2616,7 +2616,7 @@ protocol error. If a compatible version of the Xkb extension is not available
 in the server,
 <function>XkbSetBounceKeysDelay</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 </sect2>
@@ -2834,12 +2834,12 @@ are:
 <para>
 <function>XkbGetStickyKeysOptions</function>
 returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if successful; if a compatible version of the Xkb extension is not available
 in the server
 <function>XkbGetStickyKeysOptions</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -2915,7 +2915,7 @@ sends a request to configure the
 <emphasis>StickyKeys</emphasis>
 control to the server.
 It does not wait for a reply and normally returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 The valid bits to use for both the
 <parameter>mask</parameter>
 and
@@ -2932,7 +2932,7 @@ parameters are:
 If a compatible version of the Xkb extension is not available in the server,
 <function>XkbSetStickyKeysOptions</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 </sect3>
@@ -3234,9 +3234,9 @@ and
 <parameter>virtual_values</parameter>.
 <function>XkbSetIgnoreLockMods</function>
 does not wait for a reply from the server. It returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the request was sent, and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -3433,9 +3433,9 @@ and
 <parameter>virtual_values</parameter>.
 <function>XkbSetServerInternalMods</function>
 does not wait for a reply from the server. It returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the request was sent and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -4269,9 +4269,9 @@ accepts a pointer to an
 structure and a feedback option from the table above. If both the
 <emphasis>AccessXFeedback</emphasis>
 control and the specified feedback option are enabled, the macro returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 Otherwise it returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 
@@ -4556,9 +4556,9 @@ the server does not support a compatible version of Xkb, or the Xkb extension
 has not been properly initialized,
 <function>XkbSetControls</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise, it sends the request to the X server and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 
@@ -4632,7 +4632,7 @@ typedef struct _XkbControlsChanges {
                                              control data */
     unsigned int enabled_ctrls_changes;  /* bits indicating
                                              enabled/disabled controls */
-    Bool         num_groups_changed;     /* <symbol>True</symbol> if number of keyboard
+    Bool         num_groups_changed;     /* <symbol>true</symbol> if number of keyboard
                                              groups changed */
 } <structname>XkbControlsChangesRec</structname>, *XkbControlsChangesPtr;
 </programlisting></para>
@@ -4657,7 +4657,7 @@ field specifies which bits in the
 <structfield>enabled_ctrls</structfield>
 field have changed. If the number of keyboard groups has changed, the
 <structfield>num_groups_changed</structfield>
-field is set to <symbol>True</symbol>.
+field is set to <symbol>true</symbol>.
 </para>
 
 
@@ -4780,7 +4780,7 @@ event is defined as follows:
 typedef struct {
     int            type;          /* Xkb extension base event code */
     unsigned long  serial;        /* X server serial number for event */
-    Bool           send_event;    /* <symbol>True</symbol> &rArr; synthetically generated */
+    Bool           send_event;    /* <symbol>true</symbol> &rArr; synthetically generated */
     Display *      display;       /* server connection where event generated */
     Time           time;          /* server time when event generated */
     int            xkb_type;      /* <symbol>XkbCompatMapNotify</symbol> */
@@ -5186,7 +5186,7 @@ structure, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> &rArr; free everything + ctrls itself
+        <symbol>true</symbol> &rArr; free everything + ctrls itself
       </para>
     </listitem>
   </varlistentry>
@@ -5215,7 +5215,7 @@ to be freed and can contain any of the controls components specified in
 If
 <parameter>free_all</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 <function>XkbFreeControls</function>
 frees every non-
 <symbol>NULL</symbol>
@@ -5299,9 +5299,9 @@ backfills
 with the
 <emphasis>per-client</emphasis>
 control attributes for this particular client. It returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if successful, and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 
@@ -5373,9 +5373,9 @@ by OR-ing the values together. XkbSetPerClientControls backfills value with the
 <emphasis>per-client</emphasis>
 control attributes for this particular client.
 It returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if successful, and
-<symbol>False</symbol>
+<symbol>false</symbol>
 otherwise.
 </para>
 

@@ -43,7 +43,7 @@ first point to be freed
 number of points to be freed
 .TP
 .I free_all
-True => all points are freed 
+true => all points are freed 
 .SH DESCRIPTION
 .LP
 Xkb provides a number of functions to allocate and free subcomponents of a 
@@ -63,7 +63,7 @@ not able to allocate space, or BadValue if a parameter is not as expected.
 
 If 
 .I free_all 
-is True, all points are freed regardless of the value of 
+is true, all points are freed regardless of the value of 
 >i first 
 and 
 .I count. 

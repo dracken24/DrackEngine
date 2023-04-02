@@ -51,7 +51,7 @@ Status XReconfigureWMWindow (
      */
     if (!(mask & CWStackMode)) {
 	XConfigureWindow (dpy, w, mask, changes);
-	return True;
+	return true;
     }
 
 
@@ -108,7 +108,7 @@ Status XReconfigureWMWindow (
 	_X_UNUSED register xReq *req;
 
 	GetEmptyReq(GetInputFocus, req);
-	(void) _XReply (dpy, (xReply *)&rep, 0, xTrue);
+	(void) _XReply (dpy, (xReply *)&rep, 0, xtrue);
     }
 
     DeqAsyncHandler(dpy, &async);
@@ -120,7 +120,7 @@ Status XReconfigureWMWindow (
      * If the request succeeded, then everything is okay; otherwise, send event
      */
     if (!async_state.error_count)
-        return True;
+        return true;
     else {
         XConfigureRequestEvent ev = {
             .type		= ConfigureRequest,
@@ -135,7 +135,7 @@ Status XReconfigureWMWindow (
             .above		= changes->sibling,
             .detail		= changes->stack_mode,
         };
-        return (XSendEvent (dpy, root, False,
+        return (XSendEvent (dpy, root, false,
                             SubstructureRedirectMask|SubstructureNotifyMask,
                             (XEvent *)&ev));
     }

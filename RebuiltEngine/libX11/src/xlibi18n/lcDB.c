@@ -215,11 +215,11 @@ realloc_parse_info(
 
     p = Xrealloc(parse_info.buf, newsize);
     if (p == NULL)
-        return False;
+        return false;
     parse_info.bufMaxSize = newsize;
     parse_info.buf = p;
 
-    return True;
+    return true;
 }
 
 /************************************************************************/
@@ -837,7 +837,7 @@ f_double_quote(
 	    goto err;
 	if ((parse_info.bufsize + (int)strlen(wordp) + 1)
 					>= parse_info.bufMaxSize) {
-	    if (realloc_parse_info((int) strlen(wordp)+1) == False) {
+	    if (realloc_parse_info((int) strlen(wordp)+1) == false) {
 		goto err;
 	    }
 	}
@@ -899,7 +899,7 @@ f_numeric(
 	    goto err;
 	if ((parse_info.bufsize + token_len + (int)strlen(wordp) + 1)
 					>= parse_info.bufMaxSize) {
-	    if (realloc_parse_info((int)((size_t) token_len + strlen(wordp) + 1)) == False)
+	    if (realloc_parse_info((int)((size_t) token_len + strlen(wordp) + 1)) == false)
 		goto err;
 	}
 	strncpy(&parse_info.buf[parse_info.bufsize], str, (size_t) token_len);
@@ -974,7 +974,7 @@ f_default(
     case S_VALUE:
 	if ((parse_info.bufsize + (int)strlen(wordp) + 1)
 					>= parse_info.bufMaxSize) {
-	    if (realloc_parse_info((int) strlen(wordp) + 1) == False)
+	    if (realloc_parse_info((int) strlen(wordp) + 1) == false)
 		goto err;
 	}
 	strcpy(&parse_info.buf[parse_info.bufsize], wordp);

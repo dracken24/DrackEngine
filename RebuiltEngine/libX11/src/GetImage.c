@@ -82,7 +82,7 @@ XImage *XGetImage (
 	req->planeMask = plane_mask;
 	req->format = format;
 
-	if (_XReply (dpy, (xReply *) &rep, 0, xFalse) == 0 ||
+	if (_XReply (dpy, (xReply *) &rep, 0, xfalse) == 0 ||
 	    rep.length == 0) {
 		UnlockDisplay(dpy);
 		SyncHandle();

@@ -853,7 +853,7 @@ existence of a converter from COMPOUND_TEXT, STRING
 or the encoding of the current locale is guaranteed if
 <function>XSupportsLocale</function>
 returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 for the current locale (but the actual text
 may contain unconvertible characters).
 Conversion of other encodings is implementation-dependent.
@@ -2066,32 +2066,32 @@ Applications that expect input but never explicitly set focus to any
 of their subwindows (that is, use the push model of focus management), 
 such as X Version 10 style applications that use real-estate
 driven focus, should set this member to 
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 Similarly, applications
 that set input focus to their subwindows only when it is given to their
 top-level window by a window manager should also set this member to 
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 Applications that manage their own input focus by explicitly setting
 focus to one of their subwindows whenever they want keyboard input 
 (that is, use the pull model of focus management) should set this member to 
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Applications that never expect any keyboard input also should set this member
 to 
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 <para>
 <!-- .LP -->
 Pull model window managers should make it possible for push model
 applications to get input by setting input focus to the top-level windows of
 applications whose input member is 
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 Push model window managers should
 make sure that pull model applications do not break them 
 by resetting input focus to 
 <symbol>PointerRoot</symbol>
 when it is appropriate (for example, whenever an application whose
 input member is 
-<symbol>False</symbol>
+<symbol>false</symbol>
 sets input focus to one of its subwindows).
 </para>
 <para>

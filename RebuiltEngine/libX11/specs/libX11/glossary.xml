@@ -1572,12 +1572,12 @@ This value is reserved for use in requests to represent the current server time.
     </para>
   </glossdef>
 </glossentry>
-<glossentry id="glossary:TrueColor">
-  <glossterm>TrueColor</glossterm>
-<indexterm significance="preferred"><primary>TrueColor</primary></indexterm>
+<glossentry id="glossary:trueColor">
+  <glossterm>trueColor</glossterm>
+<indexterm significance="preferred"><primary>trueColor</primary></indexterm>
   <glossdef>
     <para>
-<symbol>TrueColor</symbol>
+<symbol>trueColor</symbol>
 can be viewed as a degenerate case of 
 <glossterm linkend="glossary:DirectColor"><symbol>DirectColor</symbol></glossterm>
 in which the subfields in the pixel value directly encode the corresponding <acronym>RGB</acronym>

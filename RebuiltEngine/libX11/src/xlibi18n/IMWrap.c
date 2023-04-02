@@ -173,7 +173,7 @@ XRegisterIMInstantiateCallback(
     XLCd	lcd = _XOpenLC( (char *)NULL );
 
     if( !lcd )
-	return( False );
+	return( false );
     return( (*lcd->methods->register_callback)( lcd, display, rdb, res_name,
 						res_class, callback,
 						client_data ) );
@@ -194,9 +194,9 @@ XUnregisterIMInstantiateCallback(
     XLCd	lcd = _XlcCurrentLC();
 
     if( !lcd )
-	return( False );
+	return( false );
     if( lcd->methods->unregister_callback == NULL )
-	return( False );
+	return( false );
     return( (*lcd->methods->unregister_callback)( lcd, display, rdb, res_name,
 						  res_class, callback,
 						  client_data ) );

@@ -32,7 +32,7 @@ ifeq ($(OS), Windows_NT)
 	# Set Windows macros
 	platform := Windows
 	CXX ?= clang++
-	linkFlags += -Wl,--allow-multiple-definition -pthread -lopengl32 -lgdi32 -lwinmm -mwindows -static -static-libgcc -static-libstdc++
+	linkFlags += -Wl,--allow-multiple-definition -pthread -lopengl32 -lgdsint32 -lwinmm -mwindows -static -static-libgcc -static-libstdc++
 	ignorFlags = -Wno-comment
 	libGenDir := engine
 	THEN := &&

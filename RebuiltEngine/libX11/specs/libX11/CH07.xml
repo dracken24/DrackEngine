@@ -222,7 +222,7 @@ The default GC values are:
     </row>
     <row>
       <entry>graphics_exposures</entry>
-      <entry><symbol>True</symbol></entry>
+      <entry><symbol>true</symbol></entry>
     </row>
     <row>
       <entry>clip_x_origin</entry>

@@ -57,7 +57,7 @@ core
 *.exe
 *-ISO*.bdf
 *-JIS*.bdf
-*-KOI8*.bdf
+*-KOsint8*.bdf
 *.kld
 *.ko
 *.ko.cmd

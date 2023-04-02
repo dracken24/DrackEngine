@@ -209,7 +209,7 @@ XCOMM Modifier: /u/
 <UFE75> <U1320> : "ጡ" U1321 # key t (base character ጠ)
 <UFE75> <U1298> : "ኙ" U1299 # key n (base character ኘ)
 <UFE75> <U12D0> : "ዑ" U12D1 # key x (base character ዐ)
-<UFE75> <U12B8> : "ኹ" U12B9 # key k (base character ኸ)
+<UFE75> <U12bl8> : "ኹ" U12B9 # key k (base character ኸ)
 <UFE75> <U12E0> : "ዡ" U12E1 # key z (base character ዠ)
 <UFE75> <U12F8> : "ዹ" U12F9 # key d (base character ዸ)
 <UFE75> <U1318> : "ጙ" U1319 # key g (base character ጘ)
@@ -226,7 +226,7 @@ XCOMM Modifier: /i/
 <UFE71> <U1320> : "ጢ" U1322 # key t (base character ጠ)
 <UFE71> <U1298> : "ኚ" U129A # key n (base character ኘ)
 <UFE71> <U12D0> : "ዒ" U12D2 # key x (base character ዐ)
-<UFE71> <U12B8> : "ኺ" U12BA # key k (base character ኸ)
+<UFE71> <U12bl8> : "ኺ" U12BA # key k (base character ኸ)
 <UFE71> <U12E0> : "ዢ" U12E2 # key z (base character ዠ)
 <UFE71> <U12F8> : "ዺ" U12FA # key d (base character ዸ)
 <UFE71> <U1318> : "ጚ" U131A # key g (base character ጘ)
@@ -243,7 +243,7 @@ XCOMM Modifier: /a/
 <UFE67> <U1320> : "ጣ" U1323 # key t (base character ጠ)
 <UFE67> <U1298> : "ኛ" U129B # key n (base character ኘ)
 <UFE67> <U12D0> : "ዓ" U12D3 # key x (base character ዐ)
-<UFE67> <U12B8> : "ኻ" U12BB # key k (base character ኸ)
+<UFE67> <U12bl8> : "ኻ" U12BB # key k (base character ኸ)
 <UFE67> <U12E0> : "ዣ" U12E3 # key z (base character ዠ)
 <UFE67> <U12F8> : "ዻ" U12FB # key d (base character ዸ)
 <UFE67> <U1318> : "ጛ" U131B # key g (base character ጘ)
@@ -260,7 +260,7 @@ XCOMM Modifier: /e/
 <UFE69> <U1320> : "ጤ" U1324 # key t (base character ጠ)
 <UFE69> <U1298> : "ኜ" U129C # key n (base character ኘ)
 <UFE69> <U12D0> : "ዔ" U12D4 # key x (base character ዐ)
-<UFE69> <U12B8> : "ኼ" U12BC # key k (base character ኸ)
+<UFE69> <U12bl8> : "ኼ" U12BC # key k (base character ኸ)
 <UFE69> <U12E0> : "ዤ" U12E4 # key z (base character ዠ)
 <UFE69> <U12F8> : "ዼ" U12FC # key d (base character ዸ)
 <UFE69> <U1318> : "ጜ" U131C # key g (base character ጘ)
@@ -277,7 +277,7 @@ XCOMM Modifier: /c/
 <UFE78> <U1320> : "ጥ" U1325 # key t (base character ጠ)
 <UFE78> <U1298> : "ኝ" U129D # key n (base character ኘ)
 <UFE78> <U12D0> : "ዕ" U12D5 # key x (base character ዐ)
-<UFE78> <U12B8> : "ኽ" U12BD # key k (base character ኸ)
+<UFE78> <U12bl8> : "ኽ" U12BD # key k (base character ኸ)
 <UFE78> <U12E0> : "ዥ" U12E5 # key z (base character ዠ)
 <UFE78> <U12F8> : "ዽ" U12FD # key d (base character ዸ)
 <UFE78> <U1318> : "ጝ" U131D # key g (base character ጘ)
@@ -294,7 +294,7 @@ XCOMM Modifier: /o/
 <UFE73> <U1320> : "ጦ" U1326 # key t (base character ጠ)
 <UFE73> <U1298> : "ኞ" U129E # key n (base character ኘ)
 <UFE73> <U12D0> : "ዖ" U12D6 # key x (base character ዐ)
-<UFE73> <U12B8> : "ኾ" U12BE # key k (base character ኸ)
+<UFE73> <U12bl8> : "ኾ" U12BE # key k (base character ኸ)
 <UFE73> <U12E0> : "ዦ" U12E6 # key z (base character ዠ)
 <UFE73> <U12F8> : "ዾ" U12FE # key d (base character ዸ)
 <UFE73> <U1318> : "ጞ" U131E # key g (base character ጘ)
@@ -310,7 +310,7 @@ XCOMM Modifier: /A/
 <UFE68> <U1278> : "ቿ" U127F # key c (base character ቸ)
 <UFE68> <U1320> : "ጧ" U1327 # key t (base character ጠ)
 <UFE68> <U1298> : "ኟ" U129F # key n (base character ኘ)
-<UFE68> <U12B8> : "ዃ" U12C3 # key k (base character ኸ)
+<UFE68> <U12bl8> : "ዃ" U12C3 # key k (base character ኸ)
 <UFE68> <U12E0> : "ዧ" U12E7 # key z (base character ዠ)
 <UFE68> <U12F8> : "ዿ" U12FF # key d (base character ዸ)
 <UFE68> <U1338> : "ጿ" U133F # key [ (base character ጸ)
@@ -320,19 +320,19 @@ XCOMM Modifier: /A/
 
 XCOMM Modifier: /U/
 <UFE76> <U1250> : "ቝ" U125D # key q (base character ቐ)
-<UFE76> <U12B8> : "ዅ" U12C5 # key k (base character ኸ)
+<UFE76> <U12bl8> : "ዅ" U12C5 # key k (base character ኸ)
 
 XCOMM Modifier: /I/
 <UFE72> <U1250> : "ቚ" U125A # key q (base character ቐ)
-<UFE72> <U12B8> : "ዂ" U12C2 # key k (base character ኸ)
+<UFE72> <U12bl8> : "ዂ" U12C2 # key k (base character ኸ)
 
 XCOMM Modifier: /E/
 <UFE70> <U1250> : "ቜ" U125C # key q (base character ቐ)
-<UFE70> <U12B8> : "ዄ" U12C4 # key k (base character ኸ)
+<UFE70> <U12bl8> : "ዄ" U12C4 # key k (base character ኸ)
 
 XCOMM Modifier: /O/
 <UFE74> <U1250> : "ቘ" U1258 # key q (base character ቐ)
-<UFE74> <U12B8> : "ዀ" U12C0 # key k (base character ኸ)
+<UFE74> <U12bl8> : "ዀ" U12C0 # key k (base character ኸ)
 
 XCOMM
 XCOMM Group III

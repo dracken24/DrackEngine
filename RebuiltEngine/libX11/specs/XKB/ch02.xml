@@ -151,9 +151,9 @@ and
 If the versions of the compile time and run time libraries are compatible,
 <function>XkbLibraryVersion</function>
 returns
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 otherwise, it returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 <para>
@@ -292,9 +292,9 @@ function determines whether a compatible version of the X Keyboard Extension
 is present in the server. If a compatible extension is present,
 <function>XkbQueryExtension</function>
 returns
-<symbol>True</symbol>;
+<symbol>true</symbol>;
 otherwise, it returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 </para>
 
 <para>
@@ -470,7 +470,7 @@ The possible values for
 indicates
 <function>XkbLibraryVersion</function>
 returned
-<symbol>False</symbol>.
+<symbol>false</symbol>.
   </para>
 </listitem>
 <listitem>
@@ -539,7 +539,7 @@ disable use of the extension once a connection is established.
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol> means ignore the extension
+        <symbol>true</symbol> means ignore the extension
       </para>
     </listitem>
   </varlistentry>
@@ -549,18 +549,18 @@ disable use of the extension once a connection is established.
 <function>XkbIgnoreExtension</function>
 tells the X library whether to use the X Keyboard Extension on any
 subsequently opened X display connections. If ignore is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 the library does not initialize the Xkb extension when it opens a new
 display. This forces the X server to use compatibility mode and communicate
 with the client using only core protocol requests and events. If ignore is
-<symbol>False</symbol>,
+<symbol>false</symbol>,
 the library treats subsequent calls to
 <function>XOpenDisplay</function>
 normally and uses Xkb extension requests, events, and state. Do not explicitly
 use Xkb on a connection for which it is disabled.
 <function>XkbIgnoreExtension</function>
 returns
-<symbol>False</symbol>
+<symbol>false</symbol>
 if it was unable to apply the ignore request.
 </para>
 

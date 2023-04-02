@@ -214,7 +214,7 @@ and sets it to zero so that simple properties consisting of characters
 do not have to be copied into yet another string before use.
 .LP
 If delete is
-.B True
+.B true
 and bytes_after_return is zero,
 .B XGetWindowProperty
 deletes the property

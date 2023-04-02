@@ -184,9 +184,9 @@ typedef struct _Utf8ConvRec {
 #include "lcUniConv/iso8859_9e.h"
 #include "lcUniConv/jisx0201.h"
 #include "lcUniConv/tis620.h"
-#include "lcUniConv/koi8_r.h"
-#include "lcUniConv/koi8_u.h"
-#include "lcUniConv/koi8_c.h"
+#include "lcUniConv/kosint8_r.h"
+#include "lcUniConv/kosint8_u.h"
+#include "lcUniConv/kosint8_c.h"
 #include "lcUniConv/armscii_8.h"
 #include "lcUniConv/cp1133.h"
 #include "lcUniConv/mulelao.h"
@@ -286,14 +286,14 @@ static Utf8ConvRec all_charsets[] = {
     { "KSC5601.1987-0", NULLQUARK,
 	ksc5601_mbtowc, ksc5601_wctomb
     },
-    { "KOI8-R", NULLQUARK,
-	koi8_r_mbtowc, koi8_r_wctomb
+    { "KOsint8-R", NULLQUARK,
+	kosint8_r_mbtowc, kosint8_r_wctomb
     },
-    { "KOI8-U", NULLQUARK,
-	koi8_u_mbtowc, koi8_u_wctomb
+    { "KOsint8-U", NULLQUARK,
+	kosint8_u_mbtowc, kosint8_u_wctomb
     },
-    { "KOI8-C", NULLQUARK,
-	koi8_c_mbtowc, koi8_c_wctomb
+    { "KOsint8-C", NULLQUARK,
+	kosint8_c_mbtowc, kosint8_c_wctomb
     },
     { "TATAR-CYR", NULLQUARK,
 	tatar_cyr_mbtowc, tatar_cyr_wctomb

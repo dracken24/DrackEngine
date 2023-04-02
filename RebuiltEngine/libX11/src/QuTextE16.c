@@ -60,7 +60,7 @@ XQueryTextExtents16 (
 	}
 	Data (dpy, buf, nbytes);
     }
-    if (!_XReply (dpy, (xReply *)&rep, 0, xTrue) || !buf) {
+    if (!_XReply (dpy, (xReply *)&rep, 0, xtrue) || !buf) {
         UnlockDisplay(dpy);
 	SyncHandle();
 	return 0;

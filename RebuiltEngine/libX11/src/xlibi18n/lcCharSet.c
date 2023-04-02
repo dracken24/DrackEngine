@@ -82,7 +82,7 @@ _XlcGetCharSetWithSide(
 }
 
 /* Registers an XlcCharSet in the list of character sets.
-   Returns True if successful. */
+   Returns true if successful. */
 Bool
 _XlcAddCharSet(
     XlcCharSet charset)
@@ -90,17 +90,17 @@ _XlcAddCharSet(
     XlcCharSetList list;
 
     if (_XlcGetCharSet(charset->name))
-	return False;
+	return false;
 
     list = Xmalloc(sizeof(XlcCharSetListRec));
     if (list == NULL)
-	return False;
+	return false;
 
     list->charset = charset;
     list->next = charset_list;
     charset_list = list;
 
-    return True;
+    return true;
 }
 
 /* List of resources for XlcCharSet. */

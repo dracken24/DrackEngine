@@ -123,10 +123,10 @@ _XTextPropertyToTextList(
     Atom encoding;
     int from_left, to_left, buf_len, ret, len;
     int unconv_num, nitems = text_prop->nitems;
-    Bool is_wide_char = False, do_strcpy = False;
+    Bool is_wide_char = false, do_strcpy = false;
 
     if (strcmp(XlcNWideChar, to_type) == 0)
-	is_wide_char = True;
+	is_wide_char = true;
 
     if (nitems <= 0) {
 	*list_ret = NULL;
@@ -140,11 +140,11 @@ _XTextPropertyToTextList(
     encoding = text_prop->encoding;
     if (encoding == XA_STRING)
 	from_type = XlcNString;
-    else if (encoding == XInternAtom(dpy, "UTF8_STRING", False))
+    else if (encoding == XInternAtom(dpy, "UTF8_STRING", false))
 	from_type = XlcNUtf8String;
-    else if (encoding == XInternAtom(dpy, "COMPOUND_TEXT", False))
+    else if (encoding == XInternAtom(dpy, "COMPOUND_TEXT", false))
 	from_type = XlcNCompoundText;
-    else if (encoding == XInternAtom(dpy, XLC_PUBLIC(lcd, encoding_name), False))
+    else if (encoding == XInternAtom(dpy, XLC_PUBLIC(lcd, encoding_name), false))
 	from_type = XlcNMultiByte;
     else
 	return XConverterNotFound;
@@ -166,7 +166,7 @@ _XTextPropertyToTextList(
     /* can be XlcNMultiByte to XlcNMultiByte,
        or XlcNUtf8String to XlcNUtf8String */
     if (!strcmp(from_type, to_type)) {
-        do_strcpy = True;
+        do_strcpy = true;
     } else {
         conv = _XlcOpenConverter(lcd, from_type, lcd, to_type);
         if (conv == NULL) {

@@ -72,12 +72,12 @@ No round-trip to
 the server is required.
 If the cookie is invalid or the
 event is not an event handled by cookie handlers,
-.B False
+.B false
 is returned.
 If
 .B XGetEventData
 returns
-.BR True ,
+.BR true ,
 the cookie's data pointer points to the memory containing the event
 information.
 A client must call
@@ -85,7 +85,7 @@ A client must call
 to free this memory.
 .B XGetEventData
 returns
-.B False
+.B false
 for multiple calls for the same event cookie.
 
 The

@@ -182,7 +182,7 @@ XkbListComponents(Display *dpy,
         memcpy(str, ptrns->geometry, (size_t) geomLen);
         str += geomLen;
     }
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse))
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse))
         goto BAILOUT;
     extraLen = (int) rep.length * 4;
     *max_inout = rep.extra;

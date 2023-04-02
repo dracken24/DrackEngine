@@ -1,4 +1,4 @@
-XCOMM  XLocale Database Sample for koi8-c.
+XCOMM  XLocale Database Sample for kosint8-c.
 XCOMM 
 
 XCOMM 
@@ -11,14 +11,14 @@ fs0	{
 		name		ISO8859-1:GL
 	}
 	font	{
-		primary		KOI8-C:GL
+		primary		KOsint8-C:GL
 		substitute	ISO8859-1:GL
 	}
 }
 XCOMM 	fs1 class 
 fs1	{
-	charset         KOI8-C:GR
-	font            KOI8-C:GR
+	charset         KOsint8-C:GR
+	font            KOsint8-C:GR
 }
 END XLC_FONTSET
 
@@ -27,10 +27,10 @@ XCOMM	XLC_CHARSET_DEFINE category
 XCOMM
 XLC_CHARSET_DEFINE
 csd0	{
-	charset_name	KOI8-C
+	charset_name	KOsint8-C
 	side		GR
 	length		1
-	string_encoding	False
+	string_encoding	false
 	sequence	\x1b%/1
 }
 END XLC_CHARSET_DEFINE
@@ -40,9 +40,9 @@ XCOMM 	XLC_XLOCALE category
 XCOMM 
 XLC_XLOCALE
 
-encoding_name           KOI8-C
+encoding_name           KOsint8-C
 mb_cur_max		1
-state_depend_encoding	False
+state_depend_encoding	false
 #if WCHAR32
 wc_encoding_mask	\x30000000
 wc_shift_bits		7
@@ -51,14 +51,14 @@ wc_encoding_mask	\x00008080
 wc_shift_bits		8
 #endif
 
-use_stdc_env		True
+use_stdc_env		true
 
 XCOMM 	cs0 class
 cs0	{
 	side		GL:Default
 	length		1
 	wc_encoding	\x00000000
-	ct_encoding     KOI8-C:GL; ISO8859-1:GL
+	ct_encoding     KOsint8-C:GL; ISO8859-1:GL
 }
 
 
@@ -71,7 +71,7 @@ cs1	{
 #else
 	wc_encoding	\x00008080
 #endif
-	ct_encoding     KOI8-C:GR
+	ct_encoding     KOsint8-C:GR
 }
 
 END XLC_XLOCALE

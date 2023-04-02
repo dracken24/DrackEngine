@@ -40,7 +40,7 @@ Xkb description in which to free compatibility map
 mask of compatibility map components to free
 .TP
 .I free_map
-True => free XkbCompatMap structure itself
+true => free XkbCompatMap structure itself
 .SH DESCRIPTION
 .LP
 .I which 
@@ -63,7 +63,7 @@ XkbAllCompatMask	(0x3)	All compatibility map components
 .I free_map 
 indicates whether the XkbCompatMap structure itself should be freed. If 
 .I free_map 
-is True, 
+is true, 
 .I which 
 is ignored, all non-NULL compatibility map components are freed, and the 
 .I compat 

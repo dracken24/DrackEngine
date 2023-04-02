@@ -211,7 +211,7 @@ _XkbClearOutline(char *outline_in)
     XkbOutlinePtr outline = (XkbOutlinePtr) outline_in;
 
     if (outline->points != NULL)
-        XkbFreeGeomPoints(outline, 0, outline->num_points, True);
+        XkbFreeGeomPoints(outline, 0, outline->num_points, true);
     return;
 }
 
@@ -234,7 +234,7 @@ _XkbClearShape(char *shape_in)
     XkbShapePtr shape = (XkbShapePtr) shape_in;
 
     if (shape->outlines)
-        XkbFreeGeomOutlines(shape, 0, shape->num_outlines, True);
+        XkbFreeGeomOutlines(shape, 0, shape->num_outlines, true);
     return;
 }
 
@@ -268,7 +268,7 @@ _XkbClearOverlayRow(char *row_in)
     XkbOverlayRowPtr row = (XkbOverlayRowPtr) row_in;
 
     if (row->keys != NULL)
-        XkbFreeGeomOverlayKeys(row, 0, row->num_keys, True);
+        XkbFreeGeomOverlayKeys(row, 0, row->num_keys, true);
     return;
 }
 
@@ -291,7 +291,7 @@ _XkbClearOverlay(char *overlay_in)
     XkbOverlayPtr overlay = (XkbOverlayPtr) overlay_in;
 
     if (overlay->rows != NULL)
-        XkbFreeGeomOverlayRows(overlay, 0, overlay->num_rows, True);
+        XkbFreeGeomOverlayRows(overlay, 0, overlay->num_rows, true);
     return;
 }
 
@@ -325,7 +325,7 @@ _XkbClearRow(char *row_in)
     XkbRowPtr row = (XkbRowPtr) row_in;
 
     if (row->keys != NULL)
-        XkbFreeGeomKeys(row, 0, row->num_keys, True);
+        XkbFreeGeomKeys(row, 0, row->num_keys, true);
     return;
 }
 
@@ -346,9 +346,9 @@ _XkbClearSection(char *section_in)
     XkbSectionPtr section = (XkbSectionPtr) section_in;
 
     if (section->rows != NULL)
-        XkbFreeGeomRows(section, 0, section->num_rows, True);
+        XkbFreeGeomRows(section, 0, section->num_rows, true);
     if (section->doodads != NULL) {
-        XkbFreeGeomDoodads(section->doodads, section->num_doodads, True);
+        XkbFreeGeomDoodads(section->doodads, section->num_doodads, true);
         section->doodads = NULL;
     }
     return;
@@ -420,20 +420,20 @@ XkbFreeGeometry(XkbGeometryPtr geom, unsigned which, Bool freeMap)
     if (freeMap)
         which = XkbGeomAllMask;
     if ((which & XkbGeomPropertiesMask) && (geom->properties != NULL))
-        XkbFreeGeomProperties(geom, 0, geom->num_properties, True);
+        XkbFreeGeomProperties(geom, 0, geom->num_properties, true);
     if ((which & XkbGeomColorsMask) && (geom->colors != NULL))
-        XkbFreeGeomColors(geom, 0, geom->num_colors, True);
+        XkbFreeGeomColors(geom, 0, geom->num_colors, true);
     if ((which & XkbGeomShapesMask) && (geom->shapes != NULL))
-        XkbFreeGeomShapes(geom, 0, geom->num_shapes, True);
+        XkbFreeGeomShapes(geom, 0, geom->num_shapes, true);
     if ((which & XkbGeomSectionsMask) && (geom->sections != NULL))
-        XkbFreeGeomSections(geom, 0, geom->num_sections, True);
+        XkbFreeGeomSections(geom, 0, geom->num_sections, true);
     if ((which & XkbGeomDoodadsMask) && (geom->doodads != NULL)) {
-        XkbFreeGeomDoodads(geom->doodads, geom->num_doodads, True);
+        XkbFreeGeomDoodads(geom->doodads, geom->num_doodads, true);
         geom->doodads = NULL;
         geom->num_doodads = geom->sz_doodads = 0;
     }
     if ((which & XkbGeomKeyAliasesMask) && (geom->key_aliases != NULL))
-        XkbFreeGeomKeyAliases(geom, 0, geom->num_key_aliases, True);
+        XkbFreeGeomKeyAliases(geom, 0, geom->num_key_aliases, true);
     if (freeMap) {
         if (geom->label_font != NULL) {
             _XkbFree(geom->label_font);
@@ -642,7 +642,7 @@ XkbAllocGeometry(XkbDescPtr xkb, XkbGeometrySizesPtr sizes)
     }
     return Success;
  BAIL:
-    XkbFreeGeometry(geom, XkbGeomAllMask, True);
+    XkbFreeGeometry(geom, XkbGeomAllMask, true);
     xkb->geom = NULL;
     return rtrn;
 }
@@ -914,9 +914,9 @@ XkbAddGeomOverlayKey(XkbOverlayPtr overlay,
     if (row->row_under >= section->num_rows)
         return NULL;
     row_under = &section->rows[row->row_under];
-    for (i = 0, found = False; i < row_under->num_keys; i++) {
+    for (i = 0, found = false; i < row_under->num_keys; i++) {
         if (strncmp(under, row_under->keys[i].name.name, XkbKeyNameLength) == 0) {
-            found = True;
+            found = true;
             break;
         }
     }

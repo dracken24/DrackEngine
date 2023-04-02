@@ -79,7 +79,7 @@ structure with the type member set to
 .BR GraphicsExpose .
 The display member is set to a pointer to the display the event was read on.
 The send_event member is set to
-.B True
+.B true
 if the event came from a
 .B SendEvent
 protocol request.
@@ -99,14 +99,14 @@ the colormap member is set to
 The new member is set to indicate whether the colormap
 for the specified window was changed or installed or uninstalled
 and can be
-.B True
+.B true
 or
-.BR False .
+.BR false .
 If it is
-.BR True ,
+.BR true ,
 the colormap was changed.
 If it is
-.BR False ,
+.BR false ,
 the colormap was installed or uninstalled.
 The state member is always set to indicate whether the colormap is installed or
 uninstalled and can be

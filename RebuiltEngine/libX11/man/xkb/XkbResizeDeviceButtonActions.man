@@ -70,7 +70,7 @@ extension in an XkbDeviceInfoRec structure:
         char *               name;          /\&* name for device */
         Atom                 type;          /\&* name for class of devices */
         unsigned short       device_spec;   /\&* device of interest */
-        Bool                 has_own_state; /\&* True=>this device has its own state */
+        Bool                 has_own_state; /\&* true=>this device has its own state */
         unsigned short       supported;     /\&* bits indicating supported capabilities */
         unsigned short       unsupported;   /\&* bits indicating unsupported capabilities */
         unsigned short       num_btns;      /\&* number of entries in btn_acts */

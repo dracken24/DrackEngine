@@ -112,12 +112,12 @@ If that client no longer exists,
 no event is sent.
 .IP \(bu 5
 If propagate is
-.BR False ,
+.BR false ,
 the event is sent to every client selecting on destination any of the event
 types in the event_mask argument.
 .IP \(bu 5
 If propagate is
-.B True
+.B true
 and no clients have selected on destination any of
 the event types in event-mask, the destination is replaced with the
 closest ancestor of destination for which some client has selected a
@@ -140,7 +140,7 @@ error results) so that the X server can correctly byte-swap
 the contents as necessary.
 The contents of the event are
 otherwise unaltered and unchecked by the X server except to force send_event to
-.B True
+.B true
 in the forwarded event and to set the serial number in the event correctly;
 therefore these fields
 and the display field are ignored by

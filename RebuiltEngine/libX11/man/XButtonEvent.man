@@ -130,7 +130,7 @@ structure with the type member set to
 .BR GraphicsExpose .
 The display member is set to a pointer to the display the event was read on.
 The send_event member is set to
-.B True
+.B true
 if the event came from a
 .B SendEvent
 protocol request.
@@ -152,14 +152,14 @@ relative to the root window's origin at the time of the event.
 The same_screen member is set to indicate whether the event
 window is on the same screen
 as the root window and can be either
-.B True
+.B true
 or
-.BR False .
+.BR false .
 If
-.BR True ,
+.BR true ,
 the event and root windows are on the same screen.
 If
-.BR False ,
+.BR false ,
 the event and root windows are not on the same screen.
 .LP
 If the source window is an inferior of the event window,

@@ -30,7 +30,7 @@ csd0	{
 	charset_name	TSCII-0
 	side		GR
 	length		1
-	string_encoding	False
+	string_encoding	false
 	sequence	\x1b%/1
 }
 END XLC_CHARSET_DEFINE
@@ -42,7 +42,7 @@ XLC_XLOCALE
 
 encoding_name           TSCII-0
 mb_cur_max		1
-state_depend_encoding	False
+state_depend_encoding	false
 #if WCHAR32
 wc_encoding_mask	\x30000000
 wc_shift_bits		7
@@ -51,7 +51,7 @@ wc_encoding_mask	\x00008080
 wc_shift_bits		8
 #endif
 
-use_stdc_env		True
+use_stdc_env		true
 
 XCOMM 	cs0 class
 cs0	{

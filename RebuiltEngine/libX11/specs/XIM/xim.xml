@@ -3083,7 +3083,7 @@ Refer to "The Input Method Protocol" for the XIM_SERVER atom. <!-- xref -->
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_XCONNECT", False)</entry>
+      <entry>XInternAtom(display, "_XIM_XCONNECT", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -3158,7 +3158,7 @@ format to the client communication window.
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_XCONNECT", False)</entry>
+      <entry>XInternAtom(display, "_XIM_XCONNECT", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -3364,7 +3364,7 @@ If data is sent via ClientMessage event, the format is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_MOREDATA", False)</entry>
+      <entry>XInternAtom(display, "_XIM_MOREDATA", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -3423,7 +3423,7 @@ If data is sent via ClientMessage event, the format is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_PROTOCOL", False)</entry>
+      <entry>XInternAtom(display, "_XIM_PROTOCOL", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -3545,7 +3545,7 @@ The read/write property ATOM allocates the following strings by
 
 <para>
 The client changes the property with the mode of PropModeAppend and
-the IM Server will read it with the delete mode i.e. (delete = True).
+the IM Server will read it with the delete mode i.e. (delete = true).
 </para>
 
 <para>
@@ -3596,7 +3596,7 @@ is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_PROTOCOL", False)</entry>
+      <entry>XInternAtom(display, "_XIM_PROTOCOL", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -3677,7 +3677,7 @@ The format of the ClientMessage is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_MOREDATA", False)</entry>
+      <entry>XInternAtom(display, "_XIM_MOREDATA", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -3737,7 +3737,7 @@ The format of the ClientMessage is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_PROTOCOL", False)</entry>
+      <entry>XInternAtom(display, "_XIM_PROTOCOL", false)</entry>
     </row>
     <row>
       <entry>int</entry>
@@ -3855,7 +3855,7 @@ allocated by the client, by <olink targetdoc='libX11' targetptr='XInternAtom'><f
 
 <para>
 The IM Server changes the property with the mode of PropModeAppend and
-the client reads it with the delete mode, i.e. (delete = True).
+the client reads it with the delete mode, i.e. (delete = true).
 </para>
 
 <para>
@@ -3907,7 +3907,7 @@ is as follows:
     <row>
       <entry>Atom</entry>
       <entry>message_type</entry>
-      <entry>XInternAtom(display, "_XIM_PROTOCOL", False)</entry>
+      <entry>XInternAtom(display, "_XIM_PROTOCOL", false)</entry>
     </row>
     <row>
       <entry>int</entry>

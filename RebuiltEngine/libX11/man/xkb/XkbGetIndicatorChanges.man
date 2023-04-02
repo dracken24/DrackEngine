@@ -79,7 +79,7 @@ Both types of indicator events use the same structure:
 typedef struct _XkbIndicatorNotify {
   int            type;       /\&* Xkb extension base event code */
   unsigned long  serial;     /\&* X server serial number for event */
-  Bool           send_event; /\&* True => synthetically generated */
+  Bool           send_event; /\&* true => synthetically generated */
   Display *      display;    /\&* server connection where event generated */
   Time           time;       /\&* server time when event generated */
   int            xkb_type;   /\&* specifies state or map notify */

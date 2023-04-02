@@ -120,9 +120,9 @@ libi18n_la_SOURCES = \
 	lcUniConv/jisx0201.h\
 	lcUniConv/jisx0208.h\
 	lcUniConv/jisx0212.h\
-	lcUniConv/koi8_c.h\
-	lcUniConv/koi8_r.h\
-	lcUniConv/koi8_u.h\
+	lcUniConv/kosint8_c.h\
+	lcUniConv/kosint8_r.h\
+	lcUniConv/kosint8_u.h\
 	lcUniConv/ksc5601.h\
 	lcUniConv/mulelao.h\
 	lcUniConv/tatar_cyr.h\

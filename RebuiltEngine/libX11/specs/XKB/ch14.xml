@@ -693,9 +693,9 @@ are not present in the
 parameter,
 <function>XkbSetMap</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise, it sends the update request to the server and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 <function>XkbSetMap</function>
 can generate
 <errorname>BadAlloc</errorname>,
@@ -967,9 +967,9 @@ are not present in the
 parameter,
 <function>XkbChangeMap</function>
 returns
-<symbol>False</symbol>.
+<symbol>false</symbol>.
 Otherwise, it sends a request to the server and returns
-<symbol>True</symbol>.
+<symbol>true</symbol>.
 </para>
 
 
@@ -1045,7 +1045,7 @@ events is:
 typedef struct {
     int            type;         /* Xkb extension base event code */
     unsigned long  serial;       /* X server serial number for event */
-    Bool           send_event;   /* <symbol>True</symbol> &rArr; synthetically generated */
+    Bool           send_event;   /* <symbol>true</symbol> &rArr; synthetically generated */
     Display *      display;      /* server connection where event generated */
     Time           time;         /* server time when event generated */
     int            xkb_type;     /* <symbol>XkbMapNotify</symbol> */
@@ -1371,7 +1371,7 @@ structure, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol>
+        <symbol>true</symbol>
          &rArr; free all client components and map itself
       </para>
     </listitem>
@@ -1399,7 +1399,7 @@ parameter specifies a combination of the client map masks shown in
 If
 <parameter>free_all</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 <parameter>which</parameter>
 is ignored;
 <function>XkbFreeClientMap</function>
@@ -1659,7 +1659,7 @@ structure, use
     </term>
     <listitem>
       <para>
-        <symbol>True</symbol>
+        <symbol>true</symbol>
          &rArr; free all server map components and server itself
       </para>
     </listitem>
@@ -1682,7 +1682,7 @@ inclusive OR of the masks listed in
 <link linkend="table14.4">Table 14.4</link>. If
 <parameter>free_all</parameter>
 is
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 <parameter>which</parameter>
 is ignored and
 <function>XkbFreeServerMap</function>

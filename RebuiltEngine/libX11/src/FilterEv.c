@@ -102,5 +102,5 @@ XFilterEvent(
     }
     UnlockDisplay(ev->xany.display);
 #endif
-    return(False);
+    return(false);
 }

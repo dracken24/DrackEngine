@@ -50,14 +50,14 @@ _XimRegProtoIntrCallback(
     XimProtoIntrRec    *rec;
 
     if (!(rec = Xmalloc(sizeof(XimProtoIntrRec))))
-        return False;
+        return false;
     rec->func       = proc;
     rec->major_code = major_code;
     rec->minor_code = minor_code;
     rec->call_data  = call_data;
     rec->next       = im->private.proto.intrproto;
     im->private.proto.intrproto = rec;
-    return True;
+    return true;
 }
 
 void
@@ -90,15 +90,15 @@ _XimTransportIntr(
 	if ((major_opcode == (CARD8)rec->major_code)
 	 && (minor_opcode == (CARD8)rec->minor_code))
 	    if ((*rec->func)(call_im, len, data, rec->call_data))
-		return True;
+		return true;
     }
-    return False;
+    return false;
 }
 
 Bool
 _XimDispatchInit(Xim im)
 {
     if (_XimRegisterDispatcher(im, _XimTransportIntr, (XPointer)im))
-	return True;
-    return False;
+	return true;
+    return false;
 }

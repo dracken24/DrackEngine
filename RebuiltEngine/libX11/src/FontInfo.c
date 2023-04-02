@@ -72,7 +72,7 @@ XFontStruct **info)	/* RETURN */
     for (i = 0; ; i++) {
 	if (!_XReply (dpy, (xReply *) &reply,
 		      ((SIZEOF(xListFontsWithInfoReply) -
-			SIZEOF(xGenericReply)) >> 2), xFalse)) {
+			SIZEOF(xGenericReply)) >> 2), xfalse)) {
 	    reply.nameLength = 0; /* avoid trying to read more replies */
 	    reply_left = 0;
 	    goto badmem;
@@ -192,7 +192,7 @@ XFontStruct **info)	/* RETURN */
     while ((reply.nameLength != 0) &&
 	   _XReply(dpy, (xReply *) &reply,
 		   ((SIZEOF(xListFontsWithInfoReply) - SIZEOF(xGenericReply))
-		    >> 2), xTrue));
+		    >> 2), xtrue));
     UnlockDisplay(dpy);
     SyncHandle();
     *info = NULL;

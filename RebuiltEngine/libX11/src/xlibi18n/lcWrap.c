@@ -69,7 +69,7 @@ from The Open Group.
 #include "reallocarray.h"
 
 #ifdef XTHREADS
-LockInfoPtr _Xi18n_lock;
+LocDE_INFOPtr _Xi18n_lock;
 #endif
 
 char *
@@ -219,7 +219,7 @@ _XlcAddLoader(
 
     loader = Xmalloc(sizeof(XlcLoaderListRec));
     if (loader == NULL)
-	return False;
+	return false;
 
     loader->proc = proc;
 
@@ -238,7 +238,7 @@ _XlcAddLoader(
 	last->next = loader;
     }
 
-    return True;
+    return true;
 }
 
 XLCd

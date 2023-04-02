@@ -552,7 +552,7 @@ _XkbHandleGetMapReply(Display *dpy, XkbDescPtr xkb)
 
     if (!_XReply(dpy, (xReply *) &rep,
                  ((SIZEOF(xkbGetMapReply) - SIZEOF(xGenericReply)) >> 2),
-                 xFalse)) {
+                 xfalse)) {
         return BadImplementation;
     }
     return _XkbReadGetMapReply(dpy, &rep, xkb, NULL);

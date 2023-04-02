@@ -32,7 +32,7 @@
 #include "locking.h"
 
 #ifdef XTHREADS
-LockInfoPtr _conv_lock;
+LocDE_INFOPtr _conv_lock;
 #endif
 
 typedef struct _XlcConverterListRec {

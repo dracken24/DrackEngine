@@ -40,7 +40,7 @@ keyboard description with components to free
 mask selecting components to free
 .TP
 .I free_all
-True => free all components and 
+true => free all components and 
 .I xkb
 .SH DESCRIPTION
 .LP
@@ -52,7 +52,7 @@ specified by
 and sets the corresponding values to NULL. If 
 .I
 free_all 
-is True, 
+is true, 
 .I XkbFreeKeyboard 
 frees every non-NULL component of 
 .I xkb 

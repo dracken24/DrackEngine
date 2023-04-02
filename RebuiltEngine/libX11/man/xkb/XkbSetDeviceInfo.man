@@ -59,10 +59,10 @@ structure. The particular characteristics modified are identified by the bits
 set in 
 .I which 
 and take their values from the relevant fields in 
-device_info (see Table 1). XkbSetDeviceInfo returns True if the request was 
+device_info (see Table 1). XkbSetDeviceInfo returns true if the request was 
 successfully sent to the server. If the X server implementation does not allow 
 interaction between the X input extension and the Xkb Extension, the function 
-does nothing and returns False.
+does nothing and returns false.
 .bp
 .nf
                          Table 1 XkbDeviceInfoRec Mask Bits
@@ -146,7 +146,7 @@ are set to the XkbActions specified in
 .I device_info->btn_acts. 
 If the number of buttons requested to be updated is not valid for the device,
 .I XkbSetDeviceInfo 
-returns False and a BadValue protocol error results.
+returns false and a BadValue protocol error results.
 
 If the XkbXI_IndicatorMaps and / or XkbXI_IndicatorNamesMask bit is set in the 
 .I supported 
@@ -170,22 +170,22 @@ and
 specify the input extension class and device ID for each indicator device to 
 modify; if they have invalid values, a BadValue protocol error results and 
 .I XkbSetDeviceInfo 
-returns False. If they have legal values but do not specify a keyboard or 
+returns false. If they have legal values but do not specify a keyboard or 
 indicator class feedback for the device in question, a BadMatch error results. 
 If any of the values in
 .I device_info->leds->names 
 are not a valid Atom or None, a BadAtom protocol error results.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbSetDeviceInfo 
-function returns True if the request was successfully sent to the server.
+function returns true if the request was successfully sent to the server.
 .TP 15
-False
+false
 The 
 .I XkbSetDeviceInfo 
-function returns False if the X server implementation does not allow interaction 
+function returns false if the X server implementation does not allow interaction 
 between the X input extension and the Xkb Extension.
 .SH STRUCTURES
 .LP

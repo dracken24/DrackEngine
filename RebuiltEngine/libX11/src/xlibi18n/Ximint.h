@@ -166,13 +166,13 @@ typedef struct _XimDefICValues {
 #define XIM_CHECK_INVALID	1
 #define XIM_CHECK_ERROR		2
 
-#define FILTERD         True
-#define NOTFILTERD      False
+#define FILTERD         true
+#define NOTFILTERD      false
 
 #define XIMMODIFIER		"@im="
 
-#define	XIM_TRUE	True
-#define	XIM_FALSE	False
+#define	XIM_true	true
+#define	XIM_false	false
 #define	XIM_OVERFLOW	(-1)
 
 #define BRL_UC_ROW	0x2800

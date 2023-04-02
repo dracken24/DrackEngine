@@ -81,7 +81,7 @@ Status XGetStandardColormap (
 
 	    if (!sp) {
 		Xfree (stdcmaps);
-		return False;
+		return false;
 	    }
 	    vid = sp->root_visual->visualid;
 
@@ -91,7 +91,7 @@ Status XGetStandardColormap (
 
 	    if (i == nstdcmaps) {	/* not found */
 		Xfree (stdcmaps);
-		return False;
+		return false;
 	    }
 	    use = &stdcmaps[i];
 	} else {

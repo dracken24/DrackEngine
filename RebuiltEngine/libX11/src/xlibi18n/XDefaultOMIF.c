@@ -130,7 +130,7 @@ init_fontset(
 
     font_set = Xcalloc(1, sizeof(FontSetRec));
     if (font_set == NULL)
-	return False;
+	return false;
 
     gen = XOC_GENERIC(oc);
     gen->font_set = font_set;
@@ -138,7 +138,7 @@ init_fontset(
     font_set->font_data_count = data->font_data_count;
     font_set->font_data = data->font_data;
 
-    return True;
+    return true;
 }
 
 static char *
@@ -191,14 +191,14 @@ load_font(
     FontSet font_set = gen->font_set;
 
     if (font_set->font_name == NULL)
-	return False;
+	return false;
 
     if (font_set->font == NULL) {
 	font_set->font = XLoadQueryFont(dpy, font_set->font_name);
 	if (font_set->font == NULL)
-	    return False;
+	    return false;
     }
-    return True;
+    return true;
 }
 
 static void
@@ -241,11 +241,11 @@ init_core_part(
     font_set = gen->font_set;
 
     if (font_set->font_name == NULL)
-        return False;
+        return false;
 
     font_struct_list = Xmalloc(sizeof(XFontStruct *));
     if (font_struct_list == NULL)
-	return False;
+	return false;
 
     font_name_list = Xmalloc(sizeof(char *));
     if (font_name_list == NULL)
@@ -269,14 +269,14 @@ init_core_part(
 
     set_fontset_extents(oc);
 
-    return True;
+    return true;
 
 err:
 
     Xfree(font_name_list);
     Xfree(font_struct_list);
 
-    return False;
+    return false;
 }
 
 static char *
@@ -319,7 +319,7 @@ parse_fontname(
     char *charset_p = NULL;
     Bool append_charset;
     /*
-       append_charset flag should be set to True when the XLFD fontname
+       append_charset flag should be set to true when the XLFD fontname
        doesn't contain a chaset part.
      */
 
@@ -333,7 +333,7 @@ parse_fontname(
 	if (pattern == NULL || *pattern == '\0')
 	    continue;
 
-	append_charset = False;
+	append_charset = false;
 
 	if (strchr(pattern, '*') == NULL &&
 	    (font_name = get_font_name(oc, pattern))) {
@@ -379,7 +379,7 @@ parse_fontname(
 	    if (*base_name == '-') num_fields++;
 	if (strchr(pattern, '*') == NULL) {
 	    if (num_fields == 12) {
-		append_charset = True;
+		append_charset = true;
 		*++last = '-';
 		last++;
 	    } else
@@ -390,7 +390,7 @@ parse_fontname(
 	     * There are 14 fields in an XLFD name -- make certain the
 	     * charset (& encoding) is placed in the correct field.
 	     */
-		append_charset = True;
+		append_charset = true;
 		last = strrchr (buf, '-');
 		if (num_fields == 14) {
 		    *last = '\0';
@@ -398,7 +398,7 @@ parse_fontname(
 		}
 		last++;
 	    } else if (*last == '*') {
-		append_charset = True;
+		append_charset = true;
 		if (length > 3 && *(last-3) == '-' && *(last-2) == '*'
 		    && *(last-1) == '-') {
 		    last -= 2;
@@ -465,23 +465,23 @@ set_missing_list(
     font_set = gen->font_set;
 
     if (font_set->info == NULL || font_set->font == NULL)
-	return True;
+	return true;
 
     charset_list = Xmalloc(sizeof(char *));
     if (charset_list == NULL)
-	return False;
+	return false;
 
     charset_buf = strdup(font_set->font_data->name);
     if (charset_buf == NULL) {
 	Xfree(charset_list);
-	return False;
+	return false;
     }
 
     oc->core.missing_list.charset_list = charset_list;
 
     *charset_list = charset_buf;
 
-    return True;
+    return true;
 }
 
 static Bool
@@ -490,26 +490,26 @@ create_fontset(
 {
     int found_num;
 
-    if (init_fontset(oc) == False)
-        return False;
+    if (init_fontset(oc) == false)
+        return false;
 
     found_num = parse_fontname(oc);
     if (found_num <= 0) {
 	if (found_num == 0)
 	    set_missing_list(oc);
-	return False;
+	return false;
     }
 
-    if (load_font(oc) == False)
-	return False;
+    if (load_font(oc) == false)
+	return false;
 
-    if (init_core_part(oc) == False)
-	return False;
+    if (init_core_part(oc) == false)
+	return false;
 
-    if (set_missing_list(oc) == False)
-	return False;
+    if (set_missing_list(oc) == false)
+	return false;
 
-    return True;
+    return true;
 }
 
 static void
@@ -587,7 +587,7 @@ wcs_to_mbs(
 	lcd = oc->core.om->core.lcd;
 	conv = _XlcOpenConverter(lcd, XlcNWideChar, lcd, XlcNMultiByte);
 	if (conv == NULL)
-	    return False;
+	    return false;
 	XOC_GENERIC(oc)->wcs_to_cs = conv;
     } else
 	_XlcResetConverter(conv);
@@ -595,9 +595,9 @@ wcs_to_mbs(
     ret = _XlcConvert(conv, (XPointer *) &from, &length, (XPointer *) &to,
 		      &to_left, NULL, 0);
     if (ret != 0 || length > 0)
-	return False;
+	return false;
 
-    return True;
+    return true;
 }
 
 static int
@@ -616,7 +616,7 @@ _XwcDefaultTextEscapement(XOC oc, _Xconst wchar_t *text, int length)
     if (buf == NULL)
 	return 0;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False)
+    if (wcs_to_mbs(oc, buf, text, length) == false)
 	goto err;
 
     ret = _XmbDefaultTextEscapement(oc, buf, length);
@@ -665,7 +665,7 @@ _XwcDefaultTextExtents(XOC oc, _Xconst wchar_t *text, int length,
     if (buf == NULL)
 	return 0;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False)
+    if (wcs_to_mbs(oc, buf, text, length) == false)
 	goto err;
 
     ret = _XmbDefaultTextExtents(oc, buf, length, overall_ink, overall_logical);
@@ -685,7 +685,7 @@ _XmbDefaultTextPerCharExtents(XOC oc, _Xconst char *text, int length,
 {
     XFontStruct *font = *oc->core.font_info.font_struct_list;
     XCharStruct *def, *cs, overall;
-    Bool first = True;
+    Bool first = true;
 
     if (buf_size < length)
 	return 0;
@@ -715,7 +715,7 @@ _XmbDefaultTextPerCharExtents(XOC oc, _Xconst char *text, int length,
 
 	if (first) {
 	    overall = *cs;
-	    first = False;
+	    first = false;
 	} else {
 	    overall.ascent = max(overall.ascent, cs->ascent);
 	    overall.descent = max(overall.descent, cs->descent);
@@ -759,7 +759,7 @@ _XwcDefaultTextPerCharExtents(XOC oc, _Xconst wchar_t *text, int length,
     if (buf == NULL)
 	return 0;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False)
+    if (wcs_to_mbs(oc, buf, text, length) == false)
 	goto err;
 
     ret = _XmbDefaultTextPerCharExtents(oc, buf, length, ink_buf, logical_buf,
@@ -795,7 +795,7 @@ _XwcDefaultDrawString(Display *dpy, Drawable d, XOC oc, GC gc, int x, int y,
     if (buf == NULL)
 	return 0;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False)
+    if (wcs_to_mbs(oc, buf, text, length) == false)
 	goto err;
 
     ret = _XmbDefaultDrawString(dpy, d, oc, gc, x, y, buf, length);
@@ -824,7 +824,7 @@ _XwcDefaultDrawImageString(Display *dpy, Drawable d, XOC oc, GC gc, int x,
     if (buf == NULL)
 	return;
 
-    if (wcs_to_mbs(oc, buf, text, length) == False)
+    if (wcs_to_mbs(oc, buf, text, length) == false)
 	goto err;
 
     _XmbDefaultDrawImageString(dpy, d, oc, gc, x, y, buf, length);
@@ -895,7 +895,7 @@ create_oc(
     oc->core.resources = oc_resources;
     oc->core.num_resources = XlcNumber(oc_resources);
 
-    if (create_fontset(oc) == False)
+    if (create_fontset(oc) == false)
 	goto err;
 
     oc->methods = (XOCMethods)&oc_default_methods;
@@ -1027,29 +1027,29 @@ init_om(
 
     data = add_data(om);
     if (data == NULL)
-	return False;
+	return false;
 
     font_data = Xcalloc(count, sizeof(FontDataRec));
     if (font_data == NULL)
-	return False;
+	return false;
     data->font_data = font_data;
     data->font_data_count = count;
 
     for (i = 0; i < count; i++, font_data++) {
 	font_data->name = strdup(supported_charset_list[i]);
 	if (font_data->name == NULL)
-	    return False;
+	    return false;
     }
 
     /* required charset list */
     required_list = Xmalloc(sizeof(char *));
     if (required_list == NULL)
-	return False;
+	return false;
 
     bufptr = strdup(data->font_data->name);
     if (bufptr == NULL) {
 	Xfree(required_list);
-	return False;
+	return false;
     }
 
     om->core.required_charset.charset_list = required_list;
@@ -1062,22 +1062,22 @@ init_om(
     /* orientation list */
     orientation = Xmalloc(sizeof(XOrientation));
     if (orientation == NULL)
-	return False;
+	return false;
 
     *orientation = XOMOrientation_LTR_TTB;
     om->core.orientation_list.orientation = orientation;
     om->core.orientation_list.num_orientation = 1;
 
     /* directional dependent drawing */
-    om->core.directional_dependent = False;
+    om->core.directional_dependent = false;
 
     /* contextual drawing */
-    om->core.contextual_drawing = False;
+    om->core.contextual_drawing = false;
 
     /* context dependent */
-    om->core.context_dependent = False;
+    om->core.context_dependent = false;
 
-    return True;
+    return true;
 }
 
 XOM
@@ -1111,7 +1111,7 @@ _XDefaultOpenOM(XLCd lcd, Display *dpy, XrmDatabase rdb,
     om->core.resources = om_resources;
     om->core.num_resources = XlcNumber(om_resources);
 
-    if (init_om(om) == False)
+    if (init_om(om) == false)
 	goto err;
 
     return om;

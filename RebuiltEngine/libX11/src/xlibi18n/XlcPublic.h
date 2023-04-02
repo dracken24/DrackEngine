@@ -129,7 +129,7 @@ extern XlcCharSet _XlcGetCharSetWithSide(
 );
 
 /* Registers an XlcCharSet in the list of character sets.
-   Returns True if successful. */
+   Returns true if successful. */
 extern Bool _XlcAddCharSet(
     XlcCharSet		charset
 );

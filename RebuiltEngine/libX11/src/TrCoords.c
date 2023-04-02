@@ -48,10 +48,10 @@ Bool XTranslateCoordinates(
     req->dstWid = dest_win;
     req->srcX = src_x;
     req->srcY = src_y;
-    if (_XReply (dpy, (xReply *)&rep, 0, xTrue) == 0) {
+    if (_XReply (dpy, (xReply *)&rep, 0, xtrue) == 0) {
 	    UnlockDisplay(dpy);
 	    SyncHandle();
-	    return(False);
+	    return(false);
 	}
 
     *child = rep.child;

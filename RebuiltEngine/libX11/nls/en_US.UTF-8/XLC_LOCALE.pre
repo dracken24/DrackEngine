@@ -6,7 +6,7 @@ XCOMM 	XLC_FONTSET category
 XCOMM 
 XLC_FONTSET
 
-on_demand_loading	True
+on_demand_loading	true
 
 object_name		generic
 
@@ -65,13 +65,13 @@ fs5	{
 		primary	ISO8859-5:GR
 	}
 }
-XCOMM	fs6 class (koi8-r)
+XCOMM	fs6 class (kosint8-r)
 fs6	{
 	charset	{
-		name	KOI8-R:GR
+		name	KOsint8-R:GR
 	}
 	font	{
-		primary	KOI8-R:GR
+		primary	KOsint8-R:GR
 	}
 }
 XCOMM	fs7 class (ISO8859 families)
@@ -175,7 +175,7 @@ XLC_XLOCALE
 
 encoding_name		UTF-8
 mb_cur_max		6
-state_depend_encoding	False
+state_depend_encoding	false
 
 XCOMM	cs0 class
 cs0	{

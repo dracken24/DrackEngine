@@ -177,7 +177,7 @@ structure:
 typedef struct {
     int             type;        /* Xkb extension base event code */
     unsigned long   serial;      /* X server serial number for event */
-    Bool            send_event;  /* <symbol>True</symbol> &rArr; synthetically generated */
+    Bool            send_event;  /* <symbol>true</symbol> &rArr; synthetically generated */
     Display *       display;     /* server connection where event generated */
     Time            time;        /* server time when event generated */
     int             xkb_type;    /* Xkb minor event code */
@@ -394,9 +394,9 @@ clear them via another call to
 <para>
 <function>XkbSelectEvents</function>
 returns
-<symbol>False</symbol>
+<symbol>false</symbol>
 if the Xkb extension has not been initialized and
-<symbol>True</symbol>
+<symbol>true</symbol>
 otherwise.
 </para>
 

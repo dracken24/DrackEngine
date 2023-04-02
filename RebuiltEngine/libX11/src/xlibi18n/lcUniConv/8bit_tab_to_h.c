@@ -5,22 +5,22 @@
  * hexadecimal integers.
  * Examples:
  *
- *   ./8bit_tab_to_h ISO-8859-1 iso8859_1 < tab8859_1
- *   ./8bit_tab_to_h ISO-8859-2 iso8859_2 < tab8859_2
- *   ./8bit_tab_to_h ISO-8859-3 iso8859_3 < tab8859_3
- *   ./8bit_tab_to_h ISO-8859-4 iso8859_4 < tab8859_4
- *   ./8bit_tab_to_h ISO-8859-5 iso8859_5 < tab8859_5
- *   ./8bit_tab_to_h ISO-8859-6 iso8859_6 < tab8859_6
- *   ./8bit_tab_to_h ISO-8859-7 iso8859_7 < tab8859_7
- *   ./8bit_tab_to_h ISO-8859-8 iso8859_8 < tab8859_8
- *   ./8bit_tab_to_h ISO-8859-9 iso8859_9 < tab8859_9
- *   ./8bit_tab_to_h ISO-8859-10 iso8859_10 < tab8859_10
- *   ./8bit_tab_to_h ISO-8859-14 iso8859_14 < tab8859_14
- *   ./8bit_tab_to_h ISO-8859-15 iso8859_15 < tab8859_15
+ *   ./8bit_tab_to_h ISO-8859-1 iso8859_1 < tabl8859_1
+ *   ./8bit_tab_to_h ISO-8859-2 iso8859_2 < tabl8859_2
+ *   ./8bit_tab_to_h ISO-8859-3 iso8859_3 < tabl8859_3
+ *   ./8bit_tab_to_h ISO-8859-4 iso8859_4 < tabl8859_4
+ *   ./8bit_tab_to_h ISO-8859-5 iso8859_5 < tabl8859_5
+ *   ./8bit_tab_to_h ISO-8859-6 iso8859_6 < tabl8859_6
+ *   ./8bit_tab_to_h ISO-8859-7 iso8859_7 < tabl8859_7
+ *   ./8bit_tab_to_h ISO-8859-8 iso8859_8 < tabl8859_8
+ *   ./8bit_tab_to_h ISO-8859-9 iso8859_9 < tabl8859_9
+ *   ./8bit_tab_to_h ISO-8859-10 iso8859_10 < tabl8859_10
+ *   ./8bit_tab_to_h ISO-8859-14 iso8859_14 < tabl8859_14
+ *   ./8bit_tab_to_h ISO-8859-15 iso8859_15 < tabl8859_15
  *   ./8bit_tab_to_h JISX0201.1976-0 jisx0201 < jis0201
  *   ./8bit_tab_to_h TIS620-0 tis620 < tabtis620
- *   ./8bit_tab_to_h KOI8-R koi8_r < tabkoi8_r
- *   ./8bit_tab_to_h KOI8-U koi8_u < tabkoi8_u
+ *   ./8bit_tab_to_h KOsint8-R kosint8_r < tabkosint8_r
+ *   ./8bit_tab_to_h KOsint8-U kosint8_u < tabkosint8_u
  *   ./8bit_tab_to_h ARMSCII-8 armscii_8 < tabarmscii_8
  *   ./8bit_tab_to_h CP1133 cp1133 < tabibm_cp1133
  *   ./8bit_tab_to_h MULELAO-1 mulelao < tabmulelao_1
@@ -42,7 +42,7 @@
  *   ./8bit_tab_to_h ISO-8859-14 iso8859_14 < 8859-14.TXT
  *   ./8bit_tab_to_h ISO-8859-15 iso8859_15 < 8859-15.TXT
  *   ./8bit_tab_to_h JISX0201.1976-0 jisx0201 < JIS0201.TXT
- *   ./8bit_tab_to_h KOI8-R koi8_r < KOI8-R.TXT
+ *   ./8bit_tab_to_h KOsint8-R kosint8_r < KOsint8-R.TXT
  */
 
 #include <stdio.h>

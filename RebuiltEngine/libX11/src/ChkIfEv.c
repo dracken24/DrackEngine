@@ -66,7 +66,7 @@ Bool XCheckIfEvent (
 		    _XStoreEventCookie(dpy, event);
 		    dpy->in_ifevent--;
 		    UnlockDisplay(dpy);
-		    return True;
+		    return true;
 		}
 	    }
 	    if (prev)
@@ -85,5 +85,5 @@ Bool XCheckIfEvent (
 	}
 	dpy->in_ifevent--;
 	UnlockDisplay(dpy);
-	return False;
+	return false;
 }

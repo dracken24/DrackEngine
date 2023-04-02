@@ -72,7 +72,7 @@ backfilled with the current state of the retrieved indicator
 backfilled with the mapping for the retrieved indicator 
 .TP
 .I real_rtrn
-backfilled with True if the named indicator is real (physical)
+backfilled with true if the named indicator is real (physical)
 .SH DESCRIPTION
 .LP
 Xkb also allows applications to refer to indicators by name. Use 
@@ -88,10 +88,10 @@ If the device specified by
 .I device_spec 
 has an indicator named 
 .IR name ", " XkbGetNamedDeviceIndicator
-returns True and populates the rest of the parameters with information about the 
+returns true and populates the rest of the parameters with information about the 
 indicator. Otherwise, 
 .I XkbGetNamedDeviceIndicator
-returns False.
+returns false.
 
 The 
 .I ndx_rtrn 
@@ -99,12 +99,12 @@ field returns the zero-based index of the named indicator. This index is the bit
 position to use in any function call that requires a mask of indicator bits, as 
 well as the indicator's index into the XkbIndicatorRec array of indicator maps. 
 .I state_rtrn 
-returns the current state of the named indicator (True = on, False = off). 
+returns the current state of the named indicator (true = on, false = off). 
 .I map_rtrn 
 returns the indicator map for the named indicator. In addition, if the indicator 
 is mapped to a physical LED, the 
 .I real_rtrn 
-parameter is set to True.
+parameter is set to true.
 
 Each of the "
 .I _rtrn
@@ -133,18 +133,18 @@ It returns the return value from
 
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .IR XkbGetNamedIndicator " and " XkbGetNamedDeviceIndicator
-functions return True if the device specified by
+functions return true if the device specified by
 .I device_spec 
 has an indicator named 
 .IR name .
 .TP 15
-False
+false
 The 
 .IR XkbGetNamedIndicator " and " XkbGetNamedDeviceIndicator
-functions return False if the device specified by
+functions return false if the device specified by
 .I device_spec 
 does not have an indicator named 
 .IR name .

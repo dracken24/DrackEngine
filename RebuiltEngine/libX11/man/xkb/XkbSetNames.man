@@ -83,7 +83,7 @@ and specify a subset of the types for which the corresponding names are to be
 changed. If either or both of 
 these mask bits are set but the specified types are illegal, 
 .I XkbSetNames 
-returns False and does not update any of the names specified in 
+returns false and does not update any of the names specified in 
 .I which. 
 The specified types are illegal if 
 .I xkb 

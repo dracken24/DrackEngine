@@ -33,7 +33,7 @@ THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include <X11/extensions/XKBproto.h>
 #include "XKBlibint.h"
 
-static Bool _XkbIgnoreExtension = False;
+static Bool _XkbIgnoreExtension = false;
 
 void
 XkbNoteMapChanges(XkbMapChangesPtr old,
@@ -214,10 +214,10 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
 
     if ((dpy->flags & XlibDisplayNoXkb) ||
         (!dpy->xkb_info && !XkbUseExtension(dpy, NULL, NULL)))
-        return False;
+        return false;
     xkbi = dpy->xkb_info;
     if (((event->u.u.type & 0x7f) - xkbi->codes->first_event) != XkbEventCode)
-        return False;
+        return false;
 
     switch (xkbevent->u.any.xkbType) {
     case XkbStateNotify:
@@ -253,7 +253,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             sev->lookup_mods = sn->lookupMods;
             sev->compat_lookup_mods = sn->compatLookupMods;
             sev->ptr_buttons = sn->ptrBtnState;
-            return True;
+            return true;
         }
     }
         break;
@@ -293,7 +293,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             XkbNoteMapChanges(&xkbi->changes, mev, XKB_XLIB_MAP_MASK);
             if (xkbi->changes.changed)
                 xkbi->flags |= XkbMapPending;
-            return True;
+            return true;
         }
         else if (mn->nKeySyms > 0) {
             register XMappingEvent *ev = (XMappingEvent *) re;
@@ -309,7 +309,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             _XkbNoteCoreMapChanges(&xkbi->changes, ev, XKB_XLIB_MAP_MASK);
             if (xkbi->changes.changed)
                 xkbi->flags |= XkbMapPending;
-            return True;
+            return true;
         }
     }
         break;
@@ -334,7 +334,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             cev->event_type = cn->eventType;
             cev->req_major = cn->requestMajor;
             cev->req_minor = cn->requestMinor;
-            return True;
+            return true;
         }
     }
         break;
@@ -353,7 +353,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             iev->device = in->deviceID;
             iev->changed = in->changed;
             iev->state = in->state;
-            return True;
+            return true;
         }
     }
         break;
@@ -372,7 +372,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             iev->device = in->deviceID;
             iev->changed = in->changed;
             iev->state = in->state;
-            return True;
+            return true;
         }
     }
         break;
@@ -397,7 +397,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             bev->name = bn->name;
             bev->window = bn->window;
             bev->event_only = bn->eventOnly;
-            return True;
+            return true;
         }
     }
         break;
@@ -418,7 +418,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             axev->keycode = axn->keycode;
             axev->sk_delay = axn->slowKeysDelay;
             axev->debounce_delay = axn->debounceDelay;
-            return True;
+            return true;
         }
     }
         break;
@@ -447,7 +447,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             nev->changed_indicators = nn->changedIndicators;
             nev->first_key = nn->firstKey;
             nev->num_keys = nn->nKeys;
-            return True;
+            return true;
         }
     }
         break;
@@ -468,7 +468,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             cmev->first_si = cmn->firstSI;
             cmev->num_si = cmn->nSI;
             cmev->num_total_si = cmn->nTotalSI;
-            return True;
+            return true;
         }
     }
         break;
@@ -492,7 +492,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             amev->mods = am->mods;
             memcpy(amev->message, am->message, XkbActionMessageLength);
             amev->message[XkbActionMessageLength] = '\0';
-            return True;
+            return true;
         }
     }
         break;
@@ -519,7 +519,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             edev->first_btn = ed->firstBtn;
             edev->num_btns = ed->nBtns;
             edev->unsupported = ed->unsupported;
-            return True;
+            return true;
         }
     }
         break;
@@ -551,7 +551,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
                  (nkev->device != nkev->old_device))) {
                 xkbi->flags = XkbMapPending | XkbXlibNewKeyboard;
             }
-            return True;
+            return true;
         }
         else if (nkn->changed & (XkbNKN_KeycodesMask | XkbNKN_DeviceIDMask)) {
             register XMappingEvent *ev = (XMappingEvent *) re;
@@ -569,7 +569,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
                  (nkn->deviceID != nkn->oldDeviceID))) {
                 xkbi->flags |= XkbMapPending | XkbXlibNewKeyboard;
             }
-            return True;
+            return true;
         }
     }
         break;
@@ -580,7 +580,7 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
 #endif
         break;
     }
-    return False;
+    return false;
 }
 
 Bool
@@ -591,7 +591,7 @@ XkbIgnoreExtension(Bool ignore)
         fprintf(stderr,
                 "Forcing use of XKEYBOARD (overriding an IgnoreExtensions)\n");
 #endif
-        return False;
+        return false;
     }
 #ifdef DEBUG
     else if (getenv("XKB_DEBUG") != NULL) {
@@ -600,7 +600,7 @@ XkbIgnoreExtension(Bool ignore)
     }
 #endif
     _XkbIgnoreExtension = ignore;
-    return True;
+    return true;
 }
 
 static void
@@ -610,7 +610,7 @@ _XkbFreeInfo(Display *dpy)
 
     if (xkbi) {
         if (xkbi->desc)
-            XkbFreeKeyboard(xkbi->desc, XkbAllComponentsMask, True);
+            XkbFreeKeyboard(xkbi->desc, XkbAllComponentsMask, true);
         Xfree(xkbi);
         dpy->xkb_info = NULL;
     }
@@ -633,7 +633,7 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
             *major_rtrn = dpy->xkb_info->srv_major;
         if (minor_rtrn)
             *minor_rtrn = dpy->xkb_info->srv_minor;
-        return True;
+        return true;
     }
     if (!been_here) {
         debugMsg = (getenv("XKB_DEBUG") != NULL);
@@ -648,7 +648,7 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
     if (!dpy->xkb_info) {
         xkbi = _XkbTypedCalloc(1, XkbInfoRec);
         if (!xkbi)
-            return False;
+            return false;
         dpy->xkb_info = xkbi;
         dpy->free_funcs->xkb = _XkbFreeInfo;
 
@@ -690,7 +690,7 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
                 else {
                     xkbi->xlib_ctrls |= XkbLC_ComposeLED;
                     if (strlen(str) > 0)
-                        xkbi->composeLED = XInternAtom(dpy, str, False);
+                        xkbi->composeLED = XInternAtom(dpy, str, false);
                 }
             }
             if ((str = getenv("_XKB_COMP_FAIL_BEEP")) != NULL) {
@@ -702,7 +702,7 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
         }
         if ((xkbi->composeLED == None) &&
             ((xkbi->xlib_ctrls & XkbLC_ComposeLED) != 0))
-            xkbi->composeLED = XInternAtom(dpy, "Compose", False);
+            xkbi->composeLED = XInternAtom(dpy, "Compose", false);
 #ifdef DEBUG
         if (debugMsg) {
             register unsigned c = xkbi->xlib_ctrls;
@@ -734,7 +734,7 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
         UnlockDisplay(dpy);
         if (debugMsg)
             fprintf(stderr, "XKEYBOARD extension disabled or missing\n");
-        return False;
+        return false;
     }
 
     if ((codes = XInitExtension(dpy, XkbName)) == NULL) {
@@ -743,7 +743,7 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
         UnlockDisplay(dpy);
         if (debugMsg)
             fprintf(stderr, "XKEYBOARD extension not present\n");
-        return False;
+        return false;
     }
     xkbi->codes = codes;
     LockDisplay(dpy);
@@ -753,8 +753,8 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
     req->xkbReqType = X_kbUseExtension;
     req->wantedMajor = XkbMajorVersion;
     req->wantedMinor = XkbMinorVersion;
-    if (!_XReply(dpy, (xReply *) &rep, 0, xFalse) || !rep.supported) {
-        Bool fail = True;
+    if (!_XReply(dpy, (xReply *) &rep, 0, xfalse) || !rep.supported) {
+        Bool fail = true;
 
         if (debugMsg)
             fprintf(stderr,
@@ -771,10 +771,10 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
             req->xkbReqType = X_kbUseExtension;
             req->wantedMajor = 0;
             req->wantedMinor = 65;
-            if (_XReply(dpy, (xReply *) &rep, 0, xFalse) && rep.supported) {
+            if (_XReply(dpy, (xReply *) &rep, 0, xfalse) && rep.supported) {
                 if (debugMsg)
                     fprintf(stderr, "succeeded\n");
-                fail = False;
+                fail = false;
             }
             else if (debugMsg)
                 fprintf(stderr, "failed\n");
@@ -787,7 +787,7 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
                 *major_rtrn = rep.serverMajor;
             if (minor_rtrn)
                 *minor_rtrn = rep.serverMinor;
-            return False;
+            return false;
         }
     }
 #ifdef DEBUG
@@ -811,5 +811,5 @@ XkbUseExtension(Display *dpy, int *major_rtrn, int *minor_rtrn)
     ev_base = codes->first_event;
     XESetWireToEvent(dpy, ev_base + XkbEventCode, wire_to_event);
     SyncHandle();
-    return True;
+    return true;
 }

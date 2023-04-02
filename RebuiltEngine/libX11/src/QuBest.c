@@ -47,7 +47,7 @@ Status XQueryBestSize(
     req->drawable = drawable;
     req->width = width;
     req->height = height;
-    if (_XReply (dpy, (xReply *)&rep, 0, xTrue) == 0) {
+    if (_XReply (dpy, (xReply *)&rep, 0, xtrue) == 0) {
 	    UnlockDisplay(dpy);
 	    SyncHandle();
 	    return 0;

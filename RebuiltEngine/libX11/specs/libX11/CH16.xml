@@ -482,7 +482,7 @@ Specifies the KeySym that is to be tested.
 <!-- .eM -->
 <indexterm significance="preferred"><primary>IsCursorKey</primary></indexterm>
 Returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the specified KeySym is a cursor key.
 </para>
 <!-- .LP -->
@@ -508,7 +508,7 @@ Specifies the KeySym that is to be tested.
 <!-- .eM -->
 <indexterm significance="preferred"><primary>IsFunctionKey</primary></indexterm>
 Returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the specified KeySym is a function key.
 </para>
 <!-- .LP -->
@@ -534,7 +534,7 @@ Specifies the KeySym that is to be tested.
 <!-- .eM -->
 <indexterm significance="preferred"><primary>IsKeypadKey</primary></indexterm>
 Returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the specified KeySym is a standard keypad key.
 </para>
 <!-- .LP -->
@@ -560,7 +560,7 @@ Specifies the KeySym that is to be tested.
 <!-- .eM -->
 <indexterm significance="preferred"><primary>IsPrivateKeypadKey</primary></indexterm>
 Returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the specified KeySym is a vendor-private keypad key.
 </para>
 
@@ -587,7 +587,7 @@ Specifies the KeySym that is to be tested.
 <!-- .eM -->
 <indexterm significance="preferred"><primary>IsMiscFunctionKey</primary></indexterm>
 Returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the specified KeySym is a miscellaneous function key.
 </para>
 <!-- .LP -->
@@ -613,7 +613,7 @@ Specifies the KeySym that is to be tested.
 <!-- .eM -->
 <indexterm significance="preferred"><primary>IsModifierKey</primary></indexterm>
 Returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the specified KeySym is a modifier key.
 </para>
 
@@ -637,7 +637,7 @@ Specifies the KeySym that is to be tested.
 <!-- .eM -->
 <indexterm significance="preferred"><primary>IsPFKey</primary></indexterm>
 Returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the specified KeySym is a PF key.
 </para>
 </sect2>
@@ -1927,7 +1927,7 @@ Specifies the region.
 The
 <xref linkend='XEmptyRegion' xrefstyle='select: title'/>
 function returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the region is empty.
 </para>
 <para>
@@ -1975,7 +1975,7 @@ Specify the two regions.
 The
 <xref linkend='XEqualRegion' xrefstyle='select: title'/>
 function returns
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the two regions have the same offset, size, and shape.
 </para>
 </sect2>
@@ -2039,7 +2039,7 @@ Specify the x and y coordinates, which define the point.
 The
 <xref linkend='XPointInRegion' xrefstyle='select: title'/>
 function returns 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if the point (x, y) is contained in the region r.
 </para>
 <para>

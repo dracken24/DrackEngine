@@ -13,73 +13,50 @@
 #ifndef MAIN_HPP
 # define MAIN_HPP
 
-# include "core/application.hpp"
-# include "core/logger.hpp"
-# include "gameType.hpp"
-# include "core/deMemory.hpp"
+#include "core/application.hpp"
+#include "core/logger.hpp"
+#include "core/kmemory.hpp"
+#include "game_types.hpp"
 
-// Tell game have an extern function to create the game.
-extern bl8  CreateGame(Game* game);
+// Externally-defined function to create a game.
+extern bl8 create_game(game* out_game);
 
-// void TEST_MEMORY(void)
-// {
-//     char *str = (char *)DE_Malloc(sizeof(char) * 50000000, DE_MEMORY_TAG_STRING);
-//     Game *game = (Game *)DE_Malloc(sizeof(Game) * 15000000, DE_MEMORY_TAG_DICT);
-//     char *la = (char *)DE_Malloc(sizeof(char) * 500000000, DE_MEMORY_TAG_ENTITY);
+/**
+ * The main entry point of the application.
+ */
+int main(void)
+{
 
-//     std::cout << DE_GetMemoryUsageString(DE_MEMORY_TAG_MAX_TAGS) << std::endl;
+    initialize_memory();
 
-//     DE_Free(str, sizeof(char) * 50000000, DE_MEMORY_TAG_STRING);
-//     DE_Free(game, sizeof(Game) * 15000000, DE_MEMORY_TAG_DICT);
-//     DE_Free(la, sizeof(char) * 500000000, DE_MEMORY_TAG_ENTITY);
-// }
+    // Request the game instance from the application.
+    game game_inst;
+    if (!create_game(&game_inst)) {
+        DE_FATAL("Could not create game!");
+        return -1;
+    }
 
-// // Main entry point for the application.
-// int main(void)
-// {
-//     // Initialize the platform.
-//     InitMemory();
+    // Ensure the function pointers exist.
+    if (!game_inst.render || !game_inst.update || !game_inst.initialize || !game_inst.onResize) {
+        DE_FATAL("The game's function pointers must be assigned!");
+        return -2;
+    }
 
-//     Core core;
+    // Initialization.
+    if (!application_create(&game_inst)) {
+        DE_FATAL("Application failed to create!.");
+        return 1;
+    }
 
-//     // Create an instance of the game.
-//     Game gameInst;
-//     if (!CreateGame(&gameInst))
-//     {
-//         DE_FATAL("Failed to create game.");
-//         return (-1);
-//     }
-//     std::cout << DE_GetMemoryUsageString(DE_MEMORY_TAG_MAX_TAGS) << std::endl;
+    // Begin the game loop.
+    if(!application_run()) {
+        DE_INFO("Application did not shutdown gracefully.");
+        return 2;
+    }
 
-//     // Check if the game has a valid function pointer for initialize.
-//     if (!gameInst.render || !gameInst.update || !gameInst.initialize || !gameInst.onResize)
-//     {
-//         DE_FATAL("Game instance is missing a function pointer.");
-//         return (-2);
-//     }
+    shutdown_memory();
 
-//     // TEST_MEMORY();
-//     // Initialize the engine.
-//     if (!core.ApplicationStart(&gameInst))
-//     {
-//         DE_INFO("Engine failed to start properly.");
-//         return (1);
-//     }
+    return 0;
+}
 
-//     // Run the engine loop.
-//     if (!core.ApplicationRun())
-//     {
-//         DE_INFO("Engine failed to close properly.");
-//         return (2);
-//     }
-
-//     // TODO: Function for free memory.
-//     // gameInst.platform.PlatformFree(gameInst.state, false);
-//     DE_Free(gameInst.state, sizeof(gameInst.state) * 1, DE_MEMORY_TAG_GAME);
-//     ShutdownMemory();
-//     std::cout << DE_GetMemoryUsageString(DE_MEMORY_TAG_MAX_TAGS) << std::endl;
-
-//     return (0);
-// }
-
-#endif
+#endif // MAIN_HPP

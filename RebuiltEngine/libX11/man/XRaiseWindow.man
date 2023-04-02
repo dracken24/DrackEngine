@@ -94,7 +94,7 @@ Raising a mapped window may generate
 events for the window and any mapped subwindows that were formerly obscured.
 .LP
 If the override-redirect attribute of the window is
-.B False
+.B false
 and some
 other client has selected
 .B SubstructureRedirectMask
@@ -122,7 +122,7 @@ Lowering a mapped window will generate
 events on any windows it formerly obscured.
 .LP
 If the override-redirect attribute of the window is
-.B False
+.B false
 and some
 other client has selected
 .B SubstructureRedirectMask
@@ -217,7 +217,7 @@ a
 error results.
 .LP
 If the override-redirect attribute of a window is
-.B False
+.B false
 and some
 other client has selected
 .B SubstructureRedirectMask

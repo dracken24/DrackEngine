@@ -31,5 +31,5 @@ ignoreFlags="-Wno-comment"
 defines="-D_DEBUG -DKIMPORT"
 
 echo "Building $assembly... in testBed/build.sh"
-echo clang++ $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags $ignoreFlags
+clang++ $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags $ignoreFlags
 clang++ $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags $ignoreFlags

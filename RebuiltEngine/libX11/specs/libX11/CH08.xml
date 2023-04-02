@@ -155,7 +155,7 @@ background
 the contents of the window are not changed.  
 In either
 case, if exposures is 
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 one or more 
 <symbol>Expose</symbol>
 events are generated for regions of the rectangle that are either visible or are
@@ -225,7 +225,7 @@ function clears the entire area in the specified window and is
 equivalent to
 <xref linkend='XClearArea' xrefstyle='select: title'/>
 (display, w, 0, 0, 0, 0, 
-<symbol>False</symbol>).
+<symbol>false</symbol>).
 If the window has a defined background tile, the rectangle is tiled with a
 plane-mask of all ones and 
 <symbol>GXcopy</symbol>
@@ -426,19 +426,19 @@ of the destination are tiled with that background
 function).
 Regardless of tiling or whether the destination is a window or a pixmap,
 if graphics-exposures is 
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 then
 <symbol>GraphicsExpose</symbol>
 events for all corresponding destination regions are generated.
 If graphics-exposures is 
-<symbol>True</symbol>
+<symbol>true</symbol>
 but no
 <symbol>GraphicsExpose</symbol>
 events are generated, a
 <symbol>NoExpose</symbol>
 event is generated.
 Note that by default graphics-exposures is
-<symbol>True</symbol>
+<symbol>true</symbol>
 in new GCs.
 </para>
 <para>
@@ -2849,7 +2849,7 @@ as given by both min_bounds and max_bounds.
   <listitem>
     <para>
 If all_chars_exist is 
-<symbol>True</symbol>,
+<symbol>true</symbol>,
 all characters in the per_char array have nonzero bounding boxes.
     </para>
   </listitem>
@@ -3354,9 +3354,9 @@ the
 function returns the value of the specified font property. 
 <xref linkend='XGetFontProperty' xrefstyle='select: title'/>
 also returns 
-<symbol>False</symbol>
+<symbol>false</symbol>
 if the property was not defined or 
-<symbol>True</symbol>
+<symbol>true</symbol>
 if it was defined.
 A set of predefined atoms exists for font properties,
 which can be found in

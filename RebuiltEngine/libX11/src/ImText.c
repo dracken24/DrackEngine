@@ -41,7 +41,7 @@ XDrawImageString(
 {
     register xImageText8Req *req;
     char *CharacterOffset = (char *)string;
-    int FirstTimeThrough = True;
+    int FirstTimeThrough = true;
     int lastX = 0;
 
     LockDisplay(dpy);
@@ -56,7 +56,7 @@ XDrawImageString(
 
    	if (FirstTimeThrough)
 	{
-	    FirstTimeThrough = False;
+	    FirstTimeThrough = false;
         }
 	else
 	{
@@ -76,7 +76,7 @@ XDrawImageString(
 		*ptr++ = *str++;
 	    }
 	    Data (dpy, buf, 510);
-	    if (!_XReply (dpy, (xReply *)&rep, 0, xTrue))
+	    if (!_XReply (dpy, (xReply *)&rep, 0, xtrue))
 		break;
 
 	    x = lastX + cvtINT32toInt (rep.overallWidth);

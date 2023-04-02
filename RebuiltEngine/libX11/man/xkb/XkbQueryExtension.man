@@ -89,7 +89,7 @@ function determines whether a compatible version of the X
 Keyboard Extension is present in the server. If a compatible extension is 
 present, 
 .I XkbQueryExtension 
-returns True; otherwise, it returns False. 
+returns true; otherwise, it returns false. 
 
 If a compatible version of Xkb is present, 
 .I XkbQueryExtension 
@@ -109,16 +109,16 @@ The major opcode is reported in the
 fields of some Xkb events. For a discussion of the base event code. 
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbQueryExtension 
-function returns True if it determines a compatible version of the X 
+function returns true if it determines a compatible version of the X 
 Keyboard Extension is present in the server. 
 .TP 15
-False
+false
 The 
 .I XkbQueryExtension 
-function returns False if it determines a compatible version of the X 
+function returns false if it determines a compatible version of the X 
 Keyboard Extension is not present in the server.
 .SH "SEE ALSO"
 .BR XkbIgnoreExtension (__libmansuffix__),

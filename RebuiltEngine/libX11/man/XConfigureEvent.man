@@ -82,7 +82,7 @@ structure with the type member set to
 .BR GraphicsExpose .
 The display member is set to a pointer to the display the event was read on.
 The send_event member is set to
-.B True
+.B true
 if the event came from a
 .B SendEvent
 protocol request.
@@ -122,7 +122,7 @@ window.
 Window manager clients normally should ignore this window if the
 override_redirect member
 is
-.BR True .
+.BR true .
 .SH "SEE ALSO"
 XAnyEvent(__libmansuffix__),
 XButtonEvent(__libmansuffix__),

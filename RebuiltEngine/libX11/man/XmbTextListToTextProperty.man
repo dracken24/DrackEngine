@@ -223,7 +223,7 @@ existence of a converter from COMPOUND_TEXT, STRING, UTF8_STRING
 or the encoding of the current locale is guaranteed if
 .B XSupportsLocale
 returns
-.B True
+.B true
 for the current locale (but the actual text
 may contain unconvertible characters).
 Conversion of other encodings is implementation-dependent.

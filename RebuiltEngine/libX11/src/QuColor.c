@@ -46,7 +46,7 @@ XQueryColor(
 
     OneDataCard32 (dpy, NEXTPTR(req,xQueryColorsReq), val);
 
-    if (_XReply(dpy, (xReply *) &rep, 0, xFalse) != 0) {
+    if (_XReply(dpy, (xReply *) &rep, 0, xfalse) != 0) {
 
 	    _XRead(dpy, (char *)&color, (long) SIZEOF(xrgb));
 

@@ -81,8 +81,8 @@ typedef char *XPointer;
 
 #define Bool int
 #define Status int
-#define True 1
-#define False 0
+#define true 1
+#define false 0
 
 #define QueuedAlready 0
 #define QueuedAfterReading 1

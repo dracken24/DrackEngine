@@ -75,7 +75,7 @@ T}
 XkbAXN_BKReject	T{
 A key was rejected (pressed before the BounceKeys delay expired).
 T}
-XkbAXN_AXKWarning	T{
+XkbAXN_AXDE_WARNINGing	T{
 AccessXKeys is about to turn on/off StickyKeys or BounceKeys.
 T}
 .TE
@@ -138,7 +138,7 @@ T}
 XkbAXN_BKRejectMask	(1<<5)	T{
 Bounce key reject notification wanted
 T}
-XkbAXN_AXKWarningMask	(1<<6)	T{
+XkbAXN_AXDE_WARNINGingMask	(1<<6)	T{
 AccessX warning notification wanted
 T}
 XkbAllAccessXEventsMask	(0x7f)	T{
@@ -160,25 +160,25 @@ AccessXNotify event.
 
 .I XkbSetBounceKeysDelay
 sends a request to configure the BounceKeys control to the server. It does not 
-wait for a reply and normally returns True. Specifying a value of zero for the 
+wait for a reply and normally returns true. Specifying a value of zero for the 
 delay parameter causes 
 .I XkbSetBounceKeysDelay 
 to generate a BadValue protocol error. If a compatible version of the Xkb 
 extension is not available in the server, 
 .I XkbSetBounceKeysDelay 
-returns False.
+returns false.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbSetBounceKeysDelay
-function returns True when it sends a request to configure the BounceKeys 
+function returns true when it sends a request to configure the BounceKeys 
 control to the server.
 .TP 15
-False
+false
 The 
 .I XkbSetBounceKeysDelay
-function returns False if a compatible version of the Xkb extension is not 
+function returns false if a compatible version of the Xkb extension is not 
 available in the server.
 .SH STRUCTURES
 .LP
@@ -188,7 +188,7 @@ The structure for the XkbAccessXNotify event type is as follows:
 typedef struct {
     int            type;           /\&* Xkb extension base event code */
     unsigned long  serial;         /\&* X server serial number for event */
-    Bool           send_event;     /\&* True => synthetically generated */
+    Bool           send_event;     /\&* true => synthetically generated */
     Display *      display;        /\&* server connection where event generated */
     Time           time;           /\&* server time when event generated */
     int            xkb_type;       /\&* XkbAccessXNotify */

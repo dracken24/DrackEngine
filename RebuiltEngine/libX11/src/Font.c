@@ -209,7 +209,7 @@ _XQueryFont (
     }
     GetResReq(QueryFont, fid, req);
     if (!_XReply (dpy, (xReply *) &reply,
-       ((SIZEOF(xQueryFontReply) - SIZEOF(xReply)) >> 2), xFalse)) {
+       ((SIZEOF(xQueryFontReply) - SIZEOF(xReply)) >> 2), xfalse)) {
 	if (seq)
 	    DeqAsyncHandler(dpy, &async);
 	return (XFontStruct *)NULL;
@@ -364,7 +364,7 @@ _XF86BigfontCodes (
 
 	result = _XReply (dpy, (xReply *) &reply,
 		(SIZEOF(xXF86BigfontQueryVersionReply) - SIZEOF(xReply)) >> 2,
-		xFalse);
+		xfalse);
 
 	UnlockDisplay(dpy);
     	SyncHandle();
@@ -451,7 +451,7 @@ _XF86BigfontQueryFont (
     dpy->async_handlers = &async2;
 
     if (!_XReply (dpy, (xReply *) &reply,
-       ((SIZEOF(xXF86BigfontQueryFontReply) - SIZEOF(xReply)) >> 2), xFalse)) {
+       ((SIZEOF(xXF86BigfontQueryFontReply) - SIZEOF(xReply)) >> 2), xfalse)) {
 	DeqAsyncHandler(dpy, &async2);
 	if (seq)
 	    DeqAsyncHandler(dpy, &async1);

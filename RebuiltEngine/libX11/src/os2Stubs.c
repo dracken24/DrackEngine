@@ -121,8 +121,8 @@ struct select_data
 int os2ClientSelect(int nfds, fd_set *readfds, fd_set *writefds,
         fd_set *exceptfds, struct timeval *timeout)
 {
-static BOOL FirstTime=TRUE;
-static haveTCPIP=TRUE;
+static BOOL FirstTime=true;
+static haveTCPIP=true;
 ULONG timeout_ms;
 ULONG postCount, start_millis,now_millis;
 char faildata[16];
@@ -131,30 +131,30 @@ BOOL any_ready;
 int np,ns, i,ready_handles,n;
 APIRET rc;
 
-sd.have_read=FALSE; sd.have_write=FALSE;
+sd.have_read=false; sd.have_write=false;
 sd.socket_nread=0; sd.socket_nwrite=0; sd.socket_ntotal=0;
-sd.max_fds=31; ready_handles=0; any_ready=FALSE;
-sd.pipe_ntotal=0; sd.pipe_have_write=FALSE;
+sd.max_fds=31; ready_handles=0; any_ready=false;
+sd.pipe_ntotal=0; sd.pipe_have_write=false;
 
 if(FirstTime){
    /* First load the so32dll.dll module and get a pointer to the SELECT fn */
 
    if((rc=DosLoadModule(faildata,sizeof(faildata),"SO32DLL",&hmod_so32dll))!=0){
         fprintf(stderr, "Could not load module so32dll.dll, rc = %d. Error note %s\n",rc,faildata);
-        haveTCPIP=FALSE;
+        haveTCPIP=false;
         }
    if((rc = DosQueryProcAddr(hmod_so32dll, 0, "SELECT", (PPFN)&os2_tcp_select))!=0){
         fprintf(stderr, "Could not query address of SELECT, rc = %d.\n",rc);
-        haveTCPIP=FALSE;
+        haveTCPIP=false;
         }
    /* Call these a first time to set the semaphore */
-    rc = DosCreateEventSem(NULL, &hPipeSem, DC_SEM_SHARED, FALSE);
+    rc = DosCreateEventSem(NULL, &hPipeSem, DC_SEM_SHARED, false);
     if(rc) {
              fprintf(stderr, "Could not create event semaphore, rc=%d\n",rc);
              return(-1);
              }
     rc = DosResetEventSem(hPipeSem, &postCount);
-    FirstTime = FALSE;
+    FirstTime = false;
 }
 
 /* Set up the time delay structs */
@@ -168,8 +168,8 @@ if(FirstTime){
 /* Copy the masks */
     {FD_ZERO(&sd.read_copy);}
     {FD_ZERO(&sd.write_copy);}
-    if(readfds!=NULL){ XFD_COPYSET(readfds,&sd.read_copy); sd.have_read=TRUE;}
-    if(writefds!=NULL) {XFD_COPYSET(writefds,&sd.write_copy);sd.have_write=TRUE;}
+    if(readfds!=NULL){ XFD_COPYSET(readfds,&sd.read_copy); sd.have_read=true;}
+    if(writefds!=NULL) {XFD_COPYSET(writefds,&sd.write_copy);sd.have_write=true;}
 
 /* And zero the original masks */
     if(sd.have_read){ FD_ZERO(readfds);}
@@ -217,7 +217,7 @@ if(FirstTime){
         if((sd.socket_ntotal > 0) && (sd.pipe_ntotal)){
            np = os2_check_pipes(&sd,readfds,writefds);
               if(np > 0){
-                 any_ready=TRUE;
+                 any_ready=true;
                  ready_handles += np;
                  }
               else if (np == -1) { return(-1); }
@@ -225,7 +225,7 @@ if(FirstTime){
            ns = os2_check_sockets(&sd,readfds,writefds, 0);
            if(ns>0){
                ready_handles+=ns;
-               any_ready = TRUE;
+               any_ready = true;
                }
            else if (ns == -1) {return(-1);}
 
@@ -236,7 +236,7 @@ if(FirstTime){
                         np = os2_check_pipes(&sd,readfds,writefds);
                         if(np > 0){
                         ready_handles+=np;
-                        any_ready = TRUE;
+                        any_ready = true;
                         }
                         else if (np == -1) {
                                 return(-1); }
@@ -245,7 +245,7 @@ if(FirstTime){
                  ns = os2_check_sockets(&sd,readfds,writefds,exceptfds, 0);
                  if(ns>0){
                       ready_handles+=ns;
-                      any_ready = TRUE;
+                      any_ready = true;
                      }
                  else if (ns == -1) {return(-1);}
 
@@ -330,7 +330,7 @@ int nfds;
             sd -> pipe_ntotal++;
             rc = DosSetNPipeSem((HPIPE)i, (HSEM) hPipeSem, i);
             if(rc) { fprintf(stderr,"Error SETNPIPE rc = %d\n",rc); return -1;}
-            sd -> pipe_have_write=TRUE;
+            sd -> pipe_have_write=true;
           }
         }
       }

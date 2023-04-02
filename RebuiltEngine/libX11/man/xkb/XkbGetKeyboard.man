@@ -84,7 +84,7 @@ as follows:
 .I XkbGetKeyboardByName(dpy, device_spec, 
 NULL, 
 .I which, which, 
-False).
+false).
 .LP
 If successful,
 .B XkbGetKeyboard

@@ -75,9 +75,9 @@ Status XWithdrawWindow (
             .type = UnmapNotify,
             .event = root,
             .window = w,
-            .from_configure = False
+            .from_configure = false
         };
-        return (XSendEvent (dpy, root, False,
+        return (XSendEvent (dpy, root, false,
                             SubstructureRedirectMask|SubstructureNotifyMask,
                             (XEvent *)&ev));
     }

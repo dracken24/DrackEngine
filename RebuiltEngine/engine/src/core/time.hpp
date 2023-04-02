@@ -5,7 +5,7 @@
 /* |             ---------------------------------------------             | */
 /* |             *--*  DATE:		 30-03-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  FILE: 	     clock.hpp            *--*             | */
+/* |             *--*  FILE: 	     time.hpp            *--*             | */
 /* |             ---------------------------------------------             | */
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
@@ -14,7 +14,7 @@
 # define CLOCK_HPP
 
 # include "defines.hpp"
-# include "platform/Platform.hpp"
+# include "platform/platform.hpp"
 
 class Clock
 {
@@ -49,7 +49,7 @@ class Clock
 		void	ClockStop(void);
 
 		myClock		_clock;
-		Platform	_platform;
+		// platform	_platform;
 };
 
 #endif

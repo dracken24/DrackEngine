@@ -45,7 +45,7 @@ Status XAllocColor(
     req->green = def->green;
     req->blue = def->blue;
 
-    status = _XReply(dpy, (xReply *) &rep, 0, xTrue);
+    status = _XReply(dpy, (xReply *) &rep, 0, xtrue);
     if (status) {
       def->pixel = rep.pixel;
       def->red = rep.red;

@@ -44,7 +44,7 @@ mask of compat map components to set
 source for compat map components
 .TP
 .I  update_actions
-True => apply to server's keyboard map 
+true => apply to server's keyboard map 
 .SH DESCRIPTION
 To modify the server's compatibility map, first modify a local copy of the Xkb 
 compatibility map, then call 
@@ -89,11 +89,11 @@ XkbAllCompatMask	(0x3)	All compatibility map components
 
 After updating its compatibility map for the specified device, if 
 .I update_actions 
-is True, the server applies the new compatibility map to its entire keyboard for 
+is true, the server applies the new compatibility map to its entire keyboard for 
 the device to generate a new set of key semantics, compatibility state, and a 
 new core keyboard map. If 
 .I update_actions 
-is False, the new compatibility map is not used to generate any modifications to 
+is false, the new compatibility map is not used to generate any modifications to 
 the current device semantics, state, or core keyboard map. One reason for not 
 applying the compatibility map immediately would be if one server was being 
 configured to match another on a piecemeal basis; the map should not be applied 
@@ -103,22 +103,22 @@ specifying
 .I which 
 as zero and 
 .I update_actions 
-as True. 
+as true. 
 .I XkbSetCompatMap 
-returns True if successful and False if unsuccessful. The server may report 
+returns true if successful and false if unsuccessful. The server may report 
 problems it encounters when processing the request subsequently via protocol 
 errors.
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbSetCompatMap 
-function returns True if successful.
+function returns true if successful.
 .TP 15
-False
+false
 The 
 .I XkbSetCompatMap 
-function returns False if unsuccessful.
+function returns false if unsuccessful.
 .SH STRUCTURES
 The complete description of an Xkb keyboard is given by an XkbDescRec. The 
 component 

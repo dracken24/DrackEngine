@@ -60,8 +60,8 @@ and to unlatch the real modifiers selected by
 .I values. 
 
 .I XkbLatchModifiers 
-does not wait for a reply from the server. It returns True if 
-the request was sent, and False otherwise.
+does not wait for a reply from the server. It returns true if 
+the request was sent, and false otherwise.
 
 The functions in this section that change the use of modifiers use a mask in the 
 parameter affect. It is a bitwise inclusive OR of the legal modifier masks: 
@@ -85,10 +85,10 @@ Mod5Mask
 .TE
 .SH "RETURN VALUES"
 .TP 15
-True
+true
 The 
 .I XkbLatchModifiers 
-function returns True if a request was sent to the server to latch the real modifiers selected by both 
+function returns true if a request was sent to the server to latch the real modifiers selected by both 
 .I affect 
 and 
 .I values 
@@ -97,8 +97,8 @@ and to unlatch the real modifiers selected by
 , but not selected by 
 .I values. 
 .TP 15
-False
+false
 The 
 .I XkbLatchModifiers 
-function returns False if the request was not sent.
+function returns false if the request was not sent.
 

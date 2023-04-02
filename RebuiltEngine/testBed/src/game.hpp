@@ -13,26 +13,26 @@
 #ifndef GAME_HPP
 # define GAME_HPP
 
-# include "defines.hpp"
-# include "gameType.hpp"
+# include <defines.hpp>
+# include <game_types.hpp>
 
 typedef struct gameState
 {
-	fl32		deltaTime;
-}	gameState;
+	fl32 deltaTime;
+} gameState;
 
 //*** NOTE: Thoses functions work with pointer functions enum in gameType.hpp ***//
 
 // Function pointer to game's initialize function.
-bl8		GameInit(struct Game *game_inst);
+bl8		GameInit(struct game *gameInst);
 
 // Function pointer to game's update function.
-bl8		GameUpdate(struct Game *game_inst, fl32 delta_time);
+bl8		GameUpdate(struct game *gameInst, fl32 deltaTime);
 
 // Function pointer to game's render function.
-bl8		GameRender(struct Game *game_inst, fl32 delta_time);
+bl8		GameRender(struct game *gameInst, fl32 deltaTime);
 
 // Function pointer to handle resizes, if applicable.
-void	GameResize(struct Game *game_inst, uint32 width, uint32 height);
+void	GameResize(struct game *gameInst, uint32 width, uint32 height);
 
 #endif

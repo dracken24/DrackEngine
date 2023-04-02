@@ -182,7 +182,7 @@ XCreateFontSet (
 
     if ((oc = XCreateOC(om, XNBaseFontName, base_font_name_list, NULL))) {
 	list = &oc->core.missing_list;
-	oc->core.om_automatic = True;
+	oc->core.om_automatic = true;
     } else
 	list = &om->core.required_charset;
 
