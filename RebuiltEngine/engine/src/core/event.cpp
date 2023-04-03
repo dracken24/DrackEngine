@@ -122,7 +122,7 @@ bl8 EventUnregister(uint16 code, void* listener, eventPtr onEvent)
         {
             // Found one, remove it
             registeredEvent popped_event;
-            ArrayDinPopAt(state.registered[code].events, i, &popped_event);
+            _ArrayDinPopAt(state.registered[code].events, i, &popped_event);
             return true;
         }
     }

@@ -227,8 +227,8 @@ DE_API T	*_ArrayDinInsertAt(T *array, uint64 index, U *valuePtr)
 		array = _ArrayDinInsertAt(array, index, &temp); \
 	}
 
-#define ArrayDinPopAt(array, index, valuePtr) \
-	_ArrayDinPopAt(array, index, valuePtr)
+// #define ArrayDinPopAt(array, index, valuePtr) \
+// 	_ArrayDinPopAt(array, index, valuePtr)
 
 
 
