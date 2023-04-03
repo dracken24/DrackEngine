@@ -64,22 +64,22 @@ void* _darray_resize(void* array)
     return temp;
 }
 
-void* _ArrayDinPush(void* array, const void* valuePtr)
-{
-    uint64 length = ArrayDinLength(array);
-    uint64 stride = ArrayDinStride(array);
-    if (length >= ArrayDinCapacity(array))
-    {
-        array = _darray_resize(array);
-    }
+// void* _ArrayDinPush(void* array, const void* valuePtr)
+// {
+//     uint64 length = ArrayDinLength(array);
+//     uint64 stride = ArrayDinStride(array);
+//     if (length >= ArrayDinCapacity(array))
+//     {
+//         array = _darray_resize(array);
+//     }
 
-    uint64 addr = (uint64)array;
-    addr += (length * stride);
-    CopyMemory((void*)addr, valuePtr, stride);
-    _ArrayDinFieldSet(array, DARRAY_LENGTH, length + 1);
+//     uint64 addr = (uint64)array;
+//     addr += (length * stride);
+//     CopyMemory((void*)addr, valuePtr, stride);
+//     _ArrayDinFieldSet(array, DARRAY_LENGTH, length + 1);
 
-    return array;
-}
+//     return array;
+// }
 
 void _ArrayDinPop(void* array, void* dest)
 {

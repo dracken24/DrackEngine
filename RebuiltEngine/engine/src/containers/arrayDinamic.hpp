@@ -25,6 +25,21 @@ uint64 stride = size of each element in bytes
 void* elements
 */
 
+#define ArrayDinClear(array) \
+	_ArrayDinFieldSet(array, DARRAY_LENGTH, 0)
+
+#define ArrayDinCapacity(array) \
+	_ArrayDinFieldGet(array, DARRAY_CAPACITY)
+
+#define ArrayDinLength(array) \
+	_ArrayDinFieldGet(array, DARRAY_LENGTH)
+
+#define ArrayDinStride(array) \
+	_ArrayDinFieldGet(array, DARRAY_STRIDE)
+
+#define ArrayDinLengthSet(array, value) \
+	_ArrayDinFieldSet(array, DARRAY_LENGTH, value)
+	
 enum {
 	DARRAY_CAPACITY,
 	DARRAY_LENGTH,
@@ -60,7 +75,23 @@ DE_API void		_ArrayDinFieldSet(void *array, uint64 field, uint64 value);
 
 DE_API void		*_darray_resize(void *array);
 
-DE_API void		*_ArrayDinPush(void *array, const void *valuePtr);
+template<typename T, typename U>
+DE_API T		*_ArrayDinPush(T *array, const U *valuePtr)
+{
+	uint64 length = ArrayDinLength(array);
+	uint64 stride = ArrayDinStride(array);
+	if (length >= ArrayDinCapacity(array))
+	{
+		array = _darray_resize(array);
+	}
+
+	uint64 addr = (uint64)array;
+	addr += (length * stride);
+	CopyMemory((void *)addr, valuePtr, stride);
+	_ArrayDinFieldSet(array, DARRAY_LENGTH, length + 1);
+
+	return array;
+};
 
 DE_API void		_ArrayDinPop(void *array, void *dest);
 
@@ -106,20 +137,7 @@ DE_API void		*_ArrayDinInsertAt(void *array, uint64 index, void *valuePtr);
 #define ArrayDinPopAt(array, index, valuePtr) \
 	_ArrayDinPopAt(array, index, valuePtr)
 
-#define ArrayDinClear(array) \
-	_ArrayDinFieldSet(array, DARRAY_LENGTH, 0)
 
-#define ArrayDinCapacity(array) \
-	_ArrayDinFieldGet(array, DARRAY_CAPACITY)
-
-#define ArrayDinLength(array) \
-	_ArrayDinFieldGet(array, DARRAY_LENGTH)
-
-#define ArrayDinStride(array) \
-	_ArrayDinFieldGet(array, DARRAY_STRIDE)
-
-#define ArrayDinLengthSet(array, value) \
-	_ArrayDinFieldSet(array, DARRAY_LENGTH, value)
 
 #endif
 	
