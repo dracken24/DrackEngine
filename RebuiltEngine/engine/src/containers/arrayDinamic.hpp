@@ -39,7 +39,7 @@ void* elements
 
 #define ArrayDinLengthSet(array, value) \
 	_ArrayDinFieldSet(array, DARRAY_LENGTH, value)
-	
+
 enum {
 	DARRAY_CAPACITY,
 	DARRAY_LENGTH,
@@ -69,9 +69,19 @@ DE_API void		ArrayDinDestroy(T *array)
 	FreeMem(header, total_size, DE_MEMORY_TAG_MYARRAY);
 };
 
-DE_API uint64	_ArrayDinFieldGet(void *array, uint64 field);
+template<typename T>
+DE_API uint64	_ArrayDinFieldGet(T *array, uint64 field)
+{
+	uint64 *header = (uint64 *)array - DARRAY_FIELD_LENGTH;
+	return header[field];
+};
 
-DE_API void		_ArrayDinFieldSet(void *array, uint64 field, uint64 value);
+template<typename T>
+DE_API void		_ArrayDinFieldSet(T *array, uint64 field, uint64 value)
+{
+	uint64 *header = (uint64 *)array - DARRAY_FIELD_LENGTH;
+	header[field] = value;
+};
 
 DE_API void		*_darray_resize(void *array);
 

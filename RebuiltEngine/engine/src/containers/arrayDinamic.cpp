@@ -38,17 +38,17 @@
 // }
 
 
-uint64 _ArrayDinFieldGet(void* array, uint64 field)
-{
-    uint64* header = (uint64*)array - DARRAY_FIELD_LENGTH;
-    return header[field];
-}
+// uint64 _ArrayDinFieldGet(void* array, uint64 field)
+// {
+//     uint64* header = (uint64*)array - DARRAY_FIELD_LENGTH;
+//     return header[field];
+// }
 
-void _ArrayDinFieldSet(void* array, uint64 field, uint64 value)
-{
-    uint64* header = (uint64*)array - DARRAY_FIELD_LENGTH;
-    header[field] = value;
-}
+// void _ArrayDinFieldSet(void* array, uint64 field, uint64 value)
+// {
+//     uint64* header = (uint64*)array - DARRAY_FIELD_LENGTH;
+//     header[field] = value;
+// }
 
 void* _darray_resize(void* array)
 {
