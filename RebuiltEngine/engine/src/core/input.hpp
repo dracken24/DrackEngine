@@ -1,17 +1,32 @@
-#pragma once
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 29-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 	     input.hpp       *--*                  | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
 
-#include "defines.hpp"
+#ifndef INPUT_HPP
+# define INPUT_HPP
 
-typedef enum buttons {
+# include "defines.hpp"
+
+typedef enum buttons
+{
     BUTTON_LEFT,
     BUTTON_RIGHT,
     BUTTON_MIDDLE,
     BUTTON_MAX_BUTTONS
 } buttons;
 
-#define DEFINE_KEY(name, code) KEY_##name = code
+# define DEFINE_KEY(name, code) KEY_##name = code
 
-typedef enum keys {
+typedef enum keys
+{
     DEFINE_KEY(BACKSPACE, 0x08),
     DEFINE_KEY(ENTER, 0x0D),
     DEFINE_KEY(TAB, 0x09),
@@ -142,9 +157,9 @@ typedef enum keys {
     KEYS_MAX_KEYS
 } keys;
 
-void input_initialize();
-void input_shutdown();
-void input_update(dbl64 delta_time);
+void InputInitialize();
+void InputShutdown();
+void InputUpdate(dbl64 deltaTime);
 
 // keyboard input
 DE_API bl8 input_is_key_down(keys key);
@@ -152,7 +167,7 @@ DE_API bl8 input_is_key_up(keys key);
 DE_API bl8 input_was_key_down(keys key);
 DE_API bl8 input_was_key_up(keys key);
 
-void input_process_key(keys key, bl8 pressed);
+void InputProcessKey(keys key, bl8 pressed);
 
 // mouse input
 DE_API bl8 input_is_button_down(buttons button);
@@ -163,5 +178,7 @@ DE_API void input_get_mouse_position(sint32* x, sint32* y);
 DE_API void input_get_previous_mouse_position(sint32* x, sint32* y);
 
 void input_process_button(buttons button, bl8 pressed);
-void input_process_mouse_move(sint16 x, sint16 y);
+void InputProcessMouseMove(sint16 x, sint16 y);
 void input_process_mouse_wheel(sint8 z_delta);
+
+#endif // INPUT_Hpp

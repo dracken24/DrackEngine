@@ -1,8 +1,22 @@
-#pragma once
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 29-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 	      event.hpp           *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
 
-#include "defines.hpp"
+#ifndef EVENT_HPP
+# define EVENT_HPP
 
-typedef struct event_context {
+# include "defines.hpp"
+
+typedef struct eventContext
+{
     // 128 bytes
     union {
         sint64 sint64[2];
@@ -11,7 +25,7 @@ typedef struct event_context {
 
         sint32 sint32[4];
         uint32 uint32[4];
-        fl32 fl32[4];
+        fl32    fl32[4];
 
         sint16 sint16[8];
         uint16 uint16[8];
@@ -21,13 +35,13 @@ typedef struct event_context {
 
         char c[16];
     } data;
-} event_context;
+} eventContext;
 
 // Should return true if handled.
-typedef bl8 (*PFN_on_event)(uint16 code, void* sender, void* listener_inst, event_context data);
+typedef bl8 (*PFN_on_event)(uint16 code, void* sender, void* listenerInst, eventContext data);
 
 bl8 event_initialize();
-void event_shutdown();
+void eventShutdown();
 
 /**
  * Register to listen for when events are sent with the provided code. Events with duplicate
@@ -37,7 +51,7 @@ void event_shutdown();
  * @param on_event The callback function pointer to be invoked when the event code is fired.
  * @returns true if the event is successfully registered; otherwise false.
  */
-DE_API bl8 event_register(uint16 code, void* listener, PFN_on_event on_event);
+DE_API bl8 EventRegister(uint16 code, void* listener, PFN_on_event on_event);
 
 /**
  * Unregister from listening for when events are sent with the provided code. If no matching
@@ -47,7 +61,7 @@ DE_API bl8 event_register(uint16 code, void* listener, PFN_on_event on_event);
  * @param on_event The callback function pointer to be unregistered.
  * @returns true if the event is successfully unregistered; otherwise false.
  */
-DE_API bl8 event_unregister(uint16 code, void* listener, PFN_on_event on_event);
+DE_API bl8 EventUnregister(uint16 code, void* listener, PFN_on_event on_event);
 
 /**
  * Fires an event to listeners of the given code. If an event handler returns 
@@ -57,7 +71,7 @@ DE_API bl8 event_unregister(uint16 code, void* listener, PFN_on_event on_event);
  * @param data The event data.
  * @returns true if handled, otherwise false.
  */
-DE_API bl8 event_fire(uint16 code, void* sender, event_context context);
+DE_API bl8 EventFire(uint16 code, void* sender, eventContext context);
 
 // System internal event codes. Application should use codes beyond 255.
 typedef enum system_event_code {
@@ -66,13 +80,13 @@ typedef enum system_event_code {
 
     // Keyboard key pressed.
     /* Context usage:
-     * uint16 key_code = data.data.uint16[0];
+     * uint16 keyCode = data.data.uint16[0];
      */
     EVENT_CODE_KEY_PRESSED = 0x02,
 
     // Keyboard key released.
     /* Context usage:
-     * uint16 key_code = data.data.uint16[0];
+     * uint16 keyCode = data.data.uint16[0];
      */
     EVENT_CODE_KEY_RELEASED = 0x03,
 
@@ -110,3 +124,5 @@ typedef enum system_event_code {
 
     MAX_EVENT_CODE = 0xFF
 } system_event_code;
+
+#endif // EVENT_HPP

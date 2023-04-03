@@ -11,9 +11,9 @@
 /*****************************************************************************/
 
 #ifndef APPLICATION_HPP
-#define APPLICATION_HPP
+# define APPLICATION_HPP
 
-#include "defines.hpp"
+# include <defines.hpp>
 
 # include <string>
 
@@ -30,8 +30,8 @@ typedef struct	appConfig
 	std::string name; // The application name used in windowing, if applicable.
 }	appConfig;
 
-DE_API bl8 application_create(struct game* game_inst);
+DE_API bl8	ApplicationCreate(struct game* gameInst);
 
-DE_API bl8 application_run();
+DE_API bl8	ApplicationRun();
 
 #endif // APPLICATION_HPP

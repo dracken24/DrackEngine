@@ -14,7 +14,7 @@
 # define GAME_HPP
 
 # include <defines.hpp>
-# include <game_types.hpp>
+# include <gameTypes.hpp>
 
 typedef struct gameState
 {

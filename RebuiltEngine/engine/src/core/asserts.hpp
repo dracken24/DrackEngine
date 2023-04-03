@@ -46,46 +46,46 @@
 // Asserts that the given expression is true. If it is not, the program will
 // stop and display an error message.
 DE_API void ReportAssertionFailure(std::string const expression, std::string const message,
-                                   std::string const file, sint32 line);
+				std::string const file, sint32 line);
 
 // Asserts that the given expression is true. If it is not,
 // the program will stop and display an error message.
 #define DE_ASSERT(expression)                                            \
-    {                                                                    \
-        if (expression)                                                  \
-        {                                                                \
-        }                                                                \
-        else                                                             \
-        {                                                                \
-            ReportAssertionFailure(#expression, "", __FILE__, __LINE__); \
-            DE_DEB_BREAK();                                              \
-        }                                                                \
-    }
+	{                                                                    \
+		if (expression)                                                  \
+		{                                                                \
+		}                                                                \
+		else                                                             \
+		{                                                                \
+			ReportAssertionFailure(#expression, "", __FILE__, __LINE__); \
+			DE_DEB_BREAK();                                              \
+		}                                                                \
+	}
 
 #define DE_ASSERT_MSG(expression, message)                                    \
-    {                                                                         \
-        if (expression)                                                       \
-        {                                                                     \
-        }                                                                     \
-        else                                                                  \
-        {                                                                     \
-            ReportAssertionFailure(#expression, message, __FILE__, __LINE__); \
-            DE_DEB_BREAK();                                                   \
-        }                                                                     \
-    }
+	{                                                                         \
+		if (expression)                                                       \
+		{                                                                     \
+		}                                                                     \
+		else                                                                  \
+		{                                                                     \
+			ReportAssertionFailure(#expression, message, __FILE__, __LINE__); \
+			DE_DEB_BREAK();                                                   \
+		}                                                                     \
+	}
 
 #ifdef _DEBUG
 #define DE_ASSERT_DEBUG(expression)                                      \
-    {                                                                    \
-        if (expression)                                                  \
-        {                                                                \
-        }                                                                \
-        else                                                             \
-        {                                                                \
-            ReportAssertionFailure(#expression, "", __FILE__, __LINE__); \
-            DebugBreak();                                                \
-        }                                                                \
-    }
+	{                                                                    \
+		if (expression)                                                  \
+		{                                                                \
+		}                                                                \
+		else                                                             \
+		{                                                                \
+			ReportAssertionFailure(#expression, "", __FILE__, __LINE__); \
+			DebugBreak();                                                \
+		}                                                                \
+	}
 #else
 #define DE_ASSERT_DEBUG(expr) // Does nothing at all
 #endif

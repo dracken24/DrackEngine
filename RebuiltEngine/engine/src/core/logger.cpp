@@ -45,11 +45,11 @@ void	LogMessage(logLevel level, const char *message, ...)
 
 	if (shouldLog)
 	{
-		platform_console_write(outBuffer.c_str(), level);
+		PlatconsoleWriteError(outBuffer, level);
 	}
 	else
 	{
-		platform_console_write_error(outBuffer.c_str(), level);
+		PlatconsoleWrite(outBuffer, level);
 	}
 }
 

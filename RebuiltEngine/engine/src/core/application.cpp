@@ -1,217 +1,356 @@
-#include "application.hpp"
-#include "game_types.hpp"
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 25-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 	      core.cpp            *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
 
-#include "logger.hpp"
+#include <core/application.hpp>
+#include <gameTypes.hpp>
 
-#include "platform/platform.hpp"
-#include "core/kmemory.hpp"
-#include "core/event.hpp"
-#include "core/input.hpp"
-#include "core/time.hpp"
+#include <core/logger.hpp>
 
-#include "renderer/renderer_frontend.hpp"
+#include <platform/platform.hpp>
+#include <core/deMemory.hpp>
+#include <core/event.hpp>
+#include <core/input.hpp>
+#include <core/timer.hpp>
+#include <structs.hpp>
 
-typedef struct application_state {
-    game* game_inst;
-    bl8 is_running;
-    bl8 is_suspended;
-    platformState platform;
-    sint16 width;
-    sint16 height;
-    Clock clock;
-    dbl64 last_time;
-} application_state;
+#include <xcb/xcb.h>
+#include <X11/keysym.h>
+#include <X11/XKBlib.h> // sudo apt-get install libx11-dev
+#include <X11/Xlib.h>
+#include <X11/Xlib-xcb.h> // sudo apt-get install libxkbcommon-x11-dev
+
+#include <renderer/rendererFrontend.hpp>
+
+typedef struct applicationState
+{
+	game*			gameInst;
+	bl8				isRunning;
+	bl8				isSuspended;
+	platformState	platform;
+	sint16			width;
+	sint16			height;
+	Timer			timer;
+	dbl64			lastTime;
+} applicationState;
 
 static bl8 initialized = false;
-static application_state app_state;
+static applicationState appState;
+static Vector2ui mousePosition;
 
 // Event handlers
-bl8 application_on_event(uint16 code, void* sender, void* listener_inst, event_context context);
-bl8 application_on_key(uint16 code, void* sender, void* listener_inst, event_context context);
+bl8		ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventContext context);
+bl8		ApplicationOnKey(uint16 code, void* sender, void* listenerInst, eventContext context);
+bl8		ApplicationOnMouseMove(uint16 code, void* sender, void* listenerInst, eventContext context);
+bl8		ApplicationOnButton(uint16 code, void* sender, void* listenerInst, eventContext context);
+bl8		ApplicationOnMouseWheel(uint16 code, void *sender, void *listenerInst, eventContext context);
+bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventContext context);
 
-bl8 application_create(game* game_inst) {
-    if (initialized) {
-        DE_ERROR("application_create called more than once.");
-        return false;
-    }
+//*****************************************************************************//
 
-    app_state.game_inst = game_inst;
+bl8		ApplicationCreate(game *gameInst)
+{
+	if (initialized)
+	{
+		DE_ERROR("ApplicationCreate called more than once.");
+		return false;
+	}
 
-    // Initialize subsystems.
-    LogInit();
-    input_initialize();
+	appState.gameInst = gameInst;
 
-    // TODO: remove when log message are fully implemented
-    DE_FATAL("Hello World! %f", 1.0f);
-    DE_ERROR("Hello World! %f", 1.0f);
-    DE_WARNING("Hello World! %f", 1.0f);
-    DE_INFO("Hello World! %f", 1.0f);
-    DE_DEBUG("Hello World! %f", 1.0f);
-    DE_TRACE("Hello World! %f lol %s", 1.0f, "test\n");
+	// Initialize subsystems.
+	LogInit();
+	InputInitialize();
 
-    app_state.is_running = true;
-    app_state.is_suspended = false;
+	// TODO: remove when log message are fully implemented
+	DE_FATAL("Hello World! %f", 1.0f);
+	DE_ERROR("Hello World! %f", 1.0f);
+	DE_WARNING("Hello World! %f", 1.0f);
+	DE_INFO("Hello World! %f", 1.0f);
+	DE_DEBUG("Hello World! %f", 1.0f);
+	DE_TRACE("Hello World! %f lol %s", 1.0f, "test\n");
 
-    if(!event_initialize()) {
-        DE_ERROR("Event system failed initialization. Application cannot continue.");
-        return false;
-    }
+	appState.isRunning = true;
+	appState.isSuspended = false;
 
-    event_register(EVENT_CODE_APPLICATION_QUIT, 0, application_on_event);
-    event_register(EVENT_CODE_KEY_PRESSED, 0, application_on_key);
-    event_register(EVENT_CODE_KEY_RELEASED, 0, application_on_key);
+	if(!event_initialize()) {
+		DE_ERROR("Event system failed initialization. Application cannot continue.");
+		return false;
+	}
 
-    if (!platform_startup(
-            &app_state.platform,
-            game_inst->appConfig.name.c_str(),
-            game_inst->appConfig.x,
-            game_inst->appConfig.y,
-            game_inst->appConfig.width,
-            game_inst->appConfig.height)) {
-        return false;
-    }
+	EventRegister(EVENT_CODE_APPLICATION_QUIT, 0, ApplicationOnEvent);
+	EventRegister(EVENT_CODE_KEY_PRESSED, 0, ApplicationOnKey);
+	EventRegister(EVENT_CODE_KEY_RELEASED, 0, ApplicationOnKey);
+	EventRegister(EVENT_CODE_BUTTON_PRESSED, 0, ApplicationOnButton);
+	EventRegister(EVENT_CODE_BUTTON_RELEASED, 0, ApplicationOnButton);
+	EventRegister(EVENT_CODE_MOUSE_MOVED, 0, ApplicationOnMouseMove);
+	EventRegister(EVENT_CODE_MOUSE_WHEEL, 0, ApplicationOnMouseWheel);
+	EventRegister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
-    // Renderer startup
-    if (!renderer_initialize(game_inst->appConfig.name.c_str(), &app_state.platform)) {
-        DE_FATAL("Failed to initialize renderer. Aborting application.");
-        return false;
-    }
+	if (!PlatformStartup(
+			&appState.platform,
+			gameInst->appConfig.name.c_str(),
+			gameInst->appConfig.x,
+			gameInst->appConfig.y,
+			gameInst->appConfig.width,
+			gameInst->appConfig.height)) {
+		return false;
+	}
 
-    // Initialize the game.
-    if (!app_state.game_inst->initialize(app_state.game_inst)) {
-        DE_FATAL("Game failed to initialize.");
-        return false;
-    }
+	// Renderer startup
+	if (!renderer_initialize(gameInst->appConfig.name.c_str(), &appState.platform)) {
+		DE_FATAL("Failed to initialize renderer. Aborting application.");
+		return false;
+	}
 
-    app_state.game_inst->onResize(app_state.game_inst, app_state.width, app_state.height);
+	// Initialize the game.
+	if (!appState.gameInst->initialize(appState.gameInst)) {
+		DE_FATAL("Game failed to initialize.");
+		return false;
+	}
 
-    initialized = true;
+	appState.gameInst->onResize(appState.gameInst, appState.width, appState.height);
 
-    return true;
+	initialized = true;
+
+	return true;
 }
 
-bl8 application_run() {
-    app_state.clock.ClockStart();
-    app_state.clock.ClockUpdate();
-    app_state.last_time = app_state.clock._clock.elapsedTime;
-    dbl64 running_time = 0;
-    uint8 framesCount = 0;
-    dbl64 target_frame_seconds = 1.0f / 60;
+bl8		ApplicationRun(void)
+{
+	appState.timer.TimerStart();
+	appState.timer.TimerUpdate();
+	appState.lastTime = appState.timer._timer.elapsedTime;
+	dbl64 running_time = 0;
+	uint8 framesCount = 0;
+	dbl64 target_FPS = 1.0f / 60;
 
-    DE_INFO(get_memory_usage_str().c_str());
+	DE_INFO(GetMemoryUsageStr().c_str());
 
-    while (app_state.is_running) {
-        if (!platform_pump_messages(&app_state.platform)) {
-            app_state.is_running = false;
-        }
+	while (appState.isRunning)
+	{
+		if (!PlatformPumpMessages(&appState.platform))
+		{
+			appState.isRunning = false;
+		}
 
-        if (!app_state.is_suspended) {
-            // Update clock and get delta time.
-            app_state.clock.ClockUpdate();
-            dbl64 current_time = app_state.clock._clock.elapsedTime;
-            dbl64 delta = (current_time - app_state.last_time);
-            dbl64 frame_start_time = platform_get_absolute_time();
+		if (!appState.isSuspended)
+		{
+			// Update timer and get delta time.
+			appState.timer.TimerUpdate();
+			dbl64 currentTime = appState.timer._timer.elapsedTime;
+			dbl64 delta = (currentTime - appState.lastTime);
+			dbl64 frameStartTime = PlatformGetAbsoluteTime();
 
-            if (!app_state.game_inst->update(app_state.game_inst, (fl32)delta)) {
-                DE_FATAL("Game update failed, shutting down.");
-                app_state.is_running = false;
-                break;
-            }
+			if (!appState.gameInst->update(appState.gameInst, (fl32)delta))
+			{
+				DE_FATAL("Game update failed, shutting down.");
+				appState.isRunning = false;
+				break;
+			}
 
-            // Call the game's render routine.
-            if (!app_state.game_inst->render(app_state.game_inst, (fl32)delta)) {
-                DE_FATAL("Game render failed, shutting down.");
-                app_state.is_running = false;
-                break;
-            }
+			// Call the game's render routine.
+			if (!appState.gameInst->render(appState.gameInst, (fl32)delta))
+			{
+				DE_FATAL("Game render failed, shutting down.");
+				appState.isRunning = false;
+				break;
+			}
 
-            // TODO: refactor packet creation
-            render_packet packet;
-            packet.delta_time = delta;
-            renderer_draw_frame(&packet);
+			// TODO: refactor packet creation
+			renderPacket packet;
+			packet.deltaTime = delta;
+			RendererDrawFrame(&packet);
 
-            // Figure out how long the frame took and, if below
-            dbl64 frame_end_time = platform_get_absolute_time();
-            dbl64 frame_elapsed_time = frame_end_time - frame_start_time;
-            running_time += frame_elapsed_time;
-            dbl64 remaining_seconds = target_frame_seconds - frame_elapsed_time;
+			// Figure out how long the frame took and, if below
+			dbl64 frameEndTime = PlatformGetAbsoluteTime();
+			dbl64 frameElapsedTime = frameEndTime - frameStartTime;
+			running_time += frameElapsedTime;
+			dbl64 remainingSeconds = target_FPS - frameElapsedTime;
 
-            if (remaining_seconds > 0) {
-                uint64 remaining_ms = (remaining_seconds * 1000);
+			if (remainingSeconds > 0)
+			{
+				uint64 remaining_ms = (remainingSeconds * 1000);
 
-                // If there is time left, give it back to the OS.
-                // std::cout << "Frame: " << (int)framesCount << std::endl;
-                bl8 limit_frames = true;
-                if (remaining_ms > 0 && limit_frames) {
-                    platform_sleep(remaining_ms - 1);
-                }
+				// If there is time left, give it back to the OS.
+				// std::cout << "Frame: " << (int)framesCount << std::endl;
+				bl8 limitFrames = true;
+				if (remaining_ms > 0 && limitFrames)
+				{
+					PlatformSleep(remaining_ms - 1);
+				}
 
-                framesCount++;
-            }
+				framesCount++;
+			}
 
-            // NOTE: Input update/state copying should always be handled
-            // after any input should be recorded; I.E. before this line.
-            // As a safety, input is the last thing to be updated before
-            // this frame ends.
-            input_update(delta);
+			// NOTE: Input update/state copying should always be handled
+			// after any input should be recorded; I.E. before this line.
+			// As a safety, input is the last thing to be updated before
+			// this frame ends.
+			InputUpdate(delta);
 
-            // Update last time
-            app_state.last_time = current_time;
-        }
-    }
+			// Update last time
+			appState.lastTime = currentTime;
+		}
+	}
 
-    app_state.is_running = false;
+	appState.isRunning = false;
 
-    // Shutdown event system.
-    event_unregister(EVENT_CODE_APPLICATION_QUIT, 0, application_on_event);
-    event_unregister(EVENT_CODE_KEY_PRESSED, 0, application_on_key);
-    event_unregister(EVENT_CODE_KEY_RELEASED, 0, application_on_key);
-    event_shutdown();
-    input_shutdown();
+	DE_DEBUG("Application shutting down.");
+	// Shutdown event system.
+	EventUnregister(EVENT_CODE_APPLICATION_QUIT, 0, ApplicationOnEvent);
+	EventUnregister(EVENT_CODE_KEY_PRESSED, 0, ApplicationOnKey);
+	EventUnregister(EVENT_CODE_KEY_RELEASED, 0, ApplicationOnKey);
+	EventUnregister(EVENT_CODE_BUTTON_PRESSED, 0, ApplicationOnButton);
+	EventUnregister(EVENT_CODE_BUTTON_RELEASED, 0, ApplicationOnButton);
+	EventUnregister(EVENT_CODE_MOUSE_MOVED, 0, ApplicationOnMouseMove);
+	EventUnregister(EVENT_CODE_MOUSE_WHEEL, 0, ApplicationOnMouseWheel);
+	EventUnregister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
-    renderer_shutdown();
+	eventShutdown();
+	InputShutdown();
 
-    platform_shutdown(&app_state.platform);
+	DE_DEBUG("Shutting down game.");
+	RendererShutdown();
+	DE_DEBUG("Shutting down platform.");
+	PlatformShutdown(&appState.platform);
 
-    return true;
+	DE_DEBUG("Application shutdown complete.");
+	return true;
 }
 
-bl8 application_on_event(uint16 code, void* sender, void* listener_inst, event_context context) {
-    switch (code) {
-        case EVENT_CODE_APPLICATION_QUIT: {
-            DE_INFO("EVENT_CODE_APPLICATION_QUIT recieved, shutting down.\n");
-            app_state.is_running = false;
-            return true;
-        }
-    }
+bl8 ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventContext context)
+{
+	DE_DEBUG("EVENT: %d", code);
+	switch (code)
+	{
+		case EVENT_CODE_APPLICATION_QUIT:
+		{
+			DE_INFO("EVENT_CODE_APPLICATION_QUIT recieved, shutting down.\n");
+			appState.isRunning = false;
+			return true;
+		}
+	}
 
-    return false;
+	return false;
 }
 
-bl8 application_on_key(uint16 code, void* sender, void* listener_inst, event_context context) {
-    if (code == EVENT_CODE_KEY_PRESSED) {
-        uint16 key_code = context.data.uint16[0];
-        if (key_code == KEY_ESCAPE) {
-            // NOTE: Technically firing an event to itself, but there may be other listeners.
-            event_context data = {};
-            event_fire(EVENT_CODE_APPLICATION_QUIT, 0, data);
+bl8 ApplicationOnKey(uint16 code, void* sender, void* listenerInst, eventContext context)
+{
+	if (code == EVENT_CODE_KEY_PRESSED)
+	{
+		uint16 keyCode = context.data.uint16[0];
+		if (keyCode == KEY_ESCAPE)
+		{
+			// NOTE: Technically firing an event to itself, but there may be other listeners.
+			eventContext data = {};
+			EventFire(EVENT_CODE_APPLICATION_QUIT, 0, data);
 
-            // Block anything else from processing this.
-            return true;
-        } else if (key_code == KEY_A) {
-            // Example on checking for a key
-            DE_DEBUG("Explicit - A key pressed!");
-        } else {
-            DE_DEBUG("'%c' key pressed in window.", key_code);
-        }
-    } else if (code == EVENT_CODE_KEY_RELEASED) {
-        uint16 key_code = context.data.uint16[0];
-        if (key_code == KEY_B) {
-            // Example on checking for a key
-            DE_DEBUG("Explicit - B key released!");
-        } else {
-            DE_DEBUG("'%c' key released in window.", key_code);
-        }
-    }
-    return false;
+			// Block anything else from processing this.
+			return true;
+		}
+		else
+		{
+			DE_DEBUG("'%c' key pressed in window.", keyCode);
+		}
+	}
+	else if (code == EVENT_CODE_KEY_RELEASED)
+	{
+		uint16 keyCode = context.data.uint16[0];
+		if (keyCode)
+		{
+			DE_DEBUG("'%c' key released in window.", keyCode);
+		}
+	}
+
+	return false;
+}
+
+bl8		ApplicationOnButton(uint16 code, void* sender, void* listenerInst, eventContext context)
+{
+	DE_DEBUG("EVENT button: %d", code);
+	if (code == EVENT_CODE_BUTTON_PRESSED)
+	{
+		uint16 keyCode = context.data.uint16[0];
+		if (keyCode == BUTTON_LEFT)
+		{
+			DE_DEBUG("Left mouse button pressed position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+		}
+		else if (keyCode == BUTTON_RIGHT)
+		{
+			DE_DEBUG("Right mouse button pressed position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+		}
+		else if (keyCode == BUTTON_MIDDLE)
+		{
+			DE_DEBUG("Middle mouse button pressed position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+		}
+	}
+
+	if (code == EVENT_CODE_BUTTON_RELEASED)
+	{
+		uint16 keyCode = context.data.uint16[0];
+		if (keyCode == BUTTON_LEFT)
+		{
+			DE_DEBUG("Left mouse button released position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+		}
+		else if (keyCode == BUTTON_RIGHT)
+		{
+			DE_DEBUG("Right mouse button released position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+		}
+		else if (keyCode == BUTTON_MIDDLE)
+		{
+			DE_DEBUG("Middle mouse button released position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+		}
+	}
+
+	return false;
+}
+
+bl8		ApplicationOnMouseMove(uint16 code, void *sender, void *listenerInst, eventContext context)
+{
+	if (code == EVENT_CODE_MOUSE_MOVED)
+	{
+		uint32 x = context.data.uint16[0];
+		uint32 y = context.data.uint16[1];
+
+		DE_DEBUG("Mouse moved to (X: %d, Y: %d).", x, y);
+		mousePosition.x = x;
+		mousePosition.y = y;
+	}
+
+	return false;
+}
+
+bl8		ApplicationOnMouseWheel(uint16 code, void *sender, void *listenerInst, eventContext context)
+{
+	if (code == EVENT_CODE_MOUSE_WHEEL)
+	{
+		uint32 x = context.data.uint16[0];
+		uint32 y = context.data.uint16[1];
+		DE_DEBUG("Mouse wheel moved to (%d, %d).", x, y);
+	}
+	DE_DEBUG("Mouse wheel moved");
+
+	return false;
+}
+
+bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventContext context)
+{
+	DE_DEBUG("EVENT resize: %d", code);
+	if (code == EVENT_CODE_RESIZED)
+	{
+		uint32 width = context.data.uint16[0];
+		uint32 height = context.data.uint16[1];
+		DE_DEBUG("Window resized to (%d, %d).", width, height);
+	}
+
+	return false;
 }

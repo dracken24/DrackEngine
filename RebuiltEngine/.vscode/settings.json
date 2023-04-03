@@ -62,7 +62,7 @@
     "windowsx.h": "cpp",
     "vulkan_platform.h": "cpp",
     "renderer_frontend.h": "cpp",
-    "kmemory.h": "cpp",
+    "deMemory.h": "cpp",
     "defines.h": "cpp",
     "iostream": "cpp",
     "system_error": "cpp",

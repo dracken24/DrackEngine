@@ -1,35 +1,52 @@
-#pragma once
+/*****************************************************************************/
+/*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
+/* |             ---------------------------------------------             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  DATE:		 25-03-2023  		  *--*             | */
+/* |             ---------------------------------------------             | */
+/* |             *--*  FILE: 	    Platform.hpp          *--*             | */
+/* |             ---------------------------------------------             | */
+/*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
+/*****************************************************************************/
 
-#include "defines.hpp"
+#ifndef PLATFORM_HPP
+# define PLATFORM_HPP
 
-typedef struct platformState {
-    void* internal_state;
-} platformState;
+# include "defines.hpp"
+# include <string>
 
-bl8 platform_startup(
-    platformState* plat_state,
-    const char* application_name,
-    sint32 x,
-    sint32 y,
-    sint32 width,
-    sint32 height);
+typedef struct	platformState
+{
+	void*	internalState;
+}	platformState;
 
-void platform_shutdown(platformState* plat_state);
+bl8 PlatformStartup(
+	platformState* platState,
+	const char* applicationName,
+	sint32 x,
+	sint32 y,
+	sint32 width,
+	sint32 height);
 
-bl8 platform_pump_messages(platformState* plat_state);
+void	PlatformShutdown(platformState* platState);
 
-void* platform_allocate(uint64 size, bl8 aligned);
-void platform_free(void* block, bl8 aligned);
-void* platform_zero_memory(void* block, uint64 size);
-void* platform_copy_memory(void* dest, const void* source, uint64 size);
-void* platform_set_memory(void* dest, sint32 value, uint64 size);
+bl8		PlatformPumpMessages(platformState* platState);
 
-void platform_console_write(const char* message, uint8 colour);
-void platform_console_write_error(const char* message, uint8 colour);
+void*	PlatformAllocate(uint64 size, bl8 aligned);
+void	PlatformFree(void* block, bl8 aligned);
+void*	PlatformSetMemory(void* block, uint64 size);
+void*	PlatformCopyMemory(void* dest, const void* source, uint64 size);
+void*	PlatformSetMemory(void* dest, sint32 value, uint64 size);
 
-dbl64 platform_get_absolute_time();
+void	PlatconsoleWrite(std::string message, uint8 color);
+void	PlatconsoleWriteError(std::string message, uint8 color);
+
+dbl64	PlatformGetAbsoluteTime();
 
 // Sleep on the thread for the provided ms. This blocks the main thread.
 // Should only be used for giving time back to the OS for unused update power.
 // Therefore it is not exported.
-void platform_sleep(uint64 ms);
+void	PlatformSleep(uint64 ms);
+
+#endif // !PLATFORM_HPP
