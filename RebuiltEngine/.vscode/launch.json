@@ -1,7 +1,4 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
@@ -13,7 +10,7 @@
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/bin/",
       "environment": [],
-      "console": "newExternalWindow",
+      "console": "newExternalWindow"
     },
     {
       "name": "(Linux) Launch",
@@ -23,7 +20,26 @@
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/bin/",
-      "environment": [],
+      "environment": []
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/home/dracken24/Documents/prog/DrackEngine/RebuiltEngine/engine",
+      "program": "/home/dracken24/Documents/prog/DrackEngine/RebuiltEngine/engine/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
     }
   ]
 }

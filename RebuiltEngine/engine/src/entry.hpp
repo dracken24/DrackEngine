@@ -17,9 +17,11 @@
 # include "core/logger.hpp"
 # include "core/deMemory.hpp"
 # include "gameTypes.hpp"
+# include "game.hpp"
 
 // Externally-defined function to create a game.
 extern bl8	createGame(game* out_game);
+void	FreeEntryMemory(game *gameInst);
 
 /**
  * The main entry point of the application.
@@ -60,7 +62,16 @@ int		main(void)
 
 	ShutdownMemory();
 
+	FreeEntryMemory(&gameInst);
 	return (0);
+}
+
+void	FreeEntryMemory(game *gameInst)
+{
+	FreeMem(gameInst->state, sizeof(gameState), DE_MEMORY_TAG_GAME);
+
+	// Check for memory leaks.
+	DE_INFO(GetMemoryUsageStr().c_str());
 }
 
 #endif // MAIN_HPP

@@ -15,7 +15,7 @@
 #include <core/deMemory.hpp>
 #include <core/logger.hpp>
 
-void* _darray_create(uint64 length, uint64 stride)
+void* _ArrayDinCreate(uint64 length, uint64 stride)
 {
     uint64 header_size = DARRAY_FIELD_LENGTH * sizeof(uint64);
     uint64 array_size = length * stride;
@@ -27,7 +27,7 @@ void* _darray_create(uint64 length, uint64 stride)
     return (void*)(new_array + DARRAY_FIELD_LENGTH);
 }
 
-void _darray_destroy(void* array)
+void _ArrayDinDestroy(void* array)
 {
     uint64* header = (uint64*)array - DARRAY_FIELD_LENGTH;
     uint64 header_size = DARRAY_FIELD_LENGTH * sizeof(uint64);
@@ -35,13 +35,13 @@ void _darray_destroy(void* array)
     FreeMem(header, total_size, DE_MEMORY_TAG_MYARRAY);
 }
 
-uint64 _darray_field_get(void* array, uint64 field)
+uint64 _ArrayDinFieldGet(void* array, uint64 field)
 {
     uint64* header = (uint64*)array - DARRAY_FIELD_LENGTH;
     return header[field];
 }
 
-void _darray_field_set(void* array, uint64 field, uint64 value)
+void _ArrayDinFieldSet(void* array, uint64 field, uint64 value)
 {
     uint64* header = (uint64*)array - DARRAY_FIELD_LENGTH;
     header[field] = value;
@@ -49,49 +49,49 @@ void _darray_field_set(void* array, uint64 field, uint64 value)
 
 void* _darray_resize(void* array)
 {
-    uint64 length = darray_length(array);
-    uint64 stride = darray_stride(array);
-    void* temp = _darray_create(
-        (DARRAY_RESIZE_FACTOR * darray_capacity(array)),
+    uint64 length = ArrayDinLength(array);
+    uint64 stride = ArrayDinStride(array);
+    void* temp = _ArrayDinCreate(
+        (DE_ARRAY_DIN_RESIZE_FACTOR * ArrayDinCapacity(array)),
         stride);
     CopyMemory(temp, array, length * stride);
 
-    _darray_field_set(temp, DARRAY_LENGTH, length);
-    _darray_destroy(array);
+    _ArrayDinFieldSet(temp, DARRAY_LENGTH, length);
+    _ArrayDinDestroy(array);
     return temp;
 }
 
-void* _darray_push(void* array, const void* value_ptr)
+void* _ArrayDinPush(void* array, const void* valuePtr)
 {
-    uint64 length = darray_length(array);
-    uint64 stride = darray_stride(array);
-    if (length >= darray_capacity(array))
+    uint64 length = ArrayDinLength(array);
+    uint64 stride = ArrayDinStride(array);
+    if (length >= ArrayDinCapacity(array))
     {
         array = _darray_resize(array);
     }
 
     uint64 addr = (uint64)array;
     addr += (length * stride);
-    CopyMemory((void*)addr, value_ptr, stride);
-    _darray_field_set(array, DARRAY_LENGTH, length + 1);
+    CopyMemory((void*)addr, valuePtr, stride);
+    _ArrayDinFieldSet(array, DARRAY_LENGTH, length + 1);
 
     return array;
 }
 
-void _darray_pop(void* array, void* dest)
+void _ArrayDinPop(void* array, void* dest)
 {
-    uint64 length = darray_length(array);
-    uint64 stride = darray_stride(array);
+    uint64 length = ArrayDinLength(array);
+    uint64 stride = ArrayDinStride(array);
     uint64 addr = (uint64)array;
     addr += ((length - 1) * stride);
     CopyMemory(dest, (void*)addr, stride);
-    _darray_field_set(array, DARRAY_LENGTH, length - 1);
+    _ArrayDinFieldSet(array, DARRAY_LENGTH, length - 1);
 }
 
-void* _darray_pop_at(void* array, uint64 index, void* dest)
+void* _ArrayDinPopAt(void* array, uint64 index, void* dest)
 {
-    uint64 length = darray_length(array);
-    uint64 stride = darray_stride(array);
+    uint64 length = ArrayDinLength(array);
+    uint64 stride = ArrayDinStride(array);
     if (index >= length) {
         DE_ERROR("Index outside the bounds of this array! Length: %i, index: %index", length, index);
         return array;
@@ -108,19 +108,19 @@ void* _darray_pop_at(void* array, uint64 index, void* dest)
             stride * (length - index));
     }
 
-    _darray_field_set(array, DARRAY_LENGTH, length - 1);
+    _ArrayDinFieldSet(array, DARRAY_LENGTH, length - 1);
     return array;
 }
 
-void* _darray_insert_at(void* array, uint64 index, void* value_ptr)
+void* _ArrayDinInsertAt(void* array, uint64 index, void* valuePtr)
 {
-    uint64 length = darray_length(array);
-    uint64 stride = darray_stride(array);
+    uint64 length = ArrayDinLength(array);
+    uint64 stride = ArrayDinStride(array);
     if (index >= length) {
         DE_ERROR("Index outside the bounds of this array! Length: %i, index: %index", length, index);
         return array;
     }
-    if (length >= darray_capacity(array)) {
+    if (length >= ArrayDinCapacity(array)) {
         array = _darray_resize(array);
     }
 
@@ -135,8 +135,8 @@ void* _darray_insert_at(void* array, uint64 index, void* value_ptr)
     }
 
     // Set the value at the index
-    CopyMemory((void*)(addr + (index * stride)), value_ptr, stride);
+    CopyMemory((void*)(addr + (index * stride)), valuePtr, stride);
 
-    _darray_field_set(array, DARRAY_LENGTH, length + 1);
+    _ArrayDinFieldSet(array, DARRAY_LENGTH, length + 1);
     return array;
 }

@@ -13,55 +13,55 @@
 #ifndef VULKANTYPES_INL
 # define VULKANTYPES_INL
 
-# include "defines.hpp"
-# include "core/asserts.hpp"
+# include <defines.hpp>
+# include <core/asserts.hpp>
 
 # include <vulkan/vulkan.h>
 
 // Checks the given expression's return value against VK_SUCCESS.
-# define VK_CHECK(expr)               \
-	{                                \
-		DE_ASSERT(expr == VK_SUCCESS); \
+# define VK_CHECK(expr)					\
+	{									\
+		DE_ASSERT(expr == VK_SUCCESS);	\
 	}
 
-typedef struct vulkan_swapchain_support_info
+typedef struct	vulkanSwapchainSupportInfo
 {
-	VkSurfaceCapabilitiesKHR capabilities;
-	uint32 format_count;
-	VkSurfaceFormatKHR* formats;
-	uint32 present_mode_count;
-	VkPresentModeKHR* present_modes;
-} vulkan_swapchain_support_info;
+	VkSurfaceCapabilitiesKHR	capabilities;
+	uint32						formatCount;
+	VkSurfaceFormatKHR			*formats;
+	uint32						presentModeCount;
+	VkPresentModeKHR			*presentMode;
+}	vulkanSwapchainSupportInfo;
 
-typedef struct vulkan_device
+typedef struct	vulkanDevice
 {
-	VkPhysicalDevice physical_device;
-	VkDevice logical_device;
-	vulkan_swapchain_support_info swapchain_support;
-	sint32 graphics_queue_index;
-	sint32 present_queue_index;
-	sint32 transfer_queue_index;
+	VkPhysicalDevice			physicalDevice;
+	VkDevice					logicalDevice;
+	vulkanSwapchainSupportInfo	swapchainSupport;
+	sint32						graphicsQueueIndex;
+	sint32						presentQueueIndex;
+	sint32						transferQueueIndex;
 
-	VkQueue graphics_queue;
-	VkQueue present_queue;
-	VkQueue transfer_queue;
+	VkQueue		graphicsQueue;
+	VkQueue		presentQueue;
+	VkQueue		transferQueue;
 
-	VkPhysicalDeviceProperties properties;
-	VkPhysicalDeviceFeatures features;
-	VkPhysicalDeviceMemoryProperties memory;
-} vulkan_device;
+	VkPhysicalDeviceProperties			properties;
+	VkPhysicalDeviceFeatures			features;
+	VkPhysicalDeviceMemoryProperties	memory;
+}	vulkanDevice;
 
-typedef struct vulkan_context
+typedef struct	vulkanContext
 {
-	VkInstance instance;
-	VkAllocationCallbacks* allocator;
-	VkSurfaceKHR surface;
+	VkInstance					instance;
+	VkAllocationCallbacks		*allocator;
+	VkSurfaceKHR				surface;
 
 #if defined(_DEBUG)
-	VkDebugUtilsMessengerEXT debug_messenger;
+	VkDebugUtilsMessengerEXT	debugMessenger;
 #endif
 
-	vulkan_device device;
-} vulkan_context;
+	vulkanDevice				device;
+}	vulkanContext;
 
 #endif

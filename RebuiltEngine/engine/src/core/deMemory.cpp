@@ -40,7 +40,7 @@ void	InitializeMemory(void)
 
 void	ShutdownMemory(void)
 {
-	DE_INFO(GetMemoryUsageStr().c_str());
+	// DE_INFO(GetMemoryUsageStr().c_str());
 }
 
 void*	Mallocate(uint64 size, memoryTag tag)

@@ -259,7 +259,7 @@ bl8		PlatformPumpMessages(platformState* platState)
 				// Pass over to the input subsystem.
 				if (mouseButton != BUTTON_MAX_BUTTONS)
 				{
-					input_process_button(mouseButton, pressed);
+					DE_InputProcessButton(mouseButton, pressed);
 				}
 			}
 				break;
@@ -269,7 +269,7 @@ bl8		PlatformPumpMessages(platformState* platState)
 				xcb_motion_notify_event_t *moveEvent = (xcb_motion_notify_event_t *)event;
 
 				// Pass over to the input subsystem.
-				InputProcessMouseMove(moveEvent->event_x, moveEvent->event_y);
+				DE_InputProcessMouseMove(moveEvent->event_x, moveEvent->event_y);
 			}
 				break;
 			case XCB_CONFIGURE_NOTIFY:
@@ -364,11 +364,11 @@ void	PlatformSleep(uint64 ms)
 
 void	PlatformGetRequiredExtensionNames(const char ***namesDarray)
 {
-	darray_push(*namesDarray, &"VK_KHR_xcb_surface");  // VK_KHR_xlib_surface?
+	ArrayDinPush(*namesDarray, &"VK_KHR_xcb_surface");  // VK_KHR_xlib_surface?
 }
 
 // Surface creation for Vulkan
-bl8		PlatformCreateVulkanSurface(platformState *platState, vulkan_context *context)
+bl8		PlatformCreateVulkanSurface(platformState *platState, vulkanContext *context)
 {
 	// Simply cold-cast to the known type.
 	internalState *state = (internalState *)platState->internalState;

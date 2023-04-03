@@ -18,10 +18,10 @@
 struct static_mesh_data;
 struct platformState;
 
-bl8		renderer_initialize(const char *applicationName, struct platformState *platState);
-void	RendererShutdown();
+bl8		RendererInit(const char *applicationName, struct platformState *platState);
+void	RendererShutdown(void);
 
-void	renderer_on_resized(uint16 width, uint16 height);
+void	rendererOnResized(uint16 width, uint16 height);
 
 bl8		RendererDrawFrame(renderPacket *packet);
 

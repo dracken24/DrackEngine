@@ -15,11 +15,11 @@
 
 # include <renderer/vulkan/vulkanTypes.inl>
 
-bl8		vulkan_device_create(vulkan_context* context);
+bl8		VulkanDeviceCreate(vulkanContext *context);
 
-void	vulkan_device_destroy(vulkan_context* context);
+void	VulkanDeviceDestroy(vulkanContext *context);
 
-void	vulkan_device_query_swapchain_support(VkPhysicalDevice physical_device,
-			VkSurfaceKHR surface, vulkan_swapchain_support_info* out_support_info);
+void	VulkanDeviceQuerySwapchainSupport(VkPhysicalDevice physicalDevice,
+			VkSurfaceKHR surface, vulkanSwapchainSupportInfo *outSupportInfo);
 
 #endif

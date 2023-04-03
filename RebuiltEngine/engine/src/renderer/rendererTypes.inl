@@ -13,33 +13,36 @@
 #ifndef RENDERTYPE_INL
 # define RENDERTYPE_INL
 
-# include "defines.hpp"
+# include <defines.hpp>
 
-typedef enum renderer_backend_type
+typedef enum	rendererBackendType
 {
-	RENDERER_BACKEND_TYPE_VULKAN,
-	RENDERER_BACKEND_TYPE_OPENGL,
-	RENDERER_BACKEND_TYPE_DIRECTX
-} renderer_backend_type;
+	DE_RENDERER_BACKEND_TYPE_VULKAN,
+	DE_RENDERER_BACKEND_TYPE_OPENGL,
+	DE_RENDERER_BACKEND_TYPE_DIRECTX
+}	rendererBackendType;
 
-typedef struct renderer_backend
+typedef struct	rendererBackend
 {
-	struct platformState* platState;
-	uint64 frame_number;
+	struct	platformState* platState;
+	uint64	frameNumber;
 
-	bl8 (*initialize)(struct renderer_backend* backend, const char* applicationName, struct platformState* platState);
+	bl8		(*initialize)(struct rendererBackend* backend, const char* applicationName,
+				struct platformState* platState);
 
-	void (*shutdown)(struct renderer_backend* backend);
+	void	(*shutdown)(struct rendererBackend* backend);
 
-	void (*resized)(struct renderer_backend* backend, uint16 width, uint16 height);
+	void	(*resized)(struct rendererBackend* backend, uint16 width, uint16 height);
 
-	bl8 (*begin_frame)(struct renderer_backend* backend, fl32 deltaTime);
-	bl8 (*end_frame)(struct renderer_backend* backend, fl32 deltaTime);    
-} renderer_backend;
+	// Mount an image to the renderer.
+	bl8		(*beginFrame)(struct rendererBackend* backend, fl32 deltaTime);
+	// Frame ready to be rendered.
+	bl8		(*endFrame)(struct rendererBackend* backend, fl32 deltaTime);    
+}	rendererBackend;
 
-typedef struct renderPacket
+typedef struct	renderPacket
 {
-	fl32 deltaTime;
-} renderPacket;
+	fl32	deltaTime;
+}	renderPacket;
 
 #endif

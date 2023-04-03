@@ -14,18 +14,18 @@
 
 #include "vulkan/vulkanBackend.hpp"
 
-bl8		renderer_backend_create(renderer_backend_type type, struct platformState* platState,
-			renderer_backend* out_renderer_backend)
+bl8		RendererBackendCreate(rendererBackendType type, struct platformState* platState,
+			rendererBackend* outRendererBackend)
 {
-	out_renderer_backend->platState = platState;
+	outRendererBackend->platState = platState;
 
-	if (type == RENDERER_BACKEND_TYPE_VULKAN)
+	if (type == DE_RENDERER_BACKEND_TYPE_VULKAN)
 	{
-		out_renderer_backend->initialize = vulkan_renderer_backend_initialize;
-		out_renderer_backend->shutdown = vulkan_renderer_backend_shutdown;
-		out_renderer_backend->begin_frame = vulkan_renderer_backend_begin_frame;
-		out_renderer_backend->end_frame = vulkan_renderer_backend_end_frame;
-		out_renderer_backend->resized = vulkan_renderer_backend_on_resized;
+		outRendererBackend->initialize = vulkanRendererBackendInitialize;
+		outRendererBackend->shutdown = vulkanRendererBackendShutdown;
+		outRendererBackend->beginFrame = vulkanRendererBackendBeginFrame;
+		outRendererBackend->endFrame = vulkanRendererBackendEndFrame;
+		outRendererBackend->resized = vulkanRendererBackendOnResized;
 		
 		return true;
 	}
@@ -33,11 +33,11 @@ bl8		renderer_backend_create(renderer_backend_type type, struct platformState* p
 	return false;
 }
 
-void	renderer_backend_destroy(renderer_backend* renderer_backend)
+void	RendererBackenDestroy(rendererBackend* rendererBackend)
 {
-	renderer_backend->initialize = 0;
-	renderer_backend->shutdown = 0;
-	renderer_backend->begin_frame = 0;
-	renderer_backend->end_frame = 0;
-	renderer_backend->resized = 0;
+	rendererBackend->initialize = 0;
+	rendererBackend->shutdown = 0;
+	rendererBackend->beginFrame = 0;
+	rendererBackend->endFrame = 0;
+	rendererBackend->resized = 0;
 }

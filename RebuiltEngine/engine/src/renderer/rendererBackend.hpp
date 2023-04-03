@@ -17,8 +17,8 @@
 
 struct platformState;
 
-bl8		renderer_backend_create(renderer_backend_type type, struct platformState* platState,
-			renderer_backend* out_renderer_backend);
-void	renderer_backend_destroy(renderer_backend* renderer_backend);
+bl8		RendererBackendCreate(rendererBackendType type, struct platformState* platState,
+			rendererBackend* outRendererBackend);
+void	RendererBackenDestroy(rendererBackend* rendererBackend);
 
 #endif

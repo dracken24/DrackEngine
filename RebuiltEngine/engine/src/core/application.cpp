@@ -68,7 +68,7 @@ bl8		ApplicationCreate(game *gameInst)
 
 	// Initialize subsystems.
 	LogInit();
-	InputInitialize();
+	DE_InputInit();
 
 	// TODO: remove when log message are fully implemented
 	DE_FATAL("Hello World! %f", 1.0f);
@@ -81,7 +81,7 @@ bl8		ApplicationCreate(game *gameInst)
 	appState.isRunning = true;
 	appState.isSuspended = false;
 
-	if(!event_initialize()) {
+	if(!EventInitialize()) {
 		DE_ERROR("Event system failed initialization. Application cannot continue.");
 		return false;
 	}
@@ -106,7 +106,7 @@ bl8		ApplicationCreate(game *gameInst)
 	}
 
 	// Renderer startup
-	if (!renderer_initialize(gameInst->appConfig.name.c_str(), &appState.platform)) {
+	if (!RendererInit(gameInst->appConfig.name.c_str(), &appState.platform)) {
 		DE_FATAL("Failed to initialize renderer. Aborting application.");
 		return false;
 	}
@@ -195,7 +195,7 @@ bl8		ApplicationRun(void)
 			// after any input should be recorded; I.E. before this line.
 			// As a safety, input is the last thing to be updated before
 			// this frame ends.
-			InputUpdate(delta);
+			DE_InputUpdate(delta);
 
 			// Update last time
 			appState.lastTime = currentTime;
@@ -215,8 +215,8 @@ bl8		ApplicationRun(void)
 	EventUnregister(EVENT_CODE_MOUSE_WHEEL, 0, ApplicationOnMouseWheel);
 	EventUnregister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
-	eventShutdown();
-	InputShutdown();
+	EventShutdown();
+	DE_InputShutdown();
 
 	DE_DEBUG("Shutting down game.");
 	RendererShutdown();
