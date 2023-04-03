@@ -50,7 +50,7 @@ bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* appli
 	create_info.pApplicationInfo = &appInfo;
 
 	// Obtain a list of required extensions
-	const char **requiredExtensions = (const char **)ArrayDinCreate(const char *);
+	const char **requiredExtensions = (const char **)ArrayDinCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(const char *));
 	ArrayDinPush(requiredExtensions, &VK_KHR_SURFACE_EXTENSION_NAME);  // Generic surface extension
 	PlatformGetRequiredExtensionNames(&requiredExtensions);       // Platform-specific extension(s)
 
@@ -78,7 +78,7 @@ bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* appli
 	DE_INFO("Validation layers enabled. Enumerating...");
 
 	// The list of validation layers required.
-	requiredValidationLayerNames = (const char **)ArrayDinCreate(const char*);
+	requiredValidationLayerNames = (const char **)ArrayDinCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(const char *));
 	ArrayDinPush(requiredValidationLayerNames, &"VK_LAYER_KHRONOS_validation");
 	requiredValidationLayerCount = ArrayDinLength(requiredValidationLayerNames);
 

@@ -15,25 +15,28 @@
 #include <core/deMemory.hpp>
 #include <core/logger.hpp>
 
-void* _ArrayDinCreate(uint64 length, uint64 stride)
-{
-    uint64 header_size = DARRAY_FIELD_LENGTH * sizeof(uint64);
-    uint64 array_size = length * stride;
-    uint64 *new_array = (uint64 *)Mallocate(header_size + array_size, DE_MEMORY_TAG_MYARRAY);
-    SetMemory(new_array, 0, header_size + array_size);
-    new_array[DARRAY_CAPACITY] = length;
-    new_array[DARRAY_LENGTH] = 0;
-    new_array[DARRAY_STRIDE] = stride;
-    return (void*)(new_array + DARRAY_FIELD_LENGTH);
-}
+// void* _ArrayDinCreate(uint64 length, uint64 stride)
+// {
+//     uint64 header_size = DARRAY_FIELD_LENGTH * sizeof(uint64);
+//     uint64 array_size = length * stride;
+//     uint64 *new_array = (uint64 *)Mallocate(header_size + array_size, DE_MEMORY_TAG_MYARRAY);
+//     SetMemory(new_array, 0, header_size + array_size);
+//     new_array[DARRAY_CAPACITY] = length;
+//     new_array[DARRAY_LENGTH] = 0;
+//     new_array[DARRAY_STRIDE] = stride;
+//     return (void*)(new_array + DARRAY_FIELD_LENGTH);
+// }
 
-void _ArrayDinDestroy(void* array)
-{
-    uint64* header = (uint64*)array - DARRAY_FIELD_LENGTH;
-    uint64 header_size = DARRAY_FIELD_LENGTH * sizeof(uint64);
-    uint64 total_size = header_size + header[DARRAY_CAPACITY] * header[DARRAY_STRIDE];
-    FreeMem(header, total_size, DE_MEMORY_TAG_MYARRAY);
-}
+
+
+// void _ArrayDinDestroy(void* array)
+// {
+//     uint64* header = (uint64*)array - DARRAY_FIELD_LENGTH;
+//     uint64 header_size = DARRAY_FIELD_LENGTH * sizeof(uint64);
+//     uint64 total_size = header_size + header[DARRAY_CAPACITY] * header[DARRAY_STRIDE];
+//     FreeMem(header, total_size, DE_MEMORY_TAG_MYARRAY);
+// }
+
 
 uint64 _ArrayDinFieldGet(void* array, uint64 field)
 {
@@ -51,13 +54,13 @@ void* _darray_resize(void* array)
 {
     uint64 length = ArrayDinLength(array);
     uint64 stride = ArrayDinStride(array);
-    void* temp = _ArrayDinCreate(
+    void* temp = ArrayDinCreate(
         (DE_ARRAY_DIN_RESIZE_FACTOR * ArrayDinCapacity(array)),
         stride);
     CopyMemory(temp, array, length * stride);
 
     _ArrayDinFieldSet(temp, DARRAY_LENGTH, length);
-    _ArrayDinDestroy(array);
+    ArrayDinDestroy(array);
     return temp;
 }
 

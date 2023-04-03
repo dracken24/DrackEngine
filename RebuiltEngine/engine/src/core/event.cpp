@@ -78,7 +78,7 @@ bl8 EventRegister(uint16 code, void* listener, eventPtr onEvent)
 
     if(state.registered[code].events == 0)
     {
-        state.registered[code].events = (registeredEvent *)ArrayDinCreate(registeredEvent);
+        state.registered[code].events = (registeredEvent *)ArrayDinCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(registeredEvent));
     }
 
     uint64 registered_count = ArrayDinLength(state.registered[code].events);

@@ -280,7 +280,7 @@ bl8 SelectPhysicalDevice(vulkanContext* context)
 		// requirements.compute = true;
 		requirements.samplerAnisotropy = true;
 		requirements.discreteGpu = true;
-		requirements.deviceExtensionNames = (const char **)ArrayDinCreate(const char *);
+		requirements.deviceExtensionNames = (const char **)ArrayDinCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(const char *));
 		ArrayDinPush(requirements.deviceExtensionNames, &VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
 		vulkanPhysicalDeviceQueueFamilyInfo queueInfo = {};
