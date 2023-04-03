@@ -95,7 +95,7 @@ bl8 EventRegister(uint16 code, void* listener, eventPtr onEvent)
     registeredEvent event;
     event.listener = listener;
     event.callback = onEvent;
-    ArrayDinPushEvent(state.registered[code].events, event);
+    _ArrayDinPush(state.registered[code].events, &event);
 
     return true;
 }
