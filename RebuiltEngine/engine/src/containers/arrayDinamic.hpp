@@ -16,6 +16,7 @@
 # include <defines.hpp>
 #include <containers/arrayDinamic.hpp>
 #include <core/deMemory.hpp>
+# include <core/logger.hpp>
 
 /*
 Memory layout
@@ -24,6 +25,9 @@ uint64 length = number of elements currently contained
 uint64 stride = size of each element in bytes
 void* elements
 */
+
+#define DE_ARRAY_DIN_DEFAULT_CAPACITY 1
+#define DE_ARRAY_DIN_RESIZE_FACTOR 2
 
 #define ArrayDinClear(array) \
 	_ArrayDinFieldSet(array, DARRAY_LENGTH, 0)
@@ -83,7 +87,22 @@ DE_API void		_ArrayDinFieldSet(T *array, uint64 field, uint64 value)
 	header[field] = value;
 };
 
-DE_API void		*_darray_resize(void *array);
+template<typename T>
+DE_API T		*_darray_resize(T *array)
+{
+	uint64 length = ArrayDinLength(array);
+	uint64 stride = ArrayDinStride(array);
+	void *temp = ArrayDinCreate(
+		(DE_ARRAY_DIN_RESIZE_FACTOR * ArrayDinCapacity(array)),
+		stride);
+
+	CopyMemory(temp, array, length * stride);
+
+	_ArrayDinFieldSet(temp, DARRAY_LENGTH, length);
+	ArrayDinDestroy(array);
+
+	return temp;
+};
 
 template<typename T, typename U>
 DE_API T		*_ArrayDinPush(T *array, const U *valuePtr)
@@ -103,14 +122,78 @@ DE_API T		*_ArrayDinPush(T *array, const U *valuePtr)
 	return array;
 };
 
-DE_API void		_ArrayDinPop(void *array, void *dest);
+template<typename T>
+DE_API void		_ArrayDinPop(T *array, T *dest)
+{
+	uint64 length = ArrayDinLength(array);
+	uint64 stride = ArrayDinStride(array);
+	uint64 addr = (uint64)array;
 
-DE_API void		*_ArrayDinPopAt(void *array, uint64 index, void *dest);
+	addr += ((length - 1) * stride);
 
-DE_API void		*_ArrayDinInsertAt(void *array, uint64 index, void *valuePtr);
+	CopyMemory(dest, (void *)addr, stride);
+	_ArrayDinFieldSet(array, DARRAY_LENGTH, length - 1);
+};
 
-#define DE_ARRAY_DIN_DEFAULT_CAPACITY 1
-#define DE_ARRAY_DIN_RESIZE_FACTOR 2
+template<typename T>
+DE_API T		*_ArrayDinPopAt(T *array, uint64 index, T *dest)
+{
+	uint64 length = ArrayDinLength(array);
+	uint64 stride = ArrayDinStride(array);
+	if (index >= length)
+	{
+		DE_ERROR("Index outside the bounds of this array! Length: %i, index: %index", length, index);
+		return array;
+	}
+
+	uint64 addr = (uint64)array;
+	CopyMemory(dest, (void *)(addr + (index * stride)), stride);
+
+	// If not on the last element, snip out the entry and copy the rest inward.
+	if (index != length - 1)
+	{
+		CopyMemory(
+			(void *)(addr + (index * stride)),
+			(void *)(addr + ((index + 1) * stride)),
+			stride * (length - index));
+	}
+
+	_ArrayDinFieldSet(array, DARRAY_LENGTH, length - 1);
+	return array;
+};
+
+template<typename T, typename U>
+DE_API T	*_ArrayDinInsertAt(T *array, uint64 index, U *valuePtr)
+{
+	uint64 length = ArrayDinLength(array);
+	uint64 stride = ArrayDinStride(array);
+	if (index >= length)
+	{
+		DE_ERROR("Index outside the bounds of this array! Length: %i, index: %index", length, index);
+		return array;
+	}
+	if (length >= ArrayDinCapacity(array))
+	{
+		array = _darray_resize(array);
+	}
+
+	uint64 addr = (uint64)array;
+
+	// If not on the last element, copy the rest outward.
+	if (index != length - 1)
+	{
+		CopyMemory(
+			(void *)(addr + ((index + 1) * stride)),
+			(void *)(addr + (index * stride)),
+			stride * (length - index));
+	}
+
+	// Set the value at the index
+	CopyMemory((void *)(addr + (index * stride)), valuePtr, stride);
+
+	_ArrayDinFieldSet(array, DARRAY_LENGTH, length + 1);
+	return array;
+};
 
 // #define ArrayDinCreate(type) \
 // 	_ArrayDinCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(type))
