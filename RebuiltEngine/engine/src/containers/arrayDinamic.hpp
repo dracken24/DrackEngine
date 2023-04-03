@@ -30,6 +30,7 @@ enum {
 	DARRAY_FIELD_LENGTH
 };
 
+
 DE_API void		*_ArrayDinCreate(uint64 length, uint64 stride);
 DE_API void		_ArrayDinDestroy(void *array);
 

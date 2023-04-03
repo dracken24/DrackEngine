@@ -15,9 +15,9 @@
 // Linux platform layer.
 #if DE_PLATFORM_LINUX
 
-#include "core/logger.hpp"
-#include "core/event.hpp"
-#include "core/input.hpp"
+#include <core/logger.hpp>
+#include <core/event.hpp>
+#include <core/input.hpp>
 #include <color.hpp>
 
 #include "containers/arrayDinamic.hpp"

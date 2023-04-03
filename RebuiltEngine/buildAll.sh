@@ -14,7 +14,7 @@
 # Build script for rebuilding everything
 set echo on
 
-echo "Building everything..."
+echo  "\033[32mBuilding everything...\n"
 
 alias pushd='cd'
 alias popd='cd ..'
@@ -38,4 +38,4 @@ then
 echo "Error:"$ERRORLEVEL && exit
 fi
 
-echo "All assemblies built successfully."
+echo "\033[32m\nAll assemblies built successfully.\033[0m"

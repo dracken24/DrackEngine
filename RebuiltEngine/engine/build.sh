@@ -19,7 +19,8 @@ mkdir -p ../bin
 # Get a list of all the .cpp files.
 cFilenames=$(find . -type f -name "*.cpp")
 
-echo "Files:" $cFilenames
+# echo "Files:" $cFilenames
+echo "\033[36mCompiling engine..."
 
 assembly="engine"
 compilerFlags="-g -shared -fdeclspec -fPIC"
@@ -30,5 +31,5 @@ linkerFlags="-lvulkan -lxcb -lX11 -lX11-xcb -lxkbcommon -L$VULKAN_SDK/lib -L/usr
 ignoreFlags="-Wno-comment"
 defines="-D_DEBUG -DDE_EXPORT"
 
-echo "Building $assembly... in engine/build.sh"
+# echo "Building $assembly... in engine/build.sh"
 clang++ $cFilenames $compilerFlags -o ../bin/lib$assembly.so $defines $includeFlags $linkerFlags $ignoreFlags
