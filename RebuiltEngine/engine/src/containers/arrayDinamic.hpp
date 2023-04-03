@@ -92,7 +92,7 @@ DE_API T		*_darray_resize(T *array)
 {
 	uint64 length = ArrayDinLength(array);
 	uint64 stride = ArrayDinStride(array);
-	void *temp = ArrayDinCreate(
+	T *temp = (T*)ArrayDinCreate(
 		(DE_ARRAY_DIN_RESIZE_FACTOR * ArrayDinCapacity(array)),
 		stride);
 
