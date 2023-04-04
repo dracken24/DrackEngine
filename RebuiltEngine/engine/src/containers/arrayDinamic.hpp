@@ -14,8 +14,8 @@
 # define DE_ARRAYDINAMIC_HPP
 
 # include <defines.hpp>
-#include <containers/arrayDinamic.hpp>
-#include <core/deMemory.hpp>
+# include <containers/arrayDinamic.hpp>
+# include <core/deMemory.hpp>
 # include <core/logger.hpp>
 
 /*
@@ -26,28 +26,22 @@ uint64 stride = size of each element in bytes
 void* elements
 */
 
-#define DE_ARRAY_DIN_DEFAULT_CAPACITY 1
-#define DE_ARRAY_DIN_RESIZE_FACTOR 2
+# define DE_ARRAY_DIN_DEFAULT_CAPACITY 1
+# define DE_ARRAY_DIN_RESIZE_FACTOR 2
 
-#define DE_ArrayClear(array) \
-	_DE_ArrayFieldSet(array, DARRAY_LENGTH, 0)
+# define DE_ArrayClear(array) _DE_ArrayFieldSet(array, DARRAY_LENGTH, 0)
 
-#define DE_ArrayCapacity(array) \
-	_DE_ArrayFieldGet(array, DARRAY_CAPACITY)
+# define DE_ArrayCapacity(array) _DE_ArrayFieldGet(array, DARRAY_CAPACITY)
 
-#define DE_ArrayLength(array) \
-	_DE_ArrayFieldGet(array, DARRAY_LENGTH)
+# define DE_ArrayLength(array)  _DE_ArrayFieldGet(array, DARRAY_LENGTH)
 
-#define DE_ArrayStride(array) \
-	_DE_ArrayFieldGet(array, DARRAY_STRIDE)
+# define DE_ArrayStride(array)  _DE_ArrayFieldGet(array, DARRAY_STRIDE)
 
-#define DE_ArrayLengthSet(array, value) \
-	_DE_ArrayFieldSet(array, DARRAY_LENGTH, value)
+# define DE_ArrayLengthSet(array, value)  _DE_ArrayFieldSet(array, DARRAY_LENGTH, value)
 
-#define DE_ArrayReserve(type, capacity) \
-	DE_ArrayCreate(capacity, sizeof(type))
+# define DE_ArrayReserve(type, capacity)  DE_ArrayCreate(capacity, sizeof(type))
 
-#define DE_ArrayPush(array, value)                                                            \
+# define DE_ArrayPush(array, value)                                                            \
 	{                                                                                         \
 		decltype(value) temp = value;                                                         \
 		array = static_cast<const char **>(_DE_ArrayPush(static_cast<void *>(array), &temp)); \
@@ -157,7 +151,7 @@ DE_API T		*DE_ArrayPopAt(T *array, uint64 index, T *dest)
 {
 	uint64 length = DE_ArrayLength(array);
 	uint64 stride = DE_ArrayStride(array);
-	
+
 	if (index >= length)
 	{
 		DE_ERROR("Index outside the bounds of this array! Length: %i, index: %index", length, index);
