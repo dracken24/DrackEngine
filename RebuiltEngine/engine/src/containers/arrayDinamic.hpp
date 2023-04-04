@@ -92,7 +92,7 @@ DE_API T		*_darray_resize(T *array)
 {
 	uint64 length = ArrayDinLength(array);
 	uint64 stride = ArrayDinStride(array);
-	void *temp = ArrayDinCreate(
+	T *temp = (T *)ArrayDinCreate(
 		(DE_ARRAY_DIN_RESIZE_FACTOR * ArrayDinCapacity(array)),
 		stride);
 
@@ -209,26 +209,16 @@ DE_API T	*_ArrayDinInsertAt(T *array, uint64 index, U *valuePtr)
 		array = static_cast<const char **>(_ArrayDinPush(static_cast<void *>(array), &temp));	\
 	}
 
-#define ArrayDinPushEvent(array, value)                                                           \
-	{                                                                                             \
-		decltype(value) temp = value;                                                             \
-		array = static_cast<registeredEvent *>(_ArrayDinPush(static_cast<void *>(array), &temp)); \
-	}
+// #define ArrayDinPushEvent(array, value)                                                           \
+// 	{                                                                                             \
+// 		decltype(value) temp = value;                                                             \
+// 		array = static_cast<registeredEvent *>(_ArrayDinPush(static_cast<void *>(array), &temp)); \
+// 	}
 // NOTE: could use __auto_type for temp above, but intellisense
 // for VSCode flags it as an unknown type. typeof() seems to
 // work just fine, though. Both are GNU extensions.
 
-#define ArrayDinPop(array, valuePtr) \
-	_ArrayDinPop(array, valuePtr)
 
-#define ArrayDinInsertAt(array, index, value)           \
-	{                                                   \
-		typeof(value) temp = value;                     \
-		array = _ArrayDinInsertAt(array, index, &temp); \
-	}
-
-// #define ArrayDinPopAt(array, index, valuePtr) \
-// 	_ArrayDinPopAt(array, index, valuePtr)
 
 
 
