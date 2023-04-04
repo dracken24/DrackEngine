@@ -43,29 +43,29 @@ bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* appli
 	appInfo.apiVersion = VK_API_VERSION_1_2;
 	appInfo.pApplicationName = applicationName;
 	appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-	appInfo.pEngineName = "Kohi Engine";
+	appInfo.pEngineName = "DrackEngine";
 	appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
 
 	VkInstanceCreateInfo create_info = {VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO};
 	create_info.pApplicationInfo = &appInfo;
 
 	// Obtain a list of required extensions
-	const char **requiredExtensions = (const char **)ArrayDinCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(const char *));
-	ArrayDinPush(requiredExtensions, &VK_KHR_SURFACE_EXTENSION_NAME);  // Generic surface extension
+	const char **requiredExtensions = (const char **)DE_ArrayCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(const char *));
+	DE_ArrayPush(requiredExtensions, &VK_KHR_SURFACE_EXTENSION_NAME);  // Generic surface extension
 	PlatformGetRequiredExtensionNames(&requiredExtensions);       // Platform-specific extension(s)
 
 #if defined(_DEBUG)
-	ArrayDinPush(requiredExtensions, &VK_EXT_DEBUG_UTILS_EXTENSION_NAME);  // debug utilities
+	DE_ArrayPush(requiredExtensions, &VK_EXT_DEBUG_UTILS_EXTENSION_NAME);  // debug utilities
 
 	DE_DEBUG("Required extensions:");
-	uint32 length = ArrayDinLength(requiredExtensions);
+	uint32 length = DE_ArrayLength(requiredExtensions);
 	for (uint32 i = 0; i < length; ++i)
 	{
 		DE_DEBUG(requiredExtensions[i]);
 	}
 #endif
 
-	create_info.enabledExtensionCount = ArrayDinLength(requiredExtensions);
+	create_info.enabledExtensionCount = DE_ArrayLength(requiredExtensions);
 	create_info.ppEnabledExtensionNames = requiredExtensions;
 
 	// Validation layers.
@@ -78,14 +78,14 @@ bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* appli
 	DE_INFO("Validation layers enabled. Enumerating...");
 
 	// The list of validation layers required.
-	requiredValidationLayerNames = (const char **)ArrayDinCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(const char *));
-	ArrayDinPush(requiredValidationLayerNames, &"VK_LAYER_KHRONOS_validation");
-	requiredValidationLayerCount = ArrayDinLength(requiredValidationLayerNames);
+	requiredValidationLayerNames = (const char **)DE_ArrayCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(const char *));
+	DE_ArrayPush(requiredValidationLayerNames, &"VK_LAYER_KHRONOS_validation");
+	requiredValidationLayerCount = DE_ArrayLength(requiredValidationLayerNames);
 
 	// Obtain a list of available validation layers
 	uint32 availableLayerCount = 0;
 	VK_CHECK(vkEnumerateInstanceLayerProperties(&availableLayerCount, 0));
-	VkLayerProperties *availableLayers = (VkLayerProperties *)ArrayDinReserve(VkLayerProperties, availableLayerCount);
+	VkLayerProperties *availableLayers = (VkLayerProperties *)DE_ArrayReserve(VkLayerProperties, availableLayerCount);
 	VK_CHECK(vkEnumerateInstanceLayerProperties(&availableLayerCount, availableLayers));
 
 	// Verify all required layers are available.
@@ -174,9 +174,9 @@ void	vulkanRendererBackendShutdown(rendererBackend* backend)
 		func(context.instance, context.debugMessenger, context.allocator);
 	}
 
-	DE_DEBUG("Destroying Vulkan instance...");
-	if (context.instance)
-		vkDestroyInstance(context.instance, context.allocator);
+	// DE_DEBUG("Destroying Vulkan instance...");
+	// if (context.instance)
+	// 	vkDestroyInstance(context.instance, context.allocator);
 }
 
 void	vulkanRendererBackendOnResized(rendererBackend* backend, uint16 width, uint16 height)

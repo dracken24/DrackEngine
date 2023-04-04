@@ -94,7 +94,7 @@ std::string	GetMemoryUsageStr(void)
 	const uint32 mib = 1024 * 1024;
 	const uint16 kib = 1024;
 
-	char buffer[8000] = "\nMemory in use for the engine :\n\n";
+	char buffer[8000] = "Memory in use for the engine :\n\n";
 	uint64 offset = strlen(buffer);
 	for (uint32 i = 0; i <= DE_MEMORY_TAG_MAX_TAGS; ++i)
 	{

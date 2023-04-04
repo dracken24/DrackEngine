@@ -40,7 +40,6 @@ bl8 RendererInit(const char* applicationName, struct platformState* platState)
 
 void RendererShutdown()
 {
-	backend->shutdown(backend);
 	FreeMem(backend, sizeof(rendererBackend), DE_MEMORY_TAG_RENDERER);
 }
 

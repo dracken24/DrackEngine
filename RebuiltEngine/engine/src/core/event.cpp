@@ -63,7 +63,7 @@ void EventShutdown()
     {
         if(state.registered[i].events != 0)
         {
-            ArrayDinDestroy(state.registered[i].events);
+            DE_ArrayDestroy(state.registered[i].events);
             state.registered[i].events = 0;
         }
     }
@@ -78,10 +78,10 @@ bl8 EventRegister(uint16 code, void* listener, eventPtr onEvent)
 
     if(state.registered[code].events == 0)
     {
-        state.registered[code].events = (registeredEvent *)ArrayDinCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(registeredEvent));
+        state.registered[code].events = (registeredEvent *)DE_ArrayCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(registeredEvent));
     }
 
-    uint64 registered_count = ArrayDinLength(state.registered[code].events);
+    uint64 registered_count = DE_ArrayLength(state.registered[code].events);
     for(uint64 i = 0; i < registered_count; ++i)
     {
         if(state.registered[code].events[i].listener == listener)
@@ -95,7 +95,7 @@ bl8 EventRegister(uint16 code, void* listener, eventPtr onEvent)
     registeredEvent event;
     event.listener = listener;
     event.callback = onEvent;
-    _ArrayDinPush(state.registered[code].events, &event);
+    _DE_ArrayPush(state.registered[code].events, &event);
 
     return true;
 }
@@ -114,7 +114,7 @@ bl8 EventUnregister(uint16 code, void* listener, eventPtr onEvent)
         return false;
     }
 
-    uint64 registered_count = ArrayDinLength(state.registered[code].events);
+    uint64 registered_count = DE_ArrayLength(state.registered[code].events);
     for(uint64 i = 0; i < registered_count; ++i)
     {
         registeredEvent e = state.registered[code].events[i];
@@ -122,7 +122,7 @@ bl8 EventUnregister(uint16 code, void* listener, eventPtr onEvent)
         {
             // Found one, remove it
             registeredEvent popped_event;
-            _ArrayDinPopAt(state.registered[code].events, i, &popped_event);
+            DE_ArrayPopAt(state.registered[code].events, i, &popped_event);
             return true;
         }
     }
@@ -144,7 +144,7 @@ bl8 EventFire(uint16 code, void* sender, eventContext context)
         return false;
     }
 
-    uint64 registered_count = ArrayDinLength(state.registered[code].events);
+    uint64 registered_count = DE_ArrayLength(state.registered[code].events);
     for(uint64 i = 0; i < registered_count; ++i)
     {
         registeredEvent e = state.registered[code].events[i];

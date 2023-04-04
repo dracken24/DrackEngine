@@ -364,7 +364,7 @@ void	PlatformSleep(uint64 ms)
 
 void	PlatformGetRequiredExtensionNames(const char ***namesDarray)
 {
-	ArrayDinPush(*namesDarray, &"VK_KHR_xcb_surface");  // VK_KHR_xlib_surface?
+	DE_ArrayPush(*namesDarray, &"VK_KHR_xcb_surface");  // VK_KHR_xlib_surface?
 }
 
 // Surface creation for Vulkan
