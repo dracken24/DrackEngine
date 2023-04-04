@@ -92,7 +92,9 @@ DE_API T		*_darray_resize(T *array)
 {
 	uint64 length = ArrayDinLength(array);
 	uint64 stride = ArrayDinStride(array);
+
 	T *temp = (T *)ArrayDinCreate(
+
 		(DE_ARRAY_DIN_RESIZE_FACTOR * ArrayDinCapacity(array)),
 		stride);
 
@@ -219,8 +221,14 @@ DE_API T	*_ArrayDinInsertAt(T *array, uint64 index, U *valuePtr)
 // work just fine, though. Both are GNU extensions.
 
 
+// #define ArrayDinPop(array, valuePtr) \
+// 	_ArrayDinPop(array, valuePtr)
 
-
+// #define ArrayDinInsertAt(array, index, value)           \
+// 	{                                                   \
+// 		typeof(value) temp = value;                     \
+// 		array = _ArrayDinInsertAt(array, index, &temp); \
+// 	}
 
 #endif
 	
