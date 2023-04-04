@@ -236,6 +236,8 @@ bl8		PlatformPumpMessages(platformState* platState)
 				InputProcessKey(key, pressed);
 			}
 				break;
+
+			// Mouse events
 			case XCB_BUTTON_PRESS:
 			case XCB_BUTTON_RELEASE:
 			{
@@ -261,21 +263,41 @@ bl8		PlatformPumpMessages(platformState* platState)
 				{
 					DE_InputProcessButton(mouseButton, pressed);
 				}
+
+				// Mouse wheel
+				if (mouseEvent->detail == XCB_BUTTON_INDEX_4)
+				{
+					// Mouse wheel up
+					// DE_DEBUG("Mouse wheel up");
+					DE_OnMouseWheel(1);
+				}
+				else if (mouseEvent->detail == XCB_BUTTON_INDEX_5)
+				{
+					// Mouse wheel down
+					// DE_DEBUG("Mouse wheel down");
+					DE_OnMouseWheel(-1);
+				}
 			}
 				break;
+
+			// Mouse move
 			case XCB_MOTION_NOTIFY:
 			{
-				// Mouse move
 				xcb_motion_notify_event_t *moveEvent = (xcb_motion_notify_event_t *)event;
 
 				// Pass over to the input subsystem.
 				DE_InputProcessMouseMove(moveEvent->event_x, moveEvent->event_y);
 			}
 				break;
+
+			// Window events
 			case XCB_CONFIGURE_NOTIFY:
 			{
 				// TODO: Resizing
+				// DE_DEBUG("Resize me or move me, whatever...");
 
+				xcb_configure_notify_event_t *resizeEvent = (xcb_configure_notify_event_t *)event;
+				DE_OnWindowResize(resizeEvent->width, resizeEvent->height);
 			}
 				break;
 			case XCB_CLIENT_MESSAGE:

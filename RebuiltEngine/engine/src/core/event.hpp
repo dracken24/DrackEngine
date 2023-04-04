@@ -74,7 +74,7 @@ DE_API bl8	EventUnregister(uint16 code, void* listener, eventPtr onEvent);
 DE_API bl8	EventFire(uint16 code, void* sender, eventContext context);
 
 // System internal event codes. Application should use codes beyond 255.
-typedef enum	systemEventCode
+typedef enum systemEventCode
 {
 	// Shuts the application down on the next frame.
 	EVENT_CODE_APPLICATION_QUIT = 0x01,
@@ -114,16 +114,17 @@ typedef enum	systemEventCode
 	/* Context usage:
 	 * uint8 z_delta = data.data.uint8[0];
 	 */
-	EVENT_CODE_MOUSE_WHEEL = 0x07,
+	EVENT_CODE_MOUSE_WHEEL_UP = 0x07,
+	EVENT_CODE_MOUSE_WHEEL_DOWN = 0x08,
 
 	// Resized/resolution changed from the OS.
 	/* Context usage:
-	 * uint16 width = data.data.uint16[0];
-	 * uint16 height = data.data.uint16[1];
-	 */
-	EVENT_CODE_RESIZED = 0x08,
+		* uint16 width = data.data.uint16[0];
+		* uint16 height = data.data.uint16[1];
+		*/
+	EVENT_CODE_RESIZED = 0x09,
 
 	MAX_EVENT_CODE = 0xFF
-}	systemEventCode;
+} systemEventCode;
 
 #endif // EVENT_HPP

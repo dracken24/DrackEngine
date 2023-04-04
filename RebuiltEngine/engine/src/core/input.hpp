@@ -181,6 +181,9 @@ DE_API void	DE_GetPreviousMousePosition(sint32* x, sint32* y);
 
 void		DE_InputProcessButton(buttons button, bl8 pressed);
 void		DE_InputProcessMouseMove(sint16 x, sint16 y);
-void		DE_OnMouseWheel(sint8 z_delta);
+void		DE_OnMouseWheel(bl8 z_delta);
+
+// Window events
+DE_API bl8	DE_OnWindowResize(sint16 width, sint16 height);
 
 #endif // INPUT_Hpp

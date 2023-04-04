@@ -44,7 +44,8 @@ typedef struct applicationState
 
 static bl8 initialized = false;
 static applicationState appState;
-static Vector2ui mousePosition;
+static Vector2ui		mousePosition;
+static fl32			mouseZoom = -20;
 
 // Event handlers
 bl8		ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventContext context);
@@ -92,7 +93,8 @@ bl8		ApplicationCreate(game *gameInst)
 	EventRegister(EVENT_CODE_BUTTON_PRESSED, 0, ApplicationOnButton);
 	EventRegister(EVENT_CODE_BUTTON_RELEASED, 0, ApplicationOnButton);
 	EventRegister(EVENT_CODE_MOUSE_MOVED, 0, ApplicationOnMouseMove);
-	EventRegister(EVENT_CODE_MOUSE_WHEEL, 0, ApplicationOnMouseWheel);
+	EventRegister(EVENT_CODE_MOUSE_WHEEL_UP, 0, ApplicationOnMouseWheel);
+	EventRegister(EVENT_CODE_MOUSE_WHEEL_DOWN, 0, ApplicationOnMouseWheel);
 	EventRegister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
 	if (!PlatformStartup(
@@ -212,7 +214,8 @@ bl8		ApplicationRun(void)
 	EventUnregister(EVENT_CODE_BUTTON_PRESSED, 0, ApplicationOnButton);
 	EventUnregister(EVENT_CODE_BUTTON_RELEASED, 0, ApplicationOnButton);
 	EventUnregister(EVENT_CODE_MOUSE_MOVED, 0, ApplicationOnMouseMove);
-	EventUnregister(EVENT_CODE_MOUSE_WHEEL, 0, ApplicationOnMouseWheel);
+	EventUnregister(EVENT_CODE_MOUSE_WHEEL_UP, 0, ApplicationOnMouseWheel);
+	EventUnregister(EVENT_CODE_MOUSE_WHEEL_DOWN, 0, ApplicationOnMouseWheel);
 	EventUnregister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
 	EventShutdown();
@@ -331,13 +334,16 @@ bl8		ApplicationOnMouseMove(uint16 code, void *sender, void *listenerInst, event
 
 bl8		ApplicationOnMouseWheel(uint16 code, void *sender, void *listenerInst, eventContext context)
 {
-	if (code == EVENT_CODE_MOUSE_WHEEL)
+	if (code == EVENT_CODE_MOUSE_WHEEL_UP)
 	{
-		uint32 x = context.data.uint16[0];
-		uint32 y = context.data.uint16[1];
-		DE_DEBUG("Mouse wheel moved to (%d, %d).", x, y);
+		mouseZoom += 1.0f;
+		DE_DEBUG("Mouse wheel up: %f.", mouseZoom);
 	}
-	DE_DEBUG("Mouse wheel moved");
+	else if (code == EVENT_CODE_MOUSE_WHEEL_DOWN)
+	{
+		mouseZoom -= 1.0f;
+		DE_DEBUG("Mouse wheel down: %f.", mouseZoom);
+	}
 
 	return false;
 }
@@ -349,7 +355,7 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 	{
 		uint32 width = context.data.uint16[0];
 		uint32 height = context.data.uint16[1];
-		DE_DEBUG("Window resized to (%d, %d).", width, height);
+		DE_DEBUG("Resize me or move me, whatever... (W: %d, H: %d).", width, height);
 	}
 
 	return false;

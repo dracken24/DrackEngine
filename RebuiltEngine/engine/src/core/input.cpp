@@ -113,14 +113,21 @@ void DE_InputProcessMouseMove(sint16 x, sint16 y)
 	}
 }
 
-void DE_OnMouseWheel(sint8 z_delta)
+void	DE_OnMouseWheel(bl8 z_delta)
 {
 	// NOTE: no internal state to update.
 
 	// Fire the event.
 	eventContext context;
 	context.data.uint8[0] = z_delta;
-	EventFire(EVENT_CODE_MOUSE_WHEEL, 0, context);
+	if (z_delta > 0)
+	{
+		EventFire(EVENT_CODE_MOUSE_WHEEL_UP, 0, context);
+	}
+	else
+	{
+		EventFire(EVENT_CODE_MOUSE_WHEEL_DOWN, 0, context);
+	}
 }
 
 bl8		DE_OnKeyDown(keys key)
@@ -217,4 +224,17 @@ void DE_GetPreviousMousePosition(sint32* x, sint32* y)
 	}
 	*x = state.mouse_previous.x;
 	*y = state.mouse_previous.y;
+}
+
+bl8 DE_OnWindowResize(sint16 width, sint16 height)
+{
+	// NOTE: no internal state to update.
+
+	// Fire the event.
+	eventContext context;
+	context.data.uint16[0] = width;
+	context.data.uint16[1] = height;
+	EventFire(EVENT_CODE_RESIZED, 0, context);
+
+	return true;
 }
