@@ -17,7 +17,7 @@
 # include "core/logger.hpp"
 # include "core/deMemory.hpp"
 # include "gameTypes.hpp"
-# include "game.hpp"
+# include <game.hpp>
 
 // Externally-defined function to create a game.
 extern bl8	createGame(game* out_game);

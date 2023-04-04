@@ -295,9 +295,10 @@ bl8		PlatformPumpMessages(platformState* platState)
 			{
 				// TODO: Resizing
 				// DE_DEBUG("Resize me or move me, whatever...");
-
 				xcb_configure_notify_event_t *resizeEvent = (xcb_configure_notify_event_t *)event;
-				DE_OnWindowResize(resizeEvent->width, resizeEvent->height);
+				// DE_DEBUG("Resize or move? %d", resizeEvent.);
+				DE_OnWindowResizeMove(resizeEvent->width, resizeEvent->height,
+					resizeEvent->x, resizeEvent->y);
 			}
 				break;
 			case XCB_CLIENT_MESSAGE:

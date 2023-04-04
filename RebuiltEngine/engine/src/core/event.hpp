@@ -119,10 +119,17 @@ typedef enum systemEventCode
 
 	// Resized/resolution changed from the OS.
 	/* Context usage:
-		* uint16 width = data.data.uint16[0];
-		* uint16 height = data.data.uint16[1];
-		*/
+	* uint16 width = data.data.uint16[0];
+	* uint16 height = data.data.uint16[1];
+	*/
 	EVENT_CODE_RESIZED = 0x09,
+
+	// Window moved.
+	/* Context usage:
+	* uint16 x = data.data.uint16[0];
+	* uint16 y = data.data.uint16[1];
+	*/
+	EVENT_CODE_WINDOW_MOVE = 0x0A,
 
 	MAX_EVENT_CODE = 0xFF
 } systemEventCode;

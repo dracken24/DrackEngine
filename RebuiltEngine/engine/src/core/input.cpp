@@ -226,7 +226,8 @@ void DE_GetPreviousMousePosition(sint32* x, sint32* y)
 	*y = state.mouse_previous.y;
 }
 
-bl8 DE_OnWindowResize(sint16 width, sint16 height)
+bl8 DE_OnWindowResizeMove(sint16 width, sint16 height,
+	sint16 x, sint16 y)
 {
 	// NOTE: no internal state to update.
 
@@ -234,6 +235,8 @@ bl8 DE_OnWindowResize(sint16 width, sint16 height)
 	eventContext context;
 	context.data.uint16[0] = width;
 	context.data.uint16[1] = height;
+	context.data.uint16[2] = x;
+	context.data.uint16[3] = y;
 	EventFire(EVENT_CODE_RESIZED, 0, context);
 
 	return true;

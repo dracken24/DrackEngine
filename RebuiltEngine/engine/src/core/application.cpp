@@ -350,12 +350,14 @@ bl8		ApplicationOnMouseWheel(uint16 code, void *sender, void *listenerInst, even
 
 bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventContext context)
 {
-	DE_DEBUG("EVENT resize: %d", code);
 	if (code == EVENT_CODE_RESIZED)
 	{
-		uint32 width = context.data.uint16[0];
-		uint32 height = context.data.uint16[1];
-		DE_DEBUG("Resize me or move me, whatever... (W: %d, H: %d).", width, height);
+		uint16 width = context.data.uint16[0];
+		uint16 height = context.data.uint16[1];
+		uint16 x = context.data.uint16[2];
+		uint16 y = context.data.uint16[3];
+
+		DE_DEBUG("Resize me or move me, whatever... (W: %d, H: %d, X: %d, Y: %d).", width, height, x, y);
 	}
 
 	return false;
