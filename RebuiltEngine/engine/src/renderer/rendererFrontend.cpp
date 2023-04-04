@@ -11,17 +11,50 @@
 /*****************************************************************************/
 
 #include "rendererFrontend.hpp"
-#include "rendererBackend.hpp"
-
-#include "core/logger.hpp"
-#include "core/deMemory.hpp"
 
 struct platformState;
 
-// Backend render context.
 static rendererBackend* backend = 0;
+//**********************************************************************//
+//**                     Constructors / Destructor                    **//
+//**********************************************************************//
 
-bl8 RendererInit(const char* applicationName, struct platformState* platState)
+Renderer::Renderer()
+{
+}
+
+Renderer::Renderer(const Renderer &src)
+{
+	if (this != &src)
+	{
+		*this = src;
+	}
+}
+
+Renderer &Renderer::operator=(const Renderer &src)
+{
+	if (this != &src)
+	{
+		backend->beginFrame = src.backend->beginFrame;
+		backend->endFrame = src.backend->endFrame;
+		backend->frameNumber = src.backend->frameNumber;
+		backend->initialize = src.backend->initialize;
+		backend->platState = src.backend->platState;
+		backend->resized = src.backend->resized;
+		backend->shutdown = src.backend->shutdown;
+	}
+	return *this;
+}
+
+Renderer::~Renderer()
+{
+}
+
+//**********************************************************************//
+//**                          PUBLIC METHODS                          **//
+//**********************************************************************//
+
+bl8 Renderer::RendererInit(const char *applicationName, struct platformState *platState)
 {
 	backend = (rendererBackend *)Mallocate(sizeof(rendererBackend), DE_MEMORY_TAG_RENDERER);
 
@@ -38,24 +71,24 @@ bl8 RendererInit(const char* applicationName, struct platformState* platState)
 	return true;
 }
 
-void RendererShutdown()
+void	Renderer::RendererShutdown()
 {
 	FreeMem(backend, sizeof(rendererBackend), DE_MEMORY_TAG_RENDERER);
 }
 
-bl8 RendererBeginFrame(fl32 deltaTime)
+bl8		Renderer::RendererBeginFrame(fl32 deltaTime)
 {
 	return backend->beginFrame(backend, deltaTime);
 }
 
-bl8 RendererEndFrame(fl32 deltaTime)
+bl8		Renderer::RendererEndFrame(fl32 deltaTime)
 {
 	bl8 result = backend->endFrame(backend, deltaTime);
 	backend->frameNumber++;
 	return result;
 }
 
-bl8 RendererDrawFrame(renderPacket* packet)
+bl8		Renderer::RendererDrawFrame(renderPacket* packet)
 {
 	// If the begin frame returned successfully, mid-frame operations may continue.
 	if (RendererBeginFrame(packet->deltaTime))

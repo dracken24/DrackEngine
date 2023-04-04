@@ -10,7 +10,7 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "vulkanBackend.hpp"
+#include <renderer/vulkan/vulkanBackend.hpp>
 
 #include "vulkanTypes.inl"
 #include "vulkanPlatform.hpp"
@@ -32,6 +32,7 @@ VKAPI_ATTR VkBool32 VKAPI_ATTR	VkDebugCallback(
 				const VkDebugUtilsMessengerCallbackDataEXT *callbackData,
 					void *user_data);
 
+// 1: Start the initialization of vulkan platform
 bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* applicationName,
 			struct platformState* platState)
 {
@@ -163,6 +164,7 @@ bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* appli
 	return (true);
 }
 
+// Close the vulkan engine
 void	vulkanRendererBackendShutdown(rendererBackend* backend)
 {
 
@@ -183,11 +185,13 @@ void	vulkanRendererBackendOnResized(rendererBackend* backend, uint16 width, uint
 {
 }
 
+// Start mount a frame for rendering
 bl8		vulkanRendererBackendBeginFrame(rendererBackend* backend, fl32 deltaTime)
 {
 	return (true);
 }
 
+// Frame is done, present it to the screen
 bl8		vulkanRendererBackendEndFrame(rendererBackend* backend, fl32 deltaTime)
 {
 	return (true);

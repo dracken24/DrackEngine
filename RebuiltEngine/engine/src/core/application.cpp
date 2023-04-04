@@ -45,7 +45,9 @@ typedef struct applicationState
 static bl8 initialized = false;
 static applicationState appState;
 static Vector2ui		mousePosition;
-static fl32			mouseZoom = -20;
+static fl32			mouseZoom = 0;
+static Vector2f		screenSize;
+static Renderer		backend;
 
 // Event handlers
 bl8		ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventContext context);
@@ -59,6 +61,8 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 
 bl8		ApplicationCreate(game *gameInst)
 {
+	screenSize.x = gameInst->appConfig.width;
+	screenSize.y = gameInst->appConfig.height;
 	if (initialized)
 	{
 		DE_ERROR("ApplicationCreate called more than once.");
@@ -107,8 +111,8 @@ bl8		ApplicationCreate(game *gameInst)
 		return false;
 	}
 
-	// Renderer startup
-	if (!RendererInit(gameInst->appConfig.name.c_str(), &appState.platform)) {
+	// Init vulkan, frontend and backend
+	if (!backend.RendererInit(gameInst->appConfig.name.c_str(), &appState.platform)) {
 		DE_FATAL("Failed to initialize renderer. Aborting application.");
 		return false;
 	}
@@ -170,7 +174,7 @@ bl8		ApplicationRun(void)
 			// TODO: refactor packet creation
 			renderPacket packet;
 			packet.deltaTime = delta;
-			RendererDrawFrame(&packet);
+			backend.RendererDrawFrame(&packet);
 
 			// Figure out how long the frame took and, if below
 			dbl64 frameEndTime = PlatformGetAbsoluteTime();
@@ -222,7 +226,7 @@ bl8		ApplicationRun(void)
 	DE_InputShutdown();
 
 	DE_DEBUG("Shutting down game.");
-	RendererShutdown();
+	backend.RendererShutdown();
 	DE_DEBUG("Shutting down platform.");
 	PlatformShutdown(&appState.platform);
 
