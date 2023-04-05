@@ -21,6 +21,7 @@
 #include <core/input.hpp>
 #include <core/timer.hpp>
 #include <structs.hpp>
+#include <renderer/vulkan/vulkanBackend.hpp>
 
 #include <xcb/xcb.h>
 #include <X11/keysym.h>
@@ -44,10 +45,13 @@ typedef struct applicationState
 
 static bl8 initialized = false;
 static applicationState appState;
+
 static Vector2ui		mousePosition;
-static fl32			mouseZoom = 0;
-static Vector2f		screenSize;
-static Renderer		backend;
+static fl32				mouseZoom = 0;
+static Vector2ui16		screenSize;
+static Vector2ui16		screenPos;
+
+static Renderer			backend;
 
 // Event handlers
 bl8		ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventContext context);
@@ -63,6 +67,9 @@ bl8		ApplicationCreate(game *gameInst)
 {
 	screenSize.x = gameInst->appConfig.width;
 	screenSize.y = gameInst->appConfig.height;
+	// screenPos.x = gameInst->appConfig.x;
+	// screenPos.y = gameInst->appConfig.y;
+
 	if (initialized)
 	{
 		DE_ERROR("ApplicationCreate called more than once.");
@@ -227,6 +234,7 @@ bl8		ApplicationRun(void)
 
 	DE_DEBUG("Shutting down game.");
 	backend.RendererShutdown();
+
 	DE_DEBUG("Shutting down platform.");
 	PlatformShutdown(&appState.platform);
 
@@ -356,12 +364,23 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 {
 	if (code == EVENT_CODE_RESIZED)
 	{
-		uint16 width = context.data.uint16[0];
-		uint16 height = context.data.uint16[1];
-		uint16 x = context.data.uint16[2];
-		uint16 y = context.data.uint16[3];
+		uint16 X = context.data.uint16[0];
+		uint16 Y = context.data.uint16[1];
+		bl8 choice = context.data.c[15];
 
-		DE_DEBUG("Resize me or move me, whatever... (W: %d, H: %d, X: %d, Y: %d).", width, height, x, y);
+		if (choice == true)
+		{
+			screenSize.x = X;
+			screenSize.y = Y;
+		}
+		else if (choice == false)
+		{
+			screenPos.x = X;
+			screenPos.y = Y;
+		}
+
+		DE_DEBUG("Resize me or move me, whatever... (W: %d, H: %d, X: %d, Y: %d).",
+			screenSize.x, screenSize.y, screenPos.x, screenPos.y);
 	}
 
 	return false;

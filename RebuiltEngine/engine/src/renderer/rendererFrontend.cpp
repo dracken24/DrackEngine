@@ -14,7 +14,7 @@
 
 struct platformState;
 
-static rendererBackend* backend = 0;
+// static rendererBackend* backend = 0;
 //**********************************************************************//
 //**                     Constructors / Destructor                    **//
 //**********************************************************************//
@@ -73,6 +73,7 @@ bl8 Renderer::RendererInit(const char *applicationName, struct platformState *pl
 
 void	Renderer::RendererShutdown()
 {
+	backend->shutdown(backend);
 	FreeMem(backend, sizeof(rendererBackend), DE_MEMORY_TAG_RENDERER);
 }
 
@@ -95,10 +96,9 @@ bl8		Renderer::RendererDrawFrame(renderPacket* packet)
 	{
 
 		// End the frame. If this fails, it is likely unrecoverable.
-		bl8 result = RendererEndFrame(packet->deltaTime);
-
-		if (!result) {
-			DE_ERROR("RendererEndFrame failed. Application shutting down...");
+		if (!RendererEndFrame(packet->deltaTime))
+		{
+			DE_ERROR("RendererEndFrame failed frame #[%d]. Application shutting down...", backend->frameNumber);
 			return false;
 		}
 	}

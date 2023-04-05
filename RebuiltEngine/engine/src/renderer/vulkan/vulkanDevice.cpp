@@ -88,10 +88,10 @@ bl8 VulkanDeviceCreate(vulkanContext* context)
 		queueCreateInfos[i].sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
 		queueCreateInfos[i].queueFamilyIndex = indices[i];
 		queueCreateInfos[i].queueCount = 1;
-		if (indices[i] == context->device.graphicsQueueIndex)
-		{
-			queueCreateInfos[i].queueCount = 2;
-		}
+		// if (indices[i] == context->device.graphicsQueueIndex)
+		// {
+		// 	queueCreateInfos[i].queueCount = 2;
+		// }
 		queueCreateInfos[i].flags = 0;
 		queueCreateInfos[i].pNext = 0;
 		fl32 queuePriority = 1.0f;

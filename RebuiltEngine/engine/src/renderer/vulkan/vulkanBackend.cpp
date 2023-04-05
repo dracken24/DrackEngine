@@ -26,15 +26,15 @@
 // static Vulkan context
 static vulkanContext context;
 
-VKAPI_ATTR VkBool32 VKAPI_ATTR	VkDebugCallback(
+VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
-			VkDebugUtilsMessageTypeFlagsEXT messageTypes,
-				const VkDebugUtilsMessengerCallbackDataEXT *callbackData,
-					void *user_data);
+	VkDebugUtilsMessageTypeFlagsEXT messageTypes,
+	const VkDebugUtilsMessengerCallbackDataEXT *callbackData,
+	void *user_data);
 
 // 1: Start the initialization of vulkan platform
-bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* applicationName,
-			struct platformState* platState)
+bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applicationName,
+									struct platformState *platState)
 {
 	// TODO: custom allocator.
 	context.allocator = 0;
@@ -52,11 +52,11 @@ bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* appli
 
 	// Obtain a list of required extensions
 	const char **requiredExtensions = (const char **)DE_ArrayCreate(DE_ARRAY_DIN_DEFAULT_CAPACITY, sizeof(const char *));
-	DE_ArrayPush(requiredExtensions, &VK_KHR_SURFACE_EXTENSION_NAME);  // Generic surface extension
-	PlatformGetRequiredExtensionNames(&requiredExtensions);       // Platform-specific extension(s)
+	DE_ArrayPush(requiredExtensions, &VK_KHR_SURFACE_EXTENSION_NAME); // Generic surface extension
+	PlatformGetRequiredExtensionNames(&requiredExtensions);			  // Platform-specific extension(s)
 
 #if defined(_DEBUG)
-	DE_ArrayPush(requiredExtensions, &VK_EXT_DEBUG_UTILS_EXTENSION_NAME);  // debug utilities
+	DE_ArrayPush(requiredExtensions, &VK_EXT_DEBUG_UTILS_EXTENSION_NAME); // debug utilities
 
 	DE_DEBUG("Required extensions:");
 	uint32 length = DE_ArrayLength(requiredExtensions);
@@ -70,7 +70,7 @@ bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* appli
 	create_info.ppEnabledExtensionNames = requiredExtensions;
 
 	// Validation layers.
-	const char** requiredValidationLayerNames = 0;
+	const char **requiredValidationLayerNames = 0;
 	uint32 requiredValidationLayerCount = 0;
 
 // If validation should be done, get a list of the required validation layert names
@@ -122,21 +122,17 @@ bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* appli
 	// Debugger
 #if defined(_DEBUG)
 	DE_DEBUG("Creating Vulkan debugger...");
-	uint32  logSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT
-							| VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT
-								| VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT;  //|
-																	  //    VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT;
+	uint32 logSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT; //|
+																																										 //    VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT;
 
 	VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo = {VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT};
 	debugCreateInfo.messageSeverity = logSeverity;
-	debugCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT
-		| VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT
-			| VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT;
+	debugCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT;
 
 	debugCreateInfo.pfnUserCallback = VkDebugCallback;
 
-	PFN_vkCreateDebugUtilsMessengerEXT func =	(PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
-													context.instance, "vkCreateDebugUtilsMessengerEXT");
+	PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
+		context.instance, "vkCreateDebugUtilsMessengerEXT");
 
 	DE_ASSERT_MSG(func, "Failed to create debug messenger!");
 	VK_CHECK(func(context.instance, &debugCreateInfo, context.allocator, &context.debugMessenger));
@@ -165,8 +161,18 @@ bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* appli
 }
 
 // Close the vulkan engine
-void	vulkanRendererBackendShutdown(rendererBackend* backend)
+void vulkanRendererBackendShutdown(rendererBackend *backend)
 {
+
+	DE_DEBUG("Destroying Vulkan device...");
+	VulkanDeviceDestroy(&context);
+
+	DE_DEBUG("Destroying Vulkan surface...");
+	if (context.surface)
+	{
+		vkDestroySurfaceKHR(context.instance, context.surface, context.allocator);
+		context.surface = 0;
+	}
 
 	DE_DEBUG("Destroying Vulkan debugger...");
 	if (context.debugMessenger)
@@ -176,48 +182,48 @@ void	vulkanRendererBackendShutdown(rendererBackend* backend)
 		func(context.instance, context.debugMessenger, context.allocator);
 	}
 
-	// DE_DEBUG("Destroying Vulkan instance...");
-	// if (context.instance)
-	// 	vkDestroyInstance(context.instance, context.allocator);
+	DE_DEBUG("Destroying Vulkan instance...");
+	if (context.instance)
+		vkDestroyInstance(context.instance, context.allocator);
 }
 
-void	vulkanRendererBackendOnResized(rendererBackend* backend, uint16 width, uint16 height)
+void vulkanRendererBackendOnResized(rendererBackend *backend, uint16 width, uint16 height)
 {
 }
 
 // Start mount a frame for rendering
-bl8		vulkanRendererBackendBeginFrame(rendererBackend* backend, fl32 deltaTime)
+bl8 vulkanRendererBackendBeginFrame(rendererBackend *backend, fl32 deltaTime)
 {
 	return (true);
 }
 
 // Frame is done, present it to the screen
-bl8		vulkanRendererBackendEndFrame(rendererBackend* backend, fl32 deltaTime)
+bl8 vulkanRendererBackendEndFrame(rendererBackend *backend, fl32 deltaTime)
 {
 	return (true);
 }
 
-VKAPI_ATTR VkBool32 VKAPI_ATTR	VkDebugCallback(
+VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
-		VkDebugUtilsMessageTypeFlagsEXT messageTypes,
-			const VkDebugUtilsMessengerCallbackDataEXT *callbackData,
-				void *user_data)
+	VkDebugUtilsMessageTypeFlagsEXT messageTypes,
+	const VkDebugUtilsMessengerCallbackDataEXT *callbackData,
+	void *user_data)
 {
 	switch (messageSeverity)
 	{
-		default:
-		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
-			DE_ERROR(callbackData->pMessage);
-			break;
-		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
-			DE_WARNING(callbackData->pMessage);
-			break;
-		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
-			DE_INFO(callbackData->pMessage);
-			break;
-		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
-			DE_TRACE(callbackData->pMessage);
-			break;
+	default:
+	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
+		DE_ERROR(callbackData->pMessage);
+		break;
+	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
+		DE_WARNING(callbackData->pMessage);
+		break;
+	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
+		DE_INFO(callbackData->pMessage);
+		break;
+	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
+		DE_TRACE(callbackData->pMessage);
+		break;
 	}
 
 	return (VK_FALSE);

@@ -51,6 +51,17 @@ typedef struct	vulkanDevice
 	VkPhysicalDeviceMemoryProperties	memory;
 }	vulkanDevice;
 
+typedef struct vulkanSwapchain
+{
+	VkFormat					imageFormat;
+	uint8						maxFramesInFlight;
+	VkSwapchainKHR				handle;
+	uint32						imageCount;
+	VkImage						*images;
+	VkImageView					*imageViews;
+	// VkExtent2D					extent;
+}	vulkanSwapchain;
+
 typedef struct	vulkanContext
 {
 	VkInstance					instance;

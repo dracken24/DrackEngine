@@ -36,6 +36,13 @@ typedef	struct Vector2ui
 	uint32	y;
 }	Vector2ui;
 
+// x, y unsigned int 32 bits
+typedef struct Vector2ui16
+{
+	uint16 x;
+	uint16 y;
+} Vector2ui16;
+
 // x, y float 32 bits
 typedef	struct Vector2f
 {

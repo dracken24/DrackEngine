@@ -294,10 +294,13 @@ bl8		PlatformPumpMessages(platformState* platState)
 			case XCB_CONFIGURE_NOTIFY:
 			{
 				// TODO: Resizing
-				// DE_DEBUG("Resize me or move me, whatever...");
+
 				xcb_configure_notify_event_t *resizeEvent = (xcb_configure_notify_event_t *)event;
-				// DE_DEBUG("Resize or move? %d", resizeEvent.);
-				DE_OnWindowResizeMove(resizeEvent->width, resizeEvent->height,
+				// DE_DEBUG("FIND Whide: %d Hight: %d X: %d Y:%d",
+				// 	resizeEvent->width, resizeEvent->height,
+				// 	resizeEvent->x, resizeEvent->y);
+					// DE_DEBUG("EVEVT: %d", resizeEvent->response_type);
+				DE_OnWindowResizeMove(resizeEvent->response_type ,resizeEvent->width, resizeEvent->height,
 					resizeEvent->x, resizeEvent->y);
 			}
 				break;
