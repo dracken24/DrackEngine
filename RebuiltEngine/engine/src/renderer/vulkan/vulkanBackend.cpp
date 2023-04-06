@@ -11,6 +11,7 @@
 /*****************************************************************************/
 
 #include <renderer/vulkan/vulkanBackend.hpp>
+#include <renderer/vulkan/vulkanSwapchain.hpp>
 
 #include "vulkanTypes.inl"
 #include "vulkanPlatform.hpp"
@@ -24,7 +25,10 @@
 #include "platform/platform.hpp"
 
 // static Vulkan context
-static vulkanContext context;
+static vulkanContext	context;
+static VulkanSwapchain	vkImageSwapchain;
+// static uint32 cachedFramebufferWidth = 0;
+// static uint32 cachedFramebufferHeight = 0;
 
 VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
@@ -32,12 +36,25 @@ VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	const VkDebugUtilsMessengerCallbackDataEXT *callbackData,
 	void *user_data);
 
+sint32	FindMemoryIndex(uint32 typeFilter, uint32 propertyFlags);
+void	CreateCommandHBuffers(rendererBackend *backend);
+void	RegenerateFramebuffers(rendererBackend *backend, vulkanSwapchain *swapchain,
+			vulkanRenderpass *renderpass);
+
 // 1: Start the initialization of vulkan platform
 bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applicationName,
 									struct platformState *platState)
 {
+	context.findMemoryIndex = FindMemoryIndex;
+
 	// TODO: custom allocator.
 	context.allocator = 0;
+
+	// ApplicationGetFramebufferSize(&cachedFramebufferWidth, &cachedFramebufferHeight);
+	// context.framebufferWidth = (cachedFramebufferWidth != 0) ? cachedFramebufferWidth : 800;
+	// context.framebufferHeight = (cachedFramebufferHeight != 0) ? cachedFramebufferHeight : 600;
+	// cached_framebufferWidth = 0;
+	// cached_framebufferHeight = 0;
 
 	// Setup Vulkan instance.
 	VkApplicationInfo appInfo = {VK_STRUCTURE_TYPE_APPLICATION_INFO};
@@ -155,6 +172,10 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 		return (false);
 	}
 
+	// Swapchain creation
+	vkImageSwapchain.VulkanSwapchainCreate(&context, context.framebufferWidth,
+		context.framebufferHeight, &context.swapchain);
+
 	DE_INFO("Vulkan renderer initialized successfully.");
 
 	return (true);
@@ -163,6 +184,7 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 // Close the vulkan engine
 void vulkanRendererBackendShutdown(rendererBackend *backend)
 {
+	vkImageSwapchain.VulkanSwapchainDestroy(&context, &context.swapchain);
 
 	DE_DEBUG("Destroying Vulkan device...");
 	VulkanDeviceDestroy(&context);
@@ -228,3 +250,75 @@ VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 
 	return (VK_FALSE);
 }
+
+sint32 FindMemoryIndex(uint32 typeFilter, uint32 propertyFlags)
+{
+	VkPhysicalDeviceMemoryProperties memory_properties;
+	vkGetPhysicalDeviceMemoryProperties(context.device.physicalDevice, &memory_properties);
+
+	for (uint32 i = 0; i < memory_properties.memoryTypeCount; ++i)
+	{
+		// Check each memory type to see if its bit is set to 1.
+		if (typeFilter & (1 << i) && (memory_properties.memoryTypes[i].propertyFlags & propertyFlags) == propertyFlags)
+		{
+			return i;
+		}
+	}
+
+	DE_WARNING("Unable to find suitable memory type!");
+	return -1;
+}
+
+// void	CreateCommandBuffers(rendererBackend *backend)
+// {
+// 	if (!context.graphicsCommandBuffers)
+// 	{
+// 		context.graphicsCommandBuffers = (vulkanCommandBuffer *)DE_ArrayReserve(vulkanCommandBuffer,
+// 			context.swapchain.imageCount);
+
+// 		for (uint32 i = 0; i < context.swapchain.image_count; ++i)
+// 		{
+// 			SetMemory(&context.graphicsCommandBuffers[i], sizeof(vulkanCommandBuffer));
+// 		}
+// 	}
+
+// 	for (uint32 i = 0; i < context.swapchain.image_count; ++i)
+// 	{
+// 		if (context.graphicsCommandBuffers[i].handle)
+// 		{
+// 			vulkan_command_buffer_free(
+// 				&context,
+// 				context.device.graphicsCommandPool,
+// 				&context.graphicsCommandBuffers[i]);
+// 		}
+// 		SetMemory(&context.graphicsCommandBuffers[i], sizeof(vulkan_command_buffer));
+// 		vulkan_command_buffer_allocate(
+// 			&context,
+// 			context.device.graphicsCommandPool,
+// 			true,
+// 			&context.graphicsCommandBuffers[i]);
+// 	}
+
+// 	DE_DEBUG("Vulkan command buffers created.");
+// }
+
+// void regenerate_framebuffers(renderer_backend *backend, vulkan_swapchain *swapchain, vulkan_renderpass *renderpass)
+// {
+// 	for (u32 i = 0; i < swapchain->image_count; ++i)
+// 	{
+// 		// TODO: make this dynamic based on the currently configured attachments
+// 		u32 attachment_count = 2;
+// 		VkImageView attachments[] = {
+// 			swapchain->views[i],
+// 			swapchain->depth_attachment.view};
+
+// 		vulkan_framebuffer_create(
+// 			&context,
+// 			renderpass,
+// 			context.framebuffer_width,
+// 			context.framebuffer_height,
+// 			attachment_count,
+// 			attachments,
+// 			&context.swapchain.framebuffers[i]);
+// 	}
+// }

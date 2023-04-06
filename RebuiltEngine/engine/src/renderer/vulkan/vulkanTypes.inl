@@ -33,6 +33,28 @@ typedef struct	vulkanImage
     uint32 height;
 }	vulkanImage;
 
+typedef enum	vulkanRenderPassState
+{
+	READY,
+	RECORDING,
+	IN_RENDER_PASS,
+	RECORDING_ENDED,
+	SUBMITTED,
+	NOT_ALLOCATED
+}	vulkanRenderPassState;
+
+typedef struct vulkanRenderpass
+{
+	VkRenderPass handle;
+	fl32 x, y, w, h;
+	fl32 r, g, b, a;
+
+	fl32	depth;
+	uint32	stencil;
+
+	vulkanRenderPassState	state;
+}	vulkanRenderpass;
+
 typedef struct	vulkanSwapchainSupportInfo
 {
 	VkSurfaceCapabilitiesKHR	capabilities;
@@ -47,6 +69,7 @@ typedef struct	vulkanDevice
 	VkPhysicalDevice			physicalDevice;
 	VkDevice					logicalDevice;
 	vulkanSwapchainSupportInfo	swapchainSupport;
+
 	sint32						graphicsQueueIndex;
 	sint32						presentQueueIndex;
 	sint32						transferQueueIndex;
@@ -58,6 +81,8 @@ typedef struct	vulkanDevice
 	VkPhysicalDeviceProperties			properties;
 	VkPhysicalDeviceFeatures			features;
 	VkPhysicalDeviceMemoryProperties	memory;
+
+	VkCommandPool						graphicsCommandPool;
 
 	VkFormat							depthFormat;
 }	vulkanDevice;
@@ -74,6 +99,24 @@ typedef struct vulkanSwapchain
 	// VkExtent2D					extent;
 }	vulkanSwapchain;
 
+typedef enum	vulkanCommandBufferState
+{
+	DE_COMMAND_BUFFER_STATE_READY,
+	DE_COMMAND_BUFFER_STATE_RECORDING,
+	DE_COMMAND_BUFFER_STATE_IN_RENDER_PASS,
+	DE_COMMAND_BUFFER_STATE_RECORDING_ENDED,
+	DE_COMMAND_BUFFER_STATE_SUBMITTED,
+	DE_COMMAND_BUFFER_STATE_NOT_ALLOCATED
+}	vulkanCommandBufferState;
+
+typedef struct	vulkanCommandBuffer
+{
+	VkCommandBuffer				handle;
+
+	// Command buffer state.
+	vulkanCommandBufferState	state;
+}	vulkanCommandBuffer;
+
 typedef struct	vulkanContext
 {
 	// The framebuffer's current width and height.
@@ -82,9 +125,14 @@ typedef struct	vulkanContext
 
 	uint32						currentFrame;
 
+	vulkanSwapchain				swapchain;
+
 	VkInstance					instance;
 	VkAllocationCallbacks		*allocator;
 	VkSurfaceKHR				surface;
+
+	// myArray
+	vulkanCommandBuffer			*graphicsCommandBuffers;
 
 #if defined(_DEBUG)
 	VkDebugUtilsMessengerEXT	debugMessenger;

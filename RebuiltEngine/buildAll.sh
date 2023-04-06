@@ -19,6 +19,7 @@ echo  "\033[32mBuilding everything...\n"
 alias pushd='cd'
 alias popd='cd ..'
 
+rm -fr bin/
 pushd engine
 ./build.sh
 popd

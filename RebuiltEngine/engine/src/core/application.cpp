@@ -385,3 +385,9 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 
 	return false;
 }
+
+void	ApplicationGetFramebufferSize(uint32 *width, uint32 *height)
+{
+	*width = appState.width;
+	*height = appState.height;
+}

@@ -71,7 +71,7 @@ DE_API void		*DE_ArrayCreate(T length, U stride)
 };
 
 template<typename T>
-DE_API void		DE_ArrayDestroy(T *array)
+DE_API void		DE_ArrayDestroy(T array)
 {
 	uint64 *header = (uint64 *)array - DARRAY_FIELD_LENGTH;
 	uint64 header_size = DARRAY_FIELD_LENGTH * sizeof(uint64);
@@ -81,7 +81,7 @@ DE_API void		DE_ArrayDestroy(T *array)
 };
 
 template<typename T>
-DE_API uint64	_DE_ArrayFieldGet(T *array, uint64 field)
+DE_API uint64	_DE_ArrayFieldGet(T array, uint64 field)
 {
 	uint64 *header = (uint64 *)array - DARRAY_FIELD_LENGTH;
 	
@@ -89,19 +89,19 @@ DE_API uint64	_DE_ArrayFieldGet(T *array, uint64 field)
 };
 
 template<typename T>
-DE_API void	_DE_ArrayFieldSet(T *array, uint64 field, uint64 value)
+DE_API void	_DE_ArrayFieldSet(T array, uint64 field, uint64 value)
 {
 	uint64 *header = (uint64 *)array - DARRAY_FIELD_LENGTH;
 	header[field] = value;
 };
 
 template<typename T>
-DE_API T	*DE_ArrayResize(T *array)
+DE_API T	DE_ArrayResize(T array)
 {
 	uint64 length = DE_ArrayLength(array);
 	uint64 stride = DE_ArrayStride(array);
 	
-	T *temp = (T*)DE_ArrayCreate(
+	T temp = (T)DE_ArrayCreate(
 		(DE_ARRAY_DIN_RESIZE_FACTOR * DE_ArrayCapacity(array)),
 		stride);
 
@@ -114,7 +114,7 @@ DE_API T	*DE_ArrayResize(T *array)
 };
 
 template<typename T, typename U>
-DE_API T	*_DE_ArrayPush(T *array, const U *valuePtr)
+DE_API T	_DE_ArrayPush(T array, const U valuePtr)
 {
 	uint64 length = DE_ArrayLength(array);
 	uint64 stride = DE_ArrayStride(array);
@@ -134,7 +134,7 @@ DE_API T	*_DE_ArrayPush(T *array, const U *valuePtr)
 };
 
 template<typename T>
-DE_API void		DE_ArrayPop(T *array, T *dest)
+DE_API void		DE_ArrayPop(T array, T dest)
 {
 	uint64 length = DE_ArrayLength(array);
 	uint64 stride = DE_ArrayStride(array);
@@ -147,7 +147,7 @@ DE_API void		DE_ArrayPop(T *array, T *dest)
 };
 
 template<typename T>
-DE_API T		*DE_ArrayPopAt(T *array, uint64 index, T *dest)
+DE_API T		DE_ArrayPopAt(T array, uint64 index, T dest)
 {
 	uint64 length = DE_ArrayLength(array);
 	uint64 stride = DE_ArrayStride(array);
@@ -175,7 +175,7 @@ DE_API T		*DE_ArrayPopAt(T *array, uint64 index, T *dest)
 };
 
 template<typename T, typename U>
-DE_API T	*DE_ArrayInsertAt(T *array, uint64 index, U *valuePtr)
+DE_API T	DE_ArrayInsertAt(T array, uint64 index, U valuePtr)
 {
 	uint64 length = DE_ArrayLength(array);
 	uint64 stride = DE_ArrayStride(array);
