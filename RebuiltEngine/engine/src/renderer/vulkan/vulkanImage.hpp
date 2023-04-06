@@ -3,25 +3,35 @@
 /* |             ---------------------------------------------             | */
 /* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  DATE:		 31-03-2023  		  *--*             | */
+/* |             *--*  DATE:		 05-04-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  FILE: 	   vulkanDevice.hpp       *--*             | */
+/* |             *--*  FILE: 	   vulkanImage.hpp        *--*             | */
 /* |             ---------------------------------------------             | */
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#ifndef VULKANDEVICE_HPP
-# define VULKANDEVICE_HPP
+#ifndef VULKANIMAGE_HPP
+# define VULKANIMAGE_HPP
 
 # include <renderer/vulkan/vulkanTypes.inl>
 
-bl8		VulkanDeviceCreate(vulkanContext *context);
+class VulkanImage
+{
+	public:
+		VulkanImage(void);
+		~VulkanImage(void);
 
-void	VulkanDeviceDestroy(vulkanContext *context);
+		void	VulkanImageCreate(vulkanContext *context, VkImageType imageType, uint32 width, uint32 height,
+					VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags memoryFlags,
+						bl32 createView, VkImageAspectFlags viewAspectFlags, vulkanImage *image);
 
-void	VulkanDeviceQuerySwapchainSupport(VkPhysicalDevice physicalDevice,
-			VkSurfaceKHR surface, vulkanSwapchainSupportInfo *outSupportInfo);
+		void	VulkanImageViewCreate(vulkanContext *context, VkFormat format,
+					vulkanImage *image, VkImageAspectFlags aspectFlags);
 
-bl8		VulkanDeviceDetectDepthFormat(vulkanDevice* device);
+		void	VulkanImageDestroy(vulkanContext *context, vulkanImage *image);
+
+	private:
+
+};
 
 #endif

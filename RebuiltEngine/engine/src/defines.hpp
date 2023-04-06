@@ -111,4 +111,6 @@ STATIC_ASSERT(sizeof(dbl64) == 8, "Expected dbl64 to be 8 bytes.");
 #  endif
 # endif
 
+#define DE_CLAMP(value, min, max) (value <= min) ? min : (value >= max) ? max : value;
+
 #endif

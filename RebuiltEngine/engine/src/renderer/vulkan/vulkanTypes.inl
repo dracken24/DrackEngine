@@ -24,6 +24,15 @@
 		DE_ASSERT(expr == VK_SUCCESS);	\
 	}
 
+typedef struct	vulkanImage
+{
+    VkImage handle;
+    VkDeviceMemory memory;
+    VkImageView view;
+    uint32 width;
+    uint32 height;
+}	vulkanImage;
+
 typedef struct	vulkanSwapchainSupportInfo
 {
 	VkSurfaceCapabilitiesKHR	capabilities;
@@ -49,21 +58,30 @@ typedef struct	vulkanDevice
 	VkPhysicalDeviceProperties			properties;
 	VkPhysicalDeviceFeatures			features;
 	VkPhysicalDeviceMemoryProperties	memory;
+
+	VkFormat							depthFormat;
 }	vulkanDevice;
 
 typedef struct vulkanSwapchain
 {
-	VkFormat					imageFormat;
+	VkSurfaceFormatKHR			imageFormat;
 	uint8						maxFramesInFlight;
 	VkSwapchainKHR				handle;
 	uint32						imageCount;
 	VkImage						*images;
 	VkImageView					*imageViews;
+	vulkanImage					depthAttachment;
 	// VkExtent2D					extent;
 }	vulkanSwapchain;
 
 typedef struct	vulkanContext
 {
+	// The framebuffer's current width and height.
+	uint32						framebufferWidth;
+	uint32						framebufferHeight;
+
+	uint32						currentFrame;
+
 	VkInstance					instance;
 	VkAllocationCallbacks		*allocator;
 	VkSurfaceKHR				surface;
@@ -73,6 +91,8 @@ typedef struct	vulkanContext
 #endif
 
 	vulkanDevice				device;
+
+	sint32 (*findMemoryIndex)(uint32 typeFilter, uint32 propertyFlags);
 }	vulkanContext;
 
 #endif
