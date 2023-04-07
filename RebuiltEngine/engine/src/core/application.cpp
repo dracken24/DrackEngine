@@ -242,6 +242,12 @@ bl8		ApplicationRun(void)
 	return true;
 }
 
+void	ApplicationGetFrameBufferSize(uint32 *width, uint32 *height)
+{
+	*width = appState.gameInst->appConfig.width;
+	*height = appState.gameInst->appConfig.height;
+}
+
 bl8 ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventContext context)
 {
 	DE_DEBUG("EVENT: %d", code);

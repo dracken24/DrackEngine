@@ -12,32 +12,24 @@
 
 #include "renderer/vulkan/vulkanSwapchain.hpp"
 #include <renderer/vulkan/vulkanDevice.hpp>
+#include <renderer/vulkan/vulkanImage.hpp>
 
 #include <core/logger.hpp>
 #include <core/deMemory.hpp>
 
 // #include <vulkan_core.h>
 
-VulkanSwapchain::VulkanSwapchain(void)
-{
+void	create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain *swapchain);
+void	destroy(vulkanContext *context, vulkanSwapchain *swapchain);
 
-}
-
-VulkanSwapchain::~VulkanSwapchain(void)
-{
-
-}
-
-
-
-void	VulkanSwapchain::VulkanSwapchainCreate(vulkanContext *context, uint32 width, uint32 height,
+void	VulkanSwapchainCreate(vulkanContext *context, uint32 width, uint32 height,
 			vulkanSwapchain *swapchain)
 {
 	// Simply create a new one.
 	create(context, width, height, swapchain);
 }
 
-void	VulkanSwapchain::VulkanSwapchainRecreate(vulkanContext *context, uint32 width, uint32 height,
+void	VulkanSwapchainRecreate(vulkanContext *context, uint32 width, uint32 height,
 			vulkanSwapchain *swapchain)
 {
 	// Destroy the old and create a new one.
@@ -45,16 +37,21 @@ void	VulkanSwapchain::VulkanSwapchainRecreate(vulkanContext *context, uint32 wid
 	create(context, width, height, swapchain);
 }
 
-void	VulkanSwapchain::VulkanSwapchainDestroy(vulkanContext *context, vulkanSwapchain *swapchain)
+void	VulkanSwapchainDestroy(vulkanContext *context, vulkanSwapchain *swapchain)
 {
 	destroy(context, swapchain);
 }
 
-bl8		VulkanSwapchain::VulkanSwapchainAquireNextImage(vulkanContext *context, vulkanSwapchain *swapchain,
+bl8		VulkanSwapchainAquireNextImageIndex(vulkanContext *context, vulkanSwapchain *swapchain,
 			uint64 timeout, VkSemaphore availableSemaphore, VkFence fence, uint32 *imageIndex)
 {
-	VkResult result = vkAcquireNextImageKHR(context->device.logicalDevice, swapchain->handle,
-		timeout, availableSemaphore, fence, imageIndex);
+	VkResult result = vkAcquireNextImageKHR(
+		context->device.logicalDevice,
+		swapchain->handle,
+		timeout,
+		availableSemaphore,
+		fence,
+		imageIndex);
 
 	if (result == VK_ERROR_OUT_OF_DATE_KHR)
 	{
@@ -71,21 +68,19 @@ bl8		VulkanSwapchain::VulkanSwapchainAquireNextImage(vulkanContext *context, vul
 	return true;
 }
 
-void	VulkanSwapchain::VulkanSwapchainPresent(vulkanContext *context, vulkanSwapchain *swapchain,
-			VkQueue graphicQueue, VkQueue presentQueue, VkSemaphore presentSemaphore, uint32 imageIndex)
-
+void	VulkanSwapchainPresent(vulkanContext *context, vulkanSwapchain *swapchain,
+			VkQueue graphicQueue,VkQueue presentQueue, VkSemaphore presentSemaphore, uint32 imageIndex)
 {
 	// Return the image to the swapchain for presentation.
-	VkPresentInfoKHR presentInfo = {VK_STRUCTURE_TYPE_PRESENT_INFO_KHR};	// Structure type.
-	presentInfo.waitSemaphoreCount = 1;										// waiting for the semaphore to be signaled before presenting.
-	presentInfo.pWaitSemaphores = &presentSemaphore;						// Semaphore to wait on before presenting.
-	presentInfo.swapchainCount = 1;											// Number of swapchains to present to.
-	presentInfo.pSwapchains = &swapchain->handle;							// Swapchain to present to.
-	presentInfo.pImageIndices = &imageIndex;								// Index of the image to present.
-	presentInfo.pResults = 0;												// Optional array of VkResult values for each swapchain.
+	VkPresentInfoKHR present_info = {VK_STRUCTURE_TYPE_PRESENT_INFO_KHR};
+	present_info.waitSemaphoreCount = 1;
+	present_info.pWaitSemaphores = &presentSemaphore;
+	present_info.swapchainCount = 1;
+	present_info.pSwapchains = &swapchain->handle;
+	present_info.pImageIndices = &imageIndex;
+	present_info.pResults = 0;
 
-	// Perform presentation of a render image to the swapchain.
-	VkResult result = vkQueuePresentKHR(presentQueue, &presentInfo);
+	VkResult result = vkQueuePresentKHR(presentQueue, &present_info);
 	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
 	{
 		// Swapchain is out of date, suboptimal or a framebuffer resize has occurred. Trigger swapchain recreation.
@@ -100,9 +95,9 @@ void	VulkanSwapchain::VulkanSwapchainPresent(vulkanContext *context, vulkanSwapc
 	context->currentFrame = (context->currentFrame + 1) % swapchain->maxFramesInFlight;
 }
 
-void	VulkanSwapchain::create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain *swapchain)
+void	create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain *swapchain)
 {
-	VkExtent2D swapchainExtent = {width, height};
+	VkExtent2D swapchain_extent = {width, height};
 	swapchain->maxFramesInFlight = 2;
 
 	// Choose a swap surface format.
@@ -137,20 +132,22 @@ void	VulkanSwapchain::create(vulkanContext *context, uint32 width, uint32 height
 	}
 
 	// Requery swapchain support.
-	VulkanDeviceQuerySwapchainSupport(context->device.physicalDevice, context->surface,
+	VulkanDeviceQuerySwapchainSupport(
+		context->device.physicalDevice,
+		context->surface,
 		&context->device.swapchainSupport);
 
 	// Swapchain extent
 	if (context->device.swapchainSupport.capabilities.currentExtent.width != UINT32_MAX)
 	{
-		swapchainExtent = context->device.swapchainSupport.capabilities.currentExtent;
+		swapchain_extent = context->device.swapchainSupport.capabilities.currentExtent;
 	}
 
 	// Clamp to the value allowed by the GPU.
 	VkExtent2D min = context->device.swapchainSupport.capabilities.minImageExtent;
 	VkExtent2D max = context->device.swapchainSupport.capabilities.maxImageExtent;
-	swapchainExtent.width = DE_CLAMP(swapchainExtent.width, min.width, max.width);
-	swapchainExtent.height = DE_CLAMP(swapchainExtent.height, min.height, max.height);
+	swapchain_extent.width = DE_CLAMP(swapchain_extent.width, min.width, max.width);
+	swapchain_extent.height = DE_CLAMP(swapchain_extent.height, min.height, max.height);
 
 	uint32 image_count = context->device.swapchainSupport.capabilities.minImageCount + 1;
 	if (context->device.swapchainSupport.capabilities.maxImageCount > 0 && image_count
@@ -160,14 +157,14 @@ void	VulkanSwapchain::create(vulkanContext *context, uint32 width, uint32 height
 	}
 
 	// Swapchain create info
-	VkSwapchainCreateInfoKHR swapchainCreateInfo = {VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR};
-	swapchainCreateInfo.surface = context->surface;
-	swapchainCreateInfo.minImageCount = image_count;
-	swapchainCreateInfo.imageFormat = swapchain->imageFormat.format;
-	swapchainCreateInfo.imageColorSpace = swapchain->imageFormat.colorSpace;
-	swapchainCreateInfo.imageExtent = swapchainExtent;
-	swapchainCreateInfo.imageArrayLayers = 1;
-	swapchainCreateInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+	VkSwapchainCreateInfoKHR swapchain_create_info = {VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR};
+	swapchain_create_info.surface = context->surface;
+	swapchain_create_info.minImageCount = image_count;
+	swapchain_create_info.imageFormat = swapchain->imageFormat.format;
+	swapchain_create_info.imageColorSpace = swapchain->imageFormat.colorSpace;
+	swapchain_create_info.imageExtent = swapchain_extent;
+	swapchain_create_info.imageArrayLayers = 1;
+	swapchain_create_info.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
 	// Setup the queue family indices
 	if (context->device.graphicsQueueIndex != context->device.presentQueueIndex)
@@ -175,24 +172,24 @@ void	VulkanSwapchain::create(vulkanContext *context, uint32 width, uint32 height
 		uint32 queueFamilyIndices[] = {
 			(uint32)context->device.graphicsQueueIndex,
 			(uint32)context->device.presentQueueIndex};
-		swapchainCreateInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
-		swapchainCreateInfo.queueFamilyIndexCount = 2;
-		swapchainCreateInfo.pQueueFamilyIndices = queueFamilyIndices;
+		swapchain_create_info.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
+		swapchain_create_info.queueFamilyIndexCount = 2;
+		swapchain_create_info.pQueueFamilyIndices = queueFamilyIndices;
 	}
 	else
 	{
-		swapchainCreateInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
-		swapchainCreateInfo.queueFamilyIndexCount = 0;
-		swapchainCreateInfo.pQueueFamilyIndices = 0;
+		swapchain_create_info.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
+		swapchain_create_info.queueFamilyIndexCount = 0;
+		swapchain_create_info.pQueueFamilyIndices = 0;
 	}
 
-	swapchainCreateInfo.preTransform = context->device.swapchainSupport.capabilities.currentTransform;
-	swapchainCreateInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
-	swapchainCreateInfo.presentMode = present_mode;
-	swapchainCreateInfo.clipped = VK_TRUE;
-	swapchainCreateInfo.oldSwapchain = 0;
+	swapchain_create_info.preTransform = context->device.swapchainSupport.capabilities.currentTransform;
+	swapchain_create_info.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+	swapchain_create_info.presentMode = present_mode;
+	swapchain_create_info.clipped = VK_TRUE;
+	swapchain_create_info.oldSwapchain = 0;
 
-	VK_CHECK(vkCreateSwapchainKHR(context->device.logicalDevice, &swapchainCreateInfo, context->allocator, &swapchain->handle));
+	VK_CHECK(vkCreateSwapchainKHR(context->device.logicalDevice, &swapchain_create_info, context->allocator, &swapchain->handle));
 
 	// Start with a zero frame index.
 	context->currentFrame = 0;
@@ -204,27 +201,26 @@ void	VulkanSwapchain::create(vulkanContext *context, uint32 width, uint32 height
 	{
 		swapchain->images = (VkImage *)Mallocate(sizeof(VkImage) * swapchain->imageCount, DE_MEMORY_TAG_RENDERER);
 	}
-	if (!swapchain->imageViews)
+	if (!swapchain->views)
 	{
-		swapchain->imageViews = (VkImageView *)Mallocate(sizeof(VkImageView) * swapchain->imageCount, DE_MEMORY_TAG_RENDERER);
+		swapchain->views = (VkImageView *)Mallocate(sizeof(VkImageView) * swapchain->imageCount, DE_MEMORY_TAG_RENDERER);
 	}
 	VK_CHECK(vkGetSwapchainImagesKHR(context->device.logicalDevice, swapchain->handle, &swapchain->imageCount, swapchain->images));
 
 	// Views
 	for (uint32 i = 0; i < swapchain->imageCount; ++i)
 	{
-		VkImageViewCreateInfo viewInfo = {VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO};
-		viewInfo.image = swapchain->images[i];
-		viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-		viewInfo.format = swapchain->imageFormat.format;
-		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-		viewInfo.subresourceRange.baseMipLevel = 0;
-		viewInfo.subresourceRange.levelCount = 1;
-		viewInfo.subresourceRange.baseArrayLayer = 0;
-		viewInfo.subresourceRange.layerCount = 1;
+		VkImageViewCreateInfo view_info = {VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO};
+		view_info.image = swapchain->images[i];
+		view_info.viewType = VK_IMAGE_VIEW_TYPE_2D;
+		view_info.format = swapchain->imageFormat.format;
+		view_info.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		view_info.subresourceRange.baseMipLevel = 0;
+		view_info.subresourceRange.levelCount = 1;
+		view_info.subresourceRange.baseArrayLayer = 0;
+		view_info.subresourceRange.layerCount = 1;
 
-		VK_CHECK(vkCreateImageView(context->device.logicalDevice, &viewInfo, context->allocator,
-			&swapchain->imageViews[i]));
+		VK_CHECK(vkCreateImageView(context->device.logicalDevice, &view_info, context->allocator, &swapchain->views[i]));
 	}
 
 	// Depth resources
@@ -235,22 +231,31 @@ void	VulkanSwapchain::create(vulkanContext *context, uint32 width, uint32 height
 	}
 
 	// Create depth image and its view.
-	_image.VulkanImageCreate( context, VK_IMAGE_TYPE_2D, swapchainExtent.width, swapchainExtent.height,
-		context->device.depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-		VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, true, VK_IMAGE_ASPECT_DEPTH_BIT, &swapchain->depthAttachment);
+	VulkanImageCreate(
+		context,
+		VK_IMAGE_TYPE_2D,
+		swapchain_extent.width,
+		swapchain_extent.height,
+		context->device.depthFormat,
+		VK_IMAGE_TILING_OPTIMAL,
+		VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+		VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+		true,
+		VK_IMAGE_ASPECT_DEPTH_BIT,
+		&swapchain->depthAttachment);
 
 	DE_INFO("Swapchain created successfully.");
 }
 
-void	VulkanSwapchain::destroy(vulkanContext *context, vulkanSwapchain *swapchain)
+void	destroy(vulkanContext *context, vulkanSwapchain *swapchain)
 {
-	_image.VulkanImageDestroy(context, &swapchain->depthAttachment);
+	VulkanImageDestroy(context, &swapchain->depthAttachment);
 
 	// Only destroy the views, not the images, since those are owned by the swapchain and are thus
 	// destroyed when it is.
 	for (uint32 i = 0; i < swapchain->imageCount; ++i)
 	{
-		vkDestroyImageView(context->device.logicalDevice, swapchain->imageViews[i], context->allocator);
+		vkDestroyImageView(context->device.logicalDevice, swapchain->views[i], context->allocator);
 	}
 
 	vkDestroySwapchainKHR(context->device.logicalDevice, swapchain->handle, context->allocator);

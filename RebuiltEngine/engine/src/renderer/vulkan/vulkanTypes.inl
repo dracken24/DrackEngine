@@ -129,6 +129,12 @@ typedef struct	vulkanCommandBuffer
 	vulkanCommandBufferState	state;
 }	vulkanCommandBuffer;
 
+typedef struct	vulkanFence
+{
+	VkFence	handle;
+	bl8		isSignaled;
+}	vulkanFence;
+
 typedef struct	vulkanContext
 {
 	// The framebuffer's current width and height.
@@ -146,6 +152,13 @@ typedef struct	vulkanContext
 
 	// myArray
 	vulkanCommandBuffer			*graphicsCommandBuffers;
+
+	VkSemaphore					*imageAvailableSemaphores;
+	VkSemaphore					*queueCompleteSemaphores;
+
+	uint32						InFlightFenceCount;
+	vulkanFence					*inFlightFences;
+	vulkanFence					**imagesInFlight;
 
 #if defined(_DEBUG)
 	VkDebugUtilsMessengerEXT	debugMessenger;

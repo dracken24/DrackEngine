@@ -16,15 +16,15 @@
 #include <core/deMemory.hpp>
 #include <core/logger.hpp>
 
-VulkanImage::VulkanImage(void)
-{
-}
+// VulkanImage::VulkanImage(void)
+// {
+// }
 
-VulkanImage::~VulkanImage(void)
-{
-}
+// VulkanImage::~VulkanImage(void)
+// {
+// }
 
-void	VulkanImage::VulkanImageCreate(vulkanContext *context, VkImageType imageType, uint32 width, uint32 height,
+void	VulkanImageCreate(vulkanContext *context, VkImageType imageType, uint32 width, uint32 height,
 			VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags memoryFlags,
 				bl32 createView, VkImageAspectFlags viewAspectFlags, vulkanImage *image)
 {
@@ -76,7 +76,7 @@ void	VulkanImage::VulkanImageCreate(vulkanContext *context, VkImageType imageTyp
 	}
 }
 
-void	VulkanImage::VulkanImageViewCreate(vulkanContext *context, VkFormat format,
+void	VulkanImageViewCreate(vulkanContext *context, VkFormat format,
 			vulkanImage *image, VkImageAspectFlags aspectFlags)
 {
 	VkImageViewCreateInfo viewCreateInfo = {VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO};
@@ -94,7 +94,7 @@ void	VulkanImage::VulkanImageViewCreate(vulkanContext *context, VkFormat format,
 	VK_CHECK(vkCreateImageView(context->device.logicalDevice, &viewCreateInfo, context->allocator, &image->view));
 }
 
-void	VulkanImage::VulkanImageDestroy(vulkanContext *context, vulkanImage *image)
+void	VulkanImageDestroy(vulkanContext *context, vulkanImage *image)
 {
 	if (image->view)
 	{

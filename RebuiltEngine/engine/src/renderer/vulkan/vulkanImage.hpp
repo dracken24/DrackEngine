@@ -15,11 +15,11 @@
 
 # include <renderer/vulkan/vulkanTypes.inl>
 
-class VulkanImage
-{
-	public:
-		VulkanImage(void);
-		~VulkanImage(void);
+// class VulkanImage
+// {
+// 	public:
+// 		VulkanImage(void);
+// 		~VulkanImage(void);
 
 		void	VulkanImageCreate(vulkanContext *context, VkImageType imageType, uint32 width, uint32 height,
 					VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags memoryFlags,
@@ -30,8 +30,8 @@ class VulkanImage
 
 		void	VulkanImageDestroy(vulkanContext *context, vulkanImage *image);
 
-	private:
+// 	private:
 
-};
+// };
 
 #endif

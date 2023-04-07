@@ -36,4 +36,6 @@ DE_API bl8		ApplicationRun();
 
 DE_API void		ApplicationGetFramebufferSize(uint32 *width, uint32 *height);
 
+void			ApplicationGetFrameBufferSize(uint32 *width, uint32 *height);
+
 #endif // APPLICATION_HPP
