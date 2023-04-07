@@ -24,37 +24,6 @@
 		DE_ASSERT(expr == VK_SUCCESS);	\
 	}
 
-typedef struct	vulkanImage
-{
-    VkImage handle;
-    VkDeviceMemory memory;
-    VkImageView view;
-    uint32 width;
-    uint32 height;
-}	vulkanImage;
-
-typedef enum	vulkanRenderPassState
-{
-	READY,
-	RECORDING,
-	IN_RENDER_PASS,
-	RECORDING_ENDED,
-	SUBMITTED,
-	NOT_ALLOCATED
-}	vulkanRenderPassState;
-
-typedef struct vulkanRenderpass
-{
-	VkRenderPass handle;
-	fl32 x, y, w, h;
-	fl32 r, g, b, a;
-
-	fl32	depth;
-	uint32	stencil;
-
-	vulkanRenderPassState	state;
-}	vulkanRenderpass;
-
 typedef struct	vulkanSwapchainSupportInfo
 {
 	VkSurfaceCapabilitiesKHR	capabilities;
@@ -87,6 +56,45 @@ typedef struct	vulkanDevice
 	VkFormat							depthFormat;
 }	vulkanDevice;
 
+typedef struct	vulkanImage
+{
+    VkImage handle;
+    VkDeviceMemory memory;
+    VkImageView view;
+    uint32 width;
+    uint32 height;
+}	vulkanImage;
+
+typedef enum	vulkanRenderPassState
+{
+	READY,
+	RECORDING,
+	IN_RENDER_PASS,
+	RECORDING_ENDED,
+	SUBMITTED,
+	NOT_ALLOCATED
+}	vulkanRenderPassState;
+
+typedef struct vulkanRenderpass
+{
+	VkRenderPass handle;
+	fl32 x, y, w, h;
+	fl32 r, g, b, a;
+
+	fl32	depth;
+	uint32	stencil;
+
+	vulkanRenderPassState	state;
+}	vulkanRenderpass;
+
+typedef struct	vulkanFramebuffer
+{
+	VkFramebuffer		handle;
+	uint32				attachmentCount;
+	VkImageView			*attachments;
+	vulkanRenderpass	*renderpass;
+}	vulkanFramebuffer;
+
 typedef struct vulkanSwapchain
 {
 	VkSurfaceFormatKHR			imageFormat;
@@ -95,8 +103,12 @@ typedef struct vulkanSwapchain
 	uint32						imageCount;
 	VkImage						*images;
 	VkImageView					*imageViews;
+	VkImageView					*views;
+
 	vulkanImage					depthAttachment;
-	// VkExtent2D					extent;
+
+	// framebuffers used for on-screen rendering.
+	vulkanFramebuffer			*framebuffers;
 }	vulkanSwapchain;
 
 typedef enum	vulkanCommandBufferState
@@ -126,6 +138,7 @@ typedef struct	vulkanContext
 	uint32						currentFrame;
 
 	vulkanSwapchain				swapchain;
+	vulkanRenderpass			mainRenderpass;
 
 	VkInstance					instance;
 	VkAllocationCallbacks		*allocator;

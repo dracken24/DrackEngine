@@ -24,7 +24,7 @@ echo "\033[35mCompiling testbed..."
 
 assembly="testbed"
 compilerFlags="-g -fdeclspec -fPIC" 
-# -fms-extensions 
+# -fms-extensions
 # -Wall -Werror
 includeFlags="-Isrc -I../engine/src/"
 linkerFlags="-L../bin/ -lengine -Wl,-rpath,."

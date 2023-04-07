@@ -10,19 +10,20 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include <renderer/vulkan/vulkanBackend.hpp>
+#include <renderer/vulkan/vulkanCommandBuffer.hpp>
+#include <renderer/vulkan/vulkanRenderpass.hpp>
 #include <renderer/vulkan/vulkanSwapchain.hpp>
+#include <renderer/vulkan/vulkanPlatform.hpp>
+#include <renderer/vulkan/vulkanBackend.hpp>
+#include <renderer/vulkan/vulkanDevice.hpp>
+#include <renderer/vulkan/vulkanTypes.inl>
 
-#include "vulkanTypes.inl"
-#include "vulkanPlatform.hpp"
-#include "vulkanDevice.hpp"
+#include <containers/arrayDinamic.hpp>
 
-#include "core/logger.hpp"
-#include "core/deString.hpp"
+#include <platform/platform.hpp>
 
-#include "containers/arrayDinamic.hpp"
-
-#include "platform/platform.hpp"
+#include <core/deString.hpp>
+#include <core/logger.hpp>
 
 // static Vulkan context
 static vulkanContext	context;
@@ -37,9 +38,9 @@ VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	void *user_data);
 
 sint32	FindMemoryIndex(uint32 typeFilter, uint32 propertyFlags);
-void	CreateCommandHBuffers(rendererBackend *backend);
-void	RegenerateFramebuffers(rendererBackend *backend, vulkanSwapchain *swapchain,
-			vulkanRenderpass *renderpass);
+void	CreateCommandBuffers(rendererBackend *backend);
+// void	RegenerateFramebuffers(rendererBackend *backend, vulkanSwapchain *swapchain,
+// 			vulkanRenderpass *renderpass);
 
 // 1: Start the initialization of vulkan platform
 bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applicationName,
@@ -176,6 +177,13 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 	vkImageSwapchain.VulkanSwapchainCreate(&context, context.framebufferWidth,
 		context.framebufferHeight, &context.swapchain);
 
+	VulkanRenderpassCreate(&context, &context.mainRenderpass,
+		0, 0, context.framebufferWidth, context.framebufferHeight,
+		0.0f, 0.0f, 0.2f, 1.0f,
+		1.0f, 0);
+
+	CreateCommandBuffers(backend);
+
 	DE_INFO("Vulkan renderer initialized successfully.");
 
 	return (true);
@@ -184,6 +192,23 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 // Close the vulkan engine
 void vulkanRendererBackendShutdown(rendererBackend *backend)
 {
+	// Command buffers
+	for (uint32 i = 0; i < context.swapchain.imageCount; ++i)
+	{
+		if (context.graphicsCommandBuffers[i].handle)
+		{
+			VulkanCommandBfferFree(
+				&context,
+				context.device.graphicsCommandPool,
+				&context.graphicsCommandBuffers[i]);
+			context.graphicsCommandBuffers[i].handle = 0;
+		}
+	}
+
+	// Renderpass
+	DE_DEBUG("Destroying Vulkan renderpass...");
+	VulkanRenderpassDestroy(&context, &context.mainRenderpass);
+	
 	vkImageSwapchain.VulkanSwapchainDestroy(&context, &context.swapchain);
 
 	DE_DEBUG("Destroying Vulkan device...");
@@ -269,38 +294,38 @@ sint32 FindMemoryIndex(uint32 typeFilter, uint32 propertyFlags)
 	return -1;
 }
 
-// void	CreateCommandBuffers(rendererBackend *backend)
-// {
-// 	if (!context.graphicsCommandBuffers)
-// 	{
-// 		context.graphicsCommandBuffers = (vulkanCommandBuffer *)DE_ArrayReserve(vulkanCommandBuffer,
-// 			context.swapchain.imageCount);
+void	CreateCommandBuffers(rendererBackend *backend)
+{
+	if (!context.graphicsCommandBuffers)
+	{
+		context.graphicsCommandBuffers = (vulkanCommandBuffer *)DE_ArrayReserve(vulkanCommandBuffer,
+			context.swapchain.imageCount);
 
-// 		for (uint32 i = 0; i < context.swapchain.image_count; ++i)
-// 		{
-// 			SetMemory(&context.graphicsCommandBuffers[i], sizeof(vulkanCommandBuffer));
-// 		}
-// 	}
+		for (uint32 i = 0; i < context.swapchain.imageCount; ++i)
+		{
+			SetMemory(&context.graphicsCommandBuffers[i], sizeof(vulkanCommandBuffer));
+		}
+	}
 
-// 	for (uint32 i = 0; i < context.swapchain.image_count; ++i)
-// 	{
-// 		if (context.graphicsCommandBuffers[i].handle)
-// 		{
-// 			vulkan_command_buffer_free(
-// 				&context,
-// 				context.device.graphicsCommandPool,
-// 				&context.graphicsCommandBuffers[i]);
-// 		}
-// 		SetMemory(&context.graphicsCommandBuffers[i], sizeof(vulkan_command_buffer));
-// 		vulkan_command_buffer_allocate(
-// 			&context,
-// 			context.device.graphicsCommandPool,
-// 			true,
-// 			&context.graphicsCommandBuffers[i]);
-// 	}
+	for (uint32 i = 0; i < context.swapchain.imageCount; ++i)
+	{
+		if (context.graphicsCommandBuffers[i].handle)
+		{
+			VulkanCommandBfferFree(
+				&context,
+				context.device.graphicsCommandPool,
+				&context.graphicsCommandBuffers[i]);
+		}
+		SetMemory(&context.graphicsCommandBuffers[i], sizeof(vulkanCommandBuffer));
+		VulkanCommandBufferAllocate(
+			&context,
+			context.device.graphicsCommandPool,
+			true,
+			&context.graphicsCommandBuffers[i]);
+	}
 
-// 	DE_DEBUG("Vulkan command buffers created.");
-// }
+	DE_DEBUG("Vulkan command buffers created.");
+}
 
 // void regenerate_framebuffers(renderer_backend *backend, vulkan_swapchain *swapchain, vulkan_renderpass *renderpass)
 // {
