@@ -139,6 +139,7 @@ bl8		ApplicationRun(void)
 
 	DE_INFO(GetMemoryUsageStr().c_str());
 
+	int i = 0;
 	while (appState->isRunning)
 	{
 		if (!PlatformPumpMessages(&appState->platform))
@@ -186,6 +187,7 @@ bl8		ApplicationRun(void)
 
 				// If there is time left, give it back to the OS.
 				// std::cout << "Frame: " << (int)framesCount << std::endl;
+				
 				bl8 limitFrames = true;
 				if (remaining_ms > 0 && limitFrames)
 				{

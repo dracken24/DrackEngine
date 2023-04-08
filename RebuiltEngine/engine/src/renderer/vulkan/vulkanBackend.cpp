@@ -35,7 +35,7 @@ struct game;
 
 // static Vulkan context
 static vulkanContext	context;
-// static VulkanSwapchain	vkImageSwapchain;
+static VulkanSwapchain	vkImageSwapchain;
 static uint32 cachedFramebufferWidth = 0;
 static uint32 cachedFramebufferHeight = 0;
 
@@ -189,7 +189,7 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 	}
 
 	// Swapchain creation
-	VulkanSwapchainCreate(&context, context.framebufferWidth,
+	vkImageSwapchain.VulkanSwapchainCreate(&context, context.framebufferWidth,
 		context.framebufferHeight, &context.swapchain);
 
 	// DE_DEBUG("AAAAAAAAAAVulkan device created.");
@@ -303,7 +303,7 @@ void vulkanRendererBackendShutdown(rendererBackend *backend)
 	DE_DEBUG("Destroying Vulkan renderpass...");
 	VulkanRenderpassDestroy(&context, &context.mainRenderpass);
 	
-	VulkanSwapchainDestroy(&context, &context.swapchain);
+	vkImageSwapchain.VulkanSwapchainDestroy(&context, &context.swapchain);
 
 	DE_DEBUG("Destroying Vulkan device...");
 	VulkanDeviceDestroy(&context);
@@ -390,7 +390,7 @@ bl8 vulkanRendererBackendBeginFrame(rendererBackend *backend, fl32 deltaTime)
 
 	// Acquire the next image from the swap chain. Pass along the semaphore that should signaled when this completes.
 	// This same semaphore will later be waited on by the queue submission to ensure this image is available.
-	if (!VulkanSwapchainAquireNextImageIndex(
+	if (!vkImageSwapchain.VulkanSwapchainAquireNextImageIndex(
 			&context,
 			&context.swapchain,
 			UINT64_MAX,
@@ -498,7 +498,7 @@ bl8 vulkanRendererBackendEndFrame(rendererBackend *backend, fl32 deltaTime)
 	// End queue submission
 
 	// Give the image back to the swapchain.
-	VulkanSwapchainPresent(
+	vkImageSwapchain.VulkanSwapchainPresent(
 		&context,
 		&context.swapchain,
 		context.device.graphicsQueue,
@@ -642,7 +642,7 @@ bl8		RecreateSwapchain(rendererBackend *backend)
 		&context.device.swapchainSupport);
 	VulkanDeviceDetectDepthFormat(&context.device);
 
-	VulkanSwapchainRecreate(
+	vkImageSwapchain.VulkanSwapchainRecreate(
 		&context,
 		cachedFramebufferWidth,
 		cachedFramebufferHeight,

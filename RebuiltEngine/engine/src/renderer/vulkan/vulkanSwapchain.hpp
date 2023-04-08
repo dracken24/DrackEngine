@@ -19,11 +19,11 @@
 #include <renderer/vulkan/vulkanTypes.inl>
 #include <renderer/vulkan/vulkanImage.hpp>
 
-// class VulkanSwapchain
-// {
-// 	public:
-// 		VulkanSwapchain(void);
-// 		~VulkanSwapchain(void);
+class VulkanSwapchain
+{
+	public:
+		VulkanSwapchain(void);
+		~VulkanSwapchain(void);
 
 		// Create a swapchain.
 		void	VulkanSwapchainCreate(vulkanContext *context, uint32 width, uint32 height,
@@ -44,12 +44,12 @@
 		void	VulkanSwapchainPresent(vulkanContext *context, vulkanSwapchain *swapchain,
 					VkQueue graphicQueue,VkQueue presentQueue, VkSemaphore presentSemaphore, uint32 imageIndex);
 
-	// private:
+	private:
 		void	create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain *swapchain);
 		void	destroy(vulkanContext *context, vulkanSwapchain *swapchain);
 
-// 	private:
-// 		VulkanImage		_image;
-// };
+	private:
+		VulkanImage		_image;
+};
 
 #endif

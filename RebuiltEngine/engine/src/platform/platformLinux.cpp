@@ -76,8 +76,8 @@ bl8		PlatformStartup(
 
 	// :TODO: put autorepeat on when program work great
 	// Turn off key repeats.
-	XAutoRepeatOff(state->display);
-	// XAutoRepeatOn(state->display);
+	// XAutoRepeatOff(state->display);
+	XAutoRepeatOn(state->display);
 
 	// Retrieve the connection from the display.
 	state->connection = XGetXCBConnection(state->display);

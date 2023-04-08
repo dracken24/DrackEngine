@@ -19,17 +19,25 @@
 
 // #include <vulkan_core.h>
 
-void	create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain *swapchain);
-void	destroy(vulkanContext *context, vulkanSwapchain *swapchain);
+// void	create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain *swapchain);
+// void	destroy(vulkanContext *context, vulkanSwapchain *swapchain);
 
-void	VulkanSwapchainCreate(vulkanContext *context, uint32 width, uint32 height,
+VulkanSwapchain::VulkanSwapchain(void)
+{
+}
+
+VulkanSwapchain::~VulkanSwapchain(void)
+{
+}
+
+void	VulkanSwapchain::VulkanSwapchainCreate(vulkanContext *context, uint32 width, uint32 height,
 			vulkanSwapchain *swapchain)
 {
 	// Simply create a new one.
 	create(context, width, height, swapchain);
 }
 
-void	VulkanSwapchainRecreate(vulkanContext *context, uint32 width, uint32 height,
+void	VulkanSwapchain::VulkanSwapchainRecreate(vulkanContext *context, uint32 width, uint32 height,
 			vulkanSwapchain *swapchain)
 {
 	// Destroy the old and create a new one.
@@ -37,12 +45,12 @@ void	VulkanSwapchainRecreate(vulkanContext *context, uint32 width, uint32 height
 	create(context, width, height, swapchain);
 }
 
-void	VulkanSwapchainDestroy(vulkanContext *context, vulkanSwapchain *swapchain)
+void	VulkanSwapchain::VulkanSwapchainDestroy(vulkanContext *context, vulkanSwapchain *swapchain)
 {
 	destroy(context, swapchain);
 }
 
-bl8		VulkanSwapchainAquireNextImageIndex(vulkanContext *context, vulkanSwapchain *swapchain,
+bl8		VulkanSwapchain::VulkanSwapchainAquireNextImageIndex(vulkanContext *context, vulkanSwapchain *swapchain,
 			uint64 timeout, VkSemaphore availableSemaphore, VkFence fence, uint32 *imageIndex)
 {
 	VkResult result = vkAcquireNextImageKHR(
@@ -68,7 +76,7 @@ bl8		VulkanSwapchainAquireNextImageIndex(vulkanContext *context, vulkanSwapchain
 	return true;
 }
 
-void	VulkanSwapchainPresent(vulkanContext *context, vulkanSwapchain *swapchain,
+void	VulkanSwapchain::VulkanSwapchainPresent(vulkanContext *context, vulkanSwapchain *swapchain,
 			VkQueue graphicQueue,VkQueue presentQueue, VkSemaphore presentSemaphore, uint32 imageIndex)
 {
 	// Return the image to the swapchain for presentation.
@@ -95,7 +103,7 @@ void	VulkanSwapchainPresent(vulkanContext *context, vulkanSwapchain *swapchain,
 	context->currentFrame = (context->currentFrame + 1) % swapchain->maxFramesInFlight;
 }
 
-void	create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain *swapchain)
+void	VulkanSwapchain::create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain *swapchain)
 {
 	VkExtent2D swapchain_extent = {width, height};
 	swapchain->maxFramesInFlight = 2;
@@ -231,7 +239,7 @@ void	create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain
 	}
 
 	// Create depth image and its view.
-	VulkanImageCreate(
+	_image.VulkanImageCreate(
 		context,
 		VK_IMAGE_TYPE_2D,
 		swapchain_extent.width,
@@ -247,10 +255,10 @@ void	create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain
 	DE_INFO("Swapchain created successfully.");
 }
 
-void	destroy(vulkanContext *context, vulkanSwapchain *swapchain)
+void	VulkanSwapchain::destroy(vulkanContext *context, vulkanSwapchain *swapchain)
 {
 	vkDeviceWaitIdle(context->device.logicalDevice);
-	VulkanImageDestroy(context, &swapchain->depthAttachment);
+	_image.VulkanImageDestroy(context, &swapchain->depthAttachment);
 
 	// Only destroy the views, not the images, since those are owned by the swapchain and are thus
 	// destroyed when it is.
