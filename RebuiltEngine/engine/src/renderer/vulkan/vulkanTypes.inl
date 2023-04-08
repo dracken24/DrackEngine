@@ -141,7 +141,13 @@ typedef struct	vulkanContext
 	uint32						framebufferWidth;
 	uint32						framebufferHeight;
 
-	uint32						currentFrame;
+	// Current generation of framebuffer size. If it does not match framebuffer_size_last_generation,
+	// a new one should be generated.
+	uint64						framebufferSizeGeneration;
+
+	// The generation of the framebuffer when it was last created. Set to framebuffer_size_generation
+	// when updated.
+	uint64						framebufferSizeLastGeneration;
 
 	vulkanSwapchain				swapchain;
 	vulkanRenderpass			mainRenderpass;
@@ -165,6 +171,11 @@ typedef struct	vulkanContext
 #endif
 
 	vulkanDevice				device;
+
+	uint32						imageIndex;
+	uint32						currentFrame;
+
+	bl8							recreatingSwapchain;
 
 	sint32 (*findMemoryIndex)(uint32 typeFilter, uint32 propertyFlags);
 }	vulkanContext;

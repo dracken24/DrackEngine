@@ -67,8 +67,8 @@ bl8		ApplicationCreate(game *gameInst)
 {
 	screenSize.x = gameInst->appConfig.width;
 	screenSize.y = gameInst->appConfig.height;
-	// screenPos.x = gameInst->appConfig.x;
-	// screenPos.y = gameInst->appConfig.y;
+	screenPos.x = gameInst->appConfig.x;
+	screenPos.y = gameInst->appConfig.y;
 
 	if (initialized)
 	{
@@ -372,21 +372,33 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 	{
 		uint16 X = context.data.uint16[0];
 		uint16 Y = context.data.uint16[1];
-		bl8 choice = context.data.c[15];
 
-		if (choice == true)
+		// Check if different. If so, trigger a resize event.
+		if (X != appState.width || Y != appState.height)
 		{
-			screenSize.x = X;
-			screenSize.y = Y;
-		}
-		else if (choice == false)
-		{
-			screenPos.x = X;
-			screenPos.y = Y;
-		}
+			appState.width = X;
+			appState.height = Y;
 
-		DE_DEBUG("Resize me or move me, whatever... (W: %d, H: %d, X: %d, Y: %d).",
-			screenSize.x, screenSize.y, screenPos.x, screenPos.y);
+			DE_DEBUG("Window resize: %i, %i", X, Y);
+
+			// Handle minimization
+			if (X == 0 || Y == 0)
+			{
+				DE_INFO("Window minimized, suspending application.");
+				appState.isSuspended = true;
+				return true;
+			}
+			else
+			{
+				if (appState.isSuspended)
+				{
+					DE_INFO("Window restored, resuming application.");
+					appState.isSuspended = false;
+				}
+				appState.gameInst->onResize(appState.gameInst, X, Y);
+				backend.RendererOnResized(X, Y);
+			}
+		}
 	}
 
 	return false;

@@ -20,8 +20,8 @@ bl8		createGame(game* outGame)
 	// Application configuration.
 	outGame->appConfig.x = 100;
 	outGame->appConfig.y = 100;
-	outGame->appConfig.width = 800;
-	outGame->appConfig.height = 540;
+	outGame->appConfig.width = 950;
+	outGame->appConfig.height = 640;
 	outGame->appConfig.name = "DrackEngine";
 
 	outGame->update = GameUpdate;

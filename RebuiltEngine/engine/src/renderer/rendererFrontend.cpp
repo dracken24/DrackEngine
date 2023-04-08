@@ -89,6 +89,18 @@ bl8		Renderer::RendererEndFrame(fl32 deltaTime)
 	return result;
 }
 
+void	Renderer::RendererOnResized(uint16 width, uint16 height)
+{
+	if (backend)
+	{
+		backend->resized(backend, width, height);
+	}
+	else
+	{
+		DE_WARNING("renderer backend does not exist to accept resize: %i %i", width, height);
+	}
+}
+
 bl8		Renderer::RendererDrawFrame(renderPacket* packet)
 {
 	// If the begin frame returned successfully, mid-frame operations may continue.

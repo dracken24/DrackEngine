@@ -184,7 +184,6 @@ void		DE_InputProcessMouseMove(sint16 x, sint16 y);
 void		DE_OnMouseWheel(bl8 z_delta);
 
 // Window events
-DE_API bl8	DE_OnWindowResizeMove(uint8 code, sint16 width, sint16 height,
-				sint16 x, sint16 y);
+DE_API bl8	DE_OnWindowResize(sint16 width, sint16 height);
 
 #endif // INPUT_Hpp

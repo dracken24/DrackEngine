@@ -249,6 +249,7 @@ void	create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain
 
 void	destroy(vulkanContext *context, vulkanSwapchain *swapchain)
 {
+	vkDeviceWaitIdle(context->device.logicalDevice);
 	VulkanImageDestroy(context, &swapchain->depthAttachment);
 
 	// Only destroy the views, not the images, since those are owned by the swapchain and are thus

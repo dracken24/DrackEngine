@@ -87,7 +87,7 @@ bl8		VulkanFenceWait(vulkanContext *context, vulkanFence *fence, uint64 timeoutN
 	return false;
 }
 
-void vulkan_fence_reset(vulkanContext *context, vulkanFence *fence)
+void	VulkanFenceReset(vulkanContext *context, vulkanFence *fence)
 {
 	if (fence->isSignaled)
 	{

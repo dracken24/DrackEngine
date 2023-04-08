@@ -43,7 +43,7 @@ class Renderer
 		bl8		RendererInit(const char *applicationName, struct platformState *platState);
 		void	RendererShutdown(void);
 
-		void	rendererOnResized(uint16 width, uint16 height);
+		void	RendererOnResized(uint16 width, uint16 height);
 
 		bl8		RendererBeginFrame(fl32 deltaTime);
 		bl8		RendererEndFrame(fl32 deltaTime);

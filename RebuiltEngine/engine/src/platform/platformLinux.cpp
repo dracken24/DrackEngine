@@ -300,8 +300,7 @@ bl8		PlatformPumpMessages(platformState* platState)
 				// 	resizeEvent->width, resizeEvent->height,
 				// 	resizeEvent->x, resizeEvent->y);
 					// DE_DEBUG("EVEVT: %d", resizeEvent->response_type);
-				DE_OnWindowResizeMove(resizeEvent->response_type ,resizeEvent->width, resizeEvent->height,
-					resizeEvent->x, resizeEvent->y);
+				DE_OnWindowResize(resizeEvent->width, resizeEvent->height);
 			}
 				break;
 			case XCB_CLIENT_MESSAGE:

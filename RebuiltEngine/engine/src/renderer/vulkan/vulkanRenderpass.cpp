@@ -19,6 +19,19 @@ void	VulkanRenderpassCreate(vulkanContext *context, vulkanRenderpass *renderpass
 			fl32 r, fl32 g, fl32 b, fl32 a,
 			fl32 depth, uint32 stencil)
 {
+	renderpass->x = x;
+	renderpass->y = y;
+	renderpass->w = w;
+	renderpass->h = h;
+
+	renderpass->r = r;
+	renderpass->g = g;
+	renderpass->b = b;
+	renderpass->a = a;
+
+	renderpass->depth = depth;
+	renderpass->stencil = stencil;
+
 	// Main subpass
 	VkSubpassDescription subpass = {};
 	subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
