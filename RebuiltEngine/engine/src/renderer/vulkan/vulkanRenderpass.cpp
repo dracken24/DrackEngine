@@ -15,20 +15,18 @@
 #include <core/deMemory.hpp>
 
 // KEEP: Change background color
-void	VulkanRenderpassCreate(vulkanContext *context, vulkanRenderpass *renderpass,
-			fl32 x, fl32 y, fl32 w, fl32 h,
-			fl32 r, fl32 g, fl32 b, fl32 a,
-			fl32 depth, uint32 stencil)
+void	VulkanRenderpassCreate(vulkanContext* context, vulkanRenderpass* renderpass,
+			fl32 x, fl32 y, fl32 w, fl32 h, RgbaFl32 color, fl32 depth, uint32 stencil)
 {
 	renderpass->x = x;
 	renderpass->y = y;
 	renderpass->w = w;
 	renderpass->h = h;
 
-	renderpass->r = r;
-	renderpass->g = g;
-	renderpass->b = b;
-	renderpass->a = a;
+	renderpass->r = color.r;
+	renderpass->g = color.g;
+	renderpass->b = color.b;
+	renderpass->a = color.a;
 
 	renderpass->depth = depth;
 	renderpass->stencil = stencil;

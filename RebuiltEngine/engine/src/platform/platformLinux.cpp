@@ -76,7 +76,7 @@ bl8		PlatformStartup(
 
 	// :TODO: put autorepeat on when program work great
 	// Turn off key repeats.
-	// XAutoRepeatOff(state->display);
+	XAutoRepeatOff(state->display);
 	// XAutoRepeatOn(state->display);
 
 	// Retrieve the connection from the display.
@@ -224,6 +224,8 @@ bl8		PlatformPumpMessages(platformState* platState)
 				xcb_key_press_event_t *kb_event = (xcb_key_press_event_t *)event;
 				bl8 pressed = event->response_type == XCB_KEY_PRESS;
 				xcb_keycode_t code = kb_event->detail;
+
+				// DE_DEBUG("aaaaaaKeycode: %d", code);
 				
 				KeySym key_sym = XkbKeycodeToKeysym(
 					state->display,
@@ -231,7 +233,10 @@ bl8		PlatformPumpMessages(platformState* platState)
 					0,
 					code & ShiftMask ? 1 : 0);
 
+				DE_DEBUG("KeySym: %d", key_sym);
+
 				keys key = TranslateKeycode(key_sym);
+
 
 				// Pass to the input subsystem for processing.
 				InputProcessKey(key, pressed);
@@ -417,6 +422,27 @@ keys TranslateKeycode(uint32 xKeycode)
 {
 	switch (xKeycode)
 	{
+		case XK_0:
+			return KEY_TOP_0;
+		case XK_1:
+			return KEY_TOP_1;
+		case XK_at:
+			return KEY_TOP_2;
+		case XK_3:
+			return KEY_TOP_3;
+		case XK_dollar:
+			return KEY_TOP_4;
+		case XK_5:
+			return KEY_TOP_5;
+		case XK_asciicircum:
+			return KEY_TOP_6;
+		case XK_7:
+			return KEY_TOP_7;
+		case XK_asterisk:
+			return KEY_TOP_8;
+		case XK_9:
+			return KEY_TOP_9;
+
 		case XK_BackSpace:
 			return KEY_BACKSPACE;
 		case XK_Return:
@@ -481,6 +507,7 @@ keys TranslateKeycode(uint32 xKeycode)
 			// case XK_apps: return KEY_APPS; // not supported
 
 			// case XK_sleep: return KEY_SLEEP; //not supported
+		
 
 		case XK_KP_0:
 			return KEY_NUMPAD0;

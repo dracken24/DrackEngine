@@ -13,11 +13,25 @@
 #ifndef APPLICATION_HPP
 # define APPLICATION_HPP
 
+#include <core/timer.hpp>
+
 # include <defines.hpp>
 
 # include <string>
 
 struct game;
+
+typedef struct	applicationState
+{
+	game*			gameInst;
+	bl8				isRunning;
+	bl8				isSuspended;
+	platformState	platform;
+	sint16			width;
+	sint16			height;
+	Timer			timer;
+	dbl64			lastTime;
+}	applicationState;
 
 // Application configuration.
 typedef struct	appConfig

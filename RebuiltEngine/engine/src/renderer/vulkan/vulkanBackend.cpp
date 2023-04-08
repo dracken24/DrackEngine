@@ -29,11 +29,17 @@
 #include <core/deString.hpp>
 #include <core/logger.hpp>
 
+#include <gameTypes.hpp>
+
+struct game;
+
 // static Vulkan context
 static vulkanContext	context;
 // static VulkanSwapchain	vkImageSwapchain;
 static uint32 cachedFramebufferWidth = 0;
 static uint32 cachedFramebufferHeight = 0;
+
+extern applicationState *appState;
 
 VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
@@ -186,10 +192,11 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 	VulkanSwapchainCreate(&context, context.framebufferWidth,
 		context.framebufferHeight, &context.swapchain);
 
+	// DE_DEBUG("AAAAAAAAAAVulkan device created.");
 	// KEEP: Change background color
 	VulkanRenderpassCreate(&context, &context.mainRenderpass,
 		0, 0, context.framebufferWidth, context.framebufferHeight,
-		0.2f, 0.0f, 0.4f, 0.2f,
+		appState->gameInst->bgColor,
 		1.0f, 0);
 
 	// Swapchain framebuffers.

@@ -23,6 +23,7 @@ bl8		createGame(game* outGame)
 	outGame->appConfig.width = 950;
 	outGame->appConfig.height = 640;
 	outGame->appConfig.name = "DrackEngine";
+	outGame->bgColor = {0.2f, 0.0f, 0.4f, 0.2f};
 
 	outGame->update = GameUpdate;
 	outGame->render = GameRender;

@@ -25,11 +25,22 @@ typedef enum	buttons
 
 # define DEFINE_KEY(name, code) KEY_##name = code
 
-typedef enum	keys
+typedef enum keys
 {
-	DEFINE_KEY(BACKSPACE, 0x08),
+	DEFINE_KEY(TOP_0, 0x00),
+	DEFINE_KEY(TOP_1, 0x01),
+	DEFINE_KEY(TOP_2, 0x02),
+	DEFINE_KEY(TOP_3, 0x03),
+	DEFINE_KEY(TOP_4, 0x04),
+	DEFINE_KEY(TOP_5, 0x05),
+	DEFINE_KEY(TOP_6, 0x06),
+	DEFINE_KEY(TOP_7, 0x07),
+	DEFINE_KEY(TOP_8, 0x08),
+	DEFINE_KEY(TOP_9, 0x09),
+
+	DEFINE_KEY(BACKSPACE, 0x0A),
 	DEFINE_KEY(ENTER, 0x0D),
-	DEFINE_KEY(TAB, 0x09),
+	DEFINE_KEY(TAB, 0x0B),
 	DEFINE_KEY(SHIFT, 0x10),
 	DEFINE_KEY(CONTROL, 0x11),
 
@@ -155,7 +166,7 @@ typedef enum	keys
 	DEFINE_KEY(GRAVE, 0xC0),
 
 	KEYS_MAX_KEYS
-}	keys;
+} keys;
 
 // NOTE: Functions for playing with the input system
 

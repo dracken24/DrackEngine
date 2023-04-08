@@ -31,20 +31,8 @@
 
 #include <renderer/rendererFrontend.hpp>
 
-typedef struct applicationState
-{
-	game*			gameInst;
-	bl8				isRunning;
-	bl8				isSuspended;
-	platformState	platform;
-	sint16			width;
-	sint16			height;
-	Timer			timer;
-	dbl64			lastTime;
-} applicationState;
-
 static bl8 initialized = false;
-static applicationState appState;
+applicationState *appState = new applicationState;
 
 static Vector2ui		mousePosition;
 static fl32				mouseZoom = 0;
@@ -76,7 +64,7 @@ bl8		ApplicationCreate(game *gameInst)
 		return false;
 	}
 
-	appState.gameInst = gameInst;
+	appState->gameInst = gameInst;
 
 	// Initialize subsystems.
 	LogInit();
@@ -90,8 +78,8 @@ bl8		ApplicationCreate(game *gameInst)
 	DE_DEBUG("Hello World! %f", 1.0f);
 	DE_TRACE("Hello World! %f lol %s", 1.0f, "test\n");
 
-	appState.isRunning = true;
-	appState.isSuspended = false;
+	appState->isRunning = true;
+	appState->isSuspended = false;
 
 	if(!EventInitialize())
 	{
@@ -110,7 +98,7 @@ bl8		ApplicationCreate(game *gameInst)
 	EventRegister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
 	if (!PlatformStartup(
-			&appState.platform,
+			&appState->platform,
 			gameInst->appConfig.name.c_str(),
 			gameInst->appConfig.x,
 			gameInst->appConfig.y,
@@ -120,20 +108,20 @@ bl8		ApplicationCreate(game *gameInst)
 	}
 
 	// Init vulkan, frontend and backend
-	if (!backend.RendererInit(gameInst->appConfig.name.c_str(), &appState.platform))
+	if (!backend.RendererInit(gameInst->appConfig.name.c_str(), &appState->platform))
 	{
 		DE_FATAL("Failed to initialize renderer. Aborting application.");
 		return false;
 	}
 
 	// Initialize the game.
-	if (!appState.gameInst->initialize(appState.gameInst))
+	if (!appState->gameInst->initialize(appState->gameInst))
 	{
 		DE_FATAL("Game failed to initialize.");
 		return false;
 	}
 
-	appState.gameInst->onResize(appState.gameInst, appState.width, appState.height);
+	appState->gameInst->onResize(appState->gameInst, appState->width, appState->height);
 
 	initialized = true;
 
@@ -142,42 +130,42 @@ bl8		ApplicationCreate(game *gameInst)
 
 bl8		ApplicationRun(void)
 {
-	appState.timer.TimerStart();
-	appState.timer.TimerUpdate();
-	appState.lastTime = appState.timer._timer.elapsedTime;
+	appState->timer.TimerStart();
+	appState->timer.TimerUpdate();
+	appState->lastTime = appState->timer._timer.elapsedTime;
 	dbl64 running_time = 0;
 	uint8 framesCount = 0;
 	dbl64 target_FPS = 1.0f / 60;
 
 	DE_INFO(GetMemoryUsageStr().c_str());
 
-	while (appState.isRunning)
+	while (appState->isRunning)
 	{
-		if (!PlatformPumpMessages(&appState.platform))
+		if (!PlatformPumpMessages(&appState->platform))
 		{
-			appState.isRunning = false;
+			appState->isRunning = false;
 		}
 
-		if (!appState.isSuspended)
+		if (!appState->isSuspended)
 		{
 			// Update timer and get delta time.
-			appState.timer.TimerUpdate();
-			dbl64 currentTime = appState.timer._timer.elapsedTime;
-			dbl64 delta = (currentTime - appState.lastTime);
+			appState->timer.TimerUpdate();
+			dbl64 currentTime = appState->timer._timer.elapsedTime;
+			dbl64 delta = (currentTime - appState->lastTime);
 			dbl64 frameStartTime = PlatformGetAbsoluteTime();
 
-			if (!appState.gameInst->update(appState.gameInst, (fl32)delta))
+			if (!appState->gameInst->update(appState->gameInst, (fl32)delta))
 			{
 				DE_FATAL("Game update failed, shutting down.");
-				appState.isRunning = false;
+				appState->isRunning = false;
 				break;
 			}
 
 			// Call the game's render routine.
-			if (!appState.gameInst->render(appState.gameInst, (fl32)delta))
+			if (!appState->gameInst->render(appState->gameInst, (fl32)delta))
 			{
 				DE_FATAL("Game render failed, shutting down.");
-				appState.isRunning = false;
+				appState->isRunning = false;
 				break;
 			}
 
@@ -214,11 +202,11 @@ bl8		ApplicationRun(void)
 			DE_InputUpdate(delta);
 
 			// Update last time
-			appState.lastTime = currentTime;
+			appState->lastTime = currentTime;
 		}
 	}
 
-	appState.isRunning = false;
+	appState->isRunning = false;
 
 	DE_DEBUG("Application shutting down.");
 	// Shutdown event system.
@@ -239,7 +227,9 @@ bl8		ApplicationRun(void)
 	backend.RendererShutdown();
 
 	DE_DEBUG("Shutting down platform.");
-	PlatformShutdown(&appState.platform);
+	PlatformShutdown(&appState->platform);
+
+	delete appState;
 
 	DE_DEBUG("Application shutdown complete.");
 	return true;
@@ -247,8 +237,8 @@ bl8		ApplicationRun(void)
 
 void	ApplicationGetFrameBufferSize(uint32 *width, uint32 *height)
 {
-	*width = appState.gameInst->appConfig.width;
-	*height = appState.gameInst->appConfig.height;
+	*width = appState->gameInst->appConfig.width;
+	*height = appState->gameInst->appConfig.height;
 }
 
 bl8 ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventContext context)
@@ -259,7 +249,7 @@ bl8 ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventConte
 		case EVENT_CODE_APPLICATION_QUIT:
 		{
 			DE_INFO("EVENT_CODE_APPLICATION_QUIT recieved, shutting down.\n");
-			appState.isRunning = false;
+			appState->isRunning = false;
 			return true;
 		}
 	}
@@ -272,6 +262,7 @@ bl8 ApplicationOnKey(uint16 code, void* sender, void* listenerInst, eventContext
 	if (code == EVENT_CODE_KEY_PRESSED)
 	{
 		uint16 keyCode = context.data.uint16[0];
+		DE_DEBUG("Code: %d, keyCode: %d", code, keyCode);
 		if (keyCode == KEY_ESCAPE)
 		{
 			// NOTE: Technically firing an event to itself, but there may be other listeners.
@@ -281,19 +272,41 @@ bl8 ApplicationOnKey(uint16 code, void* sender, void* listenerInst, eventContext
 			// Block anything else from processing this.
 			return true;
 		}
-		else
+		if (keyCode == KEY_TOP_1)
 		{
-			DE_DEBUG("'%c' key pressed in window.", keyCode);
+			appState->gameInst->bgColor.r += 0.1f;
 		}
-	}
-	else if (code == EVENT_CODE_KEY_RELEASED)
-	{
-		uint16 keyCode = context.data.uint16[0];
-		if (keyCode)
+		if (keyCode == KEY_TOP_2)
 		{
-			DE_DEBUG("'%c' key released in window.", keyCode);
+			appState->gameInst->bgColor.r -= 0.1f;
 		}
+		if (keyCode == KEY_TOP_3)
+		{
+			appState->gameInst->bgColor.g += 0.1f;
+		}
+		if (keyCode == KEY_TOP_4)
+		{
+			appState->gameInst->bgColor.g -= 0.1f;
+		}
+		if (keyCode == KEY_TOP_5)
+		{
+			appState->gameInst->bgColor.b += 0.1f;
+		}
+		if (keyCode == KEY_TOP_6)
+		{
+			appState->gameInst->bgColor.b -= 0.1f;
+		}
+
+		DE_DEBUG("'%c' key pressed in window.", keyCode);
 	}
+	// else if (code == EVENT_CODE_KEY_RELEASED)
+	// {
+	// 	uint16 keyCode = context.data.uint16[0];
+	// 	if (keyCode)
+	// 	{
+	// 		DE_DEBUG("'%c' key released in window.", keyCode);
+	// 	}
+	// }
 
 	return false;
 }
@@ -377,10 +390,10 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 		uint16 Y = context.data.uint16[1];
 
 		// Check if different. If so, trigger a resize event.
-		if (X != appState.width || Y != appState.height)
+		if (X != appState->width || Y != appState->height)
 		{
-			appState.width = X;
-			appState.height = Y;
+			appState->width = X;
+			appState->height = Y;
 
 			DE_DEBUG("Window resize: %i, %i", X, Y);
 
@@ -388,17 +401,17 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 			if (X == 0 || Y == 0)
 			{
 				DE_INFO("Window minimized, suspending application.");
-				appState.isSuspended = true;
+				appState->isSuspended = true;
 				return true;
 			}
 			else
 			{
-				if (appState.isSuspended)
+				if (appState->isSuspended)
 				{
 					DE_INFO("Window restored, resuming application.");
-					appState.isSuspended = false;
+					appState->isSuspended = false;
 				}
-				appState.gameInst->onResize(appState.gameInst, X, Y);
+				appState->gameInst->onResize(appState->gameInst, X, Y);
 				backend.RendererOnResized(X, Y);
 			}
 		}
@@ -409,6 +422,6 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 
 void	ApplicationGetFramebufferSize(uint32 *width, uint32 *height)
 {
-	*width = appState.width;
-	*height = appState.height;
+	*width = appState->width;
+	*height = appState->height;
 }
