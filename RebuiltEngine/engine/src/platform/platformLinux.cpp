@@ -74,8 +74,9 @@ bl8		PlatformStartup(
 	// Connect to X
 	state->display = XOpenDisplay(NULL);
 
+	// :TODO: put autorepeat on when program work great
 	// Turn off key repeats.
-	XAutoRepeatOff(state->display);
+	// XAutoRepeatOff(state->display);
 	// XAutoRepeatOn(state->display);
 
 	// Retrieve the connection from the display.
@@ -296,10 +297,6 @@ bl8		PlatformPumpMessages(platformState* platState)
 				// TODO: Resizing
 
 				xcb_configure_notify_event_t *resizeEvent = (xcb_configure_notify_event_t *)event;
-				// DE_DEBUG("FIND Whide: %d Hight: %d X: %d Y:%d",
-				// 	resizeEvent->width, resizeEvent->height,
-				// 	resizeEvent->x, resizeEvent->y);
-					// DE_DEBUG("EVEVT: %d", resizeEvent->response_type);
 				DE_OnWindowResize(resizeEvent->width, resizeEvent->height);
 			}
 				break;

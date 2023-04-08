@@ -93,7 +93,8 @@ bl8		ApplicationCreate(game *gameInst)
 	appState.isRunning = true;
 	appState.isSuspended = false;
 
-	if(!EventInitialize()) {
+	if(!EventInitialize())
+	{
 		DE_ERROR("Event system failed initialization. Application cannot continue.");
 		return false;
 	}
@@ -119,13 +120,15 @@ bl8		ApplicationCreate(game *gameInst)
 	}
 
 	// Init vulkan, frontend and backend
-	if (!backend.RendererInit(gameInst->appConfig.name.c_str(), &appState.platform)) {
+	if (!backend.RendererInit(gameInst->appConfig.name.c_str(), &appState.platform))
+	{
 		DE_FATAL("Failed to initialize renderer. Aborting application.");
 		return false;
 	}
 
 	// Initialize the game.
-	if (!appState.gameInst->initialize(appState.gameInst)) {
+	if (!appState.gameInst->initialize(appState.gameInst))
+	{
 		DE_FATAL("Game failed to initialize.");
 		return false;
 	}

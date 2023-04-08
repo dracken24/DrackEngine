@@ -103,22 +103,22 @@ bl8 VulkanDeviceCreate(vulkanContext* context)
 	VkPhysicalDeviceFeatures deviceFeatures = {};
 	deviceFeatures.samplerAnisotropy = VK_TRUE;  // Request anistrophy
 
-	VkDeviceCreateInfo device_create_info = {VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO};
-	device_create_info.queueCreateInfoCount = index_count;
-	device_create_info.pQueueCreateInfos = queueCreateInfos;
-	device_create_info.pEnabledFeatures = &deviceFeatures;
-	device_create_info.enabledExtensionCount = 1;
+	VkDeviceCreateInfo deviceCreateInfo = {VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO};
+	deviceCreateInfo.queueCreateInfoCount = index_count;
+	deviceCreateInfo.pQueueCreateInfos = queueCreateInfos;
+	deviceCreateInfo.pEnabledFeatures = &deviceFeatures;
+	deviceCreateInfo.enabledExtensionCount = 1;
 	const char* extensionNames = VK_KHR_SWAPCHAIN_EXTENSION_NAME;
-	device_create_info.ppEnabledExtensionNames = &extensionNames;
+	deviceCreateInfo.ppEnabledExtensionNames = &extensionNames;
 
 	// Deprecated and ignored, so pass nothing.
-	device_create_info.enabledLayerCount = 0;
-	device_create_info.ppEnabledLayerNames = 0;
+	deviceCreateInfo.enabledLayerCount = 0;
+	deviceCreateInfo.ppEnabledLayerNames = 0;
 
 	// Create the device.
 	VK_CHECK(vkCreateDevice(
 		context->device.physicalDevice,
-		&device_create_info,
+		&deviceCreateInfo,
 		context->allocator,
 		&context->device.logicalDevice));
 
@@ -234,7 +234,8 @@ void VulkanDeviceQuerySwapchainSupport(
 	{
 		if (!outSupportInfo->formats)
 		{
-			outSupportInfo->formats = (VkSurfaceFormatKHR *)Mallocate(sizeof(VkSurfaceFormatKHR) * outSupportInfo->formatCount, DE_MEMORY_TAG_RENDERER);
+			outSupportInfo->formats = (VkSurfaceFormatKHR *)Mallocate(sizeof(VkSurfaceFormatKHR)
+				* outSupportInfo->formatCount, DE_MEMORY_TAG_RENDERER);
 		}
 		VK_CHECK(vkGetPhysicalDeviceSurfaceFormatsKHR(
 			physicalDevice,
@@ -253,7 +254,8 @@ void VulkanDeviceQuerySwapchainSupport(
 	{
 		if (!outSupportInfo->presentMode)
 		{
-			outSupportInfo->presentMode = (VkPresentModeKHR *)Mallocate(sizeof(VkPresentModeKHR) * outSupportInfo->presentModeCount, DE_MEMORY_TAG_RENDERER);
+			outSupportInfo->presentMode = (VkPresentModeKHR *)Mallocate(sizeof(VkPresentModeKHR)
+				* outSupportInfo->presentModeCount, DE_MEMORY_TAG_RENDERER);
 		}
 		VK_CHECK(vkGetPhysicalDeviceSurfacePresentModesKHR(
 			physicalDevice,
@@ -516,11 +518,13 @@ bl8 PhysicalDeviceMeetsRequirements(
 		{
 			if (outSwapchainSupport->formats)
 			{
-				FreeMem(outSwapchainSupport->formats, sizeof(VkSurfaceFormatKHR) * outSwapchainSupport->formatCount, DE_MEMORY_TAG_RENDERER);
+				FreeMem(outSwapchainSupport->formats, sizeof(VkSurfaceFormatKHR)
+					* outSwapchainSupport->formatCount, DE_MEMORY_TAG_RENDERER);
 			}
 			if (outSwapchainSupport->presentMode)
 			{
-				FreeMem(outSwapchainSupport->presentMode, sizeof(VkPresentModeKHR) * outSwapchainSupport->presentModeCount, DE_MEMORY_TAG_RENDERER);
+				FreeMem(outSwapchainSupport->presentMode, sizeof(VkPresentModeKHR)
+					* outSwapchainSupport->presentModeCount, DE_MEMORY_TAG_RENDERER);
 			}
 			DE_INFO("Required swapchain support not present, skipping device.");
 			return false;
@@ -538,7 +542,9 @@ bl8 PhysicalDeviceMeetsRequirements(
 				0));
 			if (availableExtensionCount != 0)
 			{
-				availableExtensions = (VkExtensionProperties *)Mallocate(sizeof(VkExtensionProperties) * availableExtensionCount, DE_MEMORY_TAG_RENDERER);
+				availableExtensions = (VkExtensionProperties *)Mallocate(sizeof(VkExtensionProperties)
+					* availableExtensionCount, DE_MEMORY_TAG_RENDERER);
+
 				VK_CHECK(vkEnumerateDeviceExtensionProperties(
 					device,
 					0,
@@ -559,8 +565,11 @@ bl8 PhysicalDeviceMeetsRequirements(
 
 					if (!found)
 					{
-						DE_INFO("Required extension not found: '%s', skipping device.", requirements->deviceExtensionNames[i]);
-						FreeMem(availableExtensions, sizeof(VkExtensionProperties) * availableExtensionCount, DE_MEMORY_TAG_RENDERER);
+						DE_INFO("Required extension not found: '%s', skipping device.",
+							requirements->deviceExtensionNames[i]);
+						FreeMem(availableExtensions, sizeof(VkExtensionProperties)
+							* availableExtensionCount, DE_MEMORY_TAG_RENDERER);
+							
 						return false;
 					}
 				}

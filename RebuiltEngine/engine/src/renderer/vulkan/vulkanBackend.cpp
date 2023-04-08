@@ -145,12 +145,16 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 	// Debugger
 #if defined(_DEBUG)
 	DE_DEBUG("Creating Vulkan debugger...");
-	uint32 logSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT; //|
+	uint32 logSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT
+						| VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT
+						| VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT; //|
 																																										 //    VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT;
 
 	VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo = {VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT};
 	debugCreateInfo.messageSeverity = logSeverity;
-	debugCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT;
+	debugCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT
+								| VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT
+								| VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT;
 
 	debugCreateInfo.pfnUserCallback = VkDebugCallback;
 
@@ -182,6 +186,7 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 	VulkanSwapchainCreate(&context, context.framebufferWidth,
 		context.framebufferHeight, &context.swapchain);
 
+	// KEEP: Change background color
 	VulkanRenderpassCreate(&context, &context.mainRenderpass,
 		0, 0, context.framebufferWidth, context.framebufferHeight,
 		0.2f, 0.0f, 0.4f, 0.2f,
@@ -451,30 +456,30 @@ bl8 vulkanRendererBackendEndFrame(rendererBackend *backend, fl32 deltaTime)
 
 	// Submit the queue and wait for the operation to complete.
 	// Begin queue submission
-	VkSubmitInfo submit_info = {VK_STRUCTURE_TYPE_SUBMIT_INFO};
+	VkSubmitInfo submitInfo = {VK_STRUCTURE_TYPE_SUBMIT_INFO};
 
 	// Command buffer(s) to be executed.
-	submit_info.commandBufferCount = 1;
-	submit_info.pCommandBuffers = &command_buffer->handle;
+	submitInfo.commandBufferCount = 1;
+	submitInfo.pCommandBuffers = &command_buffer->handle;
 
 	// The semaphore(s) to be signaled when the queue is complete.
-	submit_info.signalSemaphoreCount = 1;
-	submit_info.pSignalSemaphores = &context.queueCompleteSemaphores[context.currentFrame];
+	submitInfo.signalSemaphoreCount = 1;
+	submitInfo.pSignalSemaphores = &context.queueCompleteSemaphores[context.currentFrame];
 
 	// Wait semaphore ensures that the operation cannot begin until the image is available.
-	submit_info.waitSemaphoreCount = 1;
-	submit_info.pWaitSemaphores = &context.imageAvailableSemaphores[context.currentFrame];
+	submitInfo.waitSemaphoreCount = 1;
+	submitInfo.pWaitSemaphores = &context.imageAvailableSemaphores[context.currentFrame];
 
 	// Each semaphore waits on the corresponding pipeline stage to complete. 1:1 ratio.
 	// VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT prevents subsequent colour attachment
 	// writes from executing until the semaphore signals (i.e. one frame is presented at a time)
 	VkPipelineStageFlags flags[1] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
-	submit_info.pWaitDstStageMask = flags;
+	submitInfo.pWaitDstStageMask = flags;
 
 	VkResult result = vkQueueSubmit(
 		context.device.graphicsQueue,
 		1,
-		&submit_info,
+		&submitInfo,
 		context.inFlightFences[context.currentFrame].handle);
 	if (result != VK_SUCCESS)
 	{

@@ -47,6 +47,11 @@
       "text": "WARNING:",
       "color": "yellow",
       "backgroundColor": "rgba(0,0,0,0)"
+    },
+    {
+      "text": "KEEP:",
+      "color": "#12b6a5",
+      "backgroundColor": "rgba(0,0,0,0)"
     }
   ],
   "todohighlight.defaultStyle": {

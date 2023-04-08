@@ -60,10 +60,10 @@ void	VulkanImageCreate(vulkanContext *context, VkImageType imageType, uint32 wid
 	}
 
 	// Allocate memory
-	VkMemoryAllocateInfo memory_allocate_info = {VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO};
-	memory_allocate_info.allocationSize = memoryRequirements.size;
-	memory_allocate_info.memoryTypeIndex = memoryType;
-	VK_CHECK(vkAllocateMemory(context->device.logicalDevice, &memory_allocate_info, context->allocator, &image->memory));
+	VkMemoryAllocateInfo memoryAllocateInfo = {VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO};
+	memoryAllocateInfo.allocationSize = memoryRequirements.size;
+	memoryAllocateInfo.memoryTypeIndex = memoryType;
+	VK_CHECK(vkAllocateMemory(context->device.logicalDevice, &memoryAllocateInfo, context->allocator, &image->memory));
 
 	// Bind the memory
 	VK_CHECK(vkBindImageMemory(context->device.logicalDevice, image->handle, image->memory, 0)); // TODO: configurable memory offset.

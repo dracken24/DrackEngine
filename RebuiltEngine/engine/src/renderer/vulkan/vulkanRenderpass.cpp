@@ -14,6 +14,7 @@
 
 #include <core/deMemory.hpp>
 
+// KEEP: Change background color
 void	VulkanRenderpassCreate(vulkanContext *context, vulkanRenderpass *renderpass,
 			fl32 x, fl32 y, fl32 w, fl32 h,
 			fl32 r, fl32 g, fl32 b, fl32 a,
