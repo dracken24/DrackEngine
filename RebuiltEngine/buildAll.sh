@@ -16,13 +16,18 @@ set echo on
 
 echo  "\033[32mBuilding everything...\n"
 
+
 alias pushd='cd'
 alias popd='cd ..'
 
-rm -fr bin/
+# rm -fr bin/
 pushd engine
 ./build.sh
 popd
+
+make -f Makefile.engine.linux.mak all
+
+# echo "HELP: 1"
 
 ERRORLEVEL=$?
 if [ $ERRORLEVEL -ne 0 ]
@@ -30,9 +35,16 @@ then
 echo "Error:"$ERRORLEVEL && exit
 fi
 
-pushd testBed
+pushd testbed
 ./build.sh
 popd
+
+# echo "HELP: 2"
+
+make -f Makefile.testbed.linux.mak all
+
+# echo "HELP: 3"
+
 ERRORLEVEL=$?
 if [ $ERRORLEVEL -ne 0 ]
 then

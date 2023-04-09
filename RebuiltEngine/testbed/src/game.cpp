@@ -10,7 +10,7 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include <game.hpp>
+#include "game.hpp"
 #include <core/logger.hpp>
 
 //*** NOTE: Thoses functions work with pointer functions enum in gameType.hpp ***//

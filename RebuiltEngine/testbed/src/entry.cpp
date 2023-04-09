@@ -12,7 +12,7 @@
 
 #include <core/deMemory.hpp>
 #include <entry.hpp>
-#include <game.hpp>
+#include "game.hpp"
 
 // Define the function to create a game
 bl8		createGame(game* outGame)

@@ -11,17 +11,17 @@
 /*****************************************************************************/
 
 /*
-/* An assertion is a statement that checks for a specific condition at a given
-/* point in code and reports an error if that condition is not true.
-/*
-/* If an assertion fails, the program usually stops and displays a detailed error
-/* message that indicates where the assertion failed.
-/*
-/* assertion functions are used to verify the validity of user input, the state of
-/* game objects, function return values, and more. For example, an assertion function
-/* could be used to check if a texture was loaded correctly or if the function's
-/* input parameters are valid. If the assertion fails, it means there is an error
-/* somewhere in the code and action needs to be taken to correct the error.
+An assertion is a statement that checks for a specific condition at a given
+point in code and reports an error if that condition is not true.
+
+If an assertion fails, the program usually stops and displays a detailed error
+message that indicates where the assertion failed.
+
+assertion functions are used to verify the validity of user input, the state of
+game objects, function return values, and more. For example, an assertion function
+could be used to check if a texture was loaded correctly or if the function's
+input parameters are valid. If the assertion fails, it means there is an error
+somewhere in the code and action needs to be taken to correct the error.
 */
 
 #ifndef ASSERTS_HPP

@@ -22,13 +22,13 @@
             "type": "shell",
             "label": "Build Testbed",
             "windows": {
-                "command": "${workspaceFolder}/testBed/build.bat"
+                "command": "${workspaceFolder}/testbed/build.bat"
             },
             "linux": {
-                "command": "${workspaceFolder}/testBed/build.sh"
+                "command": "${workspaceFolder}/testbed/build.sh"
             },
             "options": {
-                "cwd": "${workspaceFolder}/testBed"
+                "cwd": "${workspaceFolder}/testbed"
             },
             "problemMatcher": [
                 "$gcc"
