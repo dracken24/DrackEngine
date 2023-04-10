@@ -14,10 +14,10 @@
 # define VULKAN_RENDERPASS_HPP
 
 #include <renderer/vulkan/vulkanTypes.inl>
-#include <structs.hpp>
+#include <math/structs.hpp>
 
 void	VulkanRenderpassCreate(vulkanContext* context, vulkanRenderpass* renderpass,
-			fl32 x, fl32 y, fl32 w, fl32 h, RgbaFl32 color, fl32 depth, uint32 stencil);
+			fl32 x, fl32 y, fl32 w, fl32 h, Vector4 color, fl32 depth, uint32 stencil);
 
 void	VulkanRenderpassDestroy(vulkanContext* context, vulkanRenderpass* renderpass);
 

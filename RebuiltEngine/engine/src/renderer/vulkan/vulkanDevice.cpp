@@ -47,7 +47,7 @@ bl8 PhysicalDeviceMeetsRequirements(
 	vulkanPhysicalDeviceQueueFamilyInfo* outQueueFamilyInfo,
 	vulkanSwapchainSupportInfo* outSwapchainSupport);
 
-bl8 VulkanDeviceCreate(vulkanContext* context)
+bl8		VulkanDeviceCreate(vulkanContext* context)
 {
 	if (!SelectPhysicalDevice(context))
 	{
@@ -212,11 +212,9 @@ void VulkanDeviceDestroy(vulkanContext* context)
 	context->device.transferQueueIndex = -1;
 }
 
-void VulkanDeviceQuerySwapchainSupport(
-	VkPhysicalDevice physicalDevice,
-	VkSurfaceKHR surface,
-	vulkanSwapchainSupportInfo* outSupportInfo)
-	{
+void	VulkanDeviceQuerySwapchainSupport(VkPhysicalDevice physicalDevice,
+			VkSurfaceKHR surface, vulkanSwapchainSupportInfo* outSupportInfo)
+{
 	// Surface capabilities
 	VK_CHECK(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
 		physicalDevice,
@@ -294,7 +292,7 @@ bl8		VulkanDeviceDetectDepthFormat(vulkanDevice *device)
 	return false;
 }
 
-bl8 SelectPhysicalDevice(vulkanContext* context)
+bl8		SelectPhysicalDevice(vulkanContext* context)
 {
 	uint32 physicalDeviceCount = 0;
 	VK_CHECK(vkEnumeratePhysicalDevices(context->instance, &physicalDeviceCount, 0));
@@ -331,14 +329,9 @@ bl8 SelectPhysicalDevice(vulkanContext* context)
 		DE_ArrayPush(requirements.deviceExtensionNames, &VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
 		vulkanPhysicalDeviceQueueFamilyInfo queueInfo = {};
-		bl8 result = PhysicalDeviceMeetsRequirements(
-			physicalDevices[i],
-			context->surface,
-			&properties,
-			&features,
-			&requirements,
-			&queueInfo,
-			&context->device.swapchainSupport);
+		
+		bl8 result = PhysicalDeviceMeetsRequirements( physicalDevices[i],context->surface,&properties,
+			&features,&requirements, &queueInfo, &context->device.swapchainSupport);
 
 		if (result)
 		{
@@ -416,7 +409,7 @@ bl8 SelectPhysicalDevice(vulkanContext* context)
 	return true;
 }
 
-bl8 PhysicalDeviceMeetsRequirements(
+bl8		PhysicalDeviceMeetsRequirements(
 	VkPhysicalDevice device,
 	VkSurfaceKHR surface,
 	const VkPhysicalDeviceProperties* properties,
@@ -535,11 +528,9 @@ bl8 PhysicalDeviceMeetsRequirements(
 		{
 			uint32 availableExtensionCount = 0;
 			VkExtensionProperties* availableExtensions = 0;
-			VK_CHECK(vkEnumerateDeviceExtensionProperties(
-				device,
-				0,
-				&availableExtensionCount,
-				0));
+
+			VK_CHECK(vkEnumerateDeviceExtensionProperties( device,0,&availableExtensionCount,0));
+
 			if (availableExtensionCount != 0)
 			{
 				availableExtensions = (VkExtensionProperties *)Mallocate(sizeof(VkExtensionProperties)
@@ -557,7 +548,8 @@ bl8 PhysicalDeviceMeetsRequirements(
 					bl8 found = false;
 					for (uint32 j = 0; j < availableExtensionCount; ++j)
 					{
-						if (StrCmp(requirements->deviceExtensionNames[i], availableExtensions[j].extensionName)) {
+						if (StrCmp(requirements->deviceExtensionNames[i], availableExtensions[j].extensionName))
+						{
 							found = true;
 							break;
 						}

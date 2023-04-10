@@ -14,7 +14,7 @@
 # define GAME_TYPE_HPP
 
 # include <core/application.hpp>
-# include <structs.hpp>
+# include <math/structs.hpp>
 
 // Represents the basic game state in a game.
 // Called for creation by the application.
@@ -41,7 +41,7 @@ typedef struct	game
 
 	// // For allocator functions.
 	// Platform platform;
-	RgbaFl32	bgColor;// Background color
+	Vector4	bgColor;// Background color
 }	game;
 
 #endif // GAME_TYPE_HPP

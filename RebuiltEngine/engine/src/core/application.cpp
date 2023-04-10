@@ -20,7 +20,7 @@
 #include <core/event.hpp>
 #include <core/input.hpp>
 #include <core/timer.hpp>
-#include <structs.hpp>
+#include <math/structs.hpp>
 #include <renderer/vulkan/vulkanBackend.hpp>
 
 #include <xcb/xcb.h>
@@ -34,10 +34,10 @@
 static bl8 initialized = false;
 applicationState *appState = new applicationState;
 
-static Vector2ui		mousePosition;
+static Vector2			mousePosition;
 static fl32				mouseZoom = 0;
-static Vector2ui16		screenSize;
-static Vector2ui16		screenPos;
+static Vector2			screenSize;
+static Vector2			screenPos;
 
 static Renderer			backend;
 
@@ -53,6 +53,13 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 
 bl8		ApplicationCreate(game *gameInst)
 {
+	// Vector2 test;
+	// test.x = 55;
+	// test.r = 66;
+
+	// std::cout << test.x << std::endl;
+	// std::cout << test.r << std::endl;
+
 	screenSize.x = gameInst->appConfig.width;
 	screenSize.y = gameInst->appConfig.height;
 	screenPos.x = gameInst->appConfig.x;
@@ -264,7 +271,7 @@ bl8 ApplicationOnKey(uint16 code, void* sender, void* listenerInst, eventContext
 	if (code == EVENT_CODE_KEY_PRESSED)
 	{
 		uint16 keyCode = context.data.uint16[0];
-		DE_DEBUG("Code: %d, keyCode: %d", code, keyCode);
+		// DE_DEBUG("Code: %d, keyCode: %d", code, keyCode);
 		if (keyCode == KEY_ESCAPE)
 		{
 			// NOTE: Technically firing an event to itself, but there may be other listeners.

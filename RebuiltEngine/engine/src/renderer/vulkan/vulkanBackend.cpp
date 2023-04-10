@@ -192,7 +192,6 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 	vkImageSwapchain.VulkanSwapchainCreate(&context, context.framebufferWidth,
 		context.framebufferHeight, &context.swapchain);
 
-	// DE_DEBUG("AAAAAAAAAAVulkan device created.");
 	// KEEP: Change background color
 	VulkanRenderpassCreate(&context, &context.mainRenderpass,
 		0, 0, context.framebufferWidth, context.framebufferHeight,

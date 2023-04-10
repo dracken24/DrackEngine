@@ -233,7 +233,7 @@ bl8		PlatformPumpMessages(platformState* platState)
 					0,
 					code & ShiftMask ? 1 : 0);
 
-				DE_DEBUG("KeySym: %d", key_sym);
+				// DE_DEBUG("KeySym: %d", key_sym);
 
 				keys key = TranslateKeycode(key_sym);
 

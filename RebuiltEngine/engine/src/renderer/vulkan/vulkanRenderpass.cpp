@@ -16,7 +16,7 @@
 
 // KEEP: Change background color
 void	VulkanRenderpassCreate(vulkanContext* context, vulkanRenderpass* renderpass,
-			fl32 x, fl32 y, fl32 w, fl32 h, RgbaFl32 color, fl32 depth, uint32 stencil)
+			fl32 x, fl32 y, fl32 w, fl32 h, Vector4 color, fl32 depth, uint32 stencil)
 {
 	renderpass->x = x;
 	renderpass->y = y;

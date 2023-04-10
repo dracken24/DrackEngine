@@ -26,7 +26,7 @@ scaffold: # create build directory
 
 .PHONY: link
 link: scaffold $(OBJ_FILES) # link
-	@echo Linking $(ASSEMBLY)...
+	@echo Linking $(ASSEMBLY)..."\n"
 	clang++ $(OBJ_FILES) -o $(BUILD_DIR)/$(ASSEMBLY)$(EXTENSION) $(LINKER_FLAGS)
 
 .PHONY: compile
