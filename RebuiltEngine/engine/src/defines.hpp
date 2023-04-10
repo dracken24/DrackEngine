@@ -111,15 +111,15 @@ STATIC_ASSERT(sizeof(dbl64) == 8, "Expected dbl64 to be 8 bytes.");
 #  endif
 # endif
 
-#define DE_CLAMP(value, min, max) (value <= min) ? min : (value >= max) ? max : value;
+# define DE_CLAMP(value, min, max) (value <= min) ? min : (value >= max) ? max : value;
 
 // Inlining
-#ifdef _MSC_VER
-#define DE_INLINE __forceinline
-#define DE_NOINLINE __declspec(noinline)
-#else
-#define DE_INLINE static inline
-#define DE_NOINLINE
-#endif
+# ifdef _MSC_VER
+#  define DE_INLINE __forceinline
+#  define DE_NOINLINE __declspec(noinline)
+# else
+#  define DE_INLINE static inline
+#  define DE_NOINLINE
+# endif
 
 #endif

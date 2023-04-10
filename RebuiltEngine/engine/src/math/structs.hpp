@@ -99,4 +99,12 @@ typedef union vec4_u
 
 typedef Vector4 quat;
 
+typedef union	mat_4
+{
+	alignas(16) fl32 data[16];
+#if defined(KUSE_SIMD)
+	alignas(16) Vector4 rows[4];
+#endif
+}	Matrix4;
+
 #endif
