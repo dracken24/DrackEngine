@@ -1,0 +1,513 @@
+	Voici les étapes principales que Vulkan effectue pour initialiser et rendre à l'écran !
+	--------------------------------------------------------------------------------------------
+	
+	1-	Création d'une instance de la bibliothèque Vulkan.
+	2-	Sélection d'un GPU à utiliser pour les opérations graphiques.
+	3-	Création d'un périphérique logique pour interagir avec le GPU sélectionné.
+	4-	Création d'une surface d'affichage à partir de la fenêtre de l'application.
+	5-	Sélection d'un mode de présentation de la surface d'affichage.
+	6-	Création d'une chaîne d'images pour stocker les images de la surface d'affichage.
+	7-	Création d'un pool de commandes graphiques pour stocker les commandes envoyées au GPU.
+	8-	Création d'un tampon de vertex pour stocker les données de géométrie des objets à afficher.
+	9-	Création d'un tampon d'indices pour stocker l'ordre de dessin des sommets des objets.
+	10-	Création d'un pipeline graphique pour spécifier les étapes de traitement des données graphiques.
+	11-	Configuration des uniformes (données partagées entre les shaders) pour les objets à afficher.
+	12-	Création de textures et de samplers pour ajouter des informations de couleur et de texture aux objets.
+	13-	Chargement des données dans les tampons de vertex et d'indices.
+	14-	Enregistrement des commandes graphiques dans le pool de commandes graphiques.
+	15-	Exécution des commandes graphiques pour dessiner les objets à l'écran.
+	16-	Présentation de l'image sur la surface d'affichage.
+
+--------------------------------------------------------------------------------------------
+********************************************************************************************
+--------------------------------------------------------------------------------------------
+
+Voici ces memes étapes plus en détail !
+--------------------------------------------------------------------------------------------
+
+1-	La création d'une instance de la bibliothèque Vulkan est la première étape dans l'utilisation
+de Vulkan dans une application. Voici les principales étapes de cette opération :
+
+    A:	Chargement de la bibliothèque Vulkan : La bibliothèque Vulkan doit être chargée en mémoire
+		pour pouvoir être utilisée. Pour cela, l'application doit inclure le fichier d'en-tête
+		Vulkan,ainsi que le fichier de bibliothèque approprié pour le système d'exploitation cible.
+
+    B:	Initialisation de l'instance : L'instance de Vulkan est créée en appelant la fonction
+		vkCreateInstance(). Cette fonction prend en charge une structure VkInstanceCreateInfo, qui
+		est utilisée pour spécifier les détails de l'instance.
+
+    C:	Configuration des extensions requises : Les extensions Vulkan doivent être configurées
+		avant de pouvoir être utilisées. Les extensions fournissent des fonctionnalités
+		supplémentaires à Vulkan qui ne sont pas couvertes par la spécification de base.
+
+    D:	Validation des couches : Les couches de validation Vulkan peuvent être utilisées pour
+		valider les opérations de l'application et fournir des informations de débogage en cas
+		d'erreur. Les couches de validation sont configurées en fonction des besoins de l'application.
+
+    E:	Création d'un périphérique : Le périphérique est créé en appelant la fonction vkCreateDevice().
+		Cette fonction prend en charge une structure VkDeviceCreateInfo, qui est utilisée pour
+		spécifier les détails du périphérique.
+
+Une fois ces étapes terminées, l'application est prête à utiliser Vulkan pour le rendu graphique.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+2-	La sélection du GPU à utiliser pour les opérations graphiques est une étape importante dans
+l'initialisation de Vulkan, car elle permet de déterminer quel périphérique graphique sera utilisé
+pour exécuter les commandes graphiques. Cette étape implique la recherche des périphériques
+graphiques disponibles sur le système, la sélection de celui qui sera utilisé pour les opérations
+graphiques et la vérification de sa compatibilité avec Vulkan.
+
+Voici les étapes clés de la sélection d'un GPU à utiliser pour les opérations graphiques avec Vulkan :
+
+    A:	Obtention d'une liste de tous les périphériques graphiques disponibles sur le système :
+		Cette étape consiste à interroger le système pour obtenir une liste de tous les
+		périphériques graphiques connectés. Cette liste est stockée dans un tableau de structures
+		de type VkPhysicalDevice.
+
+    B:	Vérification de la compatibilité de chaque périphérique graphique avec Vulkan : Cette étape
+	consiste à vérifier si chaque périphérique graphique de la liste est compatible avec Vulkan en
+	vérifiant si le pilote Vulkan est installé pour ce périphérique et s'il prend en charge les
+	fonctionnalités requises par l'application.
+
+    C:	Sélection du périphérique graphique le plus adapté : Une fois que la compatibilité des
+	périphériques graphiques a été vérifiée, l'application doit sélectionner le périphérique
+	graphique qui convient le mieux à ses besoins. Cette sélection peut être basée sur des critères
+	tels que les fonctionnalités prises en charge par le périphérique graphique, ses performances,
+	sa consommation d'énergie, etc.
+
+    D:	Configuration de l'instance Vulkan avec le périphérique graphique sélectionné : Après avoir
+	sélectionné le périphérique graphique le plus adapté, l'application doit configurer l'instance
+	Vulkan avec ce périphérique. Cette étape consiste à remplir une structure de type
+	VkInstanceCreateInfo avec les informations nécessaires, telles que le périphérique graphique
+	sélectionné, les extensions nécessaires et les couches de validation.
+
+Une fois que l'instance de Vulkan est créée et configurée avec le périphérique graphique
+sélectionné, l'application peut passer à l'étape suivante, la création du périphérique logique.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+Après avoir sélectionné le GPU, la prochaine étape consiste à créer un périphérique logique pour
+interagir avec celui-ci. Un périphérique logique est un objet qui représente une connexion avec 
+e GPU et permet à l'application d'envoyer des commandes à ce dernier.
+
+Voici les étapes pour créer un périphérique logique dans Vulkan :
+
+    A:	Spécifier les fonctionnalités graphiques nécessaires : Avant de créer un périphérique
+		logique, vous devez spécifier les fonctionnalités graphiques que vous souhaitez utiliser.
+		Cela se fait en remplissant une structure VkDeviceCreateInfo, qui contient des pointeurs
+		vers plusieurs autres structures qui décrivent les fonctionnalités graphiques que vous
+		souhaitez utiliser.
+
+    B:	Créer le périphérique logique : Une fois que vous avez spécifié les fonctionnalités
+		graphiques nécessaires, vous pouvez créer le périphérique logique en appelant la fonction
+		vkCreateDevice(). Cette fonction prend en paramètre le GPU sélectionné ainsi que la
+		structure VkDeviceCreateInfo que vous avez remplie à l'étape précédente.
+
+    C:	Récupérer les pointeurs de fonction : Une fois que vous avez créé le périphérique logique,
+		vous devez récupérer les pointeurs de fonction pour toutes les commandes Vulkan que vous
+		souhaitez utiliser. Cela se fait en appelant la fonction vkGetDeviceProcAddr(), qui renvoie
+		le pointeur de fonction correspondant à la commande que vous spécifiez.
+
+    D:	Utiliser le périphérique logique : Une fois que vous avez créé le périphérique logique et
+		récupéré les pointeurs de fonction, vous pouvez utiliser ce dernier pour envoyer des
+		commandes au GPU. Cela se fait en appelant les commandes Vulkan appropriées en utilisant
+		les pointeurs de fonction que vous avez récupérés.
+
+Il est important de noter que la création d'un périphérique logique peut échouer si le GPU ne
+prend pas en charge les fonctionnalités graphiques que vous avez spécifiées. Il est donc
+important de gérer les erreurs lors de la création du périphérique logique.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+4- de l'initialisation de Vulkan consiste à créer une surface d'affichage sur laquelle les images
+générées par l'application vont être affichées à l'écran. Cette surface d'affichage est généralement
+créée à partir de la fenêtre de l'application, ce qui permet à Vulkan de savoir où afficher les
+images générées.
+
+La création de la surface d'affichage se fait en utilisant une extension de Vulkan appelée
+VK_KHR_surface. Cette extension permet à Vulkan de créer une surface d'affichage pour une variété
+de types de fenêtres, tels que les fenêtres X11, les fenêtres Windows, les fenêtres Wayland, etc.
+
+Pour créer une surface d'affichage, l'application doit tout d'abord vérifier si l'extension
+VK_KHR_surface est prise en charge par le périphérique logique. Si c'est le cas, l'application
+peut ensuite créer une instance de la surface en appelant la fonction appropriée avec les
+paramètres appropriés. Les paramètres dépendent du type de fenêtre utilisé par l'application.
+
+Une fois que la surface d'affichage est créée, l'application peut utiliser cette surface pour
+afficher des images générées par Vulkan à l'écran. Il est important de noter que la création de
+la surface d'affichage doit être effectuée avant la création de la fenêtre de l'application, car
+la surface d'affichage est liée à la fenêtre et doit être créée en fonction de ses propriétés
+spécifiques.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+5- est "Création d'une chaîne de swap pour gérer les images de la surface d'affichage".
+
+Une chaîne de swap est une collection d'images qui sont préparées pour être présentées sur l'écran.
+Vulkan utilise une chaîne de swap pour éviter la déchirure d'écran (screen tearing) et assurer une
+présentation fluide des images à l'utilisateur.
+
+La création d'une chaîne de swap implique plusieurs étapes, notamment:
+
+    A:	Récupération des paramètres de présentation de la surface, tels que la résolution et le
+		format d'image pris en charge.
+
+    B:	Sélection du nombre d'images de la chaîne de swap. Un nombre suffisant d'images doit être
+		utilisé pour éviter la sursollicitation du GPU ou la latence élevée, mais pas trop d'images
+		pour ne pas surcharger la mémoire.
+
+    C:	Création des images de la chaîne de swap avec la fonction vkCreateSwapchainKHR(). Ces
+		images peuvent être stockées dans une mémoire optimisée pour l'affichage.
+	
+	D:	Création des objets d'image de la chaîne de swap avec la fonction vkGetSwapchainImagesKHR().
+		Ces objets servent à gérer les images individuelles de la chaîne de swap.
+
+En général, la création de la chaîne de swap est effectuée une seule fois pendant l'initialisation
+de l'application, mais il est possible de la recréer si les paramètres de la surface changent
+(par exemple, en cas de changement de résolution de l'écran).
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+6-	Une chaîne d'images est une série d'images qui sont créées et manipulées par Vulkan pour être
+affichées sur la surface d'affichage. La création de cette chaîne se fait en plusieurs étapes:
+
+    A:	Obtention des propriétés de la surface d'affichage: avant de pouvoir créer une chaîne
+		d'images, il est nécessaire de connaître les propriétés de la surface d'affichage. Ces
+		propriétés incluent la taille de la surface, le format de l'image, les modes de présentation
+		disponibles et d'autres informations qui sont importantes pour la création de la chaîne.
+
+    B:	Sélection des paramètres de la chaîne d'images: une fois que les propriétés de la surface
+		d'affichage sont connues, il est temps de sélectionner les paramètres de la chaîne d'images.
+		Ces paramètres incluent le nombre d'images dans la chaîne, le format de l'image, le mode de
+		présentation et d'autres paramètres qui peuvent être spécifiques au GPU ou au pilote.
+
+    C:	Création de la chaîne d'images: après avoir sélectionné les paramètres appropriés, la chaîne
+		d'images est créée en utilisant la fonction vkCreateSwapchainKHR(). Cette fonction prend en
+		entrée les propriétés de la surface d'affichage et les paramètres de la chaîne d'images
+		sélectionnés précédemment, et crée une chaîne d'images qui peut être utilisée pour stocker les
+		images de la surface d'affichage.
+
+Une fois la chaîne d'images créée, il est possible de commencer à y stocker les images de la surface
+d'affichage. Cependant, il est important de noter que la création de la chaîne d'images est une étape
+qui peut être assez complexe et qui dépend de nombreux facteurs, tels que le GPU et le pilote utilisés,
+ainsi que les propriétés de la surface d'affichage.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+7-	La création d'un pool de commandes graphiques dans Vulkan se fait à l'aide de la fonction
+vkCreateCommandPool(). Un pool de commandes est un conteneur d'objets de commande qui peuvent être
+exécutés sur le GPU. Les commandes sont stockées dans des objets de commande individuels, qui sont
+ensuite soumis en tant que listes de commandes pour exécution par le GPU.
+
+Pour créer un pool de commandes graphiques, vous devez spécifier les informations suivantes:
+
+    A:	Descripteur de la file de commandes associée au pool de commandes. Une file de commandes
+		est un objet de synchronisation qui définit l'ordre dans lequel les commandes doivent être
+		exécutées.
+    
+	B:	Flags de création, qui peuvent être utilisés pour spécifier les options de comportement
+		du pool de commandes.
+    
+	C:	L'indice du tampon de mémoire pour allouer le pool de commandes.
+
+Une fois que vous avez créé un pool de commandes graphiques, vous pouvez commencer à y ajouter des
+commandes à l'aide des fonctions d'enregistrement de commandes. Les commandes peuvent être
+enregistrées dans des objets de commande individuels, qui peuvent ensuite être soumis au GPU pour
+exécution.
+
+Il est important de noter que chaque pool de commandes est associé à un seul type de file de
+commandes (par exemple, une file de commandes graphiques). Si vous avez besoin de soumettre des
+commandes à plusieurs files de commandes différentes, vous devrez créer des pools de commandes
+distincts pour chaque type de file de commandes.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+8-	Dans Vulkan, les données de géométrie des objets à afficher sont stockées dans un tampon de
+vertex. Ce tampon contient les informations nécessaires pour décrire la géométrie de chaque objet
+à afficher, telles que les coordonnées des sommets, les couleurs, les normales, les coordonnées
+de texture, etc.
+
+La création d'un tampon de vertex implique les étapes suivantes:
+
+    A:	Création d'un tampon de mémoire : avant de stocker les données de géométrie dans le tampon,
+		il faut créer un tampon de mémoire qui servira de zone de stockage pour les données. Cette
+		étape peut être effectuée en créant une instance de la classe VkBuffer, qui représente le
+		tampon de mémoire.
+
+    B:	Allocation de la mémoire pour le tampon : Une fois le tampon de mémoire créé, il faut
+		allouer de l'espace pour stocker les données de géométrie. Pour cela, on utilise la fonction
+		vkAllocateMemory() qui permet d'allouer de la mémoire pour le tampon.
+
+    C:	Copie des données de géométrie dans le tampon : Une fois que l'espace mémoire est alloué,
+		on peut copier les données de géométrie dans le tampon. Pour cela, on utilise la fonction
+		vkMapMemory() pour mapper la mémoire allouée dans l'espace d'adressage du processeur, puis
+		on copie les données de géométrie dans l'espace mémoire mappé. Enfin, on utilise la fonction
+		vkUnmapMemory() pour unmaper la mémoire.
+
+    D:	Liaison du tampon de vertex avec le pipeline graphique : Après avoir créé le tampon de
+		vertex, il faut le lier avec le pipeline graphique. Pour cela, on doit spécifier les
+		paramètres de configuration de la liaison entre le tampon de vertex et le pipeline graphique,
+		tels que le format des données de géométrie, le nombre de vertex dans le tampon, etc.
+
+Il est important de noter que la création d'un tampon de vertex peut être effectuée une seule fois
+pour tous les objets à afficher, ou bien pour chaque objet individuellement. La première méthode
+est généralement plus efficace en termes de performance, mais la seconde méthode offre plus de
+flexibilité en permettant de modifier les données de géométrie pour chaque objet individuellement.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+9-	Dans les API graphiques comme Vulkan, les tampons d'indices sont utilisés pour stocker l'ordre
+dans lequel les sommets des objets doivent être dessinés. Les tampons d'indices sont utiles car
+ils peuvent réduire la quantité de données nécessaires pour décrire un objet en stockant simplement
+les index des sommets plutôt que les positions de tous les sommets dans l'ordre.
+
+La création d'un tampon d'indices se fait en plusieurs étapes. Tout d'abord, il faut définir un
+tableau d'indices qui contiendra l'ordre de dessin des sommets. Ensuite, ce tableau doit être chargé
+dans un tampon de données GPU. Enfin, il faut définir la manière dont les indices sont interprétés
+par le GPU en créant un index buffer view.
+
+En Vulkan, la création d'un tampon d'indices implique les étapes suivantes :
+
+    A:	Définir un tableau d'indices qui contiendra l'ordre de dessin des sommets.
+
+    B:	Créer un tampon de données GPU pour stocker le tableau d'indices. Cela peut être fait en
+		utilisant la fonction vkCreateBuffer() pour créer un objet de tampon et en utilisant
+		vkMapMemory() pour mapper la mémoire du tampon et y copier les données du tableau d'indices.
+    
+	C:	Créer un objet de mémoire tampon en utilisant vkAllocateMemory(), qui alloue la mémoire
+		physique pour le tampon de données GPU.
+    
+	D:	Associer la mémoire tampon et le tampon de données GPU en utilisant la fonction
+		vkBindBufferMemory().
+    
+	E:	Créer un index buffer view en utilisant vkCreateBufferView(), qui permet de spécifier la
+		manière dont les indices sont interprétés par le GPU.
+
+Une fois que le tampon d'indices est créé, il peut être utilisé avec le tampon de vertex pour
+dessiner des objets en 3D sur l'écran.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+10-	Le pipeline graphique est l'une des parties les plus importantes de l'architecture de Vulkan.
+Il est responsable de la spécification de toutes les étapes nécessaires pour transformer les
+données de géométrie en pixels sur l'écran. Voici les étapes qui sont généralement spécifiées dans
+un pipeline graphique :
+
+    A:	Input Assembler : cette étape consiste à spécifier comment les données de géométrie sont
+		lues à partir des tampons de vertex et d'indices pour créer des primitives, telles que des
+		triangles ou des points.
+
+    B:	Vertex Shader : cette étape traite chaque sommet de la géométrie en appliquant une
+		transformation pour les positionner correctement dans l'espace de l'écran. Cela inclut
+		généralement la multiplication par la matrice de projection et la matrice de vue pour convertir
+		les coordonnées des objets en coordonnées d'écran.
+
+    C:	Tessellation : cette étape est facultative et peut être utilisée pour ajouter des détails
+		supplémentaires à la géométrie en la subdivisant en parties plus petites.
+
+    D:	Geometry Shader : cette étape est également facultative et permet de générer de nouvelles
+		primitives à partir des primitives existantes. Cela peut être utilisé pour créer des effets
+		spéciaux tels que des particules ou des ombres.
+
+    E:	Rasterization : cette étape consiste à convertir les primitives de géométrie en pixels à
+		dessiner à l'écran. Cette étape comprend également le test de masquage et d'ombrage pour
+		déterminer quelles parties de la géométrie doivent être affichées.
+
+    F:	Fragment Shader : cette étape traite chaque pixel généré par l'étape de rasterization.
+		Cela peut inclure l'application d'une texture ou d'un ombrage de surface.
+
+    G:	Color Blending : cette étape combine la couleur du pixel générée par le Fragment Shader
+		avec la couleur existante du pixel à l'écran pour créer le résultat final.
+
+Une fois que le pipeline graphique est créé, il est ensuite utilisé pour dessiner les objets à
+l'écran. Les données de géométrie sont envoyées au GPU via des commandes de dessin, qui utilisent
+le pipeline graphique pour spécifier les étapes de traitement à effectuer.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+11-	La configuration des uniformes est une étape importante dans la préparation des données pour
+le rendu d'objets. Les uniformes sont des données partagées entre les shaders, qui permettent de
+transmettre des informations telles que les matrices de transformation, les couleurs et autres
+propriétés des objets à afficher.
+
+Pour configurer les uniformes, vous devez d'abord définir les structures de données appropriées
+dans votre code, qui contiendront les informations à transmettre aux shaders. Ensuite, vous devez
+remplir ces structures avec les données pertinentes pour chaque objet que vous souhaitez afficher.
+
+Enfin, vous devez lier ces structures de données aux shaders correspondants en utilisant des
+"descripteurs de jeu" (ou "descriptor sets" en anglais), qui sont des objets Vulkan qui permettent
+aux shaders d'accéder aux données uniformes.
+
+Le processus de configuration des uniformes peut être complexe, en particulier si vous avez besoin
+de transmettre des données de manière dynamique à chaque trame d'animation. Cependant, une fois que
+vous avez compris les concepts de base, il est possible de créer des systèmes flexibles et
+puissants pour gérer les uniformes dans vos applications Vulkan.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+12-	La création de textures et de samplers est une étape importante dans le processus de rendu
+graphique, car elle permet d'ajouter des informations de couleur, de lumière et de texture aux
+objets affichés à l'écran.
+
+Dans Vulkan, une texture est un objet qui contient une image ou une série d'images qui peuvent
+être utilisées pour ajouter des détails de texture à un objet. Pour créer une texture, il faut
+d'abord créer une image avec les propriétés souhaitées, telles que la largeur, la hauteur et le
+format de l'image. Ensuite, il faut créer une vue d'image qui permet de spécifier comment l'image
+sera utilisée dans le pipeline graphique. La vue d'image définit le format de la texture, le type
+d'échantillonnage, le filtre et la façon dont les bords de la texture seront gérés.
+
+Ensuite, pour lier la texture au pipeline graphique, il faut créer un sampler. Le sampler est un
+objet qui définit comment la texture doit être échantillonnée lorsqu'elle est utilisée pour
+ajouter des détails de texture à un objet. Le sampler définit des propriétés telles que le filtre
+de texture, la façon dont les bords de la texture sont gérés et la façon dont les textures sont
+mappées sur les objets.
+
+Une fois la texture et le sampler créés, ils peuvent être liés au pipeline graphique en tant
+qu'uniformes, permettant ainsi aux shaders de lire les informations de texture lors du processus
+de rendu.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+13-	Le chargement des données dans les tampons de vertex et d'indices est une étape cruciale dans
+l'utilisation de la bibliothèque Vulkan pour le rendu de graphiques 3D. Les tampons de vertex et
+d'indices contiennent des données qui définissent la géométrie des objets à afficher.
+
+Pour charger des données dans ces tampons, vous devez d'abord créer des tampons de mémoire à
+l'aide de la fonction vkCreateBuffer. Vous devrez spécifier le type de tampon (tampon de vertex
+ou tampon d'indices) ainsi que la taille de la mémoire à allouer.
+
+Ensuite, vous devrez allouer de la mémoire pour ces tampons en appelant la fonction vkAllocateMemory.
+Vous devrez spécifier la taille de la mémoire à allouer ainsi que le type de mémoire requise
+(par exemple, mémoire GPU ou mémoire hôte).
+
+Une fois que vous avez créé les tampons de mémoire et alloué de la mémoire pour eux, vous devez
+mapper la mémoire allouée dans l'espace d'adressage de votre application en appelant la fonction
+vkMapMemory. Cela vous permettra d'écrire les données dans la mémoire allouée.
+
+Enfin, vous pouvez copier les données dans les tampons de vertex et d'indices en utilisant la fonction
+vkCmdCopyBuffer. Cette fonction copie les données de la mémoire allouée vers le tampon de mémoire
+correspondant.
+
+Il est important de noter que cette opération de copie de données peut être effectuée de manière
+asynchrone en utilisant des commandes de rendu. Cela permet d'optimiser les performances en
+parallélisant le chargement des données avec le rendu des images.
+
+En résumé, le chargement des données dans les tampons de vertex et d'indices implique la création
+de tampons de mémoire, l'allocation de mémoire, le mappage de la mémoire dans l'espace d'adressage
+de l'application, la copie des données dans les tampons de mémoire et éventuellement l'utilisation
+de commandes de rendu asynchrones pour optimiser les performances.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+14-	L'enregistrement des commandes graphiques dans le pool de commandes graphiques est une étape
+importante dans l'utilisation de la bibliothèque Vulkan pour le rendu de graphiques 3D. Les
+commandes graphiques définissent les opérations à effectuer pour générer une image.
+
+Pour enregistrer des commandes graphiques, vous devez d'abord créer un pool de commandes graphiques
+à l'aide de la fonction vkCreateCommandPool. Vous devez spécifier le type de pool de commandes que
+vous souhaitez créer (par exemple, un pool de commandes pour une file d'exécution graphique) ainsi
+que des indicateurs de propriétés pour le pool.
+
+Ensuite, vous pouvez allouer des commandes graphiques à partir du pool en appelant la fonction
+vkAllocateCommandBuffers. Vous devez spécifier le pool de commandes à partir duquel allouer les
+commandes ainsi que le nombre de commandes à allouer.
+
+Une fois que vous avez alloué les commandes graphiques, vous pouvez enregistrer des commandes en
+appelant la fonction vkBeginCommandBuffer pour commencer l'enregistrement des commandes graphiques
+dans une commande individuelle. Vous pouvez ensuite ajouter des commandes à l'aide de fonctions
+telles que vkCmdBindPipeline pour spécifier le pipeline de rendu à utiliser, vkCmdDraw pour
+dessiner des primitives, ou vkCmdCopyBuffer pour copier des données de mémoire.
+
+Une fois que vous avez terminé d'enregistrer des commandes graphiques dans une commande
+individuelle, vous pouvez appeler la fonction vkEndCommandBuffer pour arrêter l'enregistrement
+des commandes graphiques. Vous pouvez ensuite soumettre les commandes graphiques en appelant la
+fonction vkQueueSubmit, qui soumettra les commandes graphiques à une file d'exécution graphique
+pour traitement.
+
+Il est important de noter que les commandes graphiques peuvent être enregistrées de manière
+asynchrone. Cela signifie que vous pouvez enregistrer des commandes graphiques dans une commande
+individuelle tout en soumettant d'autres commandes graphiques pour le traitement. Vous pouvez
+également utiliser des commandes de rendu asynchrones pour optimiser les performances en
+parallélisant le rendu des images avec d'autres opérations de l'application.
+
+En résumé, l'enregistrement des commandes graphiques dans le pool de commandes graphiques
+implique la création d'un pool de commandes graphiques, l'allocation de commandes graphiques à
+partir du pool, l'enregistrement des commandes graphiques dans chaque commande individuelle à
+l'aide de fonctions telles que vkBeginCommandBuffer et vkCmdDraw, la soumission des commandes
+graphiques pour le traitement, et l'utilisation de commandes de rendu asynchrones pour optimiser
+les performances.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+15-	Une fois que les commandes graphiques ont été enregistrées et soumises à la file d'exécution
+graphique, il est temps d'exécuter ces commandes pour dessiner les objets à l'écran. Pour cela,
+vous devez créer une boucle principale qui va exécuter les commandes graphiques en boucle jusqu'à
+ce que l'application soit prête à se terminer.
+
+La première étape consiste à attendre que la file d'exécution graphique ait terminé de traiter
+toutes les commandes soumises en utilisant la fonction vkQueueWaitIdle. Cela garantit que les
+commandes soumises précédemment sont terminées avant de commencer le dessin d'une nouvelle image.
+
+Ensuite, vous devez obtenir une image à dessiner à partir du swapchain (généralement la prochaine
+image disponible) en appelant la fonction vkAcquireNextImageKHR. Cette fonction vous renvoie un
+index d'image à utiliser pour le dessin.
+
+Ensuite, vous devez commencer à enregistrer des commandes graphiques pour dessiner cette image à
+l'écran. Cela implique la liaison du pipeline de rendu que vous souhaitez utiliser (défini lors
+de l'enregistrement des commandes graphiques), l'allocation de tampons de vertex et d'indices pour
+les données de géométrie, la spécification de l'image de destination à dessiner, etc.
+
+Une fois que vous avez enregistré toutes les commandes graphiques nécessaires pour dessiner
+l'image à l'écran, vous pouvez soumettre les commandes graphiques à la file d'exécution graphique
+en appelant la fonction vkQueueSubmit. Cette fonction prend un tableau de commandes graphiques à
+soumettre, ainsi qu'un tableau de barrières de synchronisation pour synchroniser l'exécution de
+ces commandes avec les opérations précédentes.
+
+Enfin, vous pouvez présenter l'image à l'écran en appelant la fonction vkQueuePresentKHR. Cette
+fonction prend l'index d'image que vous avez acquis précédemment, ainsi que la file d'exécution
+graphique à laquelle vous souhaitez présenter l'image. Cette fonction synchronisera automatiquement
+l'affichage de l'image avec la vitesse de rafraîchissement de l'écran.
+
+Il est important de noter que les étapes d'exécution des commandes graphiques doivent être
+répétées pour chaque image que vous souhaitez dessiner à l'écran. Cela signifie que vous devez
+continuellement attendre la fin de la file d'exécution graphique, acquérir une nouvelle image,
+enregistrer des commandes graphiques pour dessiner cette image, soumettre les commandes graphiques,
+puis présenter l'image.
+
+En résumé, l'exécution des commandes graphiques pour dessiner des objets à l'écran implique
+l'attente de la fin de la file d'exécution graphique, l'acquisition d'une nouvelle image à partir
+du swapchain, l'enregistrement de commandes graphiques pour dessiner cette image, la soumission
+de ces commandes à la file d'exécution graphique, et la présentation de l'image à l'écran. Ces
+étapes doivent être répétées en boucle pour dessiner en continu des images à l'écran.
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+16-	La présentation de l'image sur la surface d'affichage est la dernière étape du pipeline de
+rendu Vulkan. Elle consiste à envoyer l'image dessinée à la surface d'affichage (c'est-à-dire l'écran)
+pour qu'elle soit affichée à l'utilisateur.
+
+Pour cela, vous devez utiliser la fonction vkQueuePresentKHR, qui soumet l'image dessinée à la file
+d'attente de présentation. Cette fonction prend en paramètre un pointeur vers une structure
+VkPresentInfoKHR, qui contient les informations nécessaires pour présenter l'image.
+
+Dans cette structure, vous devez spécifier la file d'attente de présentation que vous souhaitez
+utiliser, l'index de l'image à présenter (récupérée à l'aide de la fonction vkAcquireNextImageKHR),
+et éventuellement un tableau de sémaphores pour synchroniser la présentation de l'image avec
+d'autres opérations en cours.
+
+Lorsque vous appelez la fonction vkQueuePresentKHR, Vulkan s'occupe de transférer l'image vers la
+surface d'affichage. Cette opération est effectuée de manière asynchrone, ce qui signifie que la
+fonction peut retourner avant que l'affichage de l'image soit effectivement terminé.
+
+Il est important de noter que la présentation de l'image peut être affectée par la synchronisation
+verticale (VSync) de l'écran. Si la VSync est activée, l'affichage des images sera synchronisé
+avec la fréquence de rafraîchissement de l'écran, ce qui peut limiter la fréquence de rendu de
+votre application. Si vous souhaitez désactiver la VSync, vous pouvez le faire en utilisant les
+extensions de présentation Vulkan.
+
+En résumé, la présentation de l'image sur la surface d'affichage implique l'utilisation de la
+fonction vkQueuePresentKHR pour soumettre l'image dessinée à la file d'attente de présentation.
+Cette fonction transfère l'image vers la surface d'affichage de manière asynchrone, en prenant
+en compte la synchronisation verticale de l'écran.
+

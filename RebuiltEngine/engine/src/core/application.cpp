@@ -328,15 +328,15 @@ bl8		ApplicationOnButton(uint16 code, void* sender, void* listenerInst, eventCon
 		uint16 keyCode = context.data.uint16[0];
 		if (keyCode == BUTTON_LEFT)
 		{
-			DE_DEBUG("Left mouse button pressed position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+			DE_DEBUG("Left mouse button pressed position: X: %.2f Y:%.2f", mousePosition.x, mousePosition.y);
 		}
 		else if (keyCode == BUTTON_RIGHT)
 		{
-			DE_DEBUG("Right mouse button pressed position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+			DE_DEBUG("Right mouse button pressed position: X: %.2f Y:%.2f", mousePosition.x, mousePosition.y);
 		}
 		else if (keyCode == BUTTON_MIDDLE)
 		{
-			DE_DEBUG("Middle mouse button pressed position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+			DE_DEBUG("Middle mouse button pressed position: X: %.2f Y:%.2f", mousePosition.x, mousePosition.y);
 		}
 	}
 
@@ -345,15 +345,15 @@ bl8		ApplicationOnButton(uint16 code, void* sender, void* listenerInst, eventCon
 		uint16 keyCode = context.data.uint16[0];
 		if (keyCode == BUTTON_LEFT)
 		{
-			DE_DEBUG("Left mouse button released position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+			DE_DEBUG("Left mouse button released position: X: %.2f Y:%.2f", mousePosition.x, mousePosition.y);
 		}
 		else if (keyCode == BUTTON_RIGHT)
 		{
-			DE_DEBUG("Right mouse button released position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+			DE_DEBUG("Right mouse button released position: X: %.2f Y:%.2f", mousePosition.x, mousePosition.y);
 		}
 		else if (keyCode == BUTTON_MIDDLE)
 		{
-			DE_DEBUG("Middle mouse button released position: X: %d Y:%d", mousePosition.x, mousePosition.y);
+			DE_DEBUG("Middle mouse button released position: X: %.2f Y:%.2f", mousePosition.x, mousePosition.y);
 		}
 	}
 
@@ -364,12 +364,13 @@ bl8		ApplicationOnMouseMove(uint16 code, void *sender, void *listenerInst, event
 {
 	if (code == EVENT_CODE_MOUSE_MOVED)
 	{
-		uint32 x = context.data.uint16[0];
-		uint32 y = context.data.uint16[1];
+		fl32 x = static_cast<fl32>(context.data.uint16[0]);
+		fl32 y = static_cast<fl32>(context.data.uint16[1]);
 
-		DE_DEBUG("Mouse moved to (X: %d, Y: %d).", x, y);
 		mousePosition.x = x;
 		mousePosition.y = y;
+
+		DE_DEBUG("Mouse moved to (X: %.2f, Y: %.2f).", mousePosition.x, mousePosition.y);
 	}
 
 	return false;

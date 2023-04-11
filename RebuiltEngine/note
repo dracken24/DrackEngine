@@ -1,0 +1,56 @@
+semaphores: synchronise operation betwain GPU and application
+
+fences: synchronise operation betwain GPU and GPU
+
+//---------------------------------------------------------------------------//
+
+Vulkan Graphics Pipelines Stages:
+---------------------------------
+
+Start with Vertex/Index Buffers
+
+- Input Assembler
+- Vertex Shader
+- Tessellation
+- Geometry shader
+- Rasterization
+- Fragment Shader
+- Color Blending
+
+End, tranfert to FrameBuffer
+
+============================
+
+    -Input Assembler : Cette étape prend en entrée les données des sommets (vertex data) et les
+    assemble en primitives géométriques, telles que des triangles ou des lignes, qui seront
+    utilisées par les étapes suivantes du pipeline.
+
+    -Vertex Shader : Cette étape prend chaque sommet en entrée et applique des transformations
+    à ses coordonnées, ainsi que d'autres effets, tels que des couleurs ou des textures. C'est
+    là que se produisent la plupart des calculs qui modifient les propriétés des sommets.
+
+    -Tessellation : Cette étape prend en entrée les primitives géométriques générées par le
+    Vertex Shader et les subdivise en plusieurs morceaux plus petits, afin de créer des surfaces
+    plus détaillées et plus courbes. C'est comme appliquer un "smooth" en rendu 3d.
+
+    -Geometry Shader : Cette étape prend les primitives géométriques générées par le Vertex
+    Shader et Tessellation, et crée de nouvelles primitives géométriques à partir de celles-ci.
+    Par exemple, cela peut être utilisé pour générer des géométries supplémentaires à partir
+    d'un simple triangle.
+
+    -Rasterization : Cette étape prend en entrée les primitives géométriques créées précédemment
+    et les transforme en pixels à dessiner sur l'écran. Cette étape détermine également si chaque
+    pixel est visible ou non en fonction de l'emplacement de la caméra.
+
+    -Fragment Shader : Cette étape prend en entrée chaque pixel visible et calcule la couleur
+    finale de ce pixel en appliquant des effets tels que l'ombrage, l'éclairage et les textures.
+
+    -Color Blending : Cette étape combine la couleur finale de chaque pixel calculée dans le
+    Fragment Shader avec les couleurs existantes dans le tampon de couleurs pour afficher
+    l'image finale à l'écran.
+
+Chaque étape du pipeline graphique est conçue pour être hautement parallélisable, ce qui signifie
+que chaque étape peut être traitée par de nombreux processeurs en même temps, ce qui permet
+des performances élevées lors du rendu d'une image en temps réel.
+
+//---------------------------------------------------------------------------//
