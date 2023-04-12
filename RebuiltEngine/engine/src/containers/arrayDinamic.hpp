@@ -47,6 +47,12 @@ void* elements
 		array = static_cast<const char **>(_DE_ArrayPush(static_cast<void *>(array), &temp)); \
 	}
 
+#define DE_ArrayPush2(array, value)                                                         \
+	{                                                                                       \
+		decltype(value) temp = value;                                                       \
+		array = static_cast<testEntry *>(_DE_ArrayPush(static_cast<void *>(array), &temp)); \
+	}
+
 enum {
 	DARRAY_CAPACITY,
 	DARRAY_LENGTH,

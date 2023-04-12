@@ -1,38 +1,18 @@
 /*****************************************************************************/
 /*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
 /* |             ---------------------------------------------             | */
-/* |             *--*  PROJET: DrackenLib PAR: Dracken24  *--*             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  DATE:		 09-11-2022  		  *--*             | */
+/* |             *--*  DATE:		 11-04-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  FILE: 		  menu.hpp            *--*             | */
+/* |             *--*  FILE:   linearAllocatorTest.hpp    *--*             | */
 /* |             ---------------------------------------------             | */
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#ifndef MENU_HPP
-# define MENU_HPP
+#ifndef LINEAR_ALLOCATOR_TEST_HPP
+# define LINEAR_ALLOCATOR_TEST_HPP
 
-#include "../../raylib/src/raylib.h"
-
-class Menu
-{
-	public:
-		Menu(void);
-		~Menu(void);
-
-		void	ftChangeChooseCt(int ct);
-		void	ftChangePlayer(int ct);
-		void	ftChangeStart(int ct);
-		
-		int		ftReturnChooseCt(void);
-		int		ftReturnPlayer(void);
-		int		ftReturnStart(void);
-
-	private:
-		int     menuCt = 10;
-		int		chooseCt = 0;
-		int		player = 0;
-};
+void	LinearAllocatorRegisterTests(void);
 
 #endif

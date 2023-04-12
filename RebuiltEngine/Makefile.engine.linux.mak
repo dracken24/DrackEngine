@@ -4,7 +4,7 @@ OBJ_DIR := obj
 
 ASSEMBLY := engine
 EXTENSION := .so
-COMPILER_FLAGS := -g -fdeclspec -fPIC
+COMPILER_FLAGS := -g -MD -Werror=vla -fdeclspec -fPIC
 INCLUDE_FLAGS := -Iengine/src -I$(VULKAN_SDK)/include
 LINKER_FLAGS := -g -shared -lvulkan -lxcb -lX11 -lX11-xcb -lxkbcommon -L$(VULKAN_SDK)/lib -L/usr/X11R6/lib
 DEFINES := -D_DEBUG -DKEXPORT
@@ -20,18 +20,18 @@ all: scaffold compile link
 
 .PHONY: scaffold
 scaffold: # create build directory
-	@echo Scaffolding folder structure...
+	@echo "Scaffolding folder structure..."
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(DIRECTORIES))
-	@echo Done.
+	@echo Done."\n"
 
 .PHONY: link
 link: scaffold $(OBJ_FILES) # link
-	@echo Linking $(ASSEMBLY)..."\n"
+	@echo "\n"Linking $(ASSEMBLY)..."\n"
 	@clang++ $(OBJ_FILES) -o $(BUILD_DIR)/lib$(ASSEMBLY)$(EXTENSION) $(LINKER_FLAGS)
 
 .PHONY: compile
 compile: #compile .cpp files
-	@echo Compiling...
+	@echo Compiling..."\n"
 
 .PHONY: clean
 clean: # clean build directory

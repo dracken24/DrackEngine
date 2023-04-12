@@ -1,38 +1,32 @@
 /*****************************************************************************/
 /*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
 /* |             ---------------------------------------------             | */
-/* |             *--*  PROJET: DrackenLib PAR: Dracken24  *--*             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  DATE:		 09-11-2022  		  *--*             | */
+/* |             *--*  DATE:		 11-04-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  FILE: 		  menu.hpp            *--*             | */
+/* |             *--*  FILE: 	      main.cpp            *--*             | */
 /* |             ---------------------------------------------             | */
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#ifndef MENU_HPP
-# define MENU_HPP
+#include "testManager.hpp"
+#include "memory/linearAllocatorTest.hpp"
 
-#include "../../raylib/src/raylib.h"
+#include <core/logger.hpp>
 
-class Menu
+int main()
 {
-	public:
-		Menu(void);
-		~Menu(void);
+	// Always initalize the test manager first.
+	TestManagerInit();
 
-		void	ftChangeChooseCt(int ct);
-		void	ftChangePlayer(int ct);
-		void	ftChangeStart(int ct);
-		
-		int		ftReturnChooseCt(void);
-		int		ftReturnPlayer(void);
-		int		ftReturnStart(void);
+	// TODO: add test registrations here.
+	LinearAllocatorRegisterTests();
 
-	private:
-		int     menuCt = 10;
-		int		chooseCt = 0;
-		int		player = 0;
-};
+	DE_DEBUG("Starting tests...");
 
-#endif
+	// Execute tests
+	TestManagerRunTests();
+
+	return 0;
+}

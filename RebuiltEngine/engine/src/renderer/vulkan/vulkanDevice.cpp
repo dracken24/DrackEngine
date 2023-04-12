@@ -69,7 +69,7 @@ bl8		VulkanDeviceCreate(vulkanContext* context)
 		index_count++;
 	}
 
-	uint32 indices[index_count];
+	uint32 indices[32];
 	uint8 index = 0;
 
 	indices[index++] = context->device.graphicsQueueIndex;
@@ -82,7 +82,7 @@ bl8		VulkanDeviceCreate(vulkanContext* context)
 		indices[index++] = context->device.transferQueueIndex;
 	}
 
-	VkDeviceQueueCreateInfo queueCreateInfos[index_count];
+	VkDeviceQueueCreateInfo queueCreateInfos[32];
 	for (uint32 i = 0; i < index_count; ++i)
 	{
 		queueCreateInfos[i].sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
@@ -302,7 +302,8 @@ bl8		SelectPhysicalDevice(vulkanContext* context)
 		return false;
 	}
 
-	VkPhysicalDevice physicalDevices[physicalDeviceCount];
+	const uint32 maxPhysicalDevices = 32;
+	VkPhysicalDevice physicalDevices[maxPhysicalDevices];
 	VK_CHECK(vkEnumeratePhysicalDevices(context->instance, &physicalDeviceCount, physicalDevices));
 	for (uint32 i = 0; i < physicalDeviceCount; ++i)
 	{
@@ -436,7 +437,7 @@ bl8		PhysicalDeviceMeetsRequirements(
 
 	uint32 queueFamilyCount = 0;
 	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, 0);
-	VkQueueFamilyProperties queueFamilies[queueFamilyCount];
+	VkQueueFamilyProperties queueFamilies[32];
 	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies);
 
 	// Look at each queue and see what queues it supports

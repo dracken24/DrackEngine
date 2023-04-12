@@ -106,7 +106,6 @@ void	VulkanSwapchain::VulkanSwapchainPresent(vulkanContext *context, vulkanSwapc
 void	VulkanSwapchain::create(vulkanContext *context, uint32 width, uint32 height, vulkanSwapchain *swapchain)
 {
 	VkExtent2D swapchain_extent = {width, height};
-	swapchain->maxFramesInFlight = 2;
 
 	// Choose a swap surface format.
 	bl8 found = false;
@@ -163,6 +162,8 @@ void	VulkanSwapchain::create(vulkanContext *context, uint32 width, uint32 height
 	{
 		image_count = context->device.swapchainSupport.capabilities.maxImageCount;
 	}
+
+	swapchain->maxFramesInFlight = image_count - 1;
 
 	// Swapchain create info
 	VkSwapchainCreateInfoKHR swapchain_create_info = {VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR};

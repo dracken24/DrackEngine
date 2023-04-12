@@ -13,7 +13,7 @@
 #ifndef PROPS_HPP
 # define PROPS_HPP
 
-# include "../../../raylib/src/raylib.h"
+# include "../../raylib/src/raylib.h"
 # include <iostream>
 
 using std::string;

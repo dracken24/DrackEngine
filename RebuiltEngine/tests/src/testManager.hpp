@@ -1,38 +1,28 @@
 /*****************************************************************************/
 /*\|/~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~\|/*/
 /* |             ---------------------------------------------             | */
-/* |             *--*  PROJET: DrackenLib PAR: Dracken24  *--*             | */
+/* |             *--*  PROJET: DrackEngine PAR: Dracken24 *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  DATE:		 09-11-2022  		  *--*             | */
+/* |             *--*  DATE:		 11-04-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  FILE: 		  menu.hpp            *--*             | */
+/* |             *--*  FILE: 	  TestManager.hpp         *--*             | */
 /* |             ---------------------------------------------             | */
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#ifndef MENU_HPP
-# define MENU_HPP
+#ifndef TESTMANAGER_HPP
+# define TESTMANAGER_HPP
 
-#include "../../raylib/src/raylib.h"
+# include <defines.hpp>
 
-class Menu
-{
-	public:
-		Menu(void);
-		~Menu(void);
+# define BYPASS 2
 
-		void	ftChangeChooseCt(int ct);
-		void	ftChangePlayer(int ct);
-		void	ftChangeStart(int ct);
-		
-		int		ftReturnChooseCt(void);
-		int		ftReturnPlayer(void);
-		int		ftReturnStart(void);
+typedef uint8 (*PFN_test)(void);
 
-	private:
-		int     menuCt = 10;
-		int		chooseCt = 0;
-		int		player = 0;
-};
+void	TestManagerInit(void);
+
+void	TestManagerRegisterTest(PFN_test, char *desc);
+
+void	TestManagerRunTests(void);
 
 #endif

@@ -21,6 +21,7 @@ typedef enum	memoryTag
 {
 	// For temporary use. Should be assigned one of the below or have a new tag created.
 	DE_MEMORY_TAG_UNKNOWN,
+	DE_MEMORY_TAG_LINEAR_ALLOCATOR,
 	DE_MEMORY_TAG_ARRAY,
 	DE_MEMORY_TAG_MYARRAY,
 	DE_MEMORY_TAG_DICT,

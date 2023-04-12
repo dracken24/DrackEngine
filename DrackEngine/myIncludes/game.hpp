@@ -14,8 +14,8 @@
 # define GAME_HPP
 
 // # include <raylib.h>
-# include "../../raylib/src/raylib.h"
-# include "../../raylib/src/raymath.h"
+# include "../raylib/src/raylib.h"
+# include "../raylib/src/raymath.h"
 # include "./class2D/player.hpp"
 # include "./class2D/props.hpp"
 # include "./class2D/menu.hpp"
@@ -25,7 +25,7 @@
 # include "./color.hpp"
 
 # include "./class3D/cube3D.hpp"
-# include "../../raylib/src/rlgl.h"
+# include "../raylib/src/rlgl.h"
 
 # include <string>
 # include <iostream>

@@ -11,24 +11,25 @@ struct memoryStats
 };
 
 static const	char *memoryTagStrings[DE_MEMORY_TAG_MAX_TAGS + 1] = {
-	"UNKNOWN    ",
-	"ARRAY      ",
-	"DARRAY     ",
-	"DICT       ",
-	"RING_QUEUE ",
-	"BST        ",
-	"STRING     ",
-	"APPLICATION",
-	"JOB        ",
-	"TEXTURE    ",
-	"MAT_INST   ",
-	"RENDERER   ",
-	"GAME       ",
-	"TRANSFORM  ",
-	"ENTITY     ",
-	"ENTITY_NODE",
-	"SCENE      ",
-	"\n  TOTAL      "
+	"UNKNOWN     ",
+	"LINEAR_ALLOC",
+	"ARRAY       ",
+	"DARRAY      ",
+	"DICT        ",
+	"RING_QUEUE  ",
+	"BST         ",
+	"STRING      ",
+	"APPLICATION ",
+	"JOB         ",
+	"TEXTURE     ",
+	"MAT_INST    ",
+	"RENDERER    ",
+	"GAME        ",
+	"TRANSFORM   ",
+	"ENTITY      ",
+	"ENTITY_NODE ",
+	"SCENE       ",
+	"\n  TOTAL       "
 };
 
 static struct	memoryStats stats;

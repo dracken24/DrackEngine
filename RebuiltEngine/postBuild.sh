@@ -4,7 +4,7 @@
 mkdir -p bin/assets
 mkdir -p bin/assets/shaders
 
-echo "Compiling shaders..."
+echo "\n\033[33mCompiling shaders..."
 
 echo "assets/shaders/Builtin.ObjectShader.vert.glsl -> bin/assets/shaders/Builtin.ObjectShader.vert.spv"
 $VULKAN_SDK/bin/glslc -fshader-stage=vert assets/shaders/Builtin.ObjectShader.vert.glsl -o bin/assets/shaders/Builtin.ObjectShader.vert.spv
@@ -26,4 +26,4 @@ echo "Copying assets..."
 echo cp -R "assets" "bin"
 cp -R "assets" "bin"
 
-echo "Done."
+echo "Done.\033[0m\n"

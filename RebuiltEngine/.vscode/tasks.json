@@ -9,6 +9,9 @@
             "linux": {
                 "command": "${workspaceFolder}/engine/build.sh"
             },
+            "osx": {
+                "command": "${workspaceFolder}/engine/build-macos.sh"
+            },
             "options": {
                 "cwd": "${workspaceFolder}/engine"
             },
@@ -27,8 +30,31 @@
             "linux": {
                 "command": "${workspaceFolder}/testbed/build.sh"
             },
+            "osx": {
+                "command": "${workspaceFolder}/testbed/build.sh"
+            },
             "options": {
                 "cwd": "${workspaceFolder}/testbed"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "Build Unit Tests",
+            "windows": {
+                "command": "${workspaceFolder}/tests/build.bat"
+            },
+            "linux": {
+                "command": "${workspaceFolder}/tests/build.sh"
+            },
+            "osx": {
+                "command": "${workspaceFolder}/tests/build.sh"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/tests"
             },
             "problemMatcher": [
                 "$gcc"
@@ -44,6 +70,9 @@
             "linux": {
                 "command": "${workspaceFolder}/buildAll.sh",
             },
+            "osx": {
+                "command": "${workspaceFolder}/buildAll-macos.sh",
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -54,6 +83,34 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "type": "shell",
+            "label": "Clean Everything",
+            "windows": {
+                "command": "${workspaceFolder}\\clean-all.bat",
+            },
+            "linux": {
+                "command": "${workspaceFolder}/clean-all.sh",
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "Post-Build",
+            "windows": {
+                "command": "${workspaceFolder}/postBuild.bat",
+            },
+            "linux": {
+                "command": "${workspaceFolder}/postBuild.sh",
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build"
         }
     ],
     "version": "2.0.0"

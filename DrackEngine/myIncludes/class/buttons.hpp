@@ -13,7 +13,7 @@
 #ifndef BUTTONS_HPP
 # define BUTTONS_HPP
 
-# include "../../../raylib/src/raylib.h"
+# include "../../raylib/src/raylib.h"
 // # include <stdlib.h>
 # include <iostream>
 

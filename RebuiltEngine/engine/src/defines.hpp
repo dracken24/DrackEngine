@@ -31,7 +31,7 @@ typedef double dbl64;
 
 // Boolean types
 typedef int bl32;
-typedef char bl8;
+typedef bool bl8;
 
 // Properly define static assertions.
 # if defined(__clang__) || defined(__gcc__)
