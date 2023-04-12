@@ -44,6 +44,7 @@ class	LinearAllocator
 		uint64	_allocated;
 		void	*_memory;
 		bl8		_ownsMemory;
+		uint32	_systemTotalAllocatorSize = 64 * 1024 * 1024;
 };
 
 

@@ -71,10 +71,12 @@ bl8		ApplicationCreate(game *gameInst)
 	gameInst->appState = Mallocate(sizeof(applicationState), DE_MEMORY_TAG_APPLICATION);
 	appliState = (applicationState *)gameInst->appState;
 	appliState->gameInst = gameInst;
+	appliState->isRunning = false;
+	appliState->isSuspended = false;
 
 	// 64 mb of memory reserved for the allocator
-	uint32	systemTotalAllocatorSize = 64 * 1024 * 1024;
-	appliState->systemAllocator._memory = Mallocate(systemTotalAllocatorSize, DE_MEMORY_TAG_APPLICATION);
+	appliState->systemAllocator._memory = Mallocate(
+		appliState->systemAllocator._systemTotalAllocatorSize, DE_MEMORY_TAG_APPLICATION);
 
 	// Initialize subsystems.
 	LogInit();
@@ -88,8 +90,7 @@ bl8		ApplicationCreate(game *gameInst)
 	DE_DEBUG("Hello World! %f", 1.0f);
 	DE_TRACE("Hello World! %f lol %s", 1.0f, "test\n");
 
-	appliState->isRunning = true;
-	appliState->isSuspended = false;
+	
 
 	if(!EventInitialize())
 	{
@@ -140,6 +141,7 @@ bl8		ApplicationCreate(game *gameInst)
 
 bl8		ApplicationRun(void)
 {
+	appliState->isRunning = true;
 	appliState->timer.TimerStart();
 	appliState->timer.TimerUpdate();
 	appliState->lastTime = appliState->timer._timer.elapsedTime;
@@ -242,6 +244,8 @@ bl8		ApplicationRun(void)
 	PlatformShutdown(&appliState->platform);
 
 	delete appliState;
+	FreeMem(appliState->systemAllocator._memory,
+		appliState->systemAllocator._systemTotalAllocatorSize, DE_MEMORY_TAG_APPLICATION);
 
 	DE_DEBUG("Application shutdown complete.");
 	return true;
