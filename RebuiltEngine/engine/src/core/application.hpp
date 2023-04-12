@@ -33,7 +33,25 @@ typedef struct	applicationState
 	sint16			height;
 	Timer			timer;
 	dbl64			lastTime;
-	LinearAllocator	systemAllocator;
+	linearAlloc		systemAllocator;
+
+	// uint64	eventSystemMemoryRequirement;
+	// void	*eventSystemState;
+
+	uint64	memorySystemMemoryRequirement;
+	void	*memorySystemState;
+
+	uint64	loggingSystemMemoryRequirement;
+	void	*loggingSystemState;
+
+	// uint64	inputSystemMemoryRequirement;
+	// void	*inputSystemState;
+
+	// uint64	platformSystemMemoryRequirement;
+	// void	*platformSystemState;
+
+	// uint64	rendererSystemMemoryRequirement;
+	// void	*rendererSystemState;
 }	applicationState;
 
 // Application configuration.

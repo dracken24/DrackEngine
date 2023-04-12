@@ -42,8 +42,8 @@ typedef enum	memoryTag
 	DE_MEMORY_TAG_MAX_TAGS
 }	memoryTag;
 
-DE_API void 		InitializeMemory(void);
-DE_API void 		ShutdownMemory(void);
+DE_API void 		InitializeMemory(uint64* memoryRequirement, void* state);
+DE_API void 		ShutdownMemory(void* state);
 
 DE_API void			*Mallocate(uint64 size, memoryTag tag);
 
@@ -55,6 +55,8 @@ DE_API void			*CopyMemory(void* dest, const void* source, uint64 size);
 
 DE_API void			*SetMemory(void* dest, sint32 value, uint64 size);
 
-DE_API std::string	GetMemoryUsageStr();
+DE_API std::string	GetMemoryUsageStr(void);
+
+DE_API uint64		GetMemoryAllocCount(void);
 
 #endif // !DEMEMORY_HPP

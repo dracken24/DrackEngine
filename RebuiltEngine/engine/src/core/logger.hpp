@@ -40,8 +40,20 @@ typedef enum	logLevel
 	DE_LOG_LEVEL_TRACE = 5
 }	logLevel;
 
-bl8 LogInit();
-void LogShutdown();
+//~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~-//
+// @brief Initializes logging system. Call twice; once with state = 0 to get		//
+// required memory size,															//
+// then a second time passing allocated memory to state.							//
+//																					//
+// @param memory_requirement A pointer to hold the required memory size of			//
+// internal state.																	//
+// @param state 0 if just requesting memory requirement, otherwise allocated		//
+// block of memory.																	//
+// @return b8 True on success; otherwise false.										//
+//~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~-//
+
+bl8 LogInit(uint64 *memoryRequirement, void *state);
+void LogShutdown(void *state);
 
 DE_API void LogMessage(logLevel level, const char *message, ...);
 

@@ -32,16 +32,32 @@ static const	char *memoryTagStrings[DE_MEMORY_TAG_MAX_TAGS + 1] = {
 	"\n  TOTAL       "
 };
 
-static struct	memoryStats stats;
-
-void	InitializeMemory(void)
+typedef struct	memorySystemState
 {
-	PlatformSetMemory(&stats, sizeof(stats));
+	struct memoryStats stats;
+	uint64 allocCount;
+}	memorySystemState;
+
+// Pointer to system state.
+static memorySystemState	*statePtr;
+
+void	InitializeMemory(uint64* memoryRequirement, void* state)
+{
+	*memoryRequirement = sizeof(memorySystemState);
+	if (state == 0)
+	{
+		return;
+	}
+
+	statePtr = (memorySystemState *)state;
+	statePtr->allocCount = 0;
+
+	PlatformSetMemory(&statePtr->stats, sizeof(statePtr->stats));
 }
 
-void	ShutdownMemory(void)
+void	ShutdownMemory(void* state)
 {
-	// DE_INFO(GetMemoryUsageStr().c_str());
+	statePtr = 0;
 }
 
 void*	Mallocate(uint64 size, memoryTag tag)
@@ -51,12 +67,17 @@ void*	Mallocate(uint64 size, memoryTag tag)
 		DE_WARNING("Mallocate called using DE_MEMORY_TAG_UNKNOWN. Re-class this allocation.");
 	}
 
-	stats.allocTotal += size;
-	stats.allocTagged[tag] += size;
+	if (statePtr)
+	{
+		statePtr->stats.allocTotal += size;
+		statePtr->stats.allocTagged[tag] += size;
+		statePtr->allocCount++;
+	}
 
 	// TODO: Memory alignment
 	void* block = PlatformAllocate(size, false);
 	PlatformSetMemory(block, size);
+
 	return block;
 }
 
@@ -67,8 +88,11 @@ void	FreeMem(void* block, uint64 size, memoryTag tag)
 		DE_WARNING("FreeMem called using DE_MEMORY_TAG_UNKNOWN. Re-class this allocation.");
 	}
 
-	stats.allocTotal -= size;
-	stats.allocTagged[tag] -= size;
+	if (statePtr)
+	{
+		statePtr->stats.allocTotal -= size;
+		statePtr->stats.allocTagged[tag] -= size;
+	}
 
 	// TODO: Memory alignment
 	PlatformFree(block, false);
@@ -103,21 +127,24 @@ std::string	GetMemoryUsageStr(void)
 		float amount = 1.0f;
 
 		if (i < DE_MEMORY_TAG_MAX_TAGS)
-			amount = (float)stats.allocTagged[i];
+			amount = (float)statePtr->stats.allocTagged[i];
 		else
-			amount = (float)stats.allocTotal;
+			amount = (float)statePtr->stats.allocTotal;
 
-		if (stats.allocTagged[i] >= gib || (stats.allocTotal >= gib && i >= DE_MEMORY_TAG_MAX_TAGS))
+		if (statePtr->stats.allocTagged[i] >= gib || (statePtr->stats.allocTotal
+			>= gib && i >= DE_MEMORY_TAG_MAX_TAGS))
 		{
 			unit[1] = 'G';
 			amount /= (float)gib;
 		}
-		else if (stats.allocTagged[i] >= mib || (stats.allocTotal >= mib && i >= DE_MEMORY_TAG_MAX_TAGS))
+		else if (statePtr->stats.allocTagged[i] >= mib || (statePtr->stats.allocTotal
+			>= mib && i >= DE_MEMORY_TAG_MAX_TAGS))
 		{
 			unit[1] = 'M';
 			amount /= (float)mib;
 		}
-		else if (stats.allocTagged[i] >= kib || (stats.allocTotal >= kib && i >= DE_MEMORY_TAG_MAX_TAGS))
+		else if (statePtr->stats.allocTagged[i] >= kib || (statePtr->stats.allocTotal
+			>= kib && i >= DE_MEMORY_TAG_MAX_TAGS))
 		{
 			unit[1] = 'K';
 			amount /= (float)kib;
@@ -133,5 +160,16 @@ std::string	GetMemoryUsageStr(void)
 	}
 
 	std::string outString = buffer;
+
 	return (outString);
+}
+
+uint64	GetMemoryAllocCount(void)
+{
+	if (statePtr)
+	{
+		return statePtr->allocCount;
+	}
+
+	return 0;
 }

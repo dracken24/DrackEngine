@@ -39,8 +39,6 @@ static VulkanSwapchain	vkImageSwapchain;
 static uint32 cachedFramebufferWidth = 0;
 static uint32 cachedFramebufferHeight = 0;
 
-extern applicationState *appliState;
-
 VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
 	VkDebugUtilsMessageTypeFlagsEXT messageTypes,
@@ -195,7 +193,7 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 	// KEEP: Change background color
 	VulkanRenderpassCreate(&context, &context.mainRenderpass,
 		0, 0, context.framebufferWidth, context.framebufferHeight,
-		appliState->gameInst->bgColor,
+		Vector4{0.2f, 0.0f, 0.4f, 0.2f},
 		1.0f, 0);
 
 	// Swapchain framebuffers.

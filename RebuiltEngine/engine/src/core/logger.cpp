@@ -14,13 +14,40 @@
 #include "platform/platform.hpp"
 #include "core/logger.hpp"
 
-bl8		LogInit(void)
+typedef struct	loggerSystemState
 {
+	bl8 initialized;
+}	loggerSystemState;
+
+static loggerSystemState *statePtr;
+
+bl8		LogInit(uint64* memoryRequirement, void* state)
+{
+	*memoryRequirement = sizeof(loggerSystemState);
+	if (state == 0)
+	{
+		return true;
+	}
+
+	statePtr = (loggerSystemState *)state;
+	statePtr->initialized = true;
+
+	// TODO: remove when log message are fully implemented
+	DE_FATAL("Hello World! %f", 1.0f);
+	DE_ERROR("Hello World! %f", 1.0f);
+	DE_WARNING("Hello World! %f", 1.0f);
+	DE_INFO("Hello World! %f", 1.0f);
+	DE_DEBUG("Hello World! %f", 1.0f);
+	DE_TRACE("Hello World! %f lol %s", 1.0f, "test\n");
+
+	// TODO: create log file.
 	return (true);
 }
 
-void	LogShutdown(void)
+void	LogShutdown(void* state)
 {
+	// TODO: cleanup logging/write queued entries.
+	statePtr = 0;
 }
 
 // Platform platform;

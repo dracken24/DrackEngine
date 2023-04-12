@@ -29,7 +29,7 @@ void	FreeEntryMemory(game *gameInst);
 int		main(void)
 {
 
-	InitializeMemory();
+	// InitializeMemory();
 
 	// Request the game instance from the application.
 	game	gameInst;
@@ -60,8 +60,6 @@ int		main(void)
 		return (2);
 	}
 
-	ShutdownMemory();
-
 	FreeEntryMemory(&gameInst);
 	return (0);
 }
@@ -69,9 +67,6 @@ int		main(void)
 void	FreeEntryMemory(game *gameInst)
 {
 	FreeMem(gameInst->state, sizeof(gameState), DE_MEMORY_TAG_GAME);
-
-	// Check for memory leaks.
-	DE_INFO(GetMemoryUsageStr().c_str());
 }
 
 #endif // MAIN_HPP

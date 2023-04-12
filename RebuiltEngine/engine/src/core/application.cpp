@@ -12,6 +12,8 @@
 
 #include <renderer/vulkan/vulkanBackend.hpp>
 
+#include <memory/linearAllocator.hpp>
+
 #include <renderer/rendererFrontend.hpp>
 
 #include <platform/platform.hpp>
@@ -35,7 +37,7 @@
 
 
 // static bl8 initialized = false;
-applicationState *appliState = new applicationState;
+static applicationState *appliState;
 
 static Vector2			mousePosition;
 static fl32				mouseZoom = 0;
@@ -60,13 +62,12 @@ bl8		ApplicationCreate(game *gameInst)
 	screenSize.y = gameInst->appConfig.height;
 	screenPos.x = gameInst->appConfig.x;
 	screenPos.y = gameInst->appConfig.y;
-	DE_WARNING("ApplicationCreate called.1");
+
 	if (gameInst->appState)
 	{
 		DE_ERROR("ApplicationCreate called more than once.");
 		return false;
 	}
-	DE_WARNING("ApplicationCreate called.2");
 
 	gameInst->appState = Mallocate(sizeof(applicationState), DE_MEMORY_TAG_APPLICATION);
 	appliState = (applicationState *)gameInst->appState;
@@ -74,23 +75,28 @@ bl8		ApplicationCreate(game *gameInst)
 	appliState->isRunning = false;
 	appliState->isSuspended = false;
 
-	// 64 mb of memory reserved for the allocator
-	appliState->systemAllocator._memory = Mallocate(
-		appliState->systemAllocator._systemTotalAllocatorSize, DE_MEMORY_TAG_APPLICATION);
+
+	uint64 systemAllocTotalSize = 64 * 1024 * 1024; // 64 mb
+	LinearAllocatorCreate(systemAllocTotalSize, 0, &appliState->systemAllocator);
 
 	// Initialize subsystems.
-	LogInit();
+
+	// Memory
+	InitializeMemory(&appliState->memorySystemMemoryRequirement, 0);
+	appliState->memorySystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->memorySystemMemoryRequirement);
+	InitializeMemory(&appliState->memorySystemMemoryRequirement, appliState->memorySystemState);
+
+	// Logging
+	LogInit(&appliState->loggingSystemMemoryRequirement, 0);
+	appliState->loggingSystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->loggingSystemMemoryRequirement);
+	if (!LogInit(&appliState->loggingSystemMemoryRequirement, appliState->loggingSystemState))
+	{
+		DE_ERROR("Failed to initialize logging system; shutting down.");
+		return false;
+	}
+
+
 	DE_InputInit();
-
-	// TODO: remove when log message are fully implemented
-	DE_FATAL("Hello World! %f", 1.0f);
-	DE_ERROR("Hello World! %f", 1.0f);
-	DE_WARNING("Hello World! %f", 1.0f);
-	DE_INFO("Hello World! %f", 1.0f);
-	DE_DEBUG("Hello World! %f", 1.0f);
-	DE_TRACE("Hello World! %f lol %s", 1.0f, "test\n");
-
-	
 
 	if(!EventInitialize())
 	{
@@ -234,18 +240,20 @@ bl8		ApplicationRun(void)
 	EventUnregister(EVENT_CODE_MOUSE_WHEEL_DOWN, 0, ApplicationOnMouseWheel);
 	EventUnregister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
-	EventShutdown();
+	DE_DEBUG("Shutting down game.");
 	DE_InputShutdown();
 
-	DE_DEBUG("Shutting down game.");
 	backend.RendererShutdown();
 
 	DE_DEBUG("Shutting down platform.");
-	PlatformShutdown(&appliState->platform);
 
-	delete appliState;
-	FreeMem(appliState->systemAllocator._memory,
-		appliState->systemAllocator._systemTotalAllocatorSize, DE_MEMORY_TAG_APPLICATION);
+	// Print memory usage.
+	DE_INFO(GetMemoryUsageStr().c_str());
+
+	PlatformShutdown(&appliState->platform);
+	LogShutdown(appliState->loggingSystemState);
+	ShutdownMemory(appliState->memorySystemState);
+	EventShutdown();
 
 	DE_DEBUG("Application shutdown complete.");
 	return true;

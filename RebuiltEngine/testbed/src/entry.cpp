@@ -33,5 +33,7 @@ bl8		createGame(game* outGame)
 	// Create the game state.
 	outGame->state = Mallocate(sizeof(gameState), DE_MEMORY_TAG_GAME);
 
+	outGame->appState = 0;
+
 	return true;
 }
