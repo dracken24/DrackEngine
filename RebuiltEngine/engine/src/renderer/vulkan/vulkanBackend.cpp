@@ -39,7 +39,7 @@ static VulkanSwapchain	vkImageSwapchain;
 static uint32 cachedFramebufferWidth = 0;
 static uint32 cachedFramebufferHeight = 0;
 
-extern applicationState *appState;
+extern applicationState *appliState;
 
 VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
@@ -62,7 +62,7 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 	// TODO: custom allocator.
 	context.allocator = 0;
 
-	ApplicationGetFrameBufferSize(&cachedFramebufferWidth, &cachedFramebufferHeight);
+	ApplicationGetFramebufferSize(&cachedFramebufferWidth, &cachedFramebufferHeight);
 	context.framebufferWidth = (cachedFramebufferWidth != 0) ? cachedFramebufferWidth : 800;
 	context.framebufferHeight = (cachedFramebufferHeight != 0) ? cachedFramebufferHeight : 600;
 	cachedFramebufferWidth = 0;
@@ -195,7 +195,7 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 	// KEEP: Change background color
 	VulkanRenderpassCreate(&context, &context.mainRenderpass,
 		0, 0, context.framebufferWidth, context.framebufferHeight,
-		appState->gameInst->bgColor,
+		appliState->gameInst->bgColor,
 		1.0f, 0);
 
 	// Swapchain framebuffers.

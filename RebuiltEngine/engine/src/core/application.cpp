@@ -10,18 +10,22 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include <core/application.hpp>
-#include <gameTypes.hpp>
+#include <renderer/vulkan/vulkanBackend.hpp>
 
-#include <core/logger.hpp>
+#include <renderer/rendererFrontend.hpp>
 
 #include <platform/platform.hpp>
+
+#include <core/application.hpp>
 #include <core/deMemory.hpp>
+#include <core/logger.hpp>
 #include <core/event.hpp>
 #include <core/input.hpp>
 #include <core/timer.hpp>
+
 #include <math/structs.hpp>
-#include <renderer/vulkan/vulkanBackend.hpp>
+
+#include <gameTypes.hpp>
 
 #include <xcb/xcb.h>
 #include <X11/keysym.h>
@@ -29,10 +33,9 @@
 #include <X11/Xlib.h>
 #include <X11/Xlib-xcb.h> // sudo apt-get install libxkbcommon-x11-dev
 
-#include <renderer/rendererFrontend.hpp>
 
-static bl8 initialized = false;
-applicationState *appState = new applicationState;
+// static bl8 initialized = false;
+applicationState *appliState = new applicationState;
 
 static Vector2			mousePosition;
 static fl32				mouseZoom = 0;
@@ -53,25 +56,25 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 
 bl8		ApplicationCreate(game *gameInst)
 {
-	// Vector2 test;
-	// test.x = 55;
-	// test.r = 66;
-
-	// std::cout << test.x << std::endl;
-	// std::cout << test.r << std::endl;
-
 	screenSize.x = gameInst->appConfig.width;
 	screenSize.y = gameInst->appConfig.height;
 	screenPos.x = gameInst->appConfig.x;
 	screenPos.y = gameInst->appConfig.y;
-
-	if (initialized)
+	DE_WARNING("ApplicationCreate called.1");
+	if (gameInst->appState)
 	{
 		DE_ERROR("ApplicationCreate called more than once.");
 		return false;
 	}
+	DE_WARNING("ApplicationCreate called.2");
 
-	appState->gameInst = gameInst;
+	gameInst->appState = Mallocate(sizeof(applicationState), DE_MEMORY_TAG_APPLICATION);
+	appliState = (applicationState *)gameInst->appState;
+	appliState->gameInst = gameInst;
+
+	// 64 mb of memory reserved for the allocator
+	uint32	systemTotalAllocatorSize = 64 * 1024 * 1024;
+	appliState->systemAllocator._memory = Mallocate(systemTotalAllocatorSize, DE_MEMORY_TAG_APPLICATION);
 
 	// Initialize subsystems.
 	LogInit();
@@ -85,8 +88,8 @@ bl8		ApplicationCreate(game *gameInst)
 	DE_DEBUG("Hello World! %f", 1.0f);
 	DE_TRACE("Hello World! %f lol %s", 1.0f, "test\n");
 
-	appState->isRunning = true;
-	appState->isSuspended = false;
+	appliState->isRunning = true;
+	appliState->isSuspended = false;
 
 	if(!EventInitialize())
 	{
@@ -105,7 +108,7 @@ bl8		ApplicationCreate(game *gameInst)
 	EventRegister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
 	if (!PlatformStartup(
-			&appState->platform,
+			&appliState->platform,
 			gameInst->appConfig.name.c_str(),
 			gameInst->appConfig.x,
 			gameInst->appConfig.y,
@@ -115,31 +118,31 @@ bl8		ApplicationCreate(game *gameInst)
 	}
 
 	// Init vulkan, frontend and backend
-	if (!backend.RendererInit(gameInst->appConfig.name.c_str(), &appState->platform))
+	if (!backend.RendererInit(gameInst->appConfig.name.c_str(), &appliState->platform))
 	{
 		DE_FATAL("Failed to initialize renderer. Aborting application.");
 		return false;
 	}
 
 	// Initialize the game.
-	if (!appState->gameInst->initialize(appState->gameInst))
+	if (!appliState->gameInst->initialize(appliState->gameInst))
 	{
 		DE_FATAL("Game failed to initialize.");
 		return false;
 	}
 
-	appState->gameInst->onResize(appState->gameInst, appState->width, appState->height);
+	appliState->gameInst->onResize(appliState->gameInst, appliState->width, appliState->height);
 
-	initialized = true;
+	// initialized = true;
 
 	return true;
 }
 
 bl8		ApplicationRun(void)
 {
-	appState->timer.TimerStart();
-	appState->timer.TimerUpdate();
-	appState->lastTime = appState->timer._timer.elapsedTime;
+	appliState->timer.TimerStart();
+	appliState->timer.TimerUpdate();
+	appliState->lastTime = appliState->timer._timer.elapsedTime;
 	dbl64 running_time = 0;
 	uint8 framesCount = 0;
 	dbl64 target_FPS = 1.0f / 60;
@@ -147,33 +150,33 @@ bl8		ApplicationRun(void)
 	DE_INFO(GetMemoryUsageStr().c_str());
 
 	int i = 0;
-	while (appState->isRunning)
+	while (appliState->isRunning)
 	{
-		if (!PlatformPumpMessages(&appState->platform))
+		if (!PlatformPumpMessages(&appliState->platform))
 		{
-			appState->isRunning = false;
+			appliState->isRunning = false;
 		}
 
-		if (!appState->isSuspended)
+		if (!appliState->isSuspended)
 		{
 			// Update timer and get delta time.
-			appState->timer.TimerUpdate();
-			dbl64 currentTime = appState->timer._timer.elapsedTime;
-			dbl64 delta = (currentTime - appState->lastTime);
+			appliState->timer.TimerUpdate();
+			dbl64 currentTime = appliState->timer._timer.elapsedTime;
+			dbl64 delta = (currentTime - appliState->lastTime);
 			dbl64 frameStartTime = PlatformGetAbsoluteTime();
 
-			if (!appState->gameInst->update(appState->gameInst, (fl32)delta))
+			if (!appliState->gameInst->update(appliState->gameInst, (fl32)delta))
 			{
 				DE_FATAL("Game update failed, shutting down.");
-				appState->isRunning = false;
+				appliState->isRunning = false;
 				break;
 			}
 
 			// Call the game's render routine.
-			if (!appState->gameInst->render(appState->gameInst, (fl32)delta))
+			if (!appliState->gameInst->render(appliState->gameInst, (fl32)delta))
 			{
 				DE_FATAL("Game render failed, shutting down.");
-				appState->isRunning = false;
+				appliState->isRunning = false;
 				break;
 			}
 
@@ -211,11 +214,11 @@ bl8		ApplicationRun(void)
 			DE_InputUpdate(delta);
 
 			// Update last time
-			appState->lastTime = currentTime;
+			appliState->lastTime = currentTime;
 		}
 	}
 
-	appState->isRunning = false;
+	appliState->isRunning = false;
 
 	DE_DEBUG("Application shutting down.");
 	// Shutdown event system.
@@ -236,9 +239,9 @@ bl8		ApplicationRun(void)
 	backend.RendererShutdown();
 
 	DE_DEBUG("Shutting down platform.");
-	PlatformShutdown(&appState->platform);
+	PlatformShutdown(&appliState->platform);
 
-	delete appState;
+	delete appliState;
 
 	DE_DEBUG("Application shutdown complete.");
 	return true;
@@ -246,8 +249,8 @@ bl8		ApplicationRun(void)
 
 void	ApplicationGetFrameBufferSize(uint32 *width, uint32 *height)
 {
-	*width = appState->gameInst->appConfig.width;
-	*height = appState->gameInst->appConfig.height;
+	*width = appliState->gameInst->appConfig.width;
+	*height = appliState->gameInst->appConfig.height;
 }
 
 bl8 ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventContext context)
@@ -258,7 +261,7 @@ bl8 ApplicationOnEvent(uint16 code, void* sender, void* listenerInst, eventConte
 		case EVENT_CODE_APPLICATION_QUIT:
 		{
 			DE_INFO("EVENT_CODE_APPLICATION_QUIT recieved, shutting down.\n");
-			appState->isRunning = false;
+			appliState->isRunning = false;
 			return true;
 		}
 	}
@@ -283,27 +286,27 @@ bl8 ApplicationOnKey(uint16 code, void* sender, void* listenerInst, eventContext
 		}
 		if (keyCode == KEY_TOP_1)
 		{
-			appState->gameInst->bgColor.r += 0.1f;
+			appliState->gameInst->bgColor.r += 0.1f;
 		}
 		if (keyCode == KEY_TOP_2)
 		{
-			appState->gameInst->bgColor.r -= 0.1f;
+			appliState->gameInst->bgColor.r -= 0.1f;
 		}
 		if (keyCode == KEY_TOP_3)
 		{
-			appState->gameInst->bgColor.g += 0.1f;
+			appliState->gameInst->bgColor.g += 0.1f;
 		}
 		if (keyCode == KEY_TOP_4)
 		{
-			appState->gameInst->bgColor.g -= 0.1f;
+			appliState->gameInst->bgColor.g -= 0.1f;
 		}
 		if (keyCode == KEY_TOP_5)
 		{
-			appState->gameInst->bgColor.b += 0.1f;
+			appliState->gameInst->bgColor.b += 0.1f;
 		}
 		if (keyCode == KEY_TOP_6)
 		{
-			appState->gameInst->bgColor.b -= 0.1f;
+			appliState->gameInst->bgColor.b -= 0.1f;
 		}
 
 		DE_DEBUG("'%c' key pressed in window.", keyCode);
@@ -400,10 +403,10 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 		uint16 Y = context.data.uint16[1];
 
 		// Check if different. If so, trigger a resize event.
-		if (X != appState->width || Y != appState->height)
+		if (X != appliState->width || Y != appliState->height)
 		{
-			appState->width = X;
-			appState->height = Y;
+			appliState->width = X;
+			appliState->height = Y;
 
 			DE_DEBUG("Window resize: %i, %i", X, Y);
 
@@ -411,17 +414,17 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 			if (X == 0 || Y == 0)
 			{
 				DE_INFO("Window minimized, suspending application.");
-				appState->isSuspended = true;
+				appliState->isSuspended = true;
 				return true;
 			}
 			else
 			{
-				if (appState->isSuspended)
+				if (appliState->isSuspended)
 				{
 					DE_INFO("Window restored, resuming application.");
-					appState->isSuspended = false;
+					appliState->isSuspended = false;
 				}
-				appState->gameInst->onResize(appState->gameInst, X, Y);
+				appliState->gameInst->onResize(appliState->gameInst, X, Y);
 				backend.RendererOnResized(X, Y);
 			}
 		}
@@ -432,6 +435,6 @@ bl8		ApplicationOnResize(uint16 code, void *sender, void *listenerInst, eventCon
 
 void	ApplicationGetFramebufferSize(uint32 *width, uint32 *height)
 {
-	*width = appState->width;
-	*height = appState->height;
+	*width = appliState->width;
+	*height = appliState->height;
 }

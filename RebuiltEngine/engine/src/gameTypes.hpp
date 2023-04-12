@@ -39,6 +39,8 @@ typedef struct	game
 	// Game-specific game state. Created and managed by the game.
 	void	*state;
 
+	void	*appState;
+
 	// // For allocator functions.
 	// Platform platform;
 	Vector4	bgColor;// Background color

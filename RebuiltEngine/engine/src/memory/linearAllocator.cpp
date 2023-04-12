@@ -5,7 +5,7 @@
 /* |             ---------------------------------------------             | */
 /* |             *--*  DATE:		 11-04-2023  		  *--*             | */
 /* |             ---------------------------------------------             | */
-/* |             *--*  FILE: 	 linearAllocator.cpp      *--*             | */
+/* |             *--*  FILE: 	 linearcpp      *--*             | */
 /* |             ---------------------------------------------             | */
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
@@ -21,16 +21,16 @@ LinearAllocator::LinearAllocator(void)
 
 LinearAllocator::LinearAllocator(uint64 totalSize, void *memory)
 {
-	_allocator.totalSize = totalSize;
-	_allocator.allocated = 0;
-	_allocator.ownsMemory = memory == 0;
+	_totalSize = totalSize;
+	_allocated = 0;
+	_ownsMemory = memory == 0;
 	if (memory)
 	{
-		_allocator.memory = memory;
+		_memory = memory;
 	}
 	else
 	{
-		_allocator.memory = Mallocate(totalSize, DE_MEMORY_TAG_LINEAR_ALLOCATOR);
+		_memory = Mallocate(totalSize, DE_MEMORY_TAG_LINEAR_ALLOCATOR);
 	}
 }
 
@@ -51,32 +51,32 @@ LinearAllocator	&LinearAllocator::operator=(LinearAllocator const &rhs)
 
 LinearAllocator::~LinearAllocator(void)
 {
-	_allocator.allocated = 0;
-	if (_allocator.ownsMemory && _allocator.memory)
+	_allocated = 0;
+	if (_ownsMemory && _memory)
 	{
-		FreeMem(_allocator.memory, _allocator.totalSize, DE_MEMORY_TAG_LINEAR_ALLOCATOR);
+		FreeMem(_memory, _totalSize, DE_MEMORY_TAG_LINEAR_ALLOCATOR);
 	}
-	_allocator.memory = 0;
-	_allocator.totalSize = 0;
-	_allocator.ownsMemory = false;
+	_memory = 0;
+	_totalSize = 0;
+	_ownsMemory = false;
 }
 
 //****************************************************************************//
 
 void	*LinearAllocator::LinearAllocatorAllocate(uint64 size)
 {
-	if (_allocator.memory)
+	if (_memory)
 	{
-		if (_allocator.allocated + size > _allocator.totalSize)
+		if (_allocated + size > _totalSize)
 		{
-			uint64 remaining = _allocator.totalSize - _allocator.allocated;
+			uint64 remaining = _totalSize - _allocated;
 			DE_ERROR("linear_allocator_allocate - Tried to allocate %lluB, only %lluB remaining.", size, remaining);
 			
 			return 0;
 		}
 
-		void *block = ((uint8 *)_allocator.memory) + _allocator.allocated;
-		_allocator.allocated += size;
+		void *block = ((uint8 *)_memory) + _allocated;
+		_allocated += size;
 		
 		return block;
 	}
@@ -88,10 +88,10 @@ void	*LinearAllocator::LinearAllocatorAllocate(uint64 size)
 
 void	LinearAllocator::LinearAllocatorFreeAll(void)
 {
-	if (_allocator.memory)
+	if (_memory)
 	{
-		_allocator.allocated = 0;
-		SetMemory(_allocator.memory, _allocator.totalSize);
+		_allocated = 0;
+		SetMemory(_memory, _totalSize);
 	}
 }
 

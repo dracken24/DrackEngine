@@ -23,15 +23,15 @@ uint8	LinearAllocatorShouldCreateAndDestroy()
 	LinearAllocator alloc(sizeof(uint64), 0);
 	// linear_allocator_create(sizeof(u64), 0, &alloc);
 
-	ExpectShouldNotBe(0, alloc._allocator.memory);
-	ExpectShouldBe(sizeof(uint64), alloc._allocator.totalSize);
-	ExpectShouldBe(0, alloc._allocator.allocated);
+	ExpectShouldNotBe(0, alloc._memory);
+	ExpectShouldBe(sizeof(uint64), alloc._totalSize);
+	ExpectShouldBe(0, alloc._allocated);
 
 	alloc.~LinearAllocator();
 
-	ExpectShouldBe(0, alloc._allocator.memory);
-	ExpectShouldBe(0, alloc._allocator.totalSize);
-	ExpectShouldBe(0, alloc._allocator.allocated);
+	ExpectShouldBe(0, alloc._memory);
+	ExpectShouldBe(0, alloc._totalSize);
+	ExpectShouldBe(0, alloc._allocated);
 
 	return true;
 }
@@ -45,7 +45,7 @@ uint8 LinearAllocatorSingleAllocationAllSpace()
 
 	// Validate it
 	ExpectShouldNotBe(0, block);
-	ExpectShouldBe(sizeof(uint64), alloc._allocator.allocated);
+	ExpectShouldBe(sizeof(uint64), alloc._allocated);
 
 	alloc.~LinearAllocator();
 
@@ -64,7 +64,7 @@ uint8	LinearAllocatorMultiAllocationAllSpace()
 		block = alloc.LinearAllocatorAllocate(sizeof(uint64));
 		// Validate it
 		ExpectShouldNotBe(0, block);
-		ExpectShouldBe(sizeof(uint64) * (i + 1), alloc._allocator.allocated);
+		ExpectShouldBe(sizeof(uint64) * (i + 1), alloc._allocated);
 	}
 
 	alloc.~LinearAllocator();
@@ -84,7 +84,7 @@ uint8	LinearAllocatorMultiAllocationOverAllocate()
 		block = alloc.LinearAllocatorAllocate(sizeof(uint64));
 		// Validate it
 		ExpectShouldNotBe(0, block);
-		ExpectShouldBe(sizeof(uint64) * (i + 1), alloc._allocator.allocated);
+		ExpectShouldBe(sizeof(uint64) * (i + 1), alloc._allocated);
 	}
 
 	DE_DEBUG("Note: The following error is intentionally caused by this test.");
@@ -93,7 +93,7 @@ uint8	LinearAllocatorMultiAllocationOverAllocate()
 	block = alloc.LinearAllocatorAllocate(sizeof(uint64));
 	// Validate it - allocated should be unchanged.
 	ExpectShouldBe(0, block);
-	ExpectShouldBe(sizeof(uint64) * (max_allocs), alloc._allocator.allocated);
+	ExpectShouldBe(sizeof(uint64) * (max_allocs), alloc._allocated);
 
 	alloc.~LinearAllocator();
 
@@ -112,12 +112,12 @@ uint8	LinearAllocatorMultiAllocationAllSpaceThenFree()
 		block = alloc.LinearAllocatorAllocate(sizeof(uint64));
 		// Validate it
 		ExpectShouldNotBe(0, block);
-		ExpectShouldBe(sizeof(uint64) * (i + 1), alloc._allocator.allocated);
+		ExpectShouldBe(sizeof(uint64) * (i + 1), alloc._allocated);
 	}
 
 	// Validate that pointer is reset.
 	alloc.LinearAllocatorFreeAll();
-	ExpectShouldBe(0, alloc._allocator.allocated);
+	ExpectShouldBe(0, alloc._allocated);
 
 	alloc.~LinearAllocator();
 

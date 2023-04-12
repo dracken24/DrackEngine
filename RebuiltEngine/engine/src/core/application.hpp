@@ -13,6 +13,8 @@
 #ifndef APPLICATION_HPP
 # define APPLICATION_HPP
 
+#include <memory/linearAllocator.hpp>
+
 #include <core/timer.hpp>
 
 # include <defines.hpp>
@@ -31,6 +33,7 @@ typedef struct	applicationState
 	sint16			height;
 	Timer			timer;
 	dbl64			lastTime;
+	LinearAllocator	systemAllocator;
 }	applicationState;
 
 // Application configuration.
@@ -50,6 +53,6 @@ DE_API bl8		ApplicationRun();
 
 DE_API void		ApplicationGetFramebufferSize(uint32 *width, uint32 *height);
 
-void			ApplicationGetFrameBufferSize(uint32 *width, uint32 *height);
+// void			ApplicationGetFrameBufferSize(uint32 *width, uint32 *height);
 
 #endif // APPLICATION_HPP
