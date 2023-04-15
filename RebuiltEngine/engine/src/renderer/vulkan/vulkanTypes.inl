@@ -135,6 +135,27 @@ typedef struct	vulkanFence
 	bl8		isSignaled;
 }	vulkanFence;
 
+typedef struct	vulkanShaderStage
+{
+	VkShaderModuleCreateInfo		createInfo;
+	VkShaderModule					handle;
+	VkPipelineShaderStageCreateInfo	shaderStageCreateInfo;
+}	vulkanShaderStage;
+
+typedef struct	vulkanPipeline
+{
+	VkPipeline			handle;
+	VkPipelineLayout	pipelineLayout;
+}	vulkanPipeline;
+
+#define DE_OBJECT_SHADER_STAGE_COUNT 2
+typedef struct	vulkanObjectShader
+{
+	// vertex, fragment
+	vulkanShaderStage	stages[DE_OBJECT_SHADER_STAGE_COUNT];
+	vulkanPipeline		pipeline;
+}	vulkanObjectShader;
+
 typedef struct	vulkanContext
 {
 	// The framebuffer's current width and height.
@@ -176,6 +197,8 @@ typedef struct	vulkanContext
 	uint32						currentFrame;
 
 	bl8							recreatingSwapchain;
+
+	vulkanObjectShader			objectShader;
 
 	sint32 (*findMemoryIndex)(uint32 typeFilter, uint32 propertyFlags);
 }	vulkanContext;

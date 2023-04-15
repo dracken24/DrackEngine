@@ -29,6 +29,9 @@
 #include <core/deString.hpp>
 #include <core/logger.hpp>
 
+// Shaders
+#include <renderer/vulkan/shaders/vulkanObjShader.hpp>
+
 #include <gameTypes.hpp>
 
 struct game;
@@ -36,6 +39,10 @@ struct game;
 // static Vulkan context
 static vulkanContext	context;
 static VulkanSwapchain	vkImageSwapchain;
+
+// Shaders
+static VulkanObjectShader vulkanObjShader;
+
 static uint32 cachedFramebufferWidth = 0;
 static uint32 cachedFramebufferHeight = 0;
 
@@ -227,6 +234,13 @@ bl8		vulkanRendererBackendInitialize(rendererBackend *backend, const char *appli
 	for (uint32 i = 0; i < context.swapchain.imageCount; ++i)
 	{
 		context.imagesInFlight[i] = 0;
+	}
+
+	// Create builtin shaders
+	if (!vulkanObjShader.VulkanObjectShaderCreate(&context, &context.objectShader))
+	{
+		DE_ERROR("Error loading built-in basic_lighting shader.");
+		return false;
 	}
 
 	DE_INFO("Vulkan renderer initialized successfully.");
