@@ -27,8 +27,7 @@ typedef struct	rendererBackend
 	struct	platformState* platState;
 	uint64	frameNumber;
 
-	bl8		(*initialize)(struct rendererBackend* backend, const char* applicationName,
-				struct platformState* platState);
+	bl8		(*initialize)(struct rendererBackend* backend, const char* applicationName);
 
 	void	(*shutdown)(struct rendererBackend* backend);
 

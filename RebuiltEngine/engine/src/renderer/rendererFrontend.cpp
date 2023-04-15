@@ -35,13 +35,13 @@ Renderer &Renderer::operator=(const Renderer &src)
 {
 	if (this != &src)
 	{
-		backend->beginFrame = src.backend->beginFrame;
-		backend->endFrame = src.backend->endFrame;
-		backend->frameNumber = src.backend->frameNumber;
-		backend->initialize = src.backend->initialize;
-		backend->platState = src.backend->platState;
-		backend->resized = src.backend->resized;
-		backend->shutdown = src.backend->shutdown;
+		_backend->beginFrame = src._backend->beginFrame;
+		_backend->endFrame = src._backend->endFrame;
+		_backend->frameNumber = src._backend->frameNumber;
+		_backend->initialize = src._backend->initialize;
+		_backend->platState = src._backend->platState;
+		_backend->resized = src._backend->resized;
+		_backend->shutdown = src._backend->shutdown;
 	}
 	return *this;
 }
@@ -54,15 +54,20 @@ Renderer::~Renderer()
 //**                          PUBLIC METHODS                          **//
 //**********************************************************************//
 
-bl8 Renderer::RendererInit(const char *applicationName, struct platformState *platState)
+bl8		Renderer::RendererInit(uint64 *memoryRequirement, void *state, const char *applicationName)
 {
-	backend = (rendererBackend *)Mallocate(sizeof(rendererBackend), DE_MEMORY_TAG_RENDERER);
+	*memoryRequirement = sizeof(rendererBackend);
+	if (state == 0)
+	{
+		return true;
+	}
+	_backend = (rendererBackend *)state;
 
 	// TODO: make this configurable.
-	RendererBackendCreate(DE_RENDERER_BACKEND_TYPE_VULKAN, platState, backend);
-	backend->frameNumber = 0;
+	RendererBackendCreate(DE_RENDERER_BACKEND_TYPE_VULKAN, _backend);
+	_backend->frameNumber = 0;
 
-	if (!backend->initialize(backend, applicationName, platState))
+	if (!_backend->initialize(_backend, applicationName))
 	{
 		DE_FATAL("Renderer backend failed to initialize. Shutting down.");
 		return false;
@@ -71,29 +76,33 @@ bl8 Renderer::RendererInit(const char *applicationName, struct platformState *pl
 	return true;
 }
 
-void	Renderer::RendererShutdown()
+void	Renderer::RendererShutdown(void* state)
 {
-	backend->shutdown(backend);
-	FreeMem(backend, sizeof(rendererBackend), DE_MEMORY_TAG_RENDERER);
+	if (_backend)
+	{
+		_backend->shutdown(_backend);
+	}
+	_backend = 0;
 }
 
 bl8		Renderer::RendererBeginFrame(fl32 deltaTime)
 {
-	return backend->beginFrame(backend, deltaTime);
+	return _backend->beginFrame(_backend, deltaTime);
 }
 
 bl8		Renderer::RendererEndFrame(fl32 deltaTime)
 {
-	bl8 result = backend->endFrame(backend, deltaTime);
-	backend->frameNumber++;
+	bl8 result = _backend->endFrame(_backend, deltaTime);
+	_backend->frameNumber++;
+
 	return result;
 }
 
 void	Renderer::RendererOnResized(uint16 width, uint16 height)
 {
-	if (backend)
+	if (_backend)
 	{
-		backend->resized(backend, width, height);
+		_backend->resized(_backend, width, height);
 	}
 	else
 	{
@@ -110,7 +119,7 @@ bl8		Renderer::RendererDrawFrame(renderPacket* packet)
 		// End the frame. If this fails, it is likely unrecoverable.
 		if (!RendererEndFrame(packet->deltaTime))
 		{
-			DE_ERROR("RendererEndFrame failed frame #[%d]. Application shutting down...", backend->frameNumber);
+			DE_ERROR("RendererEndFrame failed frame #[%d]. Application shutting down...", _backend->frameNumber);
 			return false;
 		}
 	}

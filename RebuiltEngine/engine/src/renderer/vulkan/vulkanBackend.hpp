@@ -15,8 +15,7 @@
 
 # include "renderer/rendererBackend.hpp"
 
-bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* applicationName,
-			struct platformState* platState);
+bl8		vulkanRendererBackendInitialize(rendererBackend* backend, const char* applicationName);
 void	vulkanRendererBackendShutdown(rendererBackend* backend);
 
 void	vulkanRendererBackendOnResized(rendererBackend* backend, uint16 width, uint16 height);

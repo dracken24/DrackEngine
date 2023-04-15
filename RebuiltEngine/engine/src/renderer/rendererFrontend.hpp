@@ -40,8 +40,8 @@ class Renderer
 	//**********************************************************************//
 	
 	public:
-		bl8		RendererInit(const char *applicationName, struct platformState *platState);
-		void	RendererShutdown(void);
+		bl8		RendererInit(uint64* memoryRequirement, void* state, const char* applicationName);
+		void	RendererShutdown(void* state);
 
 		void	RendererOnResized(uint16 width, uint16 height);
 
@@ -54,7 +54,7 @@ class Renderer
 	//**********************************************************************//
 	
 	private:
-		rendererBackend *backend = 0;
+		rendererBackend *_backend;
 };
 
 #endif

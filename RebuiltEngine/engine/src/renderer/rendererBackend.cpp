@@ -14,18 +14,15 @@
 
 #include "vulkan/vulkanBackend.hpp"
 
-bl8		RendererBackendCreate(rendererBackendType type, struct platformState* platState,
-			rendererBackend* outRendererBackend)
+bl8		RendererBackendCreate(rendererBackendType type, rendererBackend* rendererBackend)
 {
-	outRendererBackend->platState = platState;
-
 	if (type == DE_RENDERER_BACKEND_TYPE_VULKAN)
 	{
-		outRendererBackend->initialize = vulkanRendererBackendInitialize;
-		outRendererBackend->shutdown = vulkanRendererBackendShutdown;
-		outRendererBackend->beginFrame = vulkanRendererBackendBeginFrame;
-		outRendererBackend->endFrame = vulkanRendererBackendEndFrame;
-		outRendererBackend->resized = vulkanRendererBackendOnResized;
+		rendererBackend->initialize = vulkanRendererBackendInitialize;
+		rendererBackend->shutdown = vulkanRendererBackendShutdown;
+		rendererBackend->beginFrame = vulkanRendererBackendBeginFrame;
+		rendererBackend->endFrame = vulkanRendererBackendEndFrame;
+		rendererBackend->resized = vulkanRendererBackendOnResized;
 		
 		return true;
 	}

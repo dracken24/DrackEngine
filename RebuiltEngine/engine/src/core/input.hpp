@@ -170,8 +170,8 @@ typedef enum keys
 
 // NOTE: Functions for playing with the input system
 
-void		DE_InputInit();
-void		DE_InputShutdown();
+void		DE_InputInit(uint64* memoryRequirement, void* state);
+void		DE_InputShutdown(void* state);
 void		DE_InputUpdate(dbl64 deltaTime);
 
 // keyboard input

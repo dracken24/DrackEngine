@@ -15,6 +15,8 @@
 
 #include <memory/linearAllocator.hpp>
 
+#include <platform/platform.hpp>
+
 #include <core/timer.hpp>
 
 # include <defines.hpp>
@@ -28,7 +30,7 @@ typedef struct	applicationState
 	game*			gameInst;
 	bl8				isRunning;
 	bl8				isSuspended;
-	platformState	platform;
+	// platformState	platform;
 	sint16			width;
 	sint16			height;
 	Timer			timer;
@@ -44,14 +46,14 @@ typedef struct	applicationState
 	uint64	loggingSystemMemoryRequirement;
 	void	*loggingSystemState;
 
-	// uint64	inputSystemMemoryRequirement;
-	// void	*inputSystemState;
+	uint64	inputSystemMemoryRequirement;
+	void	*inputSystemState;
 
-	// uint64	platformSystemMemoryRequirement;
-	// void	*platformSystemState;
+	uint64	platformSystemMemoryRequirement;
+	void	*platformSystemState;
 
-	// uint64	rendererSystemMemoryRequirement;
-	// void	*rendererSystemState;
+	uint64	rendererSystemMemoryRequirement;
+	void	*rendererSystemState;
 }	applicationState;
 
 // Application configuration.

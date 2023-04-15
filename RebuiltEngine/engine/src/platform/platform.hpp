@@ -16,22 +16,17 @@
 # include "defines.hpp"
 # include <string>
 
-typedef struct	platformState
-{
-	void*	internalState;
-}	platformState;
+// typedef struct	platformState
+// {
+// 	void*	internalState;
+// }	platformState;
 
-bl8 PlatformStartup(
-	platformState* platState,
-	const char* applicationName,
-	sint32 x,
-	sint32 y,
-	sint32 width,
-	sint32 height);
+bl8 PlatformStartup(uint64 *memoryRequirement, void *state, const char *applicationName,
+	sint32 x, sint32 y, sint32 width, sint32 height);
 
-void	PlatformShutdown(platformState* platState);
+void	PlatformShutdown(void* platState);
 
-bl8		PlatformPumpMessages(platformState* platState);
+bl8		PlatformPumpMessages(void);
 
 void*	PlatformAllocate(uint64 size, bl8 aligned);
 void	PlatformFree(void* block, bl8 aligned);
@@ -42,7 +37,7 @@ void*	PlatformSetMemory(void* dest, sint32 value, uint64 size);
 void	PlatconsoleWrite(std::string message, uint8 color);
 void	PlatconsoleWriteError(std::string message, uint8 color);
 
-dbl64	PlatformGetAbsoluteTime();
+dbl64	PlatformGetAbsoluteTime(void);
 
 // Sleep on the thread for the provided ms. This blocks the main thread.
 // Should only be used for giving time back to the OS for unused update power.

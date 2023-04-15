@@ -16,8 +16,6 @@
 
 #include <renderer/rendererFrontend.hpp>
 
-#include <platform/platform.hpp>
-
 #include <core/application.hpp>
 #include <core/deMemory.hpp>
 #include <core/logger.hpp>
@@ -80,8 +78,9 @@ bl8		ApplicationCreate(game *gameInst)
 	LinearAllocatorCreate(systemAllocTotalSize, 0, &appliState->systemAllocator);
 
 	// Initialize subsystems.
+	//*********************************************************************************************//
 
-	// Events
+	// Events init
 	EventInitialize(&appliState->eventSystemMemoryRequirement, 0);
 	appliState->eventSystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->eventSystemMemoryRequirement);
 	if(!EventInitialize(&appliState->eventSystemMemoryRequirement, appliState->eventSystemState))
@@ -90,12 +89,14 @@ bl8		ApplicationCreate(game *gameInst)
 		return false;
 	}
 
-	// Memory
+
+	// Memory init
 	InitializeMemory(&appliState->memorySystemMemoryRequirement, 0);
 	appliState->memorySystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->memorySystemMemoryRequirement);
 	InitializeMemory(&appliState->memorySystemMemoryRequirement, appliState->memorySystemState);
 
-	// Logging
+
+	// Logging init
 	LogInit(&appliState->loggingSystemMemoryRequirement, 0);
 	appliState->loggingSystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->loggingSystemMemoryRequirement);
 	if (!LogInit(&appliState->loggingSystemMemoryRequirement, appliState->loggingSystemState))
@@ -105,9 +106,12 @@ bl8		ApplicationCreate(game *gameInst)
 	}
 
 
-	DE_InputInit();
+	// Input init
+	DE_InputInit(&appliState->inputSystemMemoryRequirement, 0);
+	appliState->inputSystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->inputSystemMemoryRequirement);
+	DE_InputInit(&appliState->inputSystemMemoryRequirement, appliState->inputSystemState);
 
-
+	// Register events
 	EventRegister(EVENT_CODE_APPLICATION_QUIT, 0, ApplicationOnEvent);
 	EventRegister(EVENT_CODE_KEY_PRESSED, 0, ApplicationOnKey);
 	EventRegister(EVENT_CODE_KEY_RELEASED, 0, ApplicationOnKey);
@@ -118,18 +122,26 @@ bl8		ApplicationCreate(game *gameInst)
 	EventRegister(EVENT_CODE_MOUSE_WHEEL_DOWN, 0, ApplicationOnMouseWheel);
 	EventRegister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
+
+	// Platform init
+	PlatformStartup(&appliState->platformSystemMemoryRequirement, 0, 0, 0, 0, 0, 0);
+	appliState->platformSystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->platformSystemMemoryRequirement);
 	if (!PlatformStartup(
-			&appliState->platform,
-			gameInst->appConfig.name.c_str(),
-			gameInst->appConfig.x,
-			gameInst->appConfig.y,
-			gameInst->appConfig.width,
-			gameInst->appConfig.height)) {
+		&appliState->platformSystemMemoryRequirement,
+		appliState->platformSystemState,
+		gameInst->appConfig.name.c_str(),
+		gameInst->appConfig.x,
+		gameInst->appConfig.y,
+		gameInst->appConfig.width,
+		gameInst->appConfig.height))
+	{
 		return false;
 	}
 
-	// Init vulkan, frontend and backend
-	if (!backend.RendererInit(gameInst->appConfig.name.c_str(), &appliState->platform))
+	// Render init vulkan, frontend and backend
+	backend.RendererInit(&appliState->rendererSystemMemoryRequirement, 0, 0);
+	appliState->rendererSystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->rendererSystemMemoryRequirement);
+	if (!backend.RendererInit(&appliState->rendererSystemMemoryRequirement, appliState->rendererSystemState, gameInst->appConfig.name.c_str()))
 	{
 		DE_FATAL("Failed to initialize renderer. Aborting application.");
 		return false;
@@ -143,8 +155,6 @@ bl8		ApplicationCreate(game *gameInst)
 	}
 
 	appliState->gameInst->onResize(appliState->gameInst, appliState->width, appliState->height);
-
-	// initialized = true;
 
 	return true;
 }
@@ -164,7 +174,7 @@ bl8		ApplicationRun(void)
 	int i = 0;
 	while (appliState->isRunning)
 	{
-		if (!PlatformPumpMessages(&appliState->platform))
+		if (!PlatformPumpMessages())
 		{
 			appliState->isRunning = false;
 		}
@@ -245,17 +255,19 @@ bl8		ApplicationRun(void)
 	EventUnregister(EVENT_CODE_RESIZED, 0, ApplicationOnResize);
 
 	DE_DEBUG("Shutting down game.");
-	DE_InputShutdown();
+	DE_InputShutdown(appliState->inputSystemState);
 
-	backend.RendererShutdown();
+	backend.RendererShutdown(appliState->rendererSystemState);
 
 	DE_DEBUG("Shutting down platform.");
+
+
+	PlatformShutdown(appliState->platformSystemState);
+	LogShutdown(appliState->loggingSystemState);
 
 	// Print memory usage.
 	DE_INFO(GetMemoryUsageStr().c_str());
 
-	PlatformShutdown(&appliState->platform);
-	LogShutdown(appliState->loggingSystemState);
 	ShutdownMemory(appliState->memorySystemState);
 	EventShutdown(appliState->memorySystemState);
 

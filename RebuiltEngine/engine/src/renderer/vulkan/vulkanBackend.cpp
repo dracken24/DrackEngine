@@ -52,8 +52,7 @@ void	RegenerateFramebuffers(rendererBackend *backend, vulkanSwapchain *swapchain
 bl8		RecreateSwapchain(rendererBackend *backend);
 
 // 1: Start the initialization of vulkan platform
-bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applicationName,
-									struct platformState *platState)
+bl8		vulkanRendererBackendInitialize(rendererBackend *backend, const char *applicationName)
 {
 	context.findMemoryIndex = FindMemoryIndex;
 
@@ -172,7 +171,7 @@ bl8 vulkanRendererBackendInitialize(rendererBackend *backend, const char *applic
 
 	// Surface
 	DE_DEBUG("Creating Vulkan surface...");
-	if (!PlatformCreateVulkanSurface(platState, &context))
+	if (!PlatformCreateVulkanSurface(&context))
 	{
 		DE_ERROR("Failed to create platform surface!");
 		return (false);
