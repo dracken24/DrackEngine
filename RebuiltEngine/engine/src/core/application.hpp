@@ -35,8 +35,8 @@ typedef struct	applicationState
 	dbl64			lastTime;
 	linearAlloc		systemAllocator;
 
-	// uint64	eventSystemMemoryRequirement;
-	// void	*eventSystemState;
+	uint64	eventSystemMemoryRequirement;
+	void	*eventSystemState;
 
 	uint64	memorySystemMemoryRequirement;
 	void	*memorySystemState;

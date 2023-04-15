@@ -16,7 +16,7 @@
 # include <defines.hpp>
 
 # include <string>
-
+ 
 typedef enum	memoryTag
 {
 	// For temporary use. Should be assigned one of the below or have a new tag created.

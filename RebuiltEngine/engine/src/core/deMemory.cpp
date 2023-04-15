@@ -8,7 +8,7 @@ struct memoryStats
 {
 	uint64	allocTotal;
 	uint64	allocTagged[DE_MEMORY_TAG_MAX_TAGS];
-};
+}	memoryStats;
 
 static const	char *memoryTagStrings[DE_MEMORY_TAG_MAX_TAGS + 1] = {
 	"UNKNOWN     ",
@@ -34,8 +34,8 @@ static const	char *memoryTagStrings[DE_MEMORY_TAG_MAX_TAGS + 1] = {
 
 typedef struct	memorySystemState
 {
-	struct memoryStats stats;
-	uint64 allocCount;
+	struct memoryStats	stats;
+	uint64				allocCount;
 }	memorySystemState;
 
 // Pointer to system state.

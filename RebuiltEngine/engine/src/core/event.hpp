@@ -40,8 +40,8 @@ typedef struct eventContext
 // Should return true if handled.
 typedef bl8	(*eventPtr)(uint16 code, void* sender, void* listenerInst, eventContext data);
 
-void	EventShutdown(void);
-bl8		EventInitialize(void);
+bl8		EventInitialize(uint64 *memoryRequirement, void *state);
+void	EventShutdown(void* state);
 
 /**
  * Register to listen for when events are sent with the provided code. Events with duplicate

@@ -12,6 +12,8 @@
 
 #include "game.hpp"
 #include <core/logger.hpp>
+#include <core/deMemory.hpp>
+#include <core/input.hpp>
 
 //*** NOTE: Thoses functions work with pointer functions enum in gameType.hpp ***//
 
@@ -25,14 +27,20 @@ bl8		GameInit(struct game *gameInstance)
 // Function pointer to game's update function.
 bl8		GameUpdate(struct game *gameInstance, fl32 deltaTime)
 {
-	// DE_DEBUG("Updating game in game.cpp ...");
+	static uint64 allocCount = 0;
+	uint64 prevAllocCount = allocCount;
+	allocCount = GetMemoryAllocCount();
+	if (DE_OnKeyRelease(KEY_M) && DE_OnKeyDown(KEY_M))
+	{
+		DE_DEBUG("Allocations: %llu (%llu this frame)", allocCount, allocCount - prevAllocCount);
+	}
+
 	return (true);
 }
 
 // Function pointer to game's render function.
 bl8		GameRender(struct game *gameInstance, fl32 deltaTime)
 {
-	// DE_DEBUG("Rendering game in game.cpp ...");
 	return (true);
 }
 

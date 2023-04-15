@@ -18,13 +18,13 @@
 # include <core/deMemory.hpp>
 # include <core/logger.hpp>
 
-/*
-Memory layout
-uint64 capacity = number elements that can be held
-uint64 length = number of elements currently contained
-uint64 stride = size of each element in bytes
-void* elements
-*/
+//~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~-//
+// Memory layout																	//
+// uint64 capacity = number elements that can be held								//
+// uint64 length = number of elements currently contained							//
+// uint64 stride = size of each element in bytes									//
+// void* elements																	//
+//~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~-//
 
 # define DE_ARRAY_DIN_DEFAULT_CAPACITY 1
 # define DE_ARRAY_DIN_RESIZE_FACTOR 2
@@ -120,7 +120,7 @@ DE_API T	DE_ArrayResize(T array)
 };
 
 template<typename T, typename U>
-DE_API T	_DE_ArrayPush(T array, const U valuePtr)
+DE_API T	_DE_ArrayPush(T array, U valuePtr)
 {
 	uint64 length = DE_ArrayLength(array);
 	uint64 stride = DE_ArrayStride(array);
@@ -133,7 +133,10 @@ DE_API T	_DE_ArrayPush(T array, const U valuePtr)
 	uint64 addr = (uint64)array;
 	addr += (length * stride);
 
-	CopyMemory((void *)addr, valuePtr, stride);
+	void *value = reinterpret_cast<void *>(addr);
+	const void *valuePtr2 = reinterpret_cast<const void *>(valuePtr);
+
+	CopyMemory(value, valuePtr2, stride);
 	_DE_ArrayFieldSet(array, DARRAY_LENGTH, length + 1);
 
 	return array;

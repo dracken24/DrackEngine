@@ -81,6 +81,15 @@ bl8		ApplicationCreate(game *gameInst)
 
 	// Initialize subsystems.
 
+	// Events
+	EventInitialize(&appliState->eventSystemMemoryRequirement, 0);
+	appliState->eventSystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->eventSystemMemoryRequirement);
+	if(!EventInitialize(&appliState->eventSystemMemoryRequirement, appliState->eventSystemState))
+	{
+		DE_ERROR("Event system failed initialization. Application cannot continue.");
+		return false;
+	}
+
 	// Memory
 	InitializeMemory(&appliState->memorySystemMemoryRequirement, 0);
 	appliState->memorySystemState = LinearAllocatorAllocate(&appliState->systemAllocator, appliState->memorySystemMemoryRequirement);
@@ -98,11 +107,6 @@ bl8		ApplicationCreate(game *gameInst)
 
 	DE_InputInit();
 
-	if(!EventInitialize())
-	{
-		DE_ERROR("Event system failed initialization. Application cannot continue.");
-		return false;
-	}
 
 	EventRegister(EVENT_CODE_APPLICATION_QUIT, 0, ApplicationOnEvent);
 	EventRegister(EVENT_CODE_KEY_PRESSED, 0, ApplicationOnKey);
@@ -253,7 +257,7 @@ bl8		ApplicationRun(void)
 	PlatformShutdown(&appliState->platform);
 	LogShutdown(appliState->loggingSystemState);
 	ShutdownMemory(appliState->memorySystemState);
-	EventShutdown();
+	EventShutdown(appliState->memorySystemState);
 
 	DE_DEBUG("Application shutdown complete.");
 	return true;
@@ -323,14 +327,14 @@ bl8 ApplicationOnKey(uint16 code, void* sender, void* listenerInst, eventContext
 
 		DE_DEBUG("'%c' key pressed in window.", keyCode);
 	}
-	// else if (code == EVENT_CODE_KEY_RELEASED)
-	// {
-	// 	uint16 keyCode = context.data.uint16[0];
-	// 	if (keyCode)
-	// 	{
-	// 		DE_DEBUG("'%c' key released in window.", keyCode);
-	// 	}
-	// }
+	else if (code == EVENT_CODE_KEY_RELEASED)
+	{
+		uint16 keyCode = context.data.uint16[0];
+		if (keyCode)
+		{
+			DE_DEBUG("'%c' key released in window.", keyCode);
+		}
+	}
 
 	return false;
 }
