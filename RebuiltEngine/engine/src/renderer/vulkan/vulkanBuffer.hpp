@@ -33,7 +33,7 @@ class VulkanBuffer
 	//**********************************************************************//
 
 	public:
-		bl8		VulkanBufferCreate(vulkanContext *context,uint64 size, VkBufferUsageFlagBits usage,
+		bl8		VulkanBufferCreate(vulkanContext *context,uint64 size, sint32 usage,
 					uint32 memoryPropertyFlags, bl8 bindOnCreate, vulkanBuffer *outBuffer);
 
 		void	VulkanBufferDestroy(vulkanContext *context, vulkanBuffer *buffer);

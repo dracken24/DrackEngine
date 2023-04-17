@@ -28,7 +28,7 @@ typedef struct	vulkanBuffer
 {
 	uint64					totalSize;
 	VkBuffer				handle;
-	VkBufferUsageFlagBits	usage;
+	sint32	usage;
 	bl8						isLocked;
 	VkDeviceMemory			memory;
 	sint32					memoryIndex;

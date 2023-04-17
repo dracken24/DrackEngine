@@ -26,6 +26,8 @@
 
 #include <platform/platform.hpp>
 
+#include <math/deMath.hpp>
+
 #include <core/application.hpp>
 #include <core/deString.hpp>
 #include <core/logger.hpp>
@@ -34,6 +36,8 @@
 #include <renderer/vulkan/shaders/vulkanObjShader.hpp>
 
 #include <gameTypes.hpp>
+
+#include "/usr/include/vulkan/vulkan_core.h"
 
 // ***************************************************************************************** //
 // Variables
@@ -53,11 +57,29 @@ static uint32 cachedFramebufferHeight = 0;
 // ***************************************************************************************** //
 // Functions
 
-VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
-	VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
-	VkDebugUtilsMessageTypeFlagsEXT messageTypes,
-	const VkDebugUtilsMessengerCallbackDataEXT *callbackData,
-	void *user_data);
+// Temporary function to fill principal buffer with a shape
+void	UploadDataRange(vulkanContext *context, VkCommandPool pool, VkFence fence, VkQueue queue,
+			vulkanBuffer *buffer, uint64 offset, uint64 size, void *data)
+{
+	VulkanBuffer vkBuffer;
+
+	// Create a host-visible staging buffer to upload to. Mark it as the source of the transfer.
+	VkBufferUsageFlags flags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+	vulkanBuffer staging;
+	vkBuffer.VulkanBufferCreate(context, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, flags, true, &staging);
+
+	// Load the data into the staging buffer.
+	vkBuffer.VulkanBufferLoadData(context, &staging, 0, size, 0, data);
+
+	// Perform the copy from staging to the device local buffer.
+	vkBuffer.VulkanBufferCopyTo(context, pool, fence, queue, staging.handle, 0, buffer->handle, offset, size);
+
+	// Clean up the staging buffer.
+	vkBuffer.VulkanBufferDestroy(context, &staging);
+}
+
+VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+	VkDebugUtilsMessageTypeFlagsEXT messageTypes, const VkDebugUtilsMessengerCallbackDataEXT *callbackData, void *user_data);
 
 sint32	FindMemoryIndex(uint32 typeFilter, uint32 propertyFlags);
 bl8		CreateBuffers(vulkanContext *context);
@@ -249,15 +271,42 @@ bl8		vulkanRendererBackendInitialize(rendererBackend *backend, const char *appli
 	}
 
 	// NOTE: Create builtin shaders, *-* entry for shaders modules *-* //
+	// Create builtin shaders
 	if (!vulkanObjShader.VulkanObjectShaderCreate(&context, &context.objectShader))
 	{
 		DE_ERROR("Error loading built-in basic_lighting shader.");
 		return false;
 	}
 
+	CreateBuffers(&context);
+
+	//** WARNING: temporary test code geometry **//
+	const uint32 vertCount = 4;
+	vertex3d verts[vertCount];
+	SetMemory(verts, sizeof(vertex3d) * vertCount);
+
+	verts[0].position.x = -0.5;
+	verts[0].position.y = -0.5;
+
+	verts[1].position.x = 0.5;
+	verts[1].position.y = 0.5;
+
+	verts[2].position.x = -0.5;
+	verts[2].position.y = 0.5;
+
+	verts[3].position.x = 0.5;
+	verts[3].position.y = -0.5;
+
+	const uint32 index_count = 6;
+	uint32 indices[index_count] = {0, 1, 2, 0, 3, 1};
+
+	UploadDataRange(&context, context.device.graphicsCommandPool, 0, context.device.graphicsQueue, &context.objectVertexBuffer, 0, sizeof(vertex3d) * vertCount, verts);
+	UploadDataRange(&context, context.device.graphicsCommandPool, 0, context.device.graphicsQueue, &context.objectIndexBuffer, 0, sizeof(uint32) * index_count, indices);
+	//** WARNING: end temp code **//
+
 	DE_INFO("Vulkan renderer initialized successfully.");
 
-	return (true);
+	return true;
 }
 
 // Close the vulkan engine
@@ -266,6 +315,13 @@ void vulkanRendererBackendShutdown(rendererBackend *backend)
 	vkDeviceWaitIdle(context.device.logicalDevice);
 
 	// Destroy in the opposite order of creation.
+	// Destroy buffers
+	VulkanBuffer	vkBuffer;
+	vkBuffer.VulkanBufferDestroy(&context, &context.objectVertexBuffer);
+	vkBuffer.VulkanBufferDestroy(&context, &context.objectIndexBuffer);
+
+	VulkanObjectShader objShader;
+	objShader.VulkanObjectShaderDestroy(&context, &context.objectShader);
 
 	// Sync objects
 	for (uint8 i = 0; i < context.swapchain.maxFramesInFlight; ++i)
@@ -337,6 +393,7 @@ void vulkanRendererBackendShutdown(rendererBackend *backend)
 		context.surface = 0;
 	}
 
+#if defined(_DEBUG)
 	DE_DEBUG("Destroying Vulkan debugger...");
 	if (context.debugMessenger)
 	{
@@ -344,10 +401,10 @@ void vulkanRendererBackendShutdown(rendererBackend *backend)
 			(PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(context.instance, "vkDestroyDebugUtilsMessengerEXT");
 		func(context.instance, context.debugMessenger, context.allocator);
 	}
+#endif
 
 	DE_DEBUG("Destroying Vulkan instance...");
-	if (context.instance)
-		vkDestroyInstance(context.instance, context.allocator);
+	vkDestroyInstance(context.instance, context.allocator);
 }
 
 void vulkanRendererBackendOnResized(rendererBackend *backend, uint16 width, uint16 height)
@@ -454,6 +511,20 @@ bl8 vulkanRendererBackendBeginFrame(rendererBackend *backend, fl32 deltaTime)
 		commandBuffer,
 		&context.mainRenderpass,
 		context.swapchain.framebuffers[context.imageIndex].handle);
+
+	// WARNING: temporary test code
+	vulkanObjShader.VulkanObjectShaderUse(&context, &context.objectShader);
+
+	// Bind vertex buffer at offset.
+	VkDeviceSize offsets[1] = {0};
+	vkCmdBindVertexBuffers(commandBuffer->handle, 0, 1, &context.objectVertexBuffer.handle, (VkDeviceSize *)offsets);
+
+	// Bind index buffer at offset.
+	vkCmdBindIndexBuffer(commandBuffer->handle, context.objectIndexBuffer.handle, 0, VK_INDEX_TYPE_UINT32);
+
+	// Issue the draw.
+	vkCmdDrawIndexed(commandBuffer->handle, 6, 1, 0, 0, 0);
+	// WARNING: end temporary test code
 
 	return true;
 }
@@ -708,31 +779,31 @@ bl8		RecreateSwapchain(rendererBackend *backend)
 	return true;
 }
 
-// bl8	CreateBuffers(vulkanContext *context)
-// {
-// 	VulkanBuffer vulkanBuffer;
+bl8	CreateBuffers(vulkanContext *context)
+{
+	VulkanBuffer vulkanBuffer;
 
-// 	VkMemoryPropertyFlagBits memoryPropertyFlags = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+	VkMemoryPropertyFlagBits memoryPropertyFlags = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
 
-// 	const uint64 vertexBufferSize = sizeof(vertex3d) * 1024 * 1024;
-// 	if (!vulkanBuffer.VulkanBufferCreate(context, vertexBufferSize,
-// 		(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT),
-// 		memoryPropertyFlags, true, &context->objectVertexBuffer))
-// 	{
-// 		DE_ERROR("Error creating vertex buffer.");
-// 		return false;
-// 	}
-// 	context->geometryVertexOffset = 0;
+	const uint64 vertexBufferSize = sizeof(vertex3d) * 1024 * 1024;
+	if (!vulkanBuffer.VulkanBufferCreate(context, vertexBufferSize,
+		(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT),
+		memoryPropertyFlags, true, &context->objectVertexBuffer))
+	{
+		DE_ERROR("Error creating vertex buffer.");
+		return false;
+	}
+	context->geometryVertexOffset = 0;
 
-// 	const uint64 indexBufferSize = sizeof(uint32) * 1024 * 1024;
-// 	if (!vulkanBuffer.VulkanBufferCreate(context, indexBufferSize,
-// 		(VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT),
-// 		memoryPropertyFlags, true, &context->objectIndexBuffer))
-// 	{
-// 		DE_ERROR("Error creating vertex buffer.");
-// 		return false;
-// 	}
-// 	context->geometryIndexOffset = 0;
+	const uint64 indexBufferSize = sizeof(uint32) * 1024 * 1024;
+	if (!vulkanBuffer.VulkanBufferCreate(context, indexBufferSize,
+		(VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT),
+		memoryPropertyFlags, true, &context->objectIndexBuffer))
+	{
+		DE_ERROR("Error creating vertex buffer.");
+		return false;
+	}
+	context->geometryIndexOffset = 0;
 
-// 	return true;
-// }
+	return true;
+}
