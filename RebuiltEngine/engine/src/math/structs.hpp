@@ -107,4 +107,9 @@ typedef union	mat_4
 #endif
 }	Matrix4;
 
+typedef struct	vertex3d
+{
+	Vector3 position;
+}	vertex3d;
+
 #endif

@@ -6,7 +6,8 @@ set echo on
 mkdir -p bin/assets
 mkdir -p bin/assets/shaders
 
-echo "\n" "\033[33mCompiling shaders..."
+echo "Compiling shaders..."
+echo
 
 echo "assets/shaders/Builtin.ObjectShader.vert.glsl -> bin/assets/shaders/Builtin.ObjectShader.vert.spv"
 $VULKAN_SDK/bin/glslc -fshader-stage=vert assets/shaders/Builtin.ObjectShader.vert.glsl -o bin/assets/shaders/Builtin.ObjectShader.vert.spv
@@ -24,8 +25,9 @@ then
 echo "Error:"$ERRORLEVEL && exit
 fi
 
+echo
 echo "Copying assets..."
 echo cp -R "assets" "bin"
 cp -R "assets" "bin"
 
-echo "Done.\033[0m" "\n"
+echo

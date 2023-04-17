@@ -24,6 +24,17 @@
 		DE_ASSERT(expr == VK_SUCCESS);	\
 	}
 
+typedef struct	vulkanBuffer
+{
+	uint64					totalSize;
+	VkBuffer				handle;
+	VkBufferUsageFlagBits	usage;
+	bl8						isLocked;
+	VkDeviceMemory			memory;
+	sint32					memoryIndex;
+	uint32					memoryPropertyFlags;
+}	vulkanBuffer;
+
 typedef struct	vulkanSwapchainSupportInfo
 {
 	VkSurfaceCapabilitiesKHR	capabilities;
@@ -195,6 +206,11 @@ typedef struct	vulkanContext
 
 	uint32						imageIndex;
 	uint32						currentFrame;
+
+	vulkanBuffer				objectVertexBuffer;
+	vulkanBuffer				objectIndexBuffer;
+	uint64						geometryVertexOffset;
+	uint64						geometryIndexOffset;
 
 	bl8							recreatingSwapchain;
 

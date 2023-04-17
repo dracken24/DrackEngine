@@ -19,6 +19,7 @@
 #include <renderer/vulkan/vulkanDevice.hpp>
 #include <renderer/vulkan/vulkanFence.hpp>
 #include <renderer/vulkan/vulkanUtils.hpp>
+#include <renderer/vulkan/vulkanBuffer.hpp>
 #include <renderer/vulkan/vulkanTypes.inl>
 
 #include <containers/arrayDinamic.hpp>
@@ -34,6 +35,9 @@
 
 #include <gameTypes.hpp>
 
+// ***************************************************************************************** //
+// Variables
+
 struct game;
 
 // static Vulkan context
@@ -46,6 +50,9 @@ static VulkanObjectShader vulkanObjShader;
 static uint32 cachedFramebufferWidth = 0;
 static uint32 cachedFramebufferHeight = 0;
 
+// ***************************************************************************************** //
+// Functions
+
 VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
 	VkDebugUtilsMessageTypeFlagsEXT messageTypes,
@@ -53,10 +60,15 @@ VKAPI_ATTR VkBool32 VKAPI_ATTR VkDebugCallback(
 	void *user_data);
 
 sint32	FindMemoryIndex(uint32 typeFilter, uint32 propertyFlags);
-void	CreateCommandBuffers(rendererBackend *backend);
+bl8		CreateBuffers(vulkanContext *context);
+
 void	RegenerateFramebuffers(rendererBackend *backend, vulkanSwapchain *swapchain,
 			vulkanRenderpass *renderpass);
+sint32	FindMemoryIndex(uint32 typeFilter, uint32 propertyFlags);
+void	CreateCommandBuffers(rendererBackend *backend);	// Contain commands to be executed
 bl8		RecreateSwapchain(rendererBackend *backend);
+
+// ***************************************************************************************** //
 
 // 1: Start the initialization of vulkan platform
 bl8		vulkanRendererBackendInitialize(rendererBackend *backend, const char *applicationName)
@@ -236,7 +248,7 @@ bl8		vulkanRendererBackendInitialize(rendererBackend *backend, const char *appli
 		context.imagesInFlight[i] = 0;
 	}
 
-	// Create builtin shaders
+	// NOTE: Create builtin shaders, *-* entry for shaders modules *-* //
 	if (!vulkanObjShader.VulkanObjectShaderCreate(&context, &context.objectShader))
 	{
 		DE_ERROR("Error loading built-in basic_lighting shader.");
@@ -695,3 +707,32 @@ bl8		RecreateSwapchain(rendererBackend *backend)
 
 	return true;
 }
+
+// bl8	CreateBuffers(vulkanContext *context)
+// {
+// 	VulkanBuffer vulkanBuffer;
+
+// 	VkMemoryPropertyFlagBits memoryPropertyFlags = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+
+// 	const uint64 vertexBufferSize = sizeof(vertex3d) * 1024 * 1024;
+// 	if (!vulkanBuffer.VulkanBufferCreate(context, vertexBufferSize,
+// 		(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT),
+// 		memoryPropertyFlags, true, &context->objectVertexBuffer))
+// 	{
+// 		DE_ERROR("Error creating vertex buffer.");
+// 		return false;
+// 	}
+// 	context->geometryVertexOffset = 0;
+
+// 	const uint64 indexBufferSize = sizeof(uint32) * 1024 * 1024;
+// 	if (!vulkanBuffer.VulkanBufferCreate(context, indexBufferSize,
+// 		(VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT),
+// 		memoryPropertyFlags, true, &context->objectIndexBuffer))
+// 	{
+// 		DE_ERROR("Error creating vertex buffer.");
+// 		return false;
+// 	}
+// 	context->geometryIndexOffset = 0;
+
+// 	return true;
+// }
