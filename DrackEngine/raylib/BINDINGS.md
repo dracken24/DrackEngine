@@ -8,14 +8,14 @@ Some people ported raylib to other languages in form of bindings or wrappers to 
 |:------------------:|:---------------:|:---------:|:----------:|-----------------------------------------------------------|
 | raylib             | **4.5** | [C/C++](https://en.wikipedia.org/wiki/C_(programming_language))    | Zlib | https://github.com/raysan5/raylib          |
 | raylib-boo         | 3.7     | [Boo](http://boo-language.github.io/)| MIT | https://github.com/Rabios/raylib-boo          |
-| Raylib-cs          | 4.2     | [C#](https://en.wikipedia.org/wiki/C_Sharp_(programming_language)) | Zlib | https://github.com/ChrisDill/Raylib-cs     |
+| Raylib-cs          | **4.5** | [C#](https://en.wikipedia.org/wiki/C_Sharp_(programming_language)) | Zlib | https://github.com/ChrisDill/Raylib-cs     |
 | Raylib-CsLo        | 4.2     | [C#](https://en.wikipedia.org/wiki/C_Sharp_(programming_language)) | MPL-2.0 | https://github.com/NotNotTech/Raylib-CsLo  |
 | cl-raylib          | 4.0     | [Common Lisp](https://common-lisp.net/)   | MIT | https://github.com/longlene/cl-raylib     |
-| claylib/wrap       | 4.2     | [Common Lisp](https://common-lisp.net/)   | Zlib | https://github.com/defun-games/claylib |
+| claylib/wrap       | **4.5**     | [Common Lisp](https://common-lisp.net/)   | Zlib | https://github.com/defun-games/claylib |
 | chez-raylib        | **auto** | [Chez Scheme](https://cisco.github.io/ChezScheme/) | GPLv3 | https://github.com/Yunoinsky/chez-raylib |
 | raylib-cr          | **4.5-dev (7e7939e)** | [Crystal](https://crystal-lang.org/)    | Apache-2.0 | https://github.com/sol-vin/raylib-cr |
-| ray-cyber          | 4.2     | [Cyber](https://cyberscript.dev)  | MIT | https://github.com/fubark/ray-cyber |
-| raylib-c3          | **4.5-dev** | [C3](https://c3-lang.org/)    | MIT | https://github.com/Its-Kenta/Raylib-C3 |
+| ray-cyber          | 4.5     | [Cyber](https://cyberscript.dev)  | MIT | https://github.com/fubark/ray-cyber |
+| raylib-c3          | **4.5** | [C3](https://c3-lang.org/)    | MIT | https://github.com/Its-Kenta/Raylib-C3 |
 | dart-raylib        | 4.0     | [Dart](https://dart.dev/)               | MIT | https://gitlab.com/wolfenrain/dart-raylib   |
 | bindbc-raylib3     | 4.0     | [D](https://dlang.org/)              | BSL-1.0 | https://github.com/o3o/bindbc-raylib3     |
 | dray               | 4.2     | [D](https://dlang.org/)              | Apache-2.0 | https://github.com/redthing1/dray          |
@@ -35,7 +35,7 @@ Some people ported raylib to other languages in form of bindings or wrappers to 
 | raylib-j           | 4.0     | [Java](https://en.wikipedia.org/wiki/Java_(programming_language)) | Zlib | https://github.com/CreedVI/Raylib-J |
 | raylib.jl          | 4.2     | [Julia](https://julialang.org/)      | Zlib | https://github.com/irishgreencitrus/raylib.jl |
 | kaylib             | 3.7     | [Kotlin/native](https://kotlinlang.org) | ? | https://github.com/electronstudio/kaylib      |
-| kaylib             | **4.5-dev**| [Kotlin/native](https://kotlinlang.org) | Zlib | https://codeberg.org/Kenta/Kaylib      |
+| kaylib             | **4.5**| [Kotlin/native](https://kotlinlang.org) | Zlib | https://codeberg.org/Soutaisei/Kaylib   |
 | raylib-lua         | **4.5**     | [Lua](http://www.lua.org/)           | ISC | https://github.com/TSnake41/raylib-lua        |
 | raylua             | 4.0     | [Lua](http://www.lua.org/)           | MIT | https://github.com/Rabios/raylua              |
 | nelua-raylib       | 4.0     | [nelua](https://nelua.io/)           | MIT | https://github.com/AKDev21/nelua-raylib       |
@@ -54,7 +54,7 @@ Some people ported raylib to other languages in form of bindings or wrappers to 
 | raylib-python-cffi | 4.2 | [Python](https://www.python.org/)    | EPL-2.0 | https://github.com/electronstudio/raylib-python-cffi |
 | raylibpyctbg     | **4.5** | [Python](https://www.python.org/)          | MIT | https://github.com/overdev/raylibpyctbg                |
 | raylib-py          | **4.5** | [Python](https://www.python.org/)          | MIT | https://github.com/overdev/raylib-py       |
-| raylib-python-ctypes | 4.2 | [Python](https://www.python.org/)    | MIT | https://github.com/sDos280/raylib-python-ctypes |
+| raylib-python-ctypes | 4.6-dev | [Python](https://www.python.org/)    | MIT | https://github.com/sDos280/raylib-python-ctypes |
 | raylib-php         | 3.5     | [PHP](https://en.wikipedia.org/wiki/PHP) | Zlib | https://github.com/joseph-montanez/raylib-php   |
 | raylib-phpcpp      | 3.5     | [PHP](https://en.wikipedia.org/wiki/PHP) | Zlib | https://github.com/oraoto/raylib-phpcpp         |
 | raylibr            | 4.0     | [R](https://www.r-project.org)       | MIT | https://github.com/jeroenjanssens/raylibr         |
@@ -80,7 +80,7 @@ These are utility wrappers for specific languages, they are not required to use 
 |  name              | raylib version | language  | license | repo                                                         |
 |:------------------:|:-------------: | :--------:|:-------:|:-------------------------------------------------------------|
 | raylib-cpp         | **4.5** | [C++](https://en.wikipedia.org/wiki/C%2B%2B)  | Zlib | https://github.com/robloach/raylib-cpp  |
-| claylib            | **4.2** | [Common Lisp](https://common-lisp.net/) | Zlib | https://github.com/defun-games/claylib |
+| claylib            | **4.5** | [Common Lisp](https://common-lisp.net/) | Zlib | https://github.com/defun-games/claylib |
 
 ### Older or Unmaintained Language Bindings
 These are older raylib bindings that are more than 2 versions old or have not been maintained.

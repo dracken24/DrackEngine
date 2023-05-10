@@ -3,10 +3,9 @@
 *   raylib.utils - Some common utility functions
 *
 *   CONFIGURATION:
-*
-*   #define SUPPORT_TRACELOG
-*       Show TraceLog() output messages
-*       NOTE: By default LOG_DEBUG traces not shown
+*       #define SUPPORT_TRACELOG
+*           Show TraceLog() output messages
+*           NOTE: By default LOG_DEBUG traces not shown
 *
 *
 *   LICENSE: zlib/libpng
@@ -145,7 +144,7 @@ void TraceLog(int logType, const char *text, ...)
         default: break;
     }
 
-    unsigned int textSize = strlen(text);
+    unsigned int textSize = (unsigned int)strlen(text);
     memcpy(buffer + strlen(buffer), text, (textSize < (MAX_TRACELOG_MSG_LENGTH - 12))? textSize : (MAX_TRACELOG_MSG_LENGTH - 12));
     strcat(buffer, "\n");
     vprintf(buffer, args);
@@ -300,7 +299,9 @@ bool ExportDataAsCode(const unsigned char *data, unsigned int size, const char *
     strcpy(varFileName, GetFileNameWithoutExt(fileName));
     for (int i = 0; varFileName[i] != '\0'; i++) if ((varFileName[i] >= 'a') && (varFileName[i] <= 'z')) { varFileName[i] = varFileName[i] - 32; }
 
-    byteCount += sprintf(txtData + byteCount, "static unsigned char %s_DATA[%i] = { ", varFileName, size);
+    byteCount += sprintf(txtData + byteCount, "#define %s_DATA_SIZE     %i\n\n", varFileName, size);
+
+    byteCount += sprintf(txtData + byteCount, "static unsigned char %s_DATA[%s_DATA_SIZE] = { ", varFileName, varFileName);
     for (unsigned int i = 0; i < size - 1; i++) byteCount += sprintf(txtData + byteCount, ((i%TEXT_BYTES_PER_LINE == 0)? "0x%x,\n" : "0x%x, "), data[i]);
     byteCount += sprintf(txtData + byteCount, "0x%x };\n", data[size - 1]);
 
