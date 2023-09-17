@@ -1,6 +1,6 @@
 	Voici les étapes principales que Vulkan effectue pour initialiser et rendre à l'écran !
 	--------------------------------------------------------------------------------------------
-	
+	 
 	1-	Création d'une instance de la bibliothèque Vulkan.
 	2-	Sélection d'un GPU à utiliser pour les opérations graphiques.
 	3-	Création d'un périphérique logique pour interagir avec le GPU sélectionné.
