@@ -14,18 +14,19 @@
 # define GAME_HPP
 
 // # include <raylib.h>
-# include "../raylib/src/raylib.h"
-# include "../raylib/src/raymath.h"
-# include "./class2D/player.hpp"
-# include "./class2D/props.hpp"
+# include "../../raylib/src/raylib.h"
+# include "../../raylib/src/raymath.h"
+# include "class2D/player.hpp"
+# include "class2D/props.hpp"
 # include "./class2D/menu.hpp"
 # include "./class2D/envitems.hpp"
 # include "./class2D/squareProps.hpp"
 # include "./class/buttons.hpp"
 # include "./color.hpp"
+# include "utility/logger.hpp"
 
 # include "./class3D/cube3D.hpp"
-# include "../raylib/src/rlgl.h"
+# include "../../raylib/src/rlgl.h"
 
 # include <string>
 # include <iostream>

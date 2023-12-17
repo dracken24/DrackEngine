@@ -13,7 +13,7 @@
 #ifndef WEAPON_HPP
 # define WEAPON_HPP
 
-# include "../../raylib/src/raylib.h"
+# include "../../../raylib/src/raylib.h"
 # include "iostream"
 
 class Weapon

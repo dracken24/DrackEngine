@@ -10,29 +10,44 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#ifndef MENU_HPP
-# define MENU_HPP
+#include "../../myIncludes/class2D/menu.hpp"
 
-#include "../../raylib/src/raylib.h"
-
-class Menu
+Menu::Menu(void)
 {
-	public:
-		Menu(void);
-		~Menu(void);
+	return ;
+}
 
-		void	ftChangeChooseCt(int ct);
-		void	ftChangePlayer(int ct);
-		void	ftChangeStart(int ct);
-		
-		int		ftReturnChooseCt(void);
-		int		ftReturnPlayer(void);
-		int		ftReturnStart(void);
+Menu::~Menu(void)
+{
+	return ;
+}
 
-	private:
-		int     menuCt = 10;
-		int		chooseCt = 0;
-		int		player = 0;
-};
+void	Menu::ftChangeStart(int ct)
+{
+	this->menuCt = ct;
+}
 
-#endif
+int		Menu::ftReturnStart(void)
+{
+	return (this->menuCt);
+}
+
+void	Menu::ftChangeChooseCt(int ct)
+{
+	this->chooseCt = ct;
+}
+
+int		Menu::ftReturnChooseCt(void)
+{
+	return (this->chooseCt);
+}
+
+void	Menu::ftChangePlayer(int ct)
+{
+	this->player = ct;
+}
+
+int		Menu::ftReturnPlayer(void)
+{
+	return (this->player);
+}

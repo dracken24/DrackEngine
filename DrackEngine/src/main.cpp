@@ -10,7 +10,7 @@
 /*/|\~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~---~/|\*/
 /*****************************************************************************/
 
-#include "../myIncludes/game.hpp"
+#include "myIncludes/game.hpp"
 
 //******************************************************************************//
 //									MAIN										//
@@ -59,10 +59,22 @@ void	ftBigMenuControl(Menu *menu)
 	ftChooseMode(menu);
 }
 
+void PrintMsgTests(void)
+{
+	DE_TRACE("Hello World! %f", 1.0f);
+	DE_DEBUG("Hello World! %f", 1.0f);
+	DE_INFO("Hello World! %f", 1.0f);
+	DE_WARN("Hello World! %f", 1.0f);
+	DE_ERROR("Hello World! %f", 1.0f);
+	DE_FATAL("Hello World! %f", 1.0f);
+}
+
 int main(void)
 {
 	Game	game;
 	Menu	menu;
+
+	PrintMsgTests();
 
 	game.font1 = LoadFontEx("../fonts/Greenscr.ttf", 32, 0, 250);
 

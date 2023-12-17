@@ -103,5 +103,7 @@
       "temp/":true,
       "Temp/":true
     },
-    "dotnet.defaultSolution": "Infinite Discovery.sln"
+    "dotnet.defaultSolution": "Infinite Discovery.sln",
+    "C_Cpp.default.compilerPath": "C:\\Program Files\\LLVM\\bin\\clang.exe",
+    "cmake.sourceDirectory": "C:/Users/drack/Desktop/DrackEngine/DrackEngine/raylib"
 }

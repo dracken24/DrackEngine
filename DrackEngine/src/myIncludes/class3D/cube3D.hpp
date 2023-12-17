@@ -13,7 +13,7 @@
 #ifndef CUBE3D_HPP
 # define CUBE3D_HPP
 
-# include "../../raylib/src/raylib.h"
+# include "../../../raylib/src/raylib.h"
 # include <iostream>
 
 using std::string;
