@@ -52,6 +52,8 @@ void	LogShutdown(void* state)
 
 // Platform platform;
 
+
+
 void	LogMessage(logLevel level, const char *message, ...)
 {
 	const char	*levelStr[6] = {"[*FATAL*]   : ", "[*ERROR*]   : ", "[*WARNING*] : ",
