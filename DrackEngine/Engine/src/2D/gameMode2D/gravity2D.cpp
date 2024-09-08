@@ -20,69 +20,55 @@ void	ftGravityX(Game *game, Player *player, std::vector<SquareProps> *blocks)
 	for (int j = 0; j < blocks->size(); j++)
 	{
 		Rectangle propRect1 = blocks->at(j).ftReturnRectangle();
-		for (int k = 0; k < blocks->size() - 1; k++)
+		float totalForce = 0.0f;
+
+		for (int k = 0; k < blocks->size(); k++)
 		{
-			if (j == k)
-				k++;
+			if (j == k) continue;
 
 			Rectangle propRect2 = blocks->at(k).ftReturnRectangle();
-			if (CheckCollisionRecs(propRect1, plyCollBox)) // Collision player
+			if (CheckCollisionRecs(propRect1, propRect2))
 			{
-				if (propRect1.x - propRect1.width / 2 > plyCollBox.x + 0./(2)) // Right
+				float overlap = 0.0f;
+				if (propRect1.x < propRect2.x)
 				{
-					blocks->at(j).ftChangeSpeedModifier(speed / 4.0f, 'X');
-				}
-				else // Left
-				{
-					blocks->at(j).ftChangeSpeedModifier(-speed / 4.0f, 'X');
-				}
-			}
-			if (CheckCollisionRecs(propRect1, player->ftReturnWeaponCollRect()) && player->ftReturnDoAttack() == true) // Collision weapon
-			{
-				if (player->ftReturnFace() == 0) // Right
-				{
-					blocks->at(j).ftChangeSpeedModifier(speed * 2.0f, 'X');
-				}
-				else // Left
-				{
-					blocks->at(j).ftChangeSpeedModifier(-speed * 2.0f, 'X');
-				}
-			}
-
-			if (CheckCollisionRecs(propRect1, propRect2)) // Collision block to block
-			{
-				if (propRect1.y <= propRect2.y + propRect2.height || propRect2.y <= propRect1.y + propRect1.height)
-				{
-					blocks->at(k).ftMovePos((Vector2){1, 0.0f});
-					blocks->at(j).ftMovePos((Vector2){-1, 0.0f});
-				}
-
-				if (propRect1.x > propRect2.x)
-				{
-					blocks->at(k).ftMovePos((Vector2){-speed / 2, 0.0f});
-					blocks->at(j).ftChangeSpeedModifier(speed * 0.5, 'X');
+					overlap = (propRect1.x + propRect1.width) - propRect2.x;
+					totalForce -= overlap;
 				}
 				else
 				{
-					blocks->at(k).ftMovePos((Vector2){speed / 2, 0.0f});
-					blocks->at(j).ftChangeSpeedModifier(-speed * 0.5, 'X');
+					overlap = (propRect2.x + propRect2.width) - propRect1.x;
+					totalForce += overlap;
 				}
 			}
-			if (CheckCollisionRecs(propRect2, propRect1)) // Collision block to block ajust
-			{
-				if (propRect1.x > propRect2.x)
-				{
-					blocks->at(j).ftMovePos((Vector2){speed / 2, 0.0f});
-					blocks->at(k).ftChangeSpeedModifier(-speed * 0.5, 'X');
+		}
 
-				}
-				else
-				{
-					blocks->at(j).ftMovePos((Vector2){-speed / 2, 0.0f});
-					blocks->at(k).ftChangeSpeedModifier(speed * 0.5, 'X');
-				}
+		// Appliquer la force totale au bloc
+		float forceMultiplier = 0.5f; // Ajustez ce multiplicateur selon vos besoins
+		blocks->at(j).ftChangeSpeedModifier(totalForce * forceMultiplier, 'X');
+	
+
+		if (CheckCollisionRecs(propRect1, plyCollBox)) // Collision player
+		{
+			if (propRect1.x - propRect1.width / 2 > plyCollBox.x + 0./(2)) // Right
+			{
+				blocks->at(j).ftChangeSpeedModifier(speed / 4.0f, 'X');
 			}
-			
+			else // Left
+			{
+				blocks->at(j).ftChangeSpeedModifier(-speed / 4.0f, 'X');
+			}
+		}
+		if (CheckCollisionRecs(propRect1, player->ftReturnWeaponCollRect()) && player->ftReturnDoAttack() == true) // Collision weapon
+		{
+			if (player->ftReturnFace() == 0) // Right
+			{
+				blocks->at(j).ftChangeSpeedModifier(speed * 5.0f, 'X');
+			}
+			else // Left
+			{
+				blocks->at(j).ftChangeSpeedModifier(-speed * 5.0f, 'X');
+			}
 		}
 	}
 	player->ftChangeDoAttack(false);

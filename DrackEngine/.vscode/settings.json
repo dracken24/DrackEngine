@@ -105,7 +105,7 @@
     },
     "dotnet.defaultSolution": "Infinite Discovery.sln",
     "C_Cpp.default.compilerPath": "C:\\Program Files\\LLVM\\bin\\clang.exe",
-    "cmake.sourceDirectory": "C:/Users/drack/Desktop/DrackEngine/DrackEngine/raylib",
+    "cmake.sourceDirectory": "/home/dracken24/Documents/DrackEngine/DrackEngine/raylib",
     "files.associations": {
       "algorithm": "cpp",
       "cmath": "cpp",
